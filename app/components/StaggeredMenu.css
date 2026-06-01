@@ -1,0 +1,6 @@
+/* Custom CSS declarations for the full-screen StaggeredMenu overlay */
+
+.staggered-menu-wrapper {
+  position: relative;
+  overflow: hidden;
+}

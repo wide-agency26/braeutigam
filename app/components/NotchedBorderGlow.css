@@ -1,0 +1,155 @@
+.notched-glow-container {
+  --edge-proximity: 0;
+  --cursor-angle: 45deg;
+  --edge-sensitivity: 30;
+  --color-sensitivity: calc(var(--edge-sensitivity) + 20);
+  --glow-padding: 40px;
+  --cone-spread: 25;
+
+  position: relative;
+  display: grid;
+  background: transparent;
+  border: none;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+}
+
+/* 1. Unclipped Edge-Light Layer (Dynamic SVG glow) */
+.notched-glow-edge-light {
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  transition: opacity 0.5s ease-in-out;
+  mix-blend-mode: plus-lighter;
+}
+
+.notched-glow-container:hover .notched-glow-edge-light,
+.notched-glow-container.sweep-active .notched-glow-edge-light {
+  opacity: calc(0.35 + (var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)) * 0.65);
+  transition: opacity 0.15s ease-out;
+
+  mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center,
+      black 2.5%,
+      transparent 10%,
+      transparent 90%,
+      black 97.5%
+    );
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center,
+      black 2.5%,
+      transparent 10%,
+      transparent 90%,
+      black 97.5%
+    );
+}
+
+/* 2. Clipped Card Body */
+.notched-glow-card-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  isolation: isolate;
+  background: var(--static-border-color, rgba(255, 255, 255, 0.12));
+  transition: background 0.3s ease;
+  box-shadow:
+    rgba(0, 0, 0, 0.35) 0px 1px 2px,
+    rgba(0, 0, 0, 0.3) 0px 2px 4px,
+    rgba(0, 0, 0, 0.25) 0px 4px 8px,
+    rgba(0, 0, 0, 0.2) 0px 8px 16px;
+}
+
+/* 2.1 Interactive Border Glow Layer */
+.notched-glow-border-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.15;
+  transition: opacity 0.5s ease-in-out;
+  background:
+    var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)),
+    var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)),
+    var(--gradient-three, radial-gradient(at 8% 6%, hsla(136, 100%, 78%, 1) 0px, transparent 50%)),
+    var(--gradient-four, radial-gradient(at 41% 38%, hsla(192, 100%, 64%, 1) 0px, transparent 50%)),
+    var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)),
+    var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)),
+    var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)),
+    var(--gradient-base, linear-gradient(#39FF14 0 100%));
+}
+
+.notched-glow-container:hover .notched-glow-border-layer,
+.notched-glow-container.sweep-active .notched-glow-border-layer {
+  opacity: calc(0.15 + (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)) * 0.85);
+  transition: opacity 0.15s ease-out;
+
+  mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center,
+      black calc(var(--cone-spread) * 1%),
+      transparent calc((var(--cone-spread) + 15) * 1%),
+      transparent calc((100 - var(--cone-spread) - 15) * 1%),
+      black calc((100 - var(--cone-spread)) * 1%)
+    );
+}
+
+/* 2.2 Inner Solid Background Card */
+.notched-glow-bg-layer {
+  position: absolute;
+  inset: 1px; /* 1px gap reveals the border-layer or container background */
+  z-index: 2;
+  pointer-events: none;
+  background-color: var(--card-bg, #0B0B0C);
+  transition: background-color 0.3s ease;
+}
+
+/* 2.3 Background Radial Fill Glow */
+.notched-glow-fill-layer {
+  position: absolute;
+  inset: 1px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  mix-blend-mode: soft-light;
+}
+
+.notched-glow-container:hover .notched-glow-fill-layer,
+.notched-glow-container.sweep-active .notched-glow-fill-layer {
+  opacity: calc(var(--fill-opacity, 0.35) * (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
+  transition: opacity 0.15s ease-out;
+  background:
+    var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)),
+    var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)),
+    var(--gradient-three, radial-gradient(at 8% 6%, hsla(136, 100%, 78%, 1) 0px, transparent 50%)),
+    var(--gradient-four, radial-gradient(at 41% 38%, hsla(192, 100%, 64%, 1) 0px, transparent 50%)),
+    var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)),
+    var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)),
+    var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)),
+    var(--gradient-base, linear-gradient(#39FF14 0 100%));
+
+  mask-image:
+    linear-gradient(to bottom, black, black),
+    radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%),
+    radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%),
+    conic-gradient(from var(--cursor-angle) at center, transparent 5%, black 15%, black 85%, transparent 95%);
+
+  mask-composite: subtract, add, add, add, add, add;
+}
+
+/* 2.4 Content Container */
+.notched-glow-content {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #111111;
+  --color-brand-neon: #39FF14; /* Brighter neon green for badges */
+  --color-brand-muted: #888888;
+  --color-brand-dark: #0B0B0C; /* Rich deep black/gray */
+  --color-brand-light: #F9F9FB; /* Elegant light-gray canvas background */
+  --color-brand-border: rgba(57, 255, 20, 0.2);
+  --font-sans: var(--font-univers), sans-serif;
+  --font-heading: var(--font-dxburst), var(--font-univers), sans-serif;
+  --font-heading-bold: var(--font-dxburst-bold), var(--font-univers), sans-serif;
+  --font-script: var(--font-mr-dafoe), cursive;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+:root {
+  --background: #F9F9FB;
+  --foreground: #111111;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Custom Technical Background Grid - Dark Mode */
+.technical-grid {
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
+}
+
+.technical-grid-fine {
+  background-size: 15px 15px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+/* Custom Technical Background Grid - Light Mode */
+.technical-grid-light {
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+}
+
+.technical-grid-fine-light {
+  background-size: 15px 15px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+}
+
+/* Glowing LED Pillars for Silhouette screen */
+.led-pillar {
+  width: 4px;
+  height: 120px;
+  background: #ffffff;
+  box-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+  border-radius: 2px;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+
+/* Technical Brackets */
+.bracket-left::before {
+  content: "[";
+  color: #BFFF00;
+  margin-right: 0.5rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+.bracket-right::after {
+  content: "]";
+  color: #BFFF00;
+  margin-left: 0.5rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090909;
+  border-left: 1px solid rgba(191, 255, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BFFF00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4ff33;
+}
+
+/* Custom clipping/angles for industrial tech vibe */
+.clip-corner {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.clip-corner-top-right {
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+}
+
+/* Carbon Fiber Texture Background — Dark Mode Only */
+.carbon-fiber-bg {
+  background-image: url('/images/carbon_fiber_texture.png');
+  background-size: 600px 600px;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* Text overlay blending — readable on solid bg, blends on images */
+.text-blend-overlay {
+  text-shadow:
+    0 0 40px rgba(0, 0, 0, 0.7),
+    0 0 80px rgba(0, 0, 0, 0.4);
+}
+
+.dark .text-blend-overlay,
+.text-blend-overlay-dark {
+  text-shadow:
+    0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 80px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Encrypted character styling — visible scramble effect */
+.decrypt-char-encrypted {
+  opacity: 0.35;
+  color: inherit;
+}
+
+.decrypt-char-revealed {
+  opacity: 1;
+}
