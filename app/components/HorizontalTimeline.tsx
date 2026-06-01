@@ -452,9 +452,9 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
         {/* ── Bottom Zone Container — segment info at top, controls at bottom ── */}
         <div
           className={`absolute bottom-0 left-0 w-full z-30 border-t transition-colors duration-500 ${
-            isDark ? "border-zinc-800/40" : "border-zinc-200/60"
+            isDark ? "border-zinc-800/40 bg-[#0B0B0C]/80" : "border-zinc-200/60 bg-brand-light/80"
           }`}
-          style={{ height: "90px" }}
+          style={{ height: "90px", backdropFilter: "blur(8px)" }}
         >
           {/* Segment info row — top of bottom zone */}
           <div

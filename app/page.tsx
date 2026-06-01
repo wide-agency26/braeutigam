@@ -12,6 +12,8 @@ import HandwrittenMission from "./components/HandwrittenMission";
 import HorizontalTimeline from "./components/HorizontalTimeline";
 import ProfileCard from "./components/ProfileCard";
 import TrackScrollMap from "./components/TrackScrollMap";
+import Ballpit from "./components/Ballpit";
+import SpotlightCard from "./components/SpotlightCard";
 
 import DecryptedText from "./components/DecryptedText";
 import carDark from "../public/images/car_silhouette_02_DarkMode.png";
@@ -38,6 +40,12 @@ export default function Home() {
   const techImgY = useTransform(craftScrollProgress, [0, 1], [-80, 80]);
   const craftImgX = useTransform(craftScrollProgress, [0, 0.5, 1], [60, 0, -30]);
   const techImgX = useTransform(craftScrollProgress, [0, 0.5, 1], [-60, 0, 30]);
+
+  // Parallax layers refs
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const midgroundRef = useRef<HTMLDivElement>(null);
+  const foregroundRef = useRef<HTMLDivElement>(null);
+  const footerObstacleRef = useRef<HTMLDivElement>(null);
 
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
@@ -924,21 +932,42 @@ export default function Home() {
 
           {/* Button to Team Page */}
           <div className="mt-20 text-center">
-            <button className={`px-10 py-5 border font-sans font-bold uppercase tracking-wider transition-all duration-300 ${
-              isDark
-                ? "border-brand-neon text-brand-neon hover:bg-brand-neon hover:text-black"
-                : "border-black text-black hover:bg-black hover:text-white"
-            }`}>
+            <SpotlightCard 
+              as="button"
+              spotlightColor={isDark ? "rgba(57, 255, 20, 0.4)" : "rgba(0, 0, 0, 0.15)"}
+              className={`px-10 py-5 border font-sans font-bold uppercase tracking-wider transition-all duration-300 ${
+                isDark
+                  ? "border-brand-neon text-brand-neon hover:border-white hover:text-white"
+                  : "border-black text-black hover:border-gray-500 hover:text-gray-700"
+              }`}
+            >
               Check Team BRÄUTIGAM
-            </button>
+            </SpotlightCard>
           </div>
         </div>
       </section>
 
       {/* FOOTER — Dark card design per reference */}
-      <footer className={`relative pt-16 pb-10 px-4 sm:px-6 transition-colors duration-500 ${
+      <footer className={`relative pt-16 pb-10 px-4 sm:px-6 transition-colors duration-500 overflow-hidden min-h-screen flex flex-col justify-end ${
         isDark ? "bg-[#0B0B0C]" : "bg-brand-light"
       }`}>
+        
+        {/* Ballpit Background (Behind the card) */}
+        <div className="absolute inset-0 z-0">
+          <Ballpit
+            obstacleRef={footerObstacleRef}
+            count={200}
+            gravity={0.3}
+            friction={0.976}
+            wallBounce={0.65}
+            followCursor={true}
+            minSize={0.25}
+            maxSize={0.5}
+            size0={0.5}
+            maxZ={0.1}
+            colors={[0x39FF14, 0x333333, 0x111111]}
+          />
+        </div>
 
         <div className="max-w-6xl mx-auto relative z-10">
 
@@ -950,10 +979,12 @@ export default function Home() {
             noPadding={true}
             borderRadius={16}
             notchSize={40}
-            className="w-full"
+            backgroundColor={isDark ? "rgba(11, 11, 12, 0.9)" : "rgba(255, 255, 255, 0.9)"}
+            className="w-full relative overflow-hidden backdrop-blur-md"
           >
-            <div className="w-full py-14 px-8 sm:px-12 lg:px-16">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-center">
+            <div ref={footerObstacleRef} className="relative w-full py-14 px-8 sm:px-12 lg:px-16 flex flex-col justify-center">
+
+              <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-center h-full">
 
                 {/* Left Column — Site Navigation Links */}
                 <nav className="flex flex-col gap-2 text-left">
@@ -967,7 +998,9 @@ export default function Home() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="font-sans text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight text-zinc-300 hover:text-brand-neon transition-colors duration-200 leading-tight"
+                      className={`font-sans text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight transition-colors duration-200 leading-tight ${
+                        isDark ? "text-zinc-300 hover:text-brand-neon" : "text-zinc-700 hover:text-brand-dark"
+                      }`}
                     >
                       {item.label}
                     </a>
@@ -976,7 +1009,7 @@ export default function Home() {
 
                 {/* Center Column — Branding Block */}
                 <div className="flex flex-col items-center justify-center text-center">
-                  <span className="font-sans text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-100 leading-none">
+                  <span className={`font-sans text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-none ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>
                     BRÄUTIGAM
                   </span>
                   <span className="font-script text-brand-neon text-3xl sm:text-4xl lg:text-5xl -mt-2 select-none">
@@ -996,7 +1029,9 @@ export default function Home() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-sans text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight text-zinc-300 hover:text-brand-neon transition-colors duration-200 leading-tight"
+                      className={`font-sans text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight transition-colors duration-200 leading-tight ${
+                        isDark ? "text-zinc-300 hover:text-brand-neon" : "text-zinc-700 hover:text-brand-dark"
+                      }`}
                     >
                       {item.label}
                     </a>
