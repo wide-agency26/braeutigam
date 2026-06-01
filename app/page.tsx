@@ -11,6 +11,7 @@ import StaggeredMenu from "./components/StaggeredMenu";
 import HandwrittenMission from "./components/HandwrittenMission";
 import HorizontalTimeline from "./components/HorizontalTimeline";
 import ProfileCard from "./components/ProfileCard";
+import TrackScrollMap from "./components/TrackScrollMap";
 
 import DecryptedText from "./components/DecryptedText";
 import carDark from "../public/images/car_silhouette_02_DarkMode.png";
@@ -726,18 +727,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* BOTTOM-LEFT DESIGN ANCHOR BADGE */}
-            <div className="absolute bottom-16 left-6 md:left-12 z-20 pointer-events-auto">
-              <div className={`w-14 h-14 border rounded-sm flex items-center justify-center transition-all duration-500 ${
-                isDark ? "border-zinc-800 bg-zinc-900/30" : "border-zinc-200/80 bg-white/50"
-              }`}>
-                <svg className={`w-8 h-8 transition-colors duration-500 ${isDark ? "text-zinc-400" : "text-zinc-650"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 11V5a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7" />
-                  <path d="M14 11V7.5a1.5 1.5 0 0 0-3 0V11" />
-                  <path d="M14 11V9a1.5 1.5 0 0 1 3 0v2" />
-                  <path d="M17 11V10a1.5 1.5 0 0 1 3 0v3.5a7.5 7.5 0 0 1-15 0V11" />
-                </svg>
-              </div>
+            {/* BOTTOM-LEFT DESIGN ANCHOR MAP */}
+            <div className="absolute bottom-12 left-6 md:left-12 z-20 pointer-events-auto">
+              <TrackScrollMap progress={smoothScrollProgress} isDark={isDark} />
             </div>
 
             {/* BOTTOM-RIGHT AREA: DESCRIPTION PARAGRAPHS (Animated sticky in place) */}
