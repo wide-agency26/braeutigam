@@ -271,14 +271,14 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
           isDark ? "bg-[#0B0B0C]" : "bg-brand-light"
         }`}
       >
-        {/* ── Top HUD Bar — positioned below fixed menu/theme controls ── */}
+        {/* ── Top HUD Bar — positioned aligned with top menu ── */}
         <div
-          className={`absolute left-0 w-full z-30 py-4 px-6 md:px-12 flex justify-between items-center border-b transition-colors duration-500 ${
+          className={`absolute left-0 w-full z-30 pt-0 pb-4 px-6 md:px-12 flex justify-between items-end border-b transition-colors duration-500 ${
             isDark
               ? "border-zinc-800/60 bg-[#0B0B0C]/80"
               : "border-zinc-200/60 bg-brand-light/80"
           }`}
-          style={{ top: "72px", backdropFilter: "blur(8px)" }}
+          style={{ top: "24px", backdropFilter: "blur(8px)" }}
         >
           <div className="font-mono border-l-2 border-brand-neon pl-3">
             <span
@@ -316,7 +316,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
           className={`absolute left-6 md:left-12 z-20 pointer-events-none font-mono text-[9px] tracking-wider transition-colors duration-500 ${
             isDark ? "text-zinc-500" : "text-zinc-400"
           }`}
-          style={{ top: "180px", opacity: headerOpacity }}
+          style={{ top: "120px", opacity: headerOpacity }}
         >
           <div className="flex items-center gap-3">
             <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse" />
