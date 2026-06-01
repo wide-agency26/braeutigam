@@ -409,7 +409,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[1.05] transition-colors duration-500 text-center max-w-4xl mix-blend-overlay ${
+                className={`font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[1.05] transition-colors duration-500 text-center max-w-4xl ${
                   isDark ? "text-zinc-100" : "text-zinc-950"
                 }`}
               >
@@ -722,8 +722,7 @@ export default function Home() {
                   />
                 </motion.div>
 
-                {/* Scanning HUD green horizontal line */}
-                <div className="absolute left-0 top-[20%] w-full h-[1.5px] bg-brand-neon/30 shadow-[0_0_10px_#39FF14] animate-[bounce_8s_infinite_linear] z-20 pointer-events-none" />
+
               </div>
             </div>
 

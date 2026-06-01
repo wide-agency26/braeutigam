@@ -273,28 +273,12 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
       >
         {/* ── Top HUD Bar — positioned below fixed menu/theme controls ── */}
         <div
-          className={`absolute left-0 w-full z-30 font-mono text-[9px] tracking-wider py-2.5 px-6 md:px-12 flex justify-between items-center border-b transition-colors duration-500 ${
+          className={`absolute left-0 w-full z-30 py-4 px-6 md:px-12 flex justify-between items-center border-b transition-colors duration-500 ${
             isDark
-              ? "border-zinc-800/60 text-zinc-500 bg-[#0B0B0C]/80"
-              : "border-zinc-200/60 text-zinc-400 bg-brand-light/80"
+              ? "border-zinc-800/60 bg-[#0B0B0C]/80"
+              : "border-zinc-200/60 bg-brand-light/80"
           }`}
           style={{ top: "72px", backdropFilter: "blur(8px)" }}
-        >
-          <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse" />
-            <span className="uppercase">
-              Historical Archive // Division_Bräutigam_Composites
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="hidden md:inline">SCROLL TO EXPLORE →</span>
-          </div>
-        </div>
-
-        {/* ── Section Header — compact, below HUD bar ── */}
-        <motion.div
-          className="absolute left-6 md:left-12 z-20 pointer-events-none"
-          style={{ top: "106px", opacity: headerOpacity }}
         >
           <div className="font-mono border-l-2 border-brand-neon pl-3">
             <span
@@ -321,6 +305,24 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
               </span>
               <span>SCROLL: <span className="text-brand-neon font-bold">{progressPct}%</span></span>
             </div>
+          </div>
+          <div className={`font-mono text-[9px] tracking-wider transition-colors duration-500 flex items-center gap-4 ${isDark ? "text-zinc-500" : "text-zinc-400"}`}>
+            <span className="hidden md:inline">SCROLL TO EXPLORE →</span>
+          </div>
+        </div>
+
+        {/* ── Section Header — compact, below HUD bar ── */}
+        <motion.div
+          className={`absolute left-6 md:left-12 z-20 pointer-events-none font-mono text-[9px] tracking-wider transition-colors duration-500 ${
+            isDark ? "text-zinc-500" : "text-zinc-400"
+          }`}
+          style={{ top: "180px", opacity: headerOpacity }}
+        >
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse" />
+            <span className="uppercase">
+              Historical Archive // Division_Bräutigam_Composites
+            </span>
           </div>
         </motion.div>
 
