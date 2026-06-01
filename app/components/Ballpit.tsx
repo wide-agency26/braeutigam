@@ -590,9 +590,9 @@ class ScatteringMaterial extends MeshPhysicalMaterial {
     this.uniforms = {
       thicknessDistortion: { value: 0.1 },
       thicknessAmbient: { value: 0 },
-      thicknessAttenuation: { value: 0.1 },
+      thicknessAttenuation: { value: 0.02 },
       thicknessPower: { value: 2 },
-      thicknessScale: { value: 10 }
+      thicknessScale: { value: 2 }
     };
     if (!this.defines) this.defines = {};
     this.defines.USE_UV = '';
@@ -659,7 +659,7 @@ class BallpitInstancedMesh extends InstancedMesh {
     const carbonTexture = textureLoader.load('/images/carbon_texture.png');
     carbonTexture.wrapS = RepeatWrapping;
     carbonTexture.wrapT = RepeatWrapping;
-    carbonTexture.repeat.set(2, 2);
+    carbonTexture.repeat.set(0.5, 0.5);
 
     const r = new ScatteringMaterial({ envMap: n, map: carbonTexture, ...i.materialParams });
     r.envMapRotation.x = -Math.PI / 2;
@@ -673,38 +673,23 @@ class BallpitInstancedMesh extends InstancedMesh {
   #initLights() {
     this.ambientLight = new AmbientLight(this.config.ambientColor, this.config.ambientIntensity);
     this.add(this.ambientLight);
-    this.light = new PointLight(this.config.colors[0], this.config.lightIntensity);
+    this.light = new PointLight(0x39ff14, this.config.lightIntensity); // Hardcode neon green for the cursor light
     this.add(this.light);
   }
 
   setColors(e: any) {
-    if (Array.isArray(e) && e.length > 1) {
-      const t = (function (e) {
-        let t: any, i: any;
-        function setColors(e: any) {
-          t = e;
-          i = [];
-          t.forEach((col: any) => {
-            i.push(new Color(col));
-          });
-        }
-        setColors(e);
-        return {
-          setColors,
-          getColorAt: function (ratio: any, out = new Color()) {
-            const scaled = Math.max(0, Math.min(1, ratio)) * (t.length - 1);
-            const idx = Math.floor(scaled);
-            const start = i[idx];
-            if (idx >= t.length - 1) return start.clone();
-            const alpha = scaled - idx;
-            const end = i[idx + 1];
-            out.r = start.r + alpha * (end.r - start.r);
-            out.g = start.g + alpha * (end.g - start.g);
-            out.b = start.b + alpha * (end.b - start.b);
-            return out;
-          }
+    if (e && e.length > 0) {
+      const t = new (function (this: any, e: any) {
+        const t = e.map((e: any) => new Color(e));
+        this.getColorAt = function (e: any) {
+          const i = Math.max(0, Math.min(1, e)) * (t.length - 1);
+          const s = Math.floor(i);
+          const n = Math.ceil(i);
+          const o = i - s;
+          const r = t[s].clone();
+          return r.lerp(t[n], o);
         };
-      })(e);
+      } as any)(e);
       for (let idx = 0; idx < this.count; idx++) {
         let col = t.getColorAt(idx / this.count);
         
@@ -714,9 +699,7 @@ class BallpitInstancedMesh extends InstancedMesh {
         }
 
         this.setColorAt(idx, col);
-        if (idx === 0) {
-          this.light.color.copy(col);
-        }
+        // Removed the line that turns the light grey
       }
       if (this.instanceColor) this.instanceColor.needsUpdate = true;
     }

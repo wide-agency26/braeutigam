@@ -965,7 +965,8 @@ export default function Home() {
             maxSize={0.5}
             size0={0.5}
             maxZ={0.1}
-            colors={[0x39FF14, 0x333333, 0x111111]}
+            ambientIntensity={0.2}
+            colors={[0x222222, 0x111111]}
           />
         </div>
 
