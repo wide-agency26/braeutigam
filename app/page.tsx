@@ -490,7 +490,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold uppercase tracking-tight leading-[1.05] text-brand-neon text-center mix-blend-overlay"
+                className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold uppercase tracking-tight leading-[1.05] text-brand-neon text-center"
               >
                 <DecryptedText
                   text="Komplex, Schnell, Inhouse"
@@ -857,7 +857,7 @@ export default function Home() {
                   isDark ? "text-zinc-500" : "text-zinc-400"
                 }`}>[ MISSION_MANIFESTO ]</span>
                 <p className={`text-xs sm:text-sm leading-relaxed font-sans transition-colors duration-500 ${
-                  isDark ? "text-zinc-400" : "text-zinc-650"
+                  isDark ? "text-zinc-400" : "text-zinc-600"
                 }`}>
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                   sed diam nonumy eirmod tempor invidunt ut labore et
@@ -865,6 +865,17 @@ export default function Home() {
                   eos et accusam et justo duo dolores et ea rebum.
                   Stet clita kasd gubergren, no sea
                 </p>
+                <div className="mt-8">
+                  <SpotlightCard className={`custom-spotlight-card border transition-colors inline-block ${
+                    isDark ? "border-brand-neon bg-transparent hover:bg-brand-neon/10" : "border-brand-neon bg-white hover:bg-brand-neon/10"
+                  }`} spotlightColor="rgba(57, 255, 20, 0.2)">
+                    <a href="#about" className={`block px-8 py-3 font-sans font-bold text-sm uppercase tracking-wider focus:outline-none cursor-pointer ${
+                      isDark ? "text-brand-neon" : "text-zinc-900"
+                    }`}>
+                      About us
+                    </a>
+                  </SpotlightCard>
+                </div>
               </div>
             </div>
           </div>
@@ -993,8 +1004,8 @@ export default function Home() {
                     { label: "HOME", href: "#silhouette" },
                     { label: "LEISTUNGEN", href: "#story" },
                     { label: "BAUTEILE", href: "#datasheet" },
-                    { label: "KARRIERE", href: "#" },
-                    { label: "TEAM", href: "#" }
+                    { label: "KARRIERE", href: "#karriere" },
+                    { label: "TEAM", href: "#team" }
                   ].map((item) => (
                     <a
                       key={item.label}

@@ -55,10 +55,11 @@ const SteppedTransitionLayer = ({ color }: { color: string }) => {
 
 export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: StaggeredMenuProps) {
   const menuItems = [
-    { label: "THE EVOLUTION", link: "#story" },
-    { label: "THE MISSION", link: "#mission" },
-    { label: "CHRONICLES", link: "#timeline" },
-    { label: "MATERIALS", link: "#datasheet" }
+    { label: "HOME", link: "#silhouette" },
+    { label: "LEISTUNGEN", link: "#story" },
+    { label: "BAUTEILE", link: "#datasheet" },
+    { label: "KARRIERE", link: "#karriere" },
+    { label: "TEAM", link: "#team" }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
@@ -189,52 +190,24 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
                     <div>PROJECT // AERO_HYPERCAR_v2.0</div>
                     <div>STATUS // SYSTEM_ACTIVE</div>
                   </div>
-
-                  {/* High-tech Theme Switcher Toggle inside the Menu */}
-                  <div className="mt-6">
-                    <NotchedBorderGlow
-                      notchPosition="slanted"
-                      isDark={isDark}
-                      active={true}
-                      noPadding={true}
-                      className="inline-block cursor-pointer select-none"
-                    >
-                      <button 
-                        onClick={toggleTheme}
-                        className={`flex items-center gap-2 px-5 py-1.5 font-mono text-[10px] bg-transparent cursor-pointer border-none outline-none focus:outline-none ${
-                          isDark ? "text-zinc-300" : "text-zinc-700"
-                        }`}
-                        title="Toggle theme mode"
-                      >
-                        {isDark ? (
-                          <>
-                            <Sun className="h-3.5 w-3.5 text-brand-neon" />
-                            <span>[ LIGHT MODE ]</span>
-                          </>
-                        ) : (
-                          <>
-                            <Moon className="h-3.5 w-3.5 text-zinc-800" />
-                            <span>[ DARK MODE ]</span>
-                          </>
-                        )}
-                      </button>
-                    </NotchedBorderGlow>
-                  </div>
                 </div>
 
                 <div className={`text-[10px] tracking-widest leading-loose ${
-                  isDark ? "text-zinc-400" : "text-zinc-650"
+                  isDark ? "text-zinc-400" : "text-zinc-600"
                 }`}>
-                  <div>LOC // GERMANY // 49.0069° N, 8.4037° E</div>
-                  <div>ESTABLISHED // 2016</div>
+                  <div>Daimlerstraße 13</div>
+                  <div>D-71691 Freiberg am Neckar</div>
                   <div className="mt-4">
                     E:{" "}
                     <a 
-                      href="mailto:info@braeutigam.de" 
+                      href="mailto:info@braeutigam-gmbh.eu" 
                       className="text-brand-neon hover:underline decoration-brand-neon/40 underline-offset-4"
                     >
-                      info@braeutigam.de
+                      info@braeutigam-gmbh.eu
                     </a>
+                  </div>
+                  <div>
+                    P: +49 (0)7141/2996700
                   </div>
                 </div>
               </motion.div>
