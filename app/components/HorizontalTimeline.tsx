@@ -330,7 +330,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
         <motion.div
           className="absolute right-6 md:right-12 z-30 pointer-events-none font-mono"
           style={{
-            top: "112px",
+            top: "120px",
             opacity: useTransform(scrollYProgress, [0.03, 0.06], [0, 1]),
           }}
         >

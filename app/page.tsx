@@ -556,7 +556,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Vertical Scroll Progress Bar Indicator aligned left */}
+          {/* Vertical Scroll Progress Bar Indicator aligned left (HIDDEN FOR NOW) */}
+          {/*
           <div className={`absolute left-8 md:left-16 top-[25%] h-[50%] w-[2px] hidden lg:block transition-colors duration-500 z-30 ${
             isDark ? "bg-zinc-800" : "bg-zinc-200"
           }`}>
@@ -565,7 +566,6 @@ export default function Home() {
               className="w-full bg-brand-neon shadow-[0_0_8px_#39FF14]"
             />
             
-            {/* Anchor indicators */}
             <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 border transition-colors duration-500 ${
               activeStep === 0 ? "bg-brand-neon border-brand-neon animate-pulse" : isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white"
             }`} />
@@ -576,6 +576,7 @@ export default function Home() {
               activeStep === 2 ? "bg-brand-neon border-brand-neon animate-pulse" : isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white"
             }`} />
           </div>
+          */}
 
           {/* Main Layout Area spanning max-w-7xl */}
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12 h-full relative flex flex-col justify-between py-24 pointer-events-none">
