@@ -51,6 +51,8 @@ export const metadata: Metadata = {
   description: "State-of-the-art carbon fiber engineering and autoclave curing for peak motorsport performance. Precision CAD-to-Carbon execution.",
 };
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -63,6 +65,7 @@ export default function RootLayout({
     >
       <body className="bg-[#111111] text-[#EDEDED] min-h-screen overflow-x-hidden">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
