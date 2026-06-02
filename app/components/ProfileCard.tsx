@@ -370,20 +370,19 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                         />
                       </div>
                     )}
-                    <div className="pc-user-text">
-                      <div className="pc-handle text-brand-neon">{handle}</div>
-                      <div className="pc-status">{status}</div>
+                    <div className="pc-user-text flex flex-col gap-0.5">
+                      <a href={`mailto:${handle}`} className="pc-handle text-brand-neon hover:underline" style={{ pointerEvents: 'auto' }}>{handle}</a>
+                      <a href={`tel:${status}`} className="pc-status text-zinc-300 hover:text-brand-neon hover:underline" style={{ pointerEvents: 'auto' }}>{status}</a>
                     </div>
                   </div>
-                  <button
+                  <a
+                    href={`tel:${status}`}
                     className="pc-contact-btn font-sans hover:text-brand-neon hover:border-brand-neon flex items-center justify-center"
-                    onClick={handleContactClick}
                     style={{ pointerEvents: 'auto' }}
-                    type="button"
-                    aria-label={`Contact ${name || 'user'}`}
+                    aria-label={`Call ${name || 'user'}`}
                   >
                     <Phone size={18} />
-                  </button>
+                  </a>
                 </div>
               )}
             </div>

@@ -12,7 +12,7 @@ import HandwrittenMission from "./components/HandwrittenMission";
 import HorizontalTimeline from "./components/HorizontalTimeline";
 import ProfileCard from "./components/ProfileCard";
 import TrackScrollMap from "./components/TrackScrollMap";
-import Ballpit from "./components/Ballpit";
+import LineWaves from "./components/LineWaves";
 import SpotlightCard from "./components/SpotlightCard";
 
 import DecryptedText from "./components/DecryptedText";
@@ -26,7 +26,7 @@ import craftHandwork from "../public/images/craft_handwork.png";
 import laserTech from "../public/images/laser_technology.png";
 
 export default function Home() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Section 2 Scrollytelling targets
@@ -959,25 +959,31 @@ export default function Home() {
       </section>
 
       {/* FOOTER — Dark card design per reference */}
-      <footer className={`relative pt-16 pb-10 px-4 sm:px-6 transition-colors duration-500 overflow-hidden min-h-screen flex flex-col justify-end ${
+      <footer className={`relative pt-16 pb-10 px-4 sm:px-6 transition-colors duration-500 overflow-hidden min-h-screen flex flex-col justify-center ${
         isDark ? "bg-[#0B0B0C]" : "bg-brand-light"
       }`}>
         
-        {/* Ballpit Background (Behind the card) */}
+        {/* Top Fade Gradient for seamless blending with section above */}
+        <div className={`absolute top-0 left-0 w-full h-48 z-10 pointer-events-none bg-gradient-to-b ${
+          isDark ? "from-[#0B0B0C] to-transparent" : "from-brand-light to-transparent"
+        }`} />
+
+        {/* LineWaves Background (Behind the card) */}
         <div className="absolute inset-0 z-0">
-          <Ballpit
-            obstacleRef={footerObstacleRef}
-            count={200}
-            gravity={0.3}
-            friction={0.976}
-            wallBounce={0.65}
-            followCursor={true}
-            minSize={0.25}
-            maxSize={0.5}
-            size0={0.5}
-            maxZ={0.1}
-            ambientIntensity={0.2}
-            colors={[0x222222, 0x111111]}
+          <LineWaves
+            speed={0.1}
+            innerLineCount={35}
+            outerLineCount={20}
+            warpIntensity={1.0}
+            rotation={59}
+            edgeFadeWidth={0.05}
+            colorCycleSpeed={1.0}
+            brightness={isDark ? 0.3 : 1.0}
+            color1={isDark ? "#39ff14" : "#000000"}
+            color2={isDark ? "#222222" : "#000000"}
+            color3={isDark ? "#111111" : "#000000"}
+            enableMouseInteraction={true}
+            mouseInfluence={3.0}
           />
         </div>
 
