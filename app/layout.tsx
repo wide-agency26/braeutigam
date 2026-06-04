@@ -52,6 +52,7 @@ export const metadata: Metadata = {
 };
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({
   children,
@@ -66,6 +67,7 @@ export default function RootLayout({
       <body className="bg-[#111111] text-[#EDEDED] min-h-screen overflow-x-hidden">
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
