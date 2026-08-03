@@ -2,28 +2,34 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useMotionValueEvent, useSpring } from "framer-motion";
+import dynamic from "next/dynamic";
+import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import MagicRings from "./components/MagicRings";
 import TopoBackground from "./components/TopoBackground";
 import NotchedBorderGlow from "./components/NotchedBorderGlow";
-import StaggeredMenu from "./components/StaggeredMenu";
 import HandwrittenMission from "./components/HandwrittenMission";
-import HorizontalTimeline from "./components/HorizontalTimeline";
-import ProfileCard from "./components/ProfileCard";
 import TrackScrollMap from "./components/TrackScrollMap";
-import LineWaves from "./components/LineWaves";
 import SpotlightCard from "./components/SpotlightCard";
+import ScrollTelemetry from "./components/ScrollTelemetry";
 
 import DecryptedText from "./components/DecryptedText";
-import carDark from "../public/images/car_silhouette_02_DarkMode.png";
-import carLight from "../public/images/car_silhouette_02_LightMode.png";
-import story01Dark from "../public/images/Part_01_darkmode.png";
-import story01Light from "../public/images/Part_01.png";
-import story02 from "../public/images/Part_02.png";
-import story03 from "../public/images/Part_03.png";
-import craftHandwork from "../public/images/craft_handwork.png";
-import laserTech from "../public/images/laser_technology.png";
+
+/* Heavy / below-the-fold widgets are split out of the initial chunk.
+   The WebGL canvases are purely decorative, so they never need to be
+   server-rendered. */
+const MagicRings = dynamic(() => import("./components/MagicRings"), { ssr: false });
+const LineWaves = dynamic(() => import("./components/LineWaves"), { ssr: false });
+const HorizontalTimeline = dynamic(() => import("./components/HorizontalTimeline"));
+const ProfileCard = dynamic(() => import("./components/ProfileCard"));
+const StaggeredMenu = dynamic(() => import("./components/StaggeredMenu"), { ssr: false });
+import carDark from "../public/images/car_silhouette_02_DarkMode.webp";
+import carLight from "../public/images/car_silhouette_02_LightMode.webp";
+import story01Dark from "../public/images/Part_01_darkmode.webp";
+import story01Light from "../public/images/Part_01.webp";
+import story02 from "../public/images/Part_02.webp";
+import story03 from "../public/images/Part_03.webp";
+import craftHandwork from "../public/images/craft_handwork.webp";
+import laserTech from "../public/images/laser_technology.webp";
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -61,9 +67,6 @@ export default function Home() {
     mass: 0.6,
   });
 
-  const [activeStep, setActiveStep] = useState(0); // 0 = CAD, 1 = Autoclave, 2 = Finished
-  const [scrollProgressText, setScrollProgressText] = useState("0%");
-
   // Image transitions in Section 2 (CAD -> Autoclave -> Finished Wing)
   const opacityBlueprint = useTransform(smoothScrollProgress, [0, 0.25, 0.35], [1, 1, 0]);
   const scaleBlueprint = useTransform(smoothScrollProgress, [0, 0.35], [1, 0.95]);
@@ -84,22 +87,6 @@ export default function Home() {
   const opacityText3 = useTransform(smoothScrollProgress, [0.70, 0.75, 0.95], [0, 1, 1]);
   const yText3 = useTransform(smoothScrollProgress, [0.70, 0.75, 0.95], [20, 0, 0]);
 
-  // Progress Bar tracking height and opacity
-  const heightProgressLine = useTransform(smoothScrollProgress, [0, 0.95], ["0%", "100%"]);
-
-  useMotionValueEvent(smoothScrollProgress, "change", (latest) => {
-    setScrollProgressText(`${Math.min(Math.round(latest * 100), 100)}%`);
-    if (latest < 0.30) {
-      setActiveStep(0);
-    } else if (latest < 0.65) {
-      setActiveStep(1);
-    } else {
-      setActiveStep(2);
-    }
-  });
-
-
-
   const toggleTheme = () => {
     setTheme(prev => prev === "light" ? "dark" : "light");
   };
@@ -107,6 +94,12 @@ export default function Home() {
   const isDark = theme === "dark";
 
   return (
+    // `domAnimation` covers animation, exit, inView and the pointer gestures
+    // this page uses. `domMax` would only add pan/drag/layout, none of which
+    // appear here, so the heavier bundle would be dead weight.
+    // `strict` makes any stray `motion.*` component throw instead of silently
+    // pulling the full feature set back in.
+    <LazyMotion features={domAnimation} strict>
     <div className={`relative min-h-screen transition-colors duration-500 ${isDark ? "dark bg-brand-dark text-zinc-100" : "bg-brand-light text-zinc-900"}`}>
       {/* Noise Grain Filter Overlay */}
       <div className="noise-overlay pointer-events-none" />
@@ -168,7 +161,7 @@ export default function Home() {
 
       {/* 1. HERO / LANDING SECTION (Full Screen cinematic supercar image, layered interactive rings, and center typography) */}
       <section id="silhouette" className={`relative min-h-screen flex flex-col justify-center items-center overflow-hidden py-24 transition-colors duration-500 ${
-        isDark ? "bg-[#0B0B0C] text-zinc-100" : "bg-brand-light text-zinc-900"
+        isDark ? "text-zinc-100" : "text-zinc-900"
       }`}>
         
         {/* Full Screen Background Car Images with Cross-Fade Transition */}
@@ -180,6 +173,7 @@ export default function Home() {
               alt="Carbon Fiber Supercar Silhouette Dark"
               fill
               className="object-cover"
+              sizes="100vw"
               priority
             />
           </div>
@@ -191,7 +185,7 @@ export default function Home() {
               alt="Carbon Fiber Supercar Silhouette Light"
               fill
               className="object-cover"
-              priority
+              sizes="100vw"
             />
           </div>
 
@@ -263,19 +257,15 @@ export default function Home() {
         <div className="relative z-20 w-full max-w-4xl flex flex-col items-center text-center px-6 pointer-events-none">
           
           {/* Overlaid Typography block */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col items-center relative"
-          >
+          <div className="hero-rise flex flex-col items-center relative">
             {/* Brand Logo */}
             <div className="mb-10">
               <Image
-                src="/images/logo_dark.png"
+                src="/images/logo_dark.webp"
                 alt="Bräutigam Logo"
                 width={1024}
                 height={217}
+                sizes="(min-width: 1024px) 13vw, (min-width: 768px) 16vw, (min-width: 640px) 19vw, 28vw"
                 className={`w-[28vw] sm:w-[19vw] md:w-[16vw] lg:w-[13vw] h-auto transition-all duration-500 ${
                   isDark ? "invert" : ""
                 }`}
@@ -289,15 +279,12 @@ export default function Home() {
               CARBON FIBER
             </h1>
             
-            <motion.span 
-              initial={{ opacity: 0, scale: 0.8, rotate: -25 }}
-              animate={{ opacity: 1, scale: 1, rotate: -12 }}
-              transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-              className="font-script text-brand-neon text-[9vw] sm:text-[6.5vw] absolute z-20 left-[55%] top-[55%] select-none drop-shadow-[0_4px_12px_rgba(57,255,20,0.5)] pointer-events-none"
+            <span
+              className="hero-works font-script text-brand-neon text-[9vw] sm:text-[6.5vw] absolute z-20 left-[55%] top-[55%] select-none drop-shadow-[0_4px_12px_rgba(57,255,20,0.5)] pointer-events-none"
             >
               Works
-            </motion.span>
-          </motion.div>
+            </span>
+          </div>
 
           {/* HUD telemetry stamp */}
           <div className={`mt-16 font-mono text-[9px] tracking-[0.2em] select-none transition-colors duration-500 ${
@@ -313,12 +300,9 @@ export default function Home() {
         }`}>
           <a href="#story" className="flex flex-col items-center gap-2 cursor-pointer select-none">
             <span>[ SCROLL TO EVOLUTION ]</span>
-            <motion.div 
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            >
+            <div className="hero-chevron">
               <ChevronDown className="h-4 w-4 text-brand-neon" />
-            </motion.div>
+            </div>
           </a>
         </div>
       </section>
@@ -327,9 +311,7 @@ export default function Home() {
       <section 
         ref={craftSectionRef}
         id="craft-technology" 
-        className={`relative min-h-screen flex items-center justify-center overflow-hidden py-32 md:py-40 transition-colors duration-500 ${
-          isDark ? "bg-[#0B0B0C]" : "bg-brand-light"
-        }`}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden py-32 md:py-40"
       >
 
 
@@ -382,7 +364,7 @@ export default function Home() {
           <div className="relative">
 
             {/* Parallax Image — Top Left (Craft/Handwork) */}
-            <motion.div 
+            <m.div 
               className="absolute -top-8 -left-4 md:left-0 w-[45%] max-w-[380px] aspect-[4/3] z-0 rounded-sm overflow-hidden"
               style={{ y: craftImgY, x: craftImgX }}
             >
@@ -391,12 +373,13 @@ export default function Home() {
                 alt="Carbon fiber handcraft layup"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 45vw, 380px"
               />
               <div className={`absolute inset-0 ${isDark ? "bg-black/30" : "bg-black/10"}`} />
-            </motion.div>
+            </m.div>
 
             {/* Parallax Image — Bottom Right (Technology/Laser) */}
-            <motion.div 
+            <m.div 
               className="absolute -bottom-8 -right-4 md:right-0 w-[45%] max-w-[380px] aspect-[4/3] z-0 rounded-sm overflow-hidden"
               style={{ y: techImgY, x: techImgX }}
             >
@@ -405,14 +388,15 @@ export default function Home() {
                 alt="Laser cutting technology"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 45vw, 380px"
               />
               <div className={`absolute inset-0 ${isDark ? "bg-black/30" : "bg-black/10"}`} />
-            </motion.div>
+            </m.div>
 
             {/* Main Text Block — centered, overlaid on images */}
             <div className="relative text-center py-16 md:py-24 flex flex-col items-center">
               {/* First statement: bold condensed (font-sans) + DecryptedText */}
-              <motion.h2 
+              <m.h2 
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
@@ -454,13 +438,13 @@ export default function Home() {
                   className="decrypt-char-revealed"
                   encryptedClassName="decrypt-char-encrypted"
                 />
-              </motion.h2>
+              </m.h2>
 
               {/* Spacer */}
               <div className="h-12 md:h-16" />
 
               {/* Second statement: display font (DxBurst) + DecryptedText */}
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
@@ -479,13 +463,13 @@ export default function Home() {
                   className="decrypt-char-revealed"
                   encryptedClassName="decrypt-char-encrypted"
                 />
-              </motion.p>
+              </m.p>
 
               {/* Spacer */}
               <div className="h-8 md:h-12" />
 
               {/* Keywords: bold condensed, accent color + DecryptedText */}
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
@@ -503,7 +487,7 @@ export default function Home() {
                   className="decrypt-char-revealed"
                   encryptedClassName="decrypt-char-encrypted"
                 />
-              </motion.p>
+              </m.p>
             </div>
 
           </div>
@@ -511,7 +495,7 @@ export default function Home() {
       </section>
 
       {/* 2. SECTION: SEAMLESS EVOLUTION SCROLLYTELLING (CAD -> Autoclave -> Finished Product) */}
-      <section id="story" ref={scrollyRef} className="relative h-[300vh] transition-colors duration-500">
+      <section id="story" ref={scrollyRef} className="relative h-[300vh]">
         
         {/* Sticky 100vh Viewport background elements */}
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
@@ -556,35 +540,8 @@ export default function Home() {
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
             </div>
-            <div className="flex items-center gap-6">
-              <span>PROGRESS: {scrollProgressText}</span>
-              <span>STATE: {
-                activeStep === 0 ? "01_WIRE_BLUEPRINT" : activeStep === 1 ? "02_STRESS_AUTOCLAVE" : "03_FINISHED_COMPOSITE"
-              }</span>
-            </div>
+            <ScrollTelemetry progress={smoothScrollProgress} />
           </div>
-
-          {/* Vertical Scroll Progress Bar Indicator aligned left (HIDDEN FOR NOW) */}
-          {/*
-          <div className={`absolute left-8 md:left-16 top-[25%] h-[50%] w-[2px] hidden lg:block transition-colors duration-500 z-30 ${
-            isDark ? "bg-zinc-800" : "bg-zinc-200"
-          }`}>
-            <motion.div 
-              style={{ height: heightProgressLine }}
-              className="w-full bg-brand-neon shadow-[0_0_8px_#39FF14]"
-            />
-            
-            <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 border transition-colors duration-500 ${
-              activeStep === 0 ? "bg-brand-neon border-brand-neon animate-pulse" : isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white"
-            }`} />
-            <div className={`absolute top-[50%] left-1/2 -translate-x-1/2 w-2.5 h-2.5 border transition-colors duration-500 ${
-              activeStep === 1 ? "bg-brand-neon border-brand-neon animate-pulse" : isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white"
-            }`} />
-            <div className={`absolute top-full left-1/2 -translate-x-1/2 w-2.5 h-2.5 border transition-colors duration-500 ${
-              activeStep === 2 ? "bg-brand-neon border-brand-neon animate-pulse" : isDark ? "border-zinc-700 bg-zinc-900" : "border-zinc-300 bg-white"
-            }`} />
-          </div>
-          */}
 
           {/* Main Layout Area spanning max-w-7xl */}
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12 h-full relative flex flex-col justify-between py-24 pointer-events-none">
@@ -593,7 +550,7 @@ export default function Home() {
             <div className="relative w-full max-w-xl h-44 mt-8 pointer-events-none">
               
               {/* Step 1 Heading */}
-              <motion.div 
+              <m.div 
                 style={{ opacity: opacityText1, y: yText1 }} 
                 className="absolute top-0 left-0 w-full flex flex-col items-start"
               >
@@ -616,10 +573,10 @@ export default function Home() {
                   From the<br />
                   <strong className="font-semibold block font-sans">initial idea</strong>
                 </h2>
-              </motion.div>
+              </m.div>
 
               {/* Step 2 Heading */}
-              <motion.div 
+              <m.div 
                 style={{ opacity: opacityText2, y: yText2 }} 
                 className="absolute top-0 left-0 w-full flex flex-col items-start"
               >
@@ -642,10 +599,10 @@ export default function Home() {
                   <span className="font-sans font-light block">High quality.</span>
                   <span className="font-sans font-bold block">High performance.</span>
                 </h2>
-              </motion.div>
+              </m.div>
 
               {/* Step 3 Heading */}
-              <motion.div 
+              <m.div 
                 style={{ opacity: opacityText3, y: yText3 }} 
                 className="absolute top-0 left-0 w-full flex flex-col items-start"
               >
@@ -668,7 +625,7 @@ export default function Home() {
                   To the<br />
                   <strong className="font-semibold block font-sans">finished component.</strong>
                 </h2>
-              </motion.div>
+              </m.div>
 
             </div>
 
@@ -677,7 +634,7 @@ export default function Home() {
               <div className="relative w-full h-full flex items-center justify-center overflow-visible">
                 
                 {/* CAD Blueprint Drawing - Fades in/out, cross-fades dark/light images */}
-                <motion.div 
+                <m.div 
                   style={{ opacity: opacityBlueprint, scale: scaleBlueprint }}
                   className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-10"
                 >
@@ -688,7 +645,7 @@ export default function Home() {
                       alt="CAD Drawing Dark"
                       fill
                       className="object-contain mix-blend-screen"
-                      priority
+                      sizes="(max-width: 1024px) 85vw, 1024px"
                     />
                   </div>
                   {/* Light Mode Blueprint */}
@@ -698,13 +655,13 @@ export default function Home() {
                       alt="CAD Drawing Light"
                       fill
                       className="object-contain mix-blend-multiply"
-                      priority
+                      sizes="(max-width: 1024px) 85vw, 1024px"
                     />
                   </div>
-                </motion.div>
+                </m.div>
 
                 {/* Autoclave Photo - Fades in/out */}
-                <motion.div 
+                <m.div 
                   style={{ opacity: opacityAutoclave, scale: scaleAutoclave }}
                   className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-10"
                 >
@@ -713,12 +670,12 @@ export default function Home() {
                     alt="Composite Autoclave Curing Casing"
                     fill
                     className="object-contain"
-                    priority
+                    sizes="(max-width: 1024px) 85vw, 1024px"
                   />
-                </motion.div>
+                </m.div>
 
                 {/* Finished Glossy Carbon Wing - Fades in/out */}
-                <motion.div 
+                <m.div 
                   style={{ opacity: opacityFinished, scale: scaleFinished }}
                   className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-10"
                 >
@@ -727,9 +684,9 @@ export default function Home() {
                     alt="Finished Carbon Wing Aerodynamic Part"
                     fill
                     className="object-contain"
-                    priority
+                    sizes="(max-width: 1024px) 85vw, 1024px"
                   />
-                </motion.div>
+                </m.div>
 
 
               </div>
@@ -744,27 +701,27 @@ export default function Home() {
             <div className="absolute bottom-16 right-6 md:right-12 w-full max-w-md h-56 pointer-events-none flex flex-col justify-end">
               
               {/* Step 1 Description */}
-              <motion.div 
+              <m.div 
                 style={{ opacity: opacityText1, y: yText1 }} 
                 className="absolute bottom-0 right-0 w-full flex flex-col items-end pointer-events-auto"
               >
                 <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed font-sans max-w-sm text-right">
                   Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
                 </p>
-              </motion.div>
+              </m.div>
 
               {/* Step 2 Description */}
-              <motion.div 
+              <m.div 
                 style={{ opacity: opacityText2, y: yText2 }} 
                 className="absolute bottom-0 right-0 w-full flex flex-col items-end pointer-events-auto"
               >
                 <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed font-sans max-w-sm text-right">
                   Components are vacuum-bagged and cured inside high-pressure autoclaves. Using a meticulous ramp-up cycle up to 135°C under 6.0 Bar positive pressure, we guarantee zero voids, maximum laminate compaction, and complete resin impregnation.
                 </p>
-              </motion.div>
+              </m.div>
 
               {/* Step 3 Description + Spec Card */}
-              <motion.div 
+              <m.div 
                 style={{ opacity: opacityText3, y: yText3 }} 
                 className="absolute bottom-0 right-0 w-full flex flex-col items-end pointer-events-auto"
               >
@@ -800,7 +757,7 @@ export default function Home() {
                     </div>
                   </div>
                 </NotchedBorderGlow>
-              </motion.div>
+              </m.div>
 
             </div>
 
@@ -820,7 +777,7 @@ export default function Home() {
 
       {/* 2.5. SECTION: MISSION (Interactive green handwriting animation under titles) */}
       <section id="mission" className={`relative min-h-screen py-32 flex flex-col justify-center border-b transition-colors duration-500 overflow-hidden ${
-        isDark ? "border-zinc-800 bg-[#0B0B0C]" : "border-zinc-200/60 bg-brand-light"
+        isDark ? "border-zinc-800" : "border-zinc-200/60"
       }`}>
         <TopoBackground opacityClass={isDark ? "opacity-[0.035]" : "opacity-[0.065]"} />
         <div className={`absolute inset-0 pointer-events-none transition-all duration-500 ${
@@ -959,9 +916,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER — Dark card design per reference */}
-      <footer className={`relative pt-16 pb-10 px-4 sm:px-6 transition-colors duration-500 overflow-hidden min-h-screen flex flex-col justify-center ${
-        isDark ? "bg-[#0B0B0C]" : "bg-brand-light"
-      }`}>
+      <footer className="relative pt-16 pb-10 px-4 sm:px-6 overflow-hidden min-h-screen flex flex-col justify-center">
         
         {/* Top Fade Gradient for seamless blending with section above */}
         <div className={`absolute top-0 left-0 w-full h-48 z-10 pointer-events-none bg-gradient-to-b ${
@@ -1087,5 +1042,6 @@ export default function Home() {
         toggleTheme={toggleTheme}
       />
     </div>
+    </LazyMotion>
   );
 }

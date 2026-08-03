@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import TopoBackground from "./TopoBackground";
 import NotchedBorderGlow from "./NotchedBorderGlow";
@@ -104,14 +104,14 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           className="fixed inset-0 z-[90] overflow-hidden"
           initial="closed"
           animate="open"
           exit="closed"
         >
           {/* Layer 1: Neon Green Stepped SVG Overlay */}
-          <motion.div
+          <m.div
             className="absolute inset-0 z-10 pointer-events-none"
             variants={{
               closed: { x: "-100%" },
@@ -126,10 +126,10 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
             }}
           >
             <SteppedTransitionLayer color="#39FF14" />
-          </motion.div>
+          </m.div>
 
           {/* Layer 2: Zinc/Gray Stepped SVG Overlay */}
-          <motion.div
+          <m.div
             className="absolute inset-0 z-20 pointer-events-none"
             variants={{
               closed: { x: "-100%" },
@@ -144,10 +144,10 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
             }}
           >
             <SteppedTransitionLayer color={isDark ? "#27272a" : "#e4e4e7"} />
-          </motion.div>
+          </m.div>
 
           {/* Layer 3: Main Full Screen Content Panel */}
-          <motion.div
+          <m.div
             className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6"
             style={{ backgroundColor: isDark ? "#0B0B0C" : "#FFFFFF" }}
             variants={{
@@ -173,7 +173,7 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
             <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 font-mono text-xs">
               
               {/* Left Column: Branding, Telemetry, and Links */}
-              <motion.div 
+              <m.div 
                 className="lg:col-span-5 flex flex-col justify-between min-h-[300px] border-l-2 border-brand-neon pl-8 py-4"
                 variants={metaVariants}
               >
@@ -210,12 +210,12 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
                     P: +49 (0)7141/2996700
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* Right Column: Dynamic Menu Items */}
               <ul className="lg:col-span-7 flex flex-col justify-center gap-6">
                 {menuItems.map((item, idx) => (
-                  <motion.li
+                  <m.li
                     key={item.label}
                     custom={idx}
                     variants={itemVariants}
@@ -235,13 +235,13 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
                       </span>
                       <span>{item.label}</span>
                     </a>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
 
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

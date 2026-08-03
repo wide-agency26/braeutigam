@@ -66,7 +66,6 @@
   border-radius: var(--card-radius);
   position: relative;
   background-blend-mode: color-dodge, normal, normal, normal;
-  animation: glow-bg 12s linear infinite;
   box-shadow: rgba(0, 0, 0, 0.8) calc((var(--pointer-from-left) * 10px) - 3px)
     calc((var(--pointer-from-top) * 20px) - 6px) 20px -5px;
   transition: transform 1s ease;
@@ -116,8 +115,12 @@
   transition: filter 0.8s ease;
   filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0.1); /* Reduced glare */
   animation: holo-bg 18s linear infinite;
-  animation-play-state: running;
+  animation-play-state: paused;
   mix-blend-mode: color-dodge;
+}
+
+.pc-card-wrapper.pc-visible .pc-shine {
+  animation-play-state: running;
 }
 
 .pc-shine,
@@ -400,16 +403,6 @@
   top: 4px; /* Increased margin */
   margin: 0 auto;
   color: #39ff14; /* neon green */
-}
-
-@keyframes glow-bg {
-  0% {
-    --bgrotate: 0deg;
-  }
-
-  100% {
-    --bgrotate: 360deg;
-  }
 }
 
 @keyframes holo-bg {

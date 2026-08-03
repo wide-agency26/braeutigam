@@ -2,3 +2,19 @@
   width: 100%;
   height: 100%;
 }
+
+/* The canvas attaches once the footer is approached, so ease it in. */
+.line-waves-container > canvas {
+  animation: line-waves-fade-in 500ms ease-out both;
+}
+
+@keyframes line-waves-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-waves-container > canvas {
+    animation: none;
+  }
+}

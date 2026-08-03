@@ -1,45 +1,53 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, MotionValue, useMotionValueEvent } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { MotionValue, useMotionValueEvent } from "framer-motion";
 
 interface TrackScrollMapProps {
   progress: MotionValue<number>;
   isDark: boolean;
 }
 
+/** Number of points sampled off the SVG path at mount. */
+const SAMPLES = 200;
+
 export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps) {
   const pathRef = useRef<SVGPathElement>(null);
-  const [dotPos, setDotPos] = useState({ x: 0, y: 0 });
-  const [pathLength, setPathLength] = useState(0);
+  const dotRef = useRef<SVGCircleElement>(null);
+  const pointsRef = useRef<Float32Array | null>(null);
 
   // Default path roughly resembling the provided map reference.
   // The user can swap this out with their exact SVG 'd' string later.
   const trackPath = "M 40 100 C 40 160, 80 180, 110 180 C 140 180, 170 140, 200 130 C 230 120, 260 100, 280 60 L 250 40 C 200 80, 160 80, 130 80 C 90 80, 80 40, 60 40 C 40 40, 40 100, 40 100 Z";
-  
-  // Measure the path total length on mount
+
+  // Sample the path once instead of calling getPointAtLength on every frame.
   useEffect(() => {
-    if (pathRef.current) {
-      setPathLength(pathRef.current.getTotalLength());
-      // Initialize dot at 0%
-      const startPoint = pathRef.current.getPointAtLength(0);
-      setDotPos({ x: startPoint.x, y: startPoint.y });
+    const path = pathRef.current;
+    if (!path) return;
+
+    const total = path.getTotalLength();
+    const points = new Float32Array((SAMPLES + 1) * 2);
+    for (let i = 0; i <= SAMPLES; i++) {
+      const p = path.getPointAtLength((i / SAMPLES) * total);
+      points[i * 2] = p.x;
+      points[i * 2 + 1] = p.y;
     }
+    pointsRef.current = points;
   }, []);
 
-  // Update dot position as scroll progress changes
   useMotionValueEvent(progress, "change", (latest) => {
-    if (pathRef.current && pathLength > 0) {
-      // Clamp progress between 0 and 1
-      const p = Math.min(Math.max(latest, 0), 1);
-      const lengthAtProgress = p * pathLength;
-      const point = pathRef.current.getPointAtLength(lengthAtProgress);
-      setDotPos({ x: point.x, y: point.y });
-    }
+    const points = pointsRef.current;
+    const dot = dotRef.current;
+    if (!points || !dot) return;
+
+    const p = Math.min(Math.max(latest, 0), 1);
+    const i = Math.round(p * SAMPLES) * 2;
+    dot.setAttribute("cx", String(points[i]));
+    dot.setAttribute("cy", String(points[i + 1]));
   });
 
   return (
-    <div className={`relative w-48 h-40 transition-all duration-500`}>
+    <div className="relative w-48 h-40 transition-all duration-500">
       {/* Container Background & Border with notched top-right corner */}
       <svg 
         className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-sm" 
@@ -51,7 +59,7 @@ export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps
           fill={isDark ? "rgba(24, 24, 27, 0.4)" : "rgba(255, 255, 255, 0.9)"}
           stroke={isDark ? "rgba(63, 63, 70, 0.8)" : "rgba(212, 212, 216, 0.8)"}
           strokeWidth="1"
-          className="transition-colors duration-500 backdrop-blur-md"
+          className="transition-colors duration-500"
         />
       </svg>
       
@@ -75,18 +83,17 @@ export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps
           />
           
           {/* The Moving Dot */}
-          {pathLength > 0 && (
-            <motion.circle 
-              cx={dotPos.x} 
-              cy={dotPos.y} 
-              r="10" 
-              fill={isDark ? "#39FF14" : "#000000"} 
-              className="transition-colors duration-500"
-              style={{
-                filter: isDark ? "drop-shadow(0px 0px 8px #39FF14)" : "none"
-              }}
-            />
-          )}
+          <circle
+            ref={dotRef}
+            cx="40"
+            cy="100"
+            r="10"
+            fill={isDark ? "#39FF14" : "#000000"}
+            className="transition-colors duration-500"
+            style={{
+              filter: isDark ? "drop-shadow(0px 0px 8px #39FF14)" : "none"
+            }}
+          />
         </svg>
       </div>
     </div>
