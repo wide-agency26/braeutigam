@@ -39,7 +39,6 @@ interface ProfileCardProps {
   contactText?: string;
   showUserInfo?: boolean;
   onContactClick?: () => void;
-  isDark?: boolean;
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
@@ -62,7 +61,6 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   contactText = 'Contact',
   showUserInfo = true,
   onContactClick,
-  isDark = true
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
@@ -348,9 +346,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT,
       '--behind-glow-color': behindGlowColor ?? 'rgba(57, 255, 20, 0.67)',
       '--behind-glow-size': behindGlowSize ?? '50%',
-      '--card-border-color': isDark ? 'rgba(57, 255, 20, 0.4)' : 'rgba(10, 150, 10, 0.5)'
     } as React.CSSProperties),
-    [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize, isDark]
+    [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]
   );
 
   const handleContactClick = useCallback(() => {

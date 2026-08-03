@@ -45,10 +45,13 @@ const mrDafoe = Mr_Dafoe({
   subsets: ["latin"],
 });
 
-/* ── Font 4: JetBrains Mono — mono/tech labels (kept as-is) ── */
+/* ── Font 4: JetBrains Mono — mono/tech labels ──
+   Only the weights the UI requests (regular labels + bold/semibold HUD). */
 const jetbrainsMono = JetBrains_Mono({
+  weight: ["400", "600", "700"],
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -56,21 +59,21 @@ export const metadata: Metadata = {
   description: "State-of-the-art carbon fiber engineering and autoclave curing for peak motorsport performance. Precision CAD-to-Carbon execution.",
 };
 
-import { SpeedInsights } from "@vercel/speed-insights/next";
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
+    // `dark` is the default theme — set on <html> so first paint matches and
+    // Tailwind `dark:` utilities work before the client ThemeProvider hydrates.
     <html
       lang="en"
-      className={`${universLTStd.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${mrDafoe.variable} ${jetbrainsMono.variable} antialiased`}
+      suppressHydrationWarning
+      className={`dark ${universLTStd.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${mrDafoe.variable} ${jetbrainsMono.variable} antialiased`}
     >
-      <body className="bg-[#111111] text-[#EDEDED] min-h-screen overflow-x-hidden">
+      <body className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         {children}
-        <SpeedInsights />
       </body>
     </html>
   );

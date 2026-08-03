@@ -28,7 +28,11 @@
   --sunpillar-clr-5: var(--sunpillar-5);
   --sunpillar-clr-6: var(--sunpillar-6);
   --card-radius: 2px;
-  --card-border-color: rgba(57, 255, 20, 0.3);
+  --card-border-color: rgba(10, 150, 10, 0.5);
+}
+
+.dark .pc-card-wrapper {
+  --card-border-color: rgba(57, 255, 20, 0.4);
 }
 
 .pc-card-wrapper {

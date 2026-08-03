@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
-import { useVisibility, useAfterPaint, usePrefersReducedMotion } from '../hooks/useVisible';
+import { useVisibility, useAfterSettled, usePrefersReducedMotion } from '../hooks/useVisible';
 
 import './MagicRings.css';
 
@@ -128,14 +128,15 @@ export default function MagicRings({
   const programRef = useRef<Program | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
   const { visible, hasBeenVisible } = useVisibility(mountRef);
-  const afterPaint = useAfterPaint();
+  // Wait past first paint/hydration, then attach. Short enough to feel instant;
+  // long enough that FCP/LCP aren't blocked by shader compile.
+  const settled = useAfterSettled(500, 1200);
   const reducedMotion = usePrefersReducedMotion();
   const active = visible && !reducedMotion;
 
-  // Shader compilation blocks paint, so hold it back until the browser has
-  // painted once. The hero is above the fold, so without this the canvas is
-  // built during hydration and FCP waits on it.
-  const shouldInit = hasBeenVisible && afterPaint && !reducedMotion;
+  // Shader compilation is synchronous and dominates Total Blocking Time under
+  // CPU throttle. Keep the hero looking finished first; attach WebGL after.
+  const shouldInit = hasBeenVisible && settled && !reducedMotion;
 
   // Values read inside the frame loop; kept in refs so the GL context is
   // never rebuilt when a prop (e.g. theme colour) changes.
@@ -152,7 +153,12 @@ export default function MagicRings({
 
     let renderer: Renderer;
     try {
-      renderer = new Renderer({ alpha: true, premultipliedAlpha: true });
+      // Cap DPR — 2× retina fills 4× the pixels for a soft ambient overlay.
+      renderer = new Renderer({
+        alpha: true,
+        premultipliedAlpha: true,
+        dpr: Math.min(window.devicePixelRatio || 1, 1.25),
+      });
     } catch {
       return;
     }
@@ -197,7 +203,7 @@ export default function MagicRings({
     const resize = () => {
       const w = mount.clientWidth;
       const h = mount.clientHeight;
-      renderer.dpr = Math.min(window.devicePixelRatio, 2);
+      renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       renderer.setSize(w, h);
       const res = program.uniforms.uResolution.value as Float32Array;
       res[0] = gl.canvas.width;

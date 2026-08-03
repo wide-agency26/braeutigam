@@ -219,11 +219,7 @@ const YEAR_FONT_SIZE: Record<string, string> = {
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
-interface HorizontalTimelineProps {
-  isDark: boolean;
-}
-
-export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) {
+export default function HorizontalTimeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   // Readouts driven by scroll are written straight to the DOM — putting them in
@@ -289,7 +285,6 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
   return (
     <section
       ref={sectionRef}
-      id="timeline"
       className="relative"
       style={{ height: "1100vh" }}
     >
@@ -297,32 +292,22 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* ── Top HUD Bar — positioned aligned with top menu ── */}
         <div
-          className={`absolute left-0 w-full z-30 pt-0 pb-4 px-6 md:px-12 flex justify-between items-end border-b transition-colors duration-500 ${
-            isDark
-              ? "border-zinc-800/60 bg-[#0B0B0C]/80"
-              : "border-zinc-200/60 bg-brand-light/80"
-          }`}
+          className={`absolute left-0 w-full z-30 pt-0 pb-4 px-6 md:px-12 flex justify-between items-end border-b transition-colors duration-500 border-zinc-200/60 bg-brand-light/80 dark:border-zinc-800/60 dark:bg-[#0B0B0C]/80`}
           style={{ top: "24px", backdropFilter: "blur(8px)" }}
         >
           <div className="font-mono border-l-2 border-brand-neon pl-3">
             <span
-              className={`text-[10px] tracking-widest font-semibold block uppercase transition-colors duration-500 ${
-                isDark ? "text-zinc-400" : "text-zinc-500"
-              }`}
+              className={`text-[10px] tracking-widest font-semibold block uppercase transition-colors duration-500 text-zinc-500 dark:text-zinc-400`}
             >
               [ Corporate Evolution ]
             </span>
             <h2
-              className={`font-sans text-2xl sm:text-3xl font-light uppercase tracking-tight leading-tight transition-colors duration-500 ${
-                isDark ? "text-white" : "text-zinc-950"
-              }`}
+              className={`font-sans text-2xl sm:text-3xl font-light uppercase tracking-tight leading-tight transition-colors duration-500 text-zinc-950 dark:text-white`}
             >
               Our Journey & History
             </h2>
             {/* Year + scroll data */}
-            <div className={`mt-1.5 flex items-center gap-5 font-mono text-[10px] tracking-wider transition-colors duration-500 ${
-              isDark ? "text-zinc-500" : "text-zinc-400"
-            }`}>
+            <div className={`mt-1.5 flex items-center gap-5 font-mono text-[10px] tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}>
               <span>
                 ACTIVE_YEAR:{" "}
                 <span ref={el => { yearRefs.current[0] = el; }} className="text-brand-neon font-bold text-xs">2016</span>
@@ -330,16 +315,14 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
               <span>SCROLL: <span ref={el => { pctRefs.current[0] = el; }} className="text-brand-neon font-bold">0%</span></span>
             </div>
           </div>
-          <div className={`font-mono text-[9px] tracking-wider transition-colors duration-500 flex items-center gap-4 ${isDark ? "text-zinc-500" : "text-zinc-400"}`}>
+          <div className={`font-mono text-[9px] tracking-wider transition-colors duration-500 flex items-center gap-4 text-zinc-400 dark:text-zinc-500`}>
             <span className="hidden md:inline">SCROLL TO EXPLORE →</span>
           </div>
         </div>
 
         {/* ── Section Header — compact, below HUD bar ── */}
         <m.div
-          className={`absolute left-6 md:left-12 z-20 pointer-events-none font-mono text-[9px] tracking-wider transition-colors duration-500 ${
-            isDark ? "text-zinc-500" : "text-zinc-400"
-          }`}
+          className={`absolute left-6 md:left-12 z-20 pointer-events-none font-mono text-[9px] tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}
           style={{ top: "120px", opacity: headerOpacity }}
         >
           <div className="flex items-center gap-3">
@@ -358,9 +341,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
             opacity: useTransform(scrollYProgress, [0.03, 0.06], [0, 1]),
           }}
         >
-          <div className={`flex items-center gap-4 text-xs tracking-wider transition-colors duration-500 ${
-            isDark ? "text-zinc-500" : "text-zinc-400"
-          }`}>
+          <div className={`flex items-center gap-4 text-xs tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}>
             <span ref={el => { yearRefs.current[1] = el; }} className="text-brand-neon font-bold text-lg">2016</span>
             <span ref={el => { pctRefs.current[1] = el; }} className="hidden sm:inline">0%</span>
           </div>
@@ -388,12 +369,11 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
                   }}
                 >
                   <span
-                    className="font-sans leading-[0.85] block"
+                    className="font-sans leading-[0.85] block opacity-[0.65] dark:opacity-[0.85]"
                     style={{
                       fontSize: YEAR_FONT_SIZE[segment.yearSize],
                       fontWeight: 100,
                       color: "#39FF14",
-                      opacity: isDark ? 0.85 : 0.65,
                     }}
                   >
                     {segment.year}
@@ -431,9 +411,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
                     />
                     {/* Subtle overlay for dark mode */}
                     <div
-                      className={`absolute inset-0 transition-opacity duration-500 ${
-                        isDark ? "bg-black/15" : "bg-transparent"
-                      }`}
+                      className={`absolute inset-0 transition-opacity duration-500 bg-transparent dark:bg-black/15`}
                     />
                   </m.div>
                 ))}
@@ -455,9 +433,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
                     transition={{ duration: 0.5, delay: 0.15 }}
                   >
                     <p
-                      className={`font-sans text-base md:text-xl lg:text-2xl leading-snug whitespace-pre-line transition-colors duration-500 ${
-                        isDark ? "text-zinc-200" : "text-zinc-900"
-                      }`}
+                      className={`font-sans text-base md:text-xl lg:text-2xl leading-snug whitespace-pre-line transition-colors duration-500 text-zinc-900 dark:text-zinc-200`}
                     >
                       {desc.boldPrefix && (
                         <span className="font-bold">{desc.boldPrefix}</span>
@@ -476,31 +452,23 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
 
         {/* ── Bottom Zone Container — segment info at top, controls at bottom ── */}
         <div
-          className={`absolute bottom-0 left-0 w-full z-30 border-t transition-colors duration-500 ${
-            isDark ? "border-zinc-800/40 bg-[#0B0B0C]/80" : "border-zinc-200/60 bg-brand-light/80"
-          }`}
+          className={`absolute bottom-0 left-0 w-full z-30 border-t transition-colors duration-500 border-zinc-200/60 bg-brand-light/80 dark:border-zinc-800/40 dark:bg-[#0B0B0C]/80`}
           style={{ height: "90px", backdropFilter: "blur(8px)" }}
         >
           {/* Segment info row — top of bottom zone */}
           <div
-            className={`absolute top-0 left-0 w-full px-6 md:px-12 py-2 font-mono text-[10px] tracking-widest uppercase transition-colors duration-500 ${
-              isDark ? "text-zinc-600" : "text-zinc-400"
-            }`}
+            className={`absolute top-0 left-0 w-full px-6 md:px-12 py-2 font-mono text-[10px] tracking-widest uppercase transition-colors duration-500 text-zinc-400 dark:text-zinc-600`}
           >
             <div className="flex items-center gap-2">
               <span ref={el => { yearRefs.current[2] = el; }} className="text-brand-neon font-bold">2016</span>
               <span ref={segRef}>{"// SEG_01"}</span>
-              <span className={`ml-4 hidden sm:inline transition-colors duration-500 ${
-                isDark ? "text-zinc-700" : "text-zinc-300"
-              }`}>2016 ————— 2026</span>
+              <span className={`ml-4 hidden sm:inline transition-colors duration-500 text-zinc-300 dark:text-zinc-700`}>2016 ————— 2026</span>
             </div>
           </div>
 
           {/* Progress bar — between info and controls */}
           <div
-            className={`absolute left-0 w-full h-[2px] transition-colors duration-500 ${
-              isDark ? "bg-zinc-800/40" : "bg-zinc-200"
-            }`}
+            className={`absolute left-0 w-full h-[2px] transition-colors duration-500 bg-zinc-200 dark:bg-zinc-800/40`}
             style={{ top: "32px" }}
           >
             <m.div
@@ -516,9 +484,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
           <div className="absolute bottom-3 left-0 w-full px-6 md:px-12 flex justify-between items-center">
             {/* Left: scroll arrow */}
             <div
-              className={`font-mono text-[9px] tracking-wider flex items-center gap-3 transition-colors duration-500 ${
-                isDark ? "text-zinc-500" : "text-zinc-400"
-              }`}
+              className={`font-mono text-[9px] tracking-wider flex items-center gap-3 transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}
             >
               <svg
                 width="16"
@@ -536,9 +502,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
 
             {/* Center: year range */}
             <div
-              className={`font-mono text-[9px] tracking-wider transition-colors duration-500 hidden md:block ${
-                isDark ? "text-zinc-600" : "text-zinc-400"
-              }`}
+              className={`font-mono text-[9px] tracking-wider transition-colors duration-500 hidden md:block text-zinc-400 dark:text-zinc-600`}
             >
               HISTORICAL ARCHIVE // 2016–2026
             </div>
@@ -546,11 +510,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
             {/* Right: skip button */}
             <button
               onClick={handleSkip}
-              className={`font-mono text-[10px] tracking-wider uppercase px-4 py-2 rounded-sm border transition-all duration-300 cursor-pointer flex items-center gap-2 group ${
-                isDark
-                  ? "border-zinc-700 text-zinc-400 hover:border-brand-neon hover:text-brand-neon bg-zinc-900/60"
-                  : "border-zinc-300 text-zinc-500 hover:border-brand-neon hover:text-brand-neon bg-white/60"
-              }`}
+              className={`font-mono text-[10px] tracking-wider uppercase px-4 py-2 rounded-sm border transition-all duration-300 cursor-pointer flex items-center gap-2 group border-zinc-300 text-zinc-500 hover:border-brand-neon hover:text-brand-neon bg-white/60 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-brand-neon dark:hover:text-brand-neon dark:bg-zinc-900/60`}
               style={{ backdropFilter: "blur(4px)" }}
             >
               Skip
@@ -571,9 +531,7 @@ export default function HorizontalTimeline({ isDark }: HorizontalTimelineProps) 
 
         {/* ── Left vertical year ticks — centered between top and bottom zones ── */}
         <div
-          className={`absolute left-3 md:left-6 flex flex-col gap-1 z-20 font-mono text-[7px] tracking-wider transition-colors duration-500 ${
-            isDark ? "text-zinc-700" : "text-zinc-300"
-          }`}
+          className={`absolute left-3 md:left-6 flex flex-col gap-1 z-20 font-mono text-[7px] tracking-wider transition-colors duration-500 text-zinc-300 dark:text-zinc-700`}
           style={{ top: "50%", transform: "translateY(-50%)", marginTop: "30px" }}
         >
           {TIMELINE_DATA.map((seg, i) => (

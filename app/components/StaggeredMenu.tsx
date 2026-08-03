@@ -2,19 +2,15 @@
 
 import React from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
 import TopoBackground from "./TopoBackground";
-import NotchedBorderGlow from "./NotchedBorderGlow";
 import "./StaggeredMenu.css";
 
 interface StaggeredMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  isDark: boolean;
-  toggleTheme: () => void;
 }
 
-const SteppedTransitionLayer = ({ color }: { color: string }) => {
+const SteppedTransitionLayer = ({ className }: { className: string }) => {
   return (
     <svg
       width="100%"
@@ -24,6 +20,7 @@ const SteppedTransitionLayer = ({ color }: { color: string }) => {
       style={{ display: "block", width: "100%", height: "100%" }}
     >
       <path
+        className={className}
         d="M 0,0 
            L 45,0 
            Q 50,0 50,5 
@@ -47,13 +44,12 @@ const SteppedTransitionLayer = ({ color }: { color: string }) => {
            Q 50,100 45,100 
            L 0,100 
            Z"
-        fill={color}
       />
     </svg>
   );
 };
 
-export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: StaggeredMenuProps) {
+export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
   const menuItems = [
     { label: "HOME", link: "#silhouette" },
     { label: "LEISTUNGEN", link: "#story" },
@@ -125,7 +121,7 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
               transition: { duration: 0.5, ease: [0.7, 0, 0.84, 0] as const } 
             }}
           >
-            <SteppedTransitionLayer color="#39FF14" />
+            <SteppedTransitionLayer className="fill-brand-neon" />
           </m.div>
 
           {/* Layer 2: Zinc/Gray Stepped SVG Overlay */}
@@ -143,13 +139,12 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
               transition: { duration: 0.5, delay: 0.05, ease: [0.7, 0, 0.84, 0] as const } 
             }}
           >
-            <SteppedTransitionLayer color={isDark ? "#27272a" : "#e4e4e7"} />
+            <SteppedTransitionLayer className="fill-zinc-200 dark:fill-zinc-700" />
           </m.div>
 
           {/* Layer 3: Main Full Screen Content Panel */}
           <m.div
-            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6"
-            style={{ backgroundColor: isDark ? "#0B0B0C" : "#FFFFFF" }}
+            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 bg-white dark:bg-[#0B0B0C]"
             variants={{
               closed: { x: "-100%" },
               open: { 
@@ -163,12 +158,10 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
             }}
           >
             {/* Fine Technical Grid background on panel */}
-            <div className={`absolute inset-0 pointer-events-none ${
-              isDark ? "technical-grid technical-grid-fine opacity-20" : "technical-grid-light technical-grid-fine-light opacity-30"
-            }`} />
+            <div className="absolute inset-0 pointer-events-none technical-grid-theme opacity-30 dark:opacity-20" />
             
             {/* Subtle Topo curves */}
-            <TopoBackground opacityClass={isDark ? "opacity-[0.02]" : "opacity-[0.04]"} />
+            <TopoBackground opacityClass="opacity-[0.04] dark:opacity-[0.02]" />
 
             <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 font-mono text-xs">
               
@@ -178,23 +171,17 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
                 variants={metaVariants}
               >
                 <div>
-                  <span className={`font-bold text-lg px-3 py-1 uppercase tracking-tight ${
-                    isDark ? "text-zinc-950 bg-zinc-100" : "text-zinc-100 bg-zinc-900"
-                  }`}>
+                  <span className="font-bold text-lg px-3 py-1 uppercase tracking-tight text-zinc-100 bg-zinc-900 dark:text-zinc-950 dark:bg-zinc-100">
                     BRÄUTIGAM
                   </span>
-                  <div className={`text-[10px] tracking-wider mt-4 leading-relaxed ${
-                    isDark ? "text-zinc-500" : "text-zinc-400"
-                  }`}>
+                  <div className="text-[10px] tracking-wider mt-4 leading-relaxed text-zinc-400 dark:text-zinc-500">
                     <div>DIVISION // COMPOSITE ENGINEERING</div>
                     <div>PROJECT // AERO_HYPERCAR_v2.0</div>
                     <div>STATUS // SYSTEM_ACTIVE</div>
                   </div>
                 </div>
 
-                <div className={`text-[10px] tracking-widest leading-loose ${
-                  isDark ? "text-zinc-400" : "text-zinc-600"
-                }`}>
+                <div className="text-[10px] tracking-widest leading-loose text-zinc-600 dark:text-zinc-400">
                   <div>Daimlerstraße 13</div>
                   <div>D-71691 Freiberg am Neckar</div>
                   <div className="mt-4">
@@ -224,11 +211,7 @@ export default function StaggeredMenu({ isOpen, onClose, isDark, toggleTheme }: 
                     <a
                       href={item.link}
                       onClick={(e) => handleLinkClick(e, item.link)}
-                      className={`font-heading-bold text-4xl sm:text-6xl font-normal uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 ${
-                        isDark 
-                          ? "text-zinc-100 hover:text-brand-neon" 
-                          : "text-zinc-950 hover:text-brand-neon"
-                      }`}
+                      className="font-heading-bold text-4xl sm:text-6xl font-normal uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
                     >
                       <span className="text-brand-neon font-mono text-base font-semibold">
                         0{idx + 1}

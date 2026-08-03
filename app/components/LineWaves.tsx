@@ -185,7 +185,11 @@ export default function LineWaves({
     if (!shouldInit) return;
     if (!containerRef.current) return;
     const container = containerRef.current;
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+    const renderer = new Renderer({
+      alpha: true,
+      premultipliedAlpha: false,
+      dpr: Math.min(window.devicePixelRatio || 1, 1.5),
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
 
@@ -230,6 +234,7 @@ export default function LineWaves({
     });
 
     function resize() {
+      renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       renderer.setSize(container.offsetWidth, container.offsetHeight);
       program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
     }

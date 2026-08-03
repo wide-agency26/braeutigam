@@ -1,0 +1,37 @@
+/* Instant stand-in for the WebGL rings — visible until a canvas mounts. */
+.magic-rings-poster {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Concentric soft rings that read as the green radar without GPU cost. */
+  background:
+    radial-gradient(circle at 50% 50%, transparent 14%, rgba(57, 255, 20, 0.55) 14.5%, transparent 15.5%),
+    radial-gradient(circle at 50% 50%, transparent 22%, rgba(57, 255, 20, 0.4) 22.5%, transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 31%, rgba(57, 255, 20, 0.32) 31.5%, transparent 33.5%),
+    radial-gradient(circle at 50% 50%, transparent 41%, rgba(57, 255, 20, 0.22) 41.5%, transparent 44%),
+    radial-gradient(circle at 50% 50%, transparent 52%, rgba(57, 255, 20, 0.14) 52.5%, transparent 56%),
+    radial-gradient(circle at 50% 52%, rgba(57, 255, 20, 0.12) 0%, transparent 45%);
+  opacity: 1;
+  transition: opacity 280ms ease-out;
+}
+
+.light .magic-rings-poster {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 14%, rgba(100, 116, 139, 0.45) 14.5%, transparent 15.5%),
+    radial-gradient(circle at 50% 50%, transparent 22%, rgba(100, 116, 139, 0.35) 22.5%, transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 31%, rgba(100, 116, 139, 0.28) 31.5%, transparent 33.5%),
+    radial-gradient(circle at 50% 50%, transparent 41%, rgba(100, 116, 139, 0.18) 41.5%, transparent 44%),
+    radial-gradient(circle at 50% 50%, transparent 52%, rgba(100, 116, 139, 0.1) 52.5%, transparent 56%),
+    radial-gradient(circle at 50% 52%, rgba(148, 163, 184, 0.15) 0%, transparent 45%);
+}
+
+/* Crossfade poster out once the real WebGL canvas is in the tree. */
+.magic-rings-stage:has(canvas) .magic-rings-poster {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magic-rings-poster {
+    transition: none;
+  }
+}

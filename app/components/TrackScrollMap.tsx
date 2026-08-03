@@ -5,13 +5,12 @@ import { MotionValue, useMotionValueEvent } from "framer-motion";
 
 interface TrackScrollMapProps {
   progress: MotionValue<number>;
-  isDark: boolean;
 }
 
 /** Number of points sampled off the SVG path at mount. */
 const SAMPLES = 200;
 
-export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps) {
+export default function TrackScrollMap({ progress }: TrackScrollMapProps) {
   const pathRef = useRef<SVGPathElement>(null);
   const dotRef = useRef<SVGCircleElement>(null);
   const pointsRef = useRef<Float32Array | null>(null);
@@ -56,10 +55,8 @@ export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps
       >
         <path 
           d="M 0 5 L 0 95 C 0 97.76, 2.24 100, 5 100 L 95 100 C 97.76 100, 100 97.76, 100 95 L 100 20 L 80 0 L 5 0 C 2.24 0, 0 2.24, 0 5 Z" 
-          fill={isDark ? "rgba(24, 24, 27, 0.4)" : "rgba(255, 255, 255, 0.9)"}
-          stroke={isDark ? "rgba(63, 63, 70, 0.8)" : "rgba(212, 212, 216, 0.8)"}
+          className="fill-white/90 stroke-zinc-300/80 dark:fill-zinc-900/40 dark:stroke-zinc-700/80 transition-colors duration-500"
           strokeWidth="1"
-          className="transition-colors duration-500"
         />
       </svg>
       
@@ -75,11 +72,10 @@ export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps
             ref={pathRef}
             d={trackPath}
             fill="none"
-            stroke={isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.8)"}
+            className="stroke-black/80 dark:stroke-white/15 transition-colors duration-500"
             strokeWidth="8"
             strokeLinejoin="round"
             strokeLinecap="round"
-            className="transition-colors duration-500"
           />
           
           {/* The Moving Dot */}
@@ -88,11 +84,7 @@ export default function TrackScrollMap({ progress, isDark }: TrackScrollMapProps
             cx="40"
             cy="100"
             r="10"
-            fill={isDark ? "#39FF14" : "#000000"}
-            className="transition-colors duration-500"
-            style={{
-              filter: isDark ? "drop-shadow(0px 0px 8px #39FF14)" : "none"
-            }}
+            className="fill-black dark:fill-brand-neon transition-colors duration-500 dark:[filter:drop-shadow(0px_0px_8px_#39FF14)]"
           />
         </svg>
       </div>

@@ -29,10 +29,11 @@ export function useVisibility(
   });
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
+    let cancelled = false;
+    let io: IntersectionObserver | null = null;
     let inViewport = false;
+    let raf = 0;
+    let attempts = 0;
 
     const sync = () => {
       const visible = inViewport && document.visibilityState === "visible";
@@ -43,19 +44,33 @@ export function useVisibility(
       );
     };
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        inViewport = entry.isIntersecting;
-        sync();
-      },
-      { rootMargin }
-    );
-    io.observe(el);
+    // Dynamic imports (ssr: false) can mount before the ref is attached.
+    // Retry a few frames instead of bailing forever with hasBeenVisible=false.
+    const attach = () => {
+      if (cancelled) return;
+      const el = ref.current;
+      if (!el) {
+        if (attempts++ < 30) raf = requestAnimationFrame(attach);
+        return;
+      }
 
-    document.addEventListener("visibilitychange", sync);
+      io = new IntersectionObserver(
+        ([entry]) => {
+          inViewport = entry.isIntersecting;
+          sync();
+        },
+        { rootMargin }
+      );
+      io.observe(el);
+      document.addEventListener("visibilitychange", sync);
+    };
+
+    attach();
 
     return () => {
-      io.disconnect();
+      cancelled = true;
+      if (raf) cancelAnimationFrame(raf);
+      io?.disconnect();
       document.removeEventListener("visibilitychange", sync);
     };
   }, [ref, rootMargin]);
@@ -107,6 +122,66 @@ export function useAfterPaint() {
   }, []);
 
   return painted;
+}
+
+/**
+ * False until the page has had time to paint/hydrate AND the main thread is
+ * idle — or the user interacts (after a short floor).
+ *
+ * Hero WebGL is decorative. Compiling it during hydration tanks TBT; waiting
+ * a few hundred ms (or first pointer/key) keeps FCP clean while rings still
+ * feel immediate.
+ */
+export function useAfterSettled(minMs = 500, idleTimeout = 1200) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (ready) return;
+
+    const w = window as IdleWindow;
+    let done = false;
+    let idleHandle = 0;
+    let minTimer = 0;
+    let fallbackTimer = 0;
+    const started = performance.now();
+
+    const finish = () => {
+      if (done) return;
+      done = true;
+      setReady(true);
+    };
+
+    const armIdle = () => {
+      if (typeof w.requestIdleCallback === "function") {
+        idleHandle = w.requestIdleCallback(finish, { timeout: idleTimeout });
+      } else {
+        fallbackTimer = window.setTimeout(finish, 0);
+      }
+    };
+
+    // Never start shader work before minMs — keeps it out of the critical path.
+    minTimer = window.setTimeout(armIdle, minMs);
+
+    // Interactive users shouldn't wait — unlock almost immediately.
+    const onInteract = () => {
+      if (performance.now() - started >= 100) finish();
+    };
+    window.addEventListener("pointerdown", onInteract, { once: true, passive: true });
+    window.addEventListener("keydown", onInteract, { once: true });
+    window.addEventListener("touchstart", onInteract, { once: true, passive: true });
+
+    return () => {
+      done = true;
+      if (minTimer) clearTimeout(minTimer);
+      if (fallbackTimer) clearTimeout(fallbackTimer);
+      if (idleHandle) w.cancelIdleCallback?.(idleHandle);
+      window.removeEventListener("pointerdown", onInteract);
+      window.removeEventListener("keydown", onInteract);
+      window.removeEventListener("touchstart", onInteract);
+    };
+  }, [ready, minMs, idleTimeout]);
+
+  return ready;
 }
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";

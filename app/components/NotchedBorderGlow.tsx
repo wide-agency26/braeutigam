@@ -110,7 +110,6 @@ interface NotchedBorderGlowProps {
   coneSpread?: number;
   colors?: string[];
   fillOpacity?: number;
-  isDark?: boolean;
   active?: boolean;
   noPadding?: boolean;
 }
@@ -129,7 +128,6 @@ export default function NotchedBorderGlow({
   coneSpread = 25,
   colors,
   fillOpacity = 0.35,
-  isDark = true,
   active = true,
   noPadding = false
 }: NotchedBorderGlowProps) {
@@ -160,13 +158,13 @@ export default function NotchedBorderGlow({
     return () => observer.disconnect();
   }, []);
 
-  // Set default glow gradient colors based on theme and active state
-  const defaultColors = isDark 
-    ? (active ? ["#39FF14", "#22c55e", "#16a34a"] : ["#4b5563", "#374151", "#1f2937"])
-    : (active ? ["#39FF14", "#71717a", "#27272a"] : ["#d4d4d8", "#e4e4e7", "#f4f4f5"]);
+  // Theme colors live on CSS vars (--nbg-*) so light/dark flips without a prop.
+  const defaultColors = active
+    ? ["var(--nbg-c0)", "var(--nbg-c1)", "var(--nbg-c2)"]
+    : ["var(--nbg-c0-off)", "var(--nbg-c1-off)", "var(--nbg-c2-off)"];
 
   const finalColors = colors || defaultColors;
-  const defaultBgColor = backgroundColor || (isDark ? "#0B0B0C" : "#FFFFFF");
+  const defaultBgColor = backgroundColor || "var(--nbg-bg)";
 
   // One layout read per pointer event, coalesced into a single frame.
   const pointerRef = useRef({ x: 0, y: 0 });
@@ -225,9 +223,9 @@ export default function NotchedBorderGlow({
   const gradientVars = useMemo(() => buildGradientVars(colorsKey.split(",")), [colorsKey]);
 
   // Setup static border values when mouse is away
-  const staticBorderColor = isDark 
-    ? (active ? "rgba(57, 255, 20, 0.45)" : "rgba(255, 255, 255, 0.12)") 
-    : (active ? "rgba(39, 39, 42, 0.5)" : "rgba(212, 212, 216, 0.8)");
+  const staticBorderColor = active
+    ? "var(--nbg-static-border-active)"
+    : "var(--nbg-static-border)";
 
   // Generate paths for outer (full w, h) and inner (1px inset on all sides)
   const outerPath = getPathD(dimensions.width, dimensions.height, notchPosition, borderRadius, notchSize);
@@ -303,7 +301,7 @@ export default function NotchedBorderGlow({
               <path
                 d={outerPath}
                 fill="none"
-                stroke={`var(--glow-color, ${isDark ? "#39FF14" : "#27272a"})`}
+                stroke="var(--glow-color, var(--nbg-glow-stroke))"
                 strokeWidth="4"
               />
             </svg>
