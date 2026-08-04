@@ -13,7 +13,10 @@
   --font-sans: var(--font-univers), sans-serif;
   --font-heading: var(--font-dxburst), var(--font-univers), sans-serif;
   --font-heading-bold: var(--font-dxburst-bold), var(--font-univers), sans-serif;
-  --font-script: var(--font-mr-dafoe), cursive;
+  /* Bootzy TM accents — next/font exposes --font-bootzy on <html> */
+  --font-accent: var(--font-bootzy), sans-serif;
+  /* Oswald — Figma footer display */
+  --font-footer: var(--font-oswald), var(--font-univers), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
@@ -243,14 +246,13 @@ body {
 
 /* Resting transform lives on the class so the reduced-motion fallback below
    keeps the design's tilt even with the animation switched off. */
-.hero-works {
-  transform: rotate(-12deg);
-  animation: hero-works 400ms cubic-bezier(0, 0, 0.58, 1) 120ms both;
+.hero-since {
+  animation: hero-since 400ms cubic-bezier(0, 0, 0.58, 1) 120ms both;
 }
 
-@keyframes hero-works {
-  from { opacity: 0; transform: scale(0.8) rotate(-25deg); }
-  to   { opacity: 1; transform: scale(1) rotate(-12deg); }
+@keyframes hero-since {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .hero-chevron {
@@ -264,8 +266,649 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-rise,
-  .hero-works,
+  .hero-since,
   .hero-chevron {
     animation: none;
   }
+}
+
+/* ── Journey Timeline Intro (Figma Final Home) ── */
+.journey-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  overflow: hidden;
+  padding: clamp(88px, 8vw, 132px) clamp(20px, 3.4375vw, 66px)
+    clamp(40px, 5vw, 80px);
+  /* Cover the strip until this intro fades */
+  background: var(--background);
+}
+.journey-intro__copy {
+  position: relative;
+  z-index: 2;
+  max-width: 432px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+.journey-intro__label {
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-weight: 300;
+  font-size: 9px;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #b2b1b3;
+  margin-bottom: clamp(16px, 1.7vw, 24px);
+}
+.journey-intro__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 4.06vw, 4.86875rem); /* 77.9px */
+  line-height: 0.84;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #131414;
+}
+.dark .journey-intro__title {
+  color: #fbfafc;
+}
+.journey-intro__hud {
+  margin-top: clamp(28px, 4vw, 56px);
+  width: min(100%, 242px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 16.5px);
+}
+.journey-intro__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #b2b1b3;
+}
+.journey-intro__value {
+  color: #00ff00;
+}
+.journey-intro__watermark {
+  position: absolute;
+  left: clamp(280px, 43.7vw, 840px);
+  top: clamp(100px, 14vw, 156px);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.journey-intro__watermark p {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: clamp(4rem, 17.2vw, 20.625rem); /* 330px */
+  line-height: 0.58;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+  white-space: nowrap;
+}
+:root:not(.dark) .journey-intro__label,
+:root:not(.dark) .journey-intro__row {
+  color: #52525b;
+}
+:root:not(.dark) .journey-intro__watermark p {
+  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.4);
+}
+@media (max-width: 768px) {
+  .journey-intro__watermark {
+    left: 8%;
+    top: 42%;
+    opacity: 0.55;
+  }
+  .journey-intro__watermark p {
+    font-size: clamp(3.5rem, 22vw, 8rem);
+  }
+}
+
+/* ── Manifest (Figma Final Home — CSS dump) ── */
+.manifest-figma__line {
+  margin: 0;
+  max-width: 72rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 6.2vw, 7.4406rem); /* 119.05px */
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #131414;
+}
+.dark .manifest-figma__line {
+  /* Figma Gradient White base #FBFAFC (clip skipped so DecryptedText works) */
+  color: #fbfafc;
+}
+.manifest-figma__neon {
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 6.6vw, 7.9408rem); /* 127.053px */
+  line-height: 0.85;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #00ff00;
+  -webkit-text-fill-color: #00ff00;
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+.manifest-figma__line .manifest-figma__neon {
+  display: inline;
+  font-size: inherit;
+  letter-spacing: 0.03em;
+}
+.manifest-figma__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+}
+.manifest-figma__block .manifest-figma__neon {
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Mission (Figma 989:2 @ 1920×960) ── */
+.mission-figma {
+  min-height: min(100svh, 960px);
+  padding: clamp(80px, 6.875vw, 132px) clamp(20px, 3.4375vw, 66px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mission-figma__watermark {
+  position: absolute;
+  top: clamp(40px, 6vw, 100px);
+  left: clamp(12px, 3.4vw, 66px);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  overflow: visible;
+}
+.mission-figma__watermark p {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-size: clamp(5.5rem, 17.2vw, 330px);
+  line-height: 0.58;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: transparent;
+  /* Figma: border 1px solid rgba(0, 255, 0, 0.5) */
+  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+}
+.dark .mission-figma__watermark p {
+  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+}
+.mission-figma__grid {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
+  column-gap: clamp(12px, 0.86vw, 16.5px);
+  row-gap: clamp(32px, 4vw, 66px);
+  align-items: end;
+  min-height: clamp(420px, 50vw, 640px);
+}
+.mission-figma__headline {
+  grid-column: 2 / span 4;
+  grid-row: 1;
+  align-self: center;
+  z-index: 1;
+  margin-top: clamp(80px, 12vw, 180px);
+}
+.mission-figma__quality {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 6.2vw, 119.05px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #fbfafc;
+}
+.dark .mission-figma__quality {
+  background: linear-gradient(
+      180deg,
+      rgba(19, 20, 20, 0.2) -9.15%,
+      rgba(251, 250, 252, 0.2) 36.23%
+    ),
+    #fbfafc;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.mission-figma__perf {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6.62vw, 127.053px);
+  line-height: 0.85;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #00ff00;
+}
+.mission-figma__aside {
+  grid-column: 6 / span 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(12px, 0.86vw, 16.5px);
+  max-width: 499px;
+}
+.mission-figma__status {
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: -0.18px;
+  text-transform: uppercase;
+  color: #b2b1b2;
+}
+.mission-figma__copy {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.04vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: #b2b1b2;
+}
+.mission-figma__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 50px;
+  background: rgba(0, 255, 0, 0.5);
+  color: #131414;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+.mission-figma__btn:hover,
+.mission-figma__btn:focus-visible {
+  background: #00ff00;
+  outline: none;
+}
+.mission-figma__hud {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  z-index: 1;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #b2b1b2;
+}
+.mission-figma__hud > p {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: -0.26px;
+  line-height: 0.9;
+}
+.mission-figma__axes {
+  margin-top: 8px !important;
+  font-size: 9px !important;
+  letter-spacing: -0.18px !important;
+  opacity: 0.9;
+}
+@media (max-width: 1024px) {
+  .mission-figma__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    min-height: 0;
+    gap: 40px;
+  }
+  .mission-figma__headline,
+  .mission-figma__aside,
+  .mission-figma__hud {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 0;
+    max-width: none;
+  }
+  .mission-figma__headline {
+    margin-top: clamp(100px, 28vw, 160px);
+  }
+  .mission-figma__watermark p {
+    font-size: clamp(4.5rem, 22vw, 180px);
+  }
+}
+:root:not(.dark) .mission-figma__quality {
+  color: #111111;
+  background: none;
+  -webkit-text-fill-color: #111111;
+}
+:root:not(.dark) .mission-figma__watermark p {
+  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.35);
+}
+:root:not(.dark) .mission-figma__status,
+:root:not(.dark) .mission-figma__copy,
+:root:not(.dark) .mission-figma__hud {
+  color: #52525b;
+}
+
+/* ── Footer — Figma 1154:1356 ──
+   Frame SVG defines the box; content lives inside its notches. */
+.footer-figma-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Figma node 1920×800 with a 1854×696 frame → 33 / 52 margins */
+  padding: clamp(24px, 2.71vw, 52px) clamp(12px, 1.72vw, 33px);
+  box-sizing: border-box;
+}
+
+.footer-figma {
+  position: relative;
+  width: min(100%, 1854px);
+  aspect-ratio: 1854 / 696;
+  container-type: inline-size;
+  margin-inline: auto;
+}
+
+.footer-figma__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  object-fit: fill;
+}
+
+.footer-figma__inner {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Centered triad — Figma Main Content, flex gap 198 / 1854 = 10.68cqi */
+.footer-figma__main {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10.68cqi;
+}
+
+.footer-figma__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 0.983;
+  flex-shrink: 0;
+}
+
+.footer-figma__nav a {
+  /* Oswald Medium 74.652 → 4.026cqi of the 1854 frame */
+  font-family: var(--font-footer);
+  font-weight: 500;
+  font-size: 4.026cqi;
+  line-height: 0.983;
+  letter-spacing: -0.06em;
+  color: #ece1e1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.footer-figma__nav a:hover {
+  color: #00ff00;
+}
+
+.footer-figma__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.431cqi; /* 8 / 1854 */
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.footer-figma__logo {
+  /* Oswald Medium 132.929 → 7.17cqi; Figma box height 197 ⇒ line 1.482 */
+  font-family: var(--font-footer);
+  font-weight: 500;
+  font-size: 7.17cqi;
+  line-height: 1.482;
+  letter-spacing: -0.06em;
+  color: #e9ece8;
+  white-space: nowrap;
+}
+
+.footer-figma__since {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.footer-figma__since img {
+  grid-area: 1 / 1;
+  width: 12.62cqi; /* 234 / 1854 */
+  height: auto;
+}
+
+.footer-figma__since span {
+  grid-area: 1 / 1;
+  font-family: var(--font-bootzy), sans-serif;
+  font-size: 2.152cqi; /* 39.9 */
+  line-height: 0.84;
+  letter-spacing: 0.03em;
+  color: #00ff00;
+  text-align: center;
+  transform: translateY(0.17cqi);
+}
+
+/* Bottom Bar — spans the full frame width, sits in the bottom notches */
+.footer-figma__bottom {
+  position: absolute;
+  left: 0.15%;
+  right: 0.15%;
+  bottom: 1.4%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4cqi;
+}
+
+.footer-figma__imprint {
+  display: flex;
+  align-items: center;
+  gap: 0.863cqi; /* 16 */
+  font-family: var(--font-bootzy), sans-serif;
+  font-size: 1.187cqi; /* 22 */
+  line-height: 1.1;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.footer-figma__imprint a {
+  color: #fbfafc;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.footer-figma__imprint a:hover {
+  color: #00ff00;
+}
+
+.footer-figma__legal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.863cqi; /* 16 */
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-weight: 400;
+  font-size: 0.647cqi; /* 12 */
+  line-height: 1.35;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+}
+
+.footer-figma__legal a {
+  color: #fbfafc;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.footer-figma__legal a:hover {
+  color: #00ff00;
+}
+
+.footer-figma__credit {
+  font-family: var(--font-bootzy), sans-serif;
+  font-size: 1.187cqi; /* 22 */
+  letter-spacing: 0.09em;
+  line-height: 1.1;
+  color: #ece1e1;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.footer-figma__credit:hover {
+  color: #00ff00;
+}
+
+@media (max-width: 900px) {
+  .footer-figma {
+    aspect-ratio: auto;
+    min-height: 560px;
+  }
+  .footer-figma__frame {
+    height: 100%;
+  }
+  .footer-figma__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 48px 28px 36px;
+    box-sizing: border-box;
+  }
+  .footer-figma__main,
+  .footer-figma__bottom {
+    position: static;
+    inset: auto;
+  }
+  .footer-figma__main {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .footer-figma__nav a {
+    font-size: clamp(1.75rem, 7.5vw, 3rem);
+  }
+  .footer-figma__logo {
+    font-size: clamp(2.25rem, 11vw, 4.5rem);
+  }
+  .footer-figma__since img {
+    width: clamp(150px, 34vw, 234px);
+  }
+  .footer-figma__since span {
+    font-size: clamp(1.05rem, 5.8vw, 2.5rem);
+  }
+  .footer-figma__bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .footer-figma__legal {
+    flex-wrap: wrap;
+    white-space: normal;
+    font-size: 11px;
+    gap: 6px 14px;
+  }
+  .footer-figma__imprint,
+  .footer-figma__credit {
+    font-size: 15px;
+  }
+  .footer-figma__imprint {
+    gap: 16px;
+  }
+}
+
+.social-fan {
+  position: relative;
+  width: min(100%, 1100px);
+  height: clamp(280px, 48vw, 520px);
+  margin-inline: auto;
+}
+.social-fan__card {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  width: clamp(120px, 22vw, 220px);
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  overflow: hidden;
+  transform-origin: center bottom;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  will-change: transform;
+  transition: transform 400ms cubic-bezier(0, 0, 0.58, 1);
+  contain: layout paint;
+}
+.social-fan__card:nth-child(1) { transform: translate(-50%, 18%) rotate(-24deg) translateX(-210%); }
+.social-fan__card:nth-child(2) { transform: translate(-50%, 6%) rotate(-14deg) translateX(-110%); }
+.social-fan__card:nth-child(3) { transform: translate(-50%, 0) rotate(-5deg) translateX(-28%); }
+.social-fan__card:nth-child(4) { transform: translate(-50%, 0) rotate(5deg) translateX(28%); }
+.social-fan__card:nth-child(5) { transform: translate(-50%, 6%) rotate(14deg) translateX(110%); }
+.social-fan__card:nth-child(6) { transform: translate(-50%, 18%) rotate(24deg) translateX(210%); }
+@media (hover: hover) {
+  .social-fan__card:hover {
+    transform: translate(-50%, -4%) rotate(0deg) scale(1.04);
+    z-index: 5;
+  }
+}
+@media (max-width: 768px) {
+  .social-fan { height: 260px; }
+  .social-fan__card:nth-child(1),
+  .social-fan__card:nth-child(6) { display: none; }
+  .social-fan__card:nth-child(2) { transform: translate(-50%, 10%) rotate(-16deg) translateX(-95%); }
+  .social-fan__card:nth-child(3) { transform: translate(-50%, 0) rotate(-5deg) translateX(-28%); }
+  .social-fan__card:nth-child(4) { transform: translate(-50%, 0) rotate(5deg) translateX(28%); }
+  .social-fan__card:nth-child(5) { transform: translate(-50%, 10%) rotate(16deg) translateX(95%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .social-fan__card { transition: none; }
 }

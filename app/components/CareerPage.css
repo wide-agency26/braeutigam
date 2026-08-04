@@ -1,0 +1,179 @@
+/* ── Career page (Figma "Careers") ───────────────────────────────────────── */
+
+.career {
+  --career-line: rgba(0, 255, 0, 0.5);
+  --career-stroke: rgba(0, 255, 0, 0.5);
+  --career-fill: #131315;
+  --career-neon: #00ff00;
+}
+:root:not(.dark) .career {
+  --career-line: rgba(0, 170, 0, 0.55);
+  /* Hairline outlines wash out on the light canvas, so the watermark needs a
+     darker stroke than the card borders. */
+  --career-stroke: rgba(0, 130, 0, 0.7);
+  --career-fill: #ffffff;
+  --career-neon: #0a9e0a;
+}
+
+.career-shell {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* ── Outlined display watermark (CAREERS / LIFE / JOBS / JOIN / READY) ──
+   Sits behind its section heading and is allowed to bleed off the edge. */
+.career-watermark {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 700;
+  font-size: clamp(4rem, 13vw, 12.5rem);
+  line-height: 0.78;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--career-stroke);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+.career-heading {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.85rem, 3.4vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.career-eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Notched card ──
+   Outline is the union of two rounded rectangles (a full-width top block and
+   a narrower full-height left block) with the interior painted over by two
+   matching inset fills. This keeps the bottom-right step notch and every
+   convex corner rounded without measuring the element in JS. */
+.notch-card {
+  --notch-r: 12px;
+  --notch-h: 34px;
+  --notch-x: 54%;
+  position: relative;
+  isolation: isolate;
+}
+.notch-card__edge,
+.notch-card__fill {
+  position: absolute;
+  pointer-events: none;
+}
+.notch-card__edge {
+  background: var(--career-line);
+}
+.notch-card__fill {
+  background: var(--career-fill);
+}
+/* Top block spans the full width and stops above the notch. */
+.notch-card__edge--top {
+  inset: 0 0 auto 0;
+  height: calc(100% - var(--notch-h));
+  border-radius: var(--notch-r);
+}
+.notch-card__fill--top {
+  inset: 1px 1px auto 1px;
+  height: calc(100% - var(--notch-h) - 2px);
+  border-radius: calc(var(--notch-r) - 1px);
+}
+/* Left block runs the full height and stops before the notch. */
+.notch-card__edge--left {
+  inset: 0 auto 0 0;
+  width: var(--notch-x);
+  border-radius: var(--notch-r);
+}
+.notch-card__fill--left {
+  inset: 1px auto 1px 1px;
+  width: calc(var(--notch-x) - 2px);
+  border-radius: calc(var(--notch-r) - 1px);
+}
+.notch-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Plain rounded card (How to apply) ── */
+.career-card {
+  position: relative;
+  border: 1px solid var(--career-line);
+  border-radius: 12px;
+  background: var(--career-fill);
+}
+
+/* ── Video tile ── */
+.career-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #17171a;
+}
+:root:not(.dark) .career-tile {
+  background: #e7e7ea;
+}
+.career-tile__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.career-tile__play span {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--career-neon);
+  border-radius: 50%;
+  background: rgba(0, 255, 0, 0.14);
+  color: var(--career-neon);
+  transition: background 200ms ease, transform 200ms ease;
+}
+.career-tile__play:hover span {
+  background: rgba(0, 255, 0, 0.3);
+  transform: scale(1.08);
+}
+
+/* ── Job list ── */
+.career-job {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.18);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 250ms ease;
+}
+.career-job:hover {
+  padding-left: 0.75rem;
+}
+.career-job:first-child {
+  border-top: 1px solid rgba(127, 127, 127, 0.18);
+}
+
+@media (max-width: 640px) {
+  .career-job {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .notch-card {
+    --notch-h: 26px;
+  }
+}

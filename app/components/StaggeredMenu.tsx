@@ -51,24 +51,29 @@ const SteppedTransitionLayer = ({ className }: { className: string }) => {
 
 export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
   const menuItems = [
-    { label: "HOME", link: "#silhouette" },
-    { label: "LEISTUNGEN", link: "#story" },
-    { label: "BAUTEILE", link: "#datasheet" },
-    { label: "KARRIERE", link: "#karriere" },
-    { label: "TEAM", link: "#team" }
+    { label: "HOME", link: "/#silhouette" },
+    { label: "LEISTUNGEN", link: "/#story" },
+    { label: "BAUTEILE", link: "/#mission" },
+    { label: "KARRIERE", link: "/karriere" },
+    { label: "TEAM", link: "/#datasheet" }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    const [path, hash] = link.split("#");
+    const target = hash && path === `${window.location.pathname.replace(/\/$/, "")}/`
+      ? document.getElementById(hash)
+      : null;
+
+    // Cross-route links fall through to a normal navigation.
+    if (!target) {
+      onClose();
+      return;
+    }
+
     e.preventDefault();
     onClose();
-    
-    // Smooth scroll to the anchor element
-    const element = document.querySelector(link);
-    if (element) {
-      setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth" });
-      }, 500); // Wait for menu close transition to start
-    }
+    // Wait for the menu close transition to start before scrolling.
+    setTimeout(() => target.scrollIntoView({ behavior: "smooth" }), 500);
   };
 
   const itemVariants = {
