@@ -181,7 +181,7 @@ export default function CareerPage() {
               </Reveal>
 
               <div className="font-mono text-[9px] leading-relaxed tracking-[0.18em] text-zinc-500 lg:text-right dark:text-zinc-500">
-                <div className="text-[var(--career-neon)]">// STATUS: ACTIVE</div>
+                <div className="text-[var(--career-neon)]">{"// STATUS: ACTIVE"}</div>
                 <div>CURRENT OFFERS: 5 OPENINGS // ESTABLISHED: 2016</div>
               </div>
             </div>
