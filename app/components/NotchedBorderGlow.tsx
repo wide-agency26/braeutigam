@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useCallback, useEffect, useState, useId } from "react";
+import React, { useRef, useCallback, useEffect, useState, useId, useMemo } from "react";
 import "./NotchedBorderGlow.css";
 
 function parseHSL(hslStr: string) {
@@ -110,7 +110,6 @@ interface NotchedBorderGlowProps {
   coneSpread?: number;
   colors?: string[];
   fillOpacity?: number;
-  isDark?: boolean;
   active?: boolean;
   noPadding?: boolean;
 }
@@ -129,7 +128,6 @@ export default function NotchedBorderGlow({
   coneSpread = 25,
   colors,
   fillOpacity = 0.35,
-  isDark = true,
   active = true,
   noPadding = false
 }: NotchedBorderGlowProps) {
@@ -160,69 +158,74 @@ export default function NotchedBorderGlow({
     return () => observer.disconnect();
   }, []);
 
-  // Set default glow gradient colors based on theme and active state
-  const defaultColors = isDark 
-    ? (active ? ["#39FF14", "#22c55e", "#16a34a"] : ["#4b5563", "#374151", "#1f2937"])
-    : (active ? ["#39FF14", "#71717a", "#27272a"] : ["#d4d4d8", "#e4e4e7", "#f4f4f5"]);
+  // Theme colors live on CSS vars (--nbg-*) so light/dark flips without a prop.
+  const defaultColors = active
+    ? ["var(--nbg-c0)", "var(--nbg-c1)", "var(--nbg-c2)"]
+    : ["var(--nbg-c0-off)", "var(--nbg-c1-off)", "var(--nbg-c2-off)"];
 
   const finalColors = colors || defaultColors;
-  const defaultBgColor = backgroundColor || (isDark ? "#0B0B0C" : "#FFFFFF");
+  const defaultBgColor = backgroundColor || "var(--nbg-bg)";
 
-  const getCenterOfElement = useCallback((el: HTMLElement) => {
-    const { width, height } = el.getBoundingClientRect();
-    return [width / 2, height / 2];
-  }, []);
+  // One layout read per pointer event, coalesced into a single frame.
+  const pointerRef = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
 
-  const getEdgeProximity = useCallback((el: HTMLElement, x: number, y: number) => {
-    const [cx, cy] = getCenterOfElement(el);
-    const dx = x - cx;
-    const dy = y - cy;
-    let kx = Infinity;
-    let ky = Infinity;
-    if (dx !== 0) kx = cx / Math.abs(dx);
-    if (dy !== 0) ky = cy / Math.abs(dy);
-    return Math.min(Math.max(1 / Math.min(kx, ky), 0), 1);
-  }, [getCenterOfElement]);
-
-  const getCursorAngle = useCallback((el: HTMLElement, x: number, y: number) => {
-    const [cx, cy] = getCenterOfElement(el);
-    const dx = x - cx;
-    const dy = y - cy;
-    if (dx === 0 && dy === 0) return 0;
-    const radians = Math.atan2(dy, dx);
-    let degrees = radians * (180 / Math.PI) + 90;
-    if (degrees < 0) degrees += 360;
-    return degrees;
-  }, [getCenterOfElement]);
-
-  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+  const flushPointer = useCallback(() => {
+    rafRef.current = null;
     const card = cardRef.current;
     if (!card) return;
 
     const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const dx = pointerRef.current.x - rect.left - cx;
+    const dy = pointerRef.current.y - rect.top - cy;
 
-    const edge = getEdgeProximity(card, x, y);
-    const angle = getCursorAngle(card, x, y);
+    let kx = Infinity;
+    let ky = Infinity;
+    if (dx !== 0) kx = cx / Math.abs(dx);
+    if (dy !== 0) ky = cy / Math.abs(dy);
+    const edge = Math.min(Math.max(1 / Math.min(kx, ky), 0), 1);
+
+    let angle = 0;
+    if (dx !== 0 || dy !== 0) {
+      angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+      if (angle < 0) angle += 360;
+    }
 
     card.style.setProperty("--edge-proximity", `${(edge * 100).toFixed(3)}`);
     card.style.setProperty("--cursor-angle", `${angle.toFixed(3)}deg`);
-  }, [getEdgeProximity, getCursorAngle]);
-
-  const handlePointerLeave = useCallback(() => {
-    const card = cardRef.current;
-    if (!card) return;
-    card.style.setProperty("--edge-proximity", "0");
   }, []);
 
-  const glowVars = buildGlowVars(glowColor, glowIntensity);
-  const gradientVars = buildGradientVars(finalColors);
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
+    pointerRef.current.x = e.clientX;
+    pointerRef.current.y = e.clientY;
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(flushPointer);
+    }
+  }, [flushPointer]);
+
+  const handlePointerLeave = useCallback(() => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    cardRef.current?.style.setProperty("--edge-proximity", "0");
+  }, []);
+
+  useEffect(() => () => {
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const glowVars = useMemo(() => buildGlowVars(glowColor, glowIntensity), [glowColor, glowIntensity]);
+  const colorsKey = finalColors.join(",");
+  const gradientVars = useMemo(() => buildGradientVars(colorsKey.split(",")), [colorsKey]);
 
   // Setup static border values when mouse is away
-  const staticBorderColor = isDark 
-    ? (active ? "rgba(57, 255, 20, 0.45)" : "rgba(255, 255, 255, 0.12)") 
-    : (active ? "rgba(39, 39, 42, 0.5)" : "rgba(212, 212, 216, 0.8)");
+  const staticBorderColor = active
+    ? "var(--nbg-static-border-active)"
+    : "var(--nbg-static-border)";
 
   // Generate paths for outer (full w, h) and inner (1px inset on all sides)
   const outerPath = getPathD(dimensions.width, dimensions.height, notchPosition, borderRadius, notchSize);
@@ -293,19 +296,13 @@ export default function NotchedBorderGlow({
               width="100%"
               height="100%"
               viewBox={`-40 -40 ${dimensions.width + 80} ${dimensions.height + 80}`}
-              style={{ overflow: "visible" }}
+              style={{ overflow: "visible", filter: "blur(8px)" }}
             >
-              <defs>
-                <filter id={`blur-${uniqueId}`}>
-                  <feGaussianBlur stdDeviation="8" />
-                </filter>
-              </defs>
               <path
                 d={outerPath}
                 fill="none"
-                stroke={`var(--glow-color, ${isDark ? "#39FF14" : "#27272a"})`}
+                stroke="var(--glow-color, var(--nbg-glow-stroke))"
                 strokeWidth="4"
-                filter={`url(#blur-${uniqueId})`}
               />
             </svg>
           )}

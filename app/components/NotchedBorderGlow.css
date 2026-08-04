@@ -6,13 +6,46 @@
   --glow-padding: 40px;
   --cone-spread: 25;
 
+  /* Theme tokens — flipped by .dark on <html> */
+  --nbg-bg: #FFFFFF;
+  --nbg-static-border: rgba(212, 212, 216, 0.8);
+  --nbg-static-border-active: rgba(39, 39, 42, 0.5);
+  --nbg-glow-stroke: #27272a;
+  --nbg-c0: #39FF14;
+  --nbg-c1: #71717a;
+  --nbg-c2: #27272a;
+  --nbg-c0-off: #d4d4d8;
+  --nbg-c1-off: #e4e4e7;
+  --nbg-c2-off: #f4f4f5;
+
   position: relative;
-  display: grid;
+    display: grid;
   background: transparent;
   border: none;
   overflow: visible;
   width: 100%;
   height: 100%;
+}
+
+.dark .notched-glow-container {
+  --nbg-bg: #0B0B0C;
+  --nbg-static-border: rgba(255, 255, 255, 0.12);
+  --nbg-static-border-active: rgba(57, 255, 20, 0.45);
+  --nbg-glow-stroke: #39FF14;
+  --nbg-c0: #39FF14;
+  --nbg-c1: #22c55e;
+  --nbg-c2: #16a34a;
+  --nbg-c0-off: #4b5563;
+  --nbg-c1-off: #374151;
+  --nbg-c2-off: #1f2937;
+}
+
+.notched-glow-container.nbg-frosted {
+  --nbg-bg: rgba(255, 255, 255, 0.9);
+}
+
+.dark .notched-glow-container.nbg-frosted {
+  --nbg-bg: rgba(11, 11, 12, 0.9);
 }
 
 /* 1. Unclipped Edge-Light Layer (Dynamic SVG glow) */
@@ -26,27 +59,31 @@
   mix-blend-mode: plus-lighter;
 }
 
-.notched-glow-container:hover .notched-glow-edge-light,
-.notched-glow-container.sweep-active .notched-glow-edge-light {
-  opacity: calc(0.35 + (var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)) * 0.65);
-  transition: opacity 0.15s ease-out;
+/* The cursor-tracked layers are pure hover affordances — on touch they would
+   only cost mask work that nothing can trigger. */
+@media (hover: hover) {
+  .notched-glow-container:hover .notched-glow-edge-light,
+  .notched-glow-container.sweep-active .notched-glow-edge-light {
+    opacity: calc(0.35 + (var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)) * 0.65);
+    transition: opacity 0.15s ease-out;
 
-  mask-image:
-    conic-gradient(
-      from var(--cursor-angle) at center,
-      black 2.5%,
-      transparent 10%,
-      transparent 90%,
-      black 97.5%
-    );
-  -webkit-mask-image:
-    conic-gradient(
-      from var(--cursor-angle) at center,
-      black 2.5%,
-      transparent 10%,
-      transparent 90%,
-      black 97.5%
-    );
+    mask-image:
+      conic-gradient(
+        from var(--cursor-angle) at center,
+        black 2.5%,
+        transparent 10%,
+        transparent 90%,
+        black 97.5%
+      );
+    -webkit-mask-image:
+      conic-gradient(
+        from var(--cursor-angle) at center,
+        black 2.5%,
+        transparent 10%,
+        transparent 90%,
+        black 97.5%
+      );
+  }
 }
 
 /* 2. Clipped Card Body */
@@ -84,19 +121,21 @@
     var(--gradient-base, linear-gradient(#39FF14 0 100%));
 }
 
-.notched-glow-container:hover .notched-glow-border-layer,
-.notched-glow-container.sweep-active .notched-glow-border-layer {
-  opacity: calc(0.15 + (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)) * 0.85);
-  transition: opacity 0.15s ease-out;
+@media (hover: hover) {
+  .notched-glow-container:hover .notched-glow-border-layer,
+  .notched-glow-container.sweep-active .notched-glow-border-layer {
+    opacity: calc(0.15 + (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)) * 0.85);
+    transition: opacity 0.15s ease-out;
 
-  mask-image:
-    conic-gradient(
-      from var(--cursor-angle) at center,
-      black calc(var(--cone-spread) * 1%),
-      transparent calc((var(--cone-spread) + 15) * 1%),
-      transparent calc((100 - var(--cone-spread) - 15) * 1%),
-      black calc((100 - var(--cone-spread)) * 1%)
-    );
+    mask-image:
+      conic-gradient(
+        from var(--cursor-angle) at center,
+        black calc(var(--cone-spread) * 1%),
+        transparent calc((var(--cone-spread) + 15) * 1%),
+        transparent calc((100 - var(--cone-spread) - 15) * 1%),
+        black calc((100 - var(--cone-spread)) * 1%)
+      );
+  }
 }
 
 /* 2.2 Inner Solid Background Card */
@@ -120,30 +159,32 @@
   mix-blend-mode: soft-light;
 }
 
-.notched-glow-container:hover .notched-glow-fill-layer,
-.notched-glow-container.sweep-active .notched-glow-fill-layer {
-  opacity: calc(var(--fill-opacity, 0.35) * (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
-  transition: opacity 0.15s ease-out;
-  background:
-    var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)),
-    var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)),
-    var(--gradient-three, radial-gradient(at 8% 6%, hsla(136, 100%, 78%, 1) 0px, transparent 50%)),
-    var(--gradient-four, radial-gradient(at 41% 38%, hsla(192, 100%, 64%, 1) 0px, transparent 50%)),
-    var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)),
-    var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)),
-    var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)),
-    var(--gradient-base, linear-gradient(#39FF14 0 100%));
+@media (hover: hover) {
+  .notched-glow-container:hover .notched-glow-fill-layer,
+  .notched-glow-container.sweep-active .notched-glow-fill-layer {
+    opacity: calc(var(--fill-opacity, 0.35) * (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
+    transition: opacity 0.15s ease-out;
+    background:
+      var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)),
+      var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)),
+      var(--gradient-three, radial-gradient(at 8% 6%, hsla(136, 100%, 78%, 1) 0px, transparent 50%)),
+      var(--gradient-four, radial-gradient(at 41% 38%, hsla(192, 100%, 64%, 1) 0px, transparent 50%)),
+      var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)),
+      var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)),
+      var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)),
+      var(--gradient-base, linear-gradient(#39FF14 0 100%));
 
-  mask-image:
-    linear-gradient(to bottom, black, black),
-    radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%),
-    radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%),
-    radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%),
-    radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%),
-    radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%),
-    conic-gradient(from var(--cursor-angle) at center, transparent 5%, black 15%, black 85%, transparent 95%);
+    mask-image:
+      linear-gradient(to bottom, black, black),
+      radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%),
+      radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%),
+      radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%),
+      radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%),
+      radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%),
+      conic-gradient(from var(--cursor-angle) at center, transparent 5%, black 15%, black 85%, transparent 95%);
 
-  mask-composite: subtract, add, add, add, add, add;
+    mask-composite: subtract, add, add, add, add, add;
+  }
 }
 
 /* 2.4 Content Container */

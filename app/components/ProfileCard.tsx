@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import { Phone } from 'lucide-react';
+import { useVisible } from '../hooks/useVisible';
 import './ProfileCard.css';
 
 const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg, rgba(10,10,10,0.4) 0%, rgba(57,255,20,0.1) 100%)';
@@ -38,7 +39,6 @@ interface ProfileCardProps {
   contactText?: string;
   showUserInfo?: boolean;
   onContactClick?: () => void;
-  isDark?: boolean;
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
@@ -61,19 +61,22 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   contactText = 'Contact',
   showUserInfo = true,
   onContactClick,
-  isDark = true
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
 
   const enterTimerRef = useRef<number | null>(null);
   const leaveRafRef = useRef<number | null>(null);
+  const hasIntroRunRef = useRef(false);
+
+  const isVisible = useVisible(wrapRef, '150px');
 
   const tiltEngine = useMemo(() => {
     if (!enableTilt) return null;
 
     let rafId: number | null = null;
     let running = false;
+    let enabled = false;
     let lastTs = 0;
 
     let currentX = 0;
@@ -130,9 +133,12 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 
       const stillFar = Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05;
 
-      if (stillFar || document.hasFocus()) {
+      if (stillFar) {
         rafId = requestAnimationFrame(step);
       } else {
+        currentX = targetX;
+        currentY = targetY;
+        setVarsFromXY(currentX, currentY);
         running = false;
         lastTs = 0;
         if (rafId) {
@@ -143,13 +149,17 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     };
 
     const start = () => {
-      if (running) return;
+      if (running || !enabled) return;
       running = true;
       lastTs = 0;
       rafId = requestAnimationFrame(step);
     };
 
     return {
+      setEnabled(value: boolean) {
+        enabled = value;
+        if (!enabled) this.cancel();
+      },
       setImmediate(x: number, y: number) {
         currentX = x;
         currentY = y;
@@ -289,12 +299,6 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     };
     shell.addEventListener('click', handleClick);
 
-    const initialX = (shell.clientWidth || 0) - ANIMATION_CONFIG.INITIAL_X_OFFSET;
-    const initialY = ANIMATION_CONFIG.INITIAL_Y_OFFSET;
-    tiltEngine.setImmediate(initialX, initialY);
-    tiltEngine.toCenter();
-    tiltEngine.beginInitial(ANIMATION_CONFIG.INITIAL_DURATION);
-
     return () => {
       shell.removeEventListener('pointerenter', pointerEnterHandler);
       shell.removeEventListener('pointermove', pointerMoveHandler);
@@ -316,6 +320,25 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     handleDeviceOrientation
   ]);
 
+  // The tilt loop and the CSS shimmer only run while the card is near the
+  // viewport — these cards sit many screens below the fold.
+  useEffect(() => {
+    if (!tiltEngine) return;
+    const shell = shellRef.current;
+
+    tiltEngine.setEnabled(isVisible);
+    if (!isVisible) return;
+
+    if (!hasIntroRunRef.current && shell) {
+      hasIntroRunRef.current = true;
+      const initialX = (shell.clientWidth || 0) - ANIMATION_CONFIG.INITIAL_X_OFFSET;
+      const initialY = ANIMATION_CONFIG.INITIAL_Y_OFFSET;
+      tiltEngine.setImmediate(initialX, initialY);
+      tiltEngine.toCenter();
+      tiltEngine.beginInitial(ANIMATION_CONFIG.INITIAL_DURATION);
+    }
+  }, [isVisible, tiltEngine]);
+
   const cardStyle = useMemo(
     () => ({
       '--icon': iconUrl ? `url(${iconUrl})` : 'none',
@@ -323,9 +346,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT,
       '--behind-glow-color': behindGlowColor ?? 'rgba(57, 255, 20, 0.67)',
       '--behind-glow-size': behindGlowSize ?? '50%',
-      '--card-border-color': isDark ? 'rgba(57, 255, 20, 0.4)' : 'rgba(10, 150, 10, 0.5)'
     } as React.CSSProperties),
-    [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize, isDark]
+    [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]
   );
 
   const handleContactClick = useCallback(() => {
@@ -333,7 +355,11 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   }, [onContactClick]);
 
   return (
-    <div ref={wrapRef} className={`pc-card-wrapper ${className} font-heading`.trim()} style={cardStyle}>
+    <div
+      ref={wrapRef}
+      className={`pc-card-wrapper ${isVisible ? 'pc-visible' : ''} ${className} font-heading`.trim()}
+      style={cardStyle}
+    >
       {behindGlowEnabled && <div className="pc-behind" />}
       <div ref={shellRef} className="pc-card-shell">
         <section className="pc-card">

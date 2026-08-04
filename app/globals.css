@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-brand-bg: #111111;
   --color-brand-neon: #39FF14; /* Brighter neon green for badges */
@@ -17,6 +20,21 @@
 :root {
   --background: #F9F9FB;
   --foreground: #111111;
+  --surface: #F9F9FB;
+  --surface-muted: #ffffff;
+}
+
+.dark {
+  --background: #0B0B0C;
+  --foreground: #f4f4f5;
+  --surface: #0B0B0C;
+  --surface-muted: #18181b;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  transition: background-color 500ms ease, color 500ms ease;
 }
 
 body {
@@ -25,34 +43,84 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Custom Technical Background Grid - Dark Mode */
+/* Custom Technical Background Grid — one class, theme via .dark */
+.technical-grid-theme {
+  background-size: 60px 60px, 15px 15px;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+}
+.dark .technical-grid-theme {
+  background-image:
+    linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+/* Legacy aliases kept so any leftover class names still resolve */
 .technical-grid {
   background-size: 60px 60px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
 }
 
 .technical-grid-fine {
   background-size: 15px 15px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
 }
 
-/* Custom Technical Background Grid - Light Mode */
 .technical-grid-light {
   background-size: 60px 60px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
 }
 
 .technical-grid-fine-light {
   background-size: 15px 15px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+}
+
+/* Below-fold sections: skip layout/paint until near the viewport. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* CSS stand-in for simple whileInView fade/slide — no Framer needed. */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 800ms cubic-bezier(0, 0, 0.58, 1),
+    transform 800ms cubic-bezier(0, 0, 0.58, 1);
+}
+.reveal-up.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 800ms cubic-bezier(0, 0, 0.58, 1);
+}
+.reveal-fade.is-inview {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Glowing LED Pillars for Silhouette screen */
@@ -64,7 +132,9 @@ body {
   border-radius: 2px;
 }
 
-/* Noise overlay */
+/* Film-grain overlay.
+   Rasterised once as a 250px seamless tile and composited with plain opacity —
+   a blended full-viewport layer would force the page to re-rasterise on scroll. */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -73,9 +143,12 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.045;
-  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg width='250' height='250' viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 250px 250px;
+  background-repeat: repeat;
+  opacity: 0.03;
+  transform: translateZ(0);
+  contain: layout style paint;
 }
 
 /* Technical Brackets */
@@ -125,14 +198,6 @@ body {
   clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
 }
 
-/* Carbon Fiber Texture Background — Dark Mode Only */
-.carbon-fiber-bg {
-  background-image: url('/images/carbon_fiber_texture.png');
-  background-size: 600px 600px;
-  background-repeat: repeat;
-  background-position: center;
-}
-
 /* Text overlay blending — readable on solid bg, blends on images */
 .text-blend-overlay {
   text-shadow:
@@ -156,4 +221,51 @@ body {
 
 .decrypt-char-revealed {
   opacity: 1;
+}
+
+/* ── Hero entrance animations ──
+   These run in CSS rather than through framer-motion on purpose. The hero
+   headline is the LCP element, and a JS-driven `initial={{ opacity: 0 }}`
+   serialises to inline opacity:0 in the SSR markup — which means LCP cannot be
+   recorded until the bundle has downloaded, parsed and hydrated. In CSS the
+   same animation starts at first paint and runs on the compositor.
+   Timings mirror the framer-motion values they replaced; easeOut is framer's
+   cubic-bezier(0, 0, 0.58, 1). */
+/* Short entrance — long opacity:0 windows punish Lighthouse Speed Index. */
+.hero-rise {
+  animation: hero-rise 400ms cubic-bezier(0, 0, 0.58, 1) both;
+}
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Resting transform lives on the class so the reduced-motion fallback below
+   keeps the design's tilt even with the animation switched off. */
+.hero-works {
+  transform: rotate(-12deg);
+  animation: hero-works 400ms cubic-bezier(0, 0, 0.58, 1) 120ms both;
+}
+
+@keyframes hero-works {
+  from { opacity: 0; transform: scale(0.8) rotate(-25deg); }
+  to   { opacity: 1; transform: scale(1) rotate(-12deg); }
+}
+
+.hero-chevron {
+  animation: hero-chevron 1.5s ease-in-out infinite;
+}
+
+@keyframes hero-chevron {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-works,
+  .hero-chevron {
+    animation: none;
+  }
 }

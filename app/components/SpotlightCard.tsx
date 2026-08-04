@@ -11,7 +11,7 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLElement> {
 const SpotlightCard = ({ 
   children, 
   className = '', 
-  spotlightColor = 'rgba(255, 255, 255, 0.25)', 
+  spotlightColor, 
   as: Component = 'div', 
   ...props 
 }: SpotlightCardProps) => {
@@ -25,7 +25,9 @@ const SpotlightCard = ({
 
     elementRef.current.style.setProperty('--mouse-x', `${x}px`);
     elementRef.current.style.setProperty('--mouse-y', `${y}px`);
-    elementRef.current.style.setProperty('--spotlight-color', spotlightColor);
+    if (spotlightColor) {
+      elementRef.current.style.setProperty('--spotlight-color', spotlightColor);
+    }
   };
 
   return (

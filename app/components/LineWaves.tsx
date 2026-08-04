@@ -2,6 +2,7 @@
 
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
+import { useVisibility, useAfterPaint, usePrefersReducedMotion } from '../hooks/useVisible';
 import './LineWaves.css';
 
 function hexToVec3(hex: string): [number, number, number] {
@@ -165,19 +166,38 @@ export default function LineWaves({
   mouseInfluence = 2.0
 }: LineWavesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const programRef = useRef<Program | null>(null);
+  const startLoopRef = useRef<(() => void) | null>(null);
+
+  const { visible, hasBeenVisible } = useVisibility(containerRef);
+  const afterPaint = useAfterPaint();
+  const reducedMotion = usePrefersReducedMotion();
+  const active = visible && !reducedMotion;
+
+  // This canvas lives in the footer, many screens below the fold. Building the
+  // context on mount meant compiling a shader nobody could see yet.
+  const shouldInit = hasBeenVisible && afterPaint && !reducedMotion;
+
+  const activeRef = useRef(active);
+  const enableMouseRef = useRef(enableMouseInteraction);
 
   useEffect(() => {
+    if (!shouldInit) return;
     if (!containerRef.current) return;
     const container = containerRef.current;
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+    const renderer = new Renderer({
+      alpha: true,
+      premultipliedAlpha: false,
+      dpr: Math.min(window.devicePixelRatio || 1, 1.5),
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
 
-    let program: any;
-    let currentMouse = [0.5, 0.5];
+    const currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
 
     function handleMouseMove(e: MouseEvent) {
+      if (!enableMouseRef.current || !activeRef.current) return;
       const rect = gl.canvas.getBoundingClientRect();
       targetMouse = [
         (e.clientX - rect.left) / rect.width,
@@ -189,18 +209,8 @@ export default function LineWaves({
       targetMouse = [0.5, 0.5];
     }
 
-    function resize() {
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
-      if (program) {
-        program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
-      }
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
     const geometry = new Triangle(gl);
-    const rotationRad = (rotation * Math.PI) / 180;
-    program = new Program(gl, {
+    const program = new Program(gl, {
       vertex: vertexShader,
       fragment: fragmentShader,
       uniforms: {
@@ -210,7 +220,7 @@ export default function LineWaves({
         uInnerLines: { value: innerLineCount },
         uOuterLines: { value: outerLineCount },
         uWarpIntensity: { value: warpIntensity },
-        uRotation: { value: rotationRad },
+        uRotation: { value: (rotation * Math.PI) / 180 },
         uEdgeFadeWidth: { value: edgeFadeWidth },
         uColorCycleSpeed: { value: colorCycleSpeed },
         uBrightness: { value: brightness },
@@ -223,45 +233,100 @@ export default function LineWaves({
       }
     });
 
+    function resize() {
+      renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    programRef.current = program;
+
     const mesh = new Mesh(gl, { geometry, program });
     container.appendChild(gl.canvas);
 
-    if (enableMouseInteraction) {
-      gl.canvas.addEventListener('mousemove', handleMouseMove);
-      gl.canvas.addEventListener('mouseleave', handleMouseLeave);
-    }
+    gl.canvas.addEventListener('mousemove', handleMouseMove);
+    gl.canvas.addEventListener('mouseleave', handleMouseLeave);
 
-    let animationFrameId: number;
+    let animationFrameId = 0;
 
     function update(time: number) {
+      if (!activeRef.current) {
+        animationFrameId = 0;
+        return;
+      }
       animationFrameId = requestAnimationFrame(update);
       program.uniforms.uTime.value = time * 0.001;
 
-      if (enableMouseInteraction) {
+      const uMouse = program.uniforms.uMouse.value as Float32Array;
+      if (enableMouseRef.current) {
         currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
         currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
-        program.uniforms.uMouse.value[0] = currentMouse[0];
-        program.uniforms.uMouse.value[1] = currentMouse[1];
+        uMouse[0] = currentMouse[0];
+        uMouse[1] = currentMouse[1];
       } else {
-        program.uniforms.uMouse.value[0] = 0.5;
-        program.uniforms.uMouse.value[1] = 0.5;
+        uMouse[0] = 0.5;
+        uMouse[1] = 0.5;
       }
 
       renderer.render({ scene: mesh });
     }
-    animationFrameId = requestAnimationFrame(update);
+
+    startLoopRef.current = () => {
+      if (!animationFrameId && activeRef.current) {
+        animationFrameId = requestAnimationFrame(update);
+      }
+    };
+    startLoopRef.current();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      startLoopRef.current = null;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
-      if (enableMouseInteraction) {
-        gl.canvas.removeEventListener('mousemove', handleMouseMove);
-        gl.canvas.removeEventListener('mouseleave', handleMouseLeave);
-      }
-      container.removeChild(gl.canvas);
+      gl.canvas.removeEventListener('mousemove', handleMouseMove);
+      gl.canvas.removeEventListener('mouseleave', handleMouseLeave);
+      if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
+      programRef.current = null;
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [speed, innerLineCount, outerLineCount, warpIntensity, rotation, edgeFadeWidth, colorCycleSpeed, brightness, color1, color2, color3, enableMouseInteraction, mouseInfluence]);
+    // Props are deliberately omitted: they seed the uniforms once here and are
+    // then kept current by the sync effect below. Adding them would tear down
+    // and recompile the shader on every theme toggle.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldInit]);
+
+  useEffect(() => {
+    activeRef.current = active;
+    enableMouseRef.current = enableMouseInteraction;
+    if (active) startLoopRef.current?.();
+  });
+
+  // Colours and shape knobs change with the theme — write them straight into
+  // the existing uniforms rather than tearing down the WebGL context.
+  useEffect(() => {
+    const program = programRef.current;
+    if (!program) return;
+    const u = program.uniforms;
+    u.uSpeed.value = speed;
+    u.uInnerLines.value = innerLineCount;
+    u.uOuterLines.value = outerLineCount;
+    u.uWarpIntensity.value = warpIntensity;
+    u.uRotation.value = (rotation * Math.PI) / 180;
+    u.uEdgeFadeWidth.value = edgeFadeWidth;
+    u.uColorCycleSpeed.value = colorCycleSpeed;
+    u.uBrightness.value = brightness;
+    u.uColor1.value = hexToVec3(color1);
+    u.uColor2.value = hexToVec3(color2);
+    u.uColor3.value = hexToVec3(color3);
+    u.uMouseInfluence.value = mouseInfluence;
+    u.uEnableMouse.value = enableMouseInteraction;
+  }, [
+    shouldInit,
+    speed, innerLineCount, outerLineCount, warpIntensity, rotation,
+    edgeFadeWidth, colorCycleSpeed, brightness, color1, color2, color3,
+    enableMouseInteraction, mouseInfluence
+  ]);
 
   return <div ref={containerRef} className="line-waves-container" />;
 }
