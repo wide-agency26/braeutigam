@@ -763,7 +763,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="footer-figma__credit"
               >
-                built with &lt;3 by wide
+                BUILT WITH &lt;3 BY WIDE
               </a>
             </div>
           </div>
