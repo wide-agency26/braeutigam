@@ -216,7 +216,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     <a
                       href={item.link}
                       onClick={(e) => handleLinkClick(e, item.link)}
-                      className="font-heading-bold text-4xl sm:text-6xl font-normal uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
+                      className="font-sans text-4xl sm:text-6xl font-bold uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
                     >
                       <span className="text-brand-neon font-mono text-base font-semibold">
                         0{idx + 1}

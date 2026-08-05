@@ -2,6 +2,7 @@
 
 import React, { useMemo } from "react";
 import Image from "next/image";
+import { useCardTilt } from "../hooks/useCardTilt";
 import "./ExpertCard.css";
 
 export interface ExpertCardProps {
@@ -38,10 +39,14 @@ function ExpertCardComponent({
   const initials = useMemo(() => initialsOf(name), [name]);
   const telHref = `tel:${phone.replace(/[^\d+]/g, "")}`;
   const tiles = useMemo(() => Array.from({ length: 18 }, (_, i) => i), []);
+  const tiltRef = useCardTilt<HTMLDivElement>(9);
 
   return (
-    /* Stable hit box — card can lift without losing :hover (no blink loop) */
-    <div className="expert-card-hit">
+    /* Stable hit box — card can lift without losing :hover (no blink loop).
+       Also owns the pointer listeners and the perspective the card tilts in. */
+    <div ref={tiltRef} className="expert-card-hit">
+      <div className="expert-card__behind" aria-hidden />
+
       <article className="expert-card">
         {/* Glow on SVG only — never transitioned */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -104,6 +109,11 @@ function ExpertCardComponent({
             </div>
           </div>
         </div>
+
+        {/* Reflective glass layers sit above the content, like reactbits'
+            ProfileCard: a holographic sheen then a specular highlight. */}
+        <div className="expert-card__sheen" aria-hidden />
+        <div className="expert-card__glare" aria-hidden />
       </article>
     </div>
   );
