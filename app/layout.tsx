@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Mr_Dafoe, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Oswald } from "next/font/google";
+import { ThemeProvider } from "./components/ThemeProvider";
 import "./globals.css";
 
 /* ── Font 1: Univers LT Std — replaces Oswald (body/sans) ──
@@ -38,14 +39,25 @@ const dxBurstRegular = localFont({
   preload: false,
 });
 
-/* ── Font 3: Mr Dafoe — placeholder for Prime (cursive) ── */
-const mrDafoe = Mr_Dafoe({
+/* ── Font 3: Bootzy TM — neon display accents (Final Home, no cursive) ──
+   Used for SINCE 2016, highlight words, and footer credit. Below-fold
+   accents can wait; hero badge is small so swap is fine. */
+const bootzy = localFont({
+  src: "./fonts/BootzyTM.woff2",
   weight: "400",
-  variable: "--font-mr-dafoe",
-  subsets: ["latin"],
+  variable: "--font-bootzy",
+  display: "swap",
 });
 
-/* ── Font 4: JetBrains Mono — mono/tech labels ──
+/* ── Font 4: Oswald Medium — Figma footer nav/brand (condensed) ── */
+const oswald = Oswald({
+  weight: ["500"],
+  variable: "--font-oswald",
+  subsets: ["latin"],
+  preload: false,
+});
+
+/* ── Font 5: JetBrains Mono — mono/tech labels ──
    Only the weights the UI requests (regular labels + bold/semibold HUD). */
 const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "600", "700"],
@@ -70,10 +82,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`dark ${universLTStd.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${mrDafoe.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`dark ${universLTStd.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <body className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
-        {children}
+        {/* Lives in the root layout so the toggle persists across routes. */}
+        <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>
       </body>
     </html>
   );

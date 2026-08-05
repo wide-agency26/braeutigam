@@ -268,8 +268,16 @@ export default function HorizontalTimeline() {
   // Progress bar width
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-  // Header opacity — fades out early
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.04], [1, 0]);
+  // Intro: fade out quickly, then stay at 0 for the rest of the timeline
+  // (third keyframe prevents any mid-scroll reappearance / extrapolation)
+  const introOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.012, 1],
+    [1, 0, 0]
+  );
+  const introVisibility = useTransform(scrollYProgress, (v) =>
+    v >= 0.012 ? "hidden" : "visible"
+  );
 
   // Skip to end handler
   const handleSkip = useCallback(() => {
@@ -290,60 +298,79 @@ export default function HorizontalTimeline() {
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* ── Top HUD Bar — positioned aligned with top menu ── */}
-        <div
-          className={`absolute left-0 w-full z-30 pt-0 pb-4 px-6 md:px-12 flex justify-between items-end border-b transition-colors duration-500 border-zinc-200/60 bg-brand-light/80 dark:border-zinc-800/60 dark:bg-[#0B0B0C]/80`}
-          style={{ top: "24px", backdropFilter: "blur(8px)" }}
+        {/* ── Timeline Intro (Figma Final Home) — fades as strip scrolls ── */}
+        <m.div
+          className="journey-intro"
+          style={{ opacity: introOpacity, visibility: introVisibility }}
+          aria-hidden
         >
-          <div className="font-mono border-l-2 border-brand-neon pl-3">
-            <span
-              className={`text-[10px] tracking-widest font-semibold block uppercase transition-colors duration-500 text-zinc-500 dark:text-zinc-400`}
-            >
-              [ Corporate Evolution ]
+          <div className="journey-intro__copy">
+            <span className="journey-intro__label">
+              CORPORATE EVOLUTION: LOADED
             </span>
-            <h2
-              className={`font-sans text-2xl sm:text-3xl font-light uppercase tracking-tight leading-tight transition-colors duration-500 text-zinc-950 dark:text-white`}
-            >
-              Our Journey & History
+            <h2 className="journey-intro__title">
+              <span>OUR JOURNEY</span>
+              <span>&amp; HISTORY</span>
             </h2>
-            {/* Year + scroll data */}
-            <div className={`mt-1.5 flex items-center gap-5 font-mono text-[10px] tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}>
-              <span>
-                ACTIVE_YEAR:{" "}
-                <span ref={el => { yearRefs.current[0] = el; }} className="text-brand-neon font-bold text-xs">2016</span>
-              </span>
-              <span>SCROLL: <span ref={el => { pctRefs.current[0] = el; }} className="text-brand-neon font-bold">0%</span></span>
+            <div className="journey-intro__hud">
+              <div className="journey-intro__row">
+                <span>ACTIVE YEAR:</span>
+                <span
+                  ref={(el) => {
+                    yearRefs.current[0] = el;
+                  }}
+                  className="journey-intro__value"
+                >
+                  2016
+                </span>
+              </div>
+              <div className="journey-intro__row">
+                <span>SCROLL STATE:</span>
+                <span
+                  ref={(el) => {
+                    pctRefs.current[0] = el;
+                  }}
+                  className="journey-intro__value"
+                >
+                  0%
+                </span>
+              </div>
             </div>
           </div>
-          <div className={`font-mono text-[9px] tracking-wider transition-colors duration-500 flex items-center gap-4 text-zinc-400 dark:text-zinc-500`}>
-            <span className="hidden md:inline">SCROLL TO EXPLORE →</span>
-          </div>
-        </div>
-
-        {/* ── Section Header — compact, below HUD bar ── */}
-        <m.div
-          className={`absolute left-6 md:left-12 z-20 pointer-events-none font-mono text-[9px] tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}
-          style={{ top: "120px", opacity: headerOpacity }}
-        >
-          <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse" />
-            <span className="uppercase">
-              Historical Archive // Division_Bräutigam_Composites
-            </span>
+          <div className="journey-intro__watermark" aria-hidden>
+            <p>CARBON</p>
+            <p>FIBER</p>
+            <p>WORKS</p>
           </div>
         </m.div>
 
-        {/* ── Always-visible compact year/scroll (appears after header fades) ── */}
+        {/* Compact year/scroll after intro fades */}
         <m.div
           className="absolute right-6 md:right-12 z-30 pointer-events-none font-mono"
           style={{
-            top: "120px",
-            opacity: useTransform(scrollYProgress, [0.03, 0.06], [0, 1]),
+            top: "88px",
+            opacity: useTransform(scrollYProgress, [0.01, 0.018, 1], [0, 1, 1]),
           }}
         >
-          <div className={`flex items-center gap-4 text-xs tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}>
-            <span ref={el => { yearRefs.current[1] = el; }} className="text-brand-neon font-bold text-lg">2016</span>
-            <span ref={el => { pctRefs.current[1] = el; }} className="hidden sm:inline">0%</span>
+          <div
+            className={`flex items-center gap-4 text-xs tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500`}
+          >
+            <span
+              ref={(el) => {
+                yearRefs.current[1] = el;
+              }}
+              className="text-brand-neon font-bold text-lg"
+            >
+              2016
+            </span>
+            <span
+              ref={(el) => {
+                pctRefs.current[1] = el;
+              }}
+              className="hidden sm:inline"
+            >
+              0%
+            </span>
           </div>
         </m.div>
 

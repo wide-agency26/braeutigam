@@ -422,7 +422,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                     </React.Fragment>
                   ))}
                 </h3>
-                <p className="font-script text-2xl mt-3 tracking-wide leading-tight">{title}</p>
+                <p className="font-mono text-brand-neon text-sm mt-3 tracking-wide leading-snug uppercase opacity-90">{title}</p>
               </div>
             </div>
           </div>

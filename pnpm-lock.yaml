@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@vercel/speed-insights':
-        specifier: ^2.0.0
-        version: 2.0.0(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       framer-motion:
         specifier: ^12.40.0
         version: 12.43.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)

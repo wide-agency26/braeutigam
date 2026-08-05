@@ -51,24 +51,29 @@ const SteppedTransitionLayer = ({ className }: { className: string }) => {
 
 export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
   const menuItems = [
-    { label: "HOME", link: "#silhouette" },
-    { label: "LEISTUNGEN", link: "#story" },
-    { label: "BAUTEILE", link: "#datasheet" },
-    { label: "KARRIERE", link: "#karriere" },
-    { label: "TEAM", link: "#team" }
+    { label: "HOME", link: "/#silhouette" },
+    { label: "LEISTUNGEN", link: "/#story" },
+    { label: "BAUTEILE", link: "/#mission" },
+    { label: "KARRIERE", link: "/karriere" },
+    { label: "TEAM", link: "/#datasheet" }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    const [path, hash] = link.split("#");
+    const target = hash && path === `${window.location.pathname.replace(/\/$/, "")}/`
+      ? document.getElementById(hash)
+      : null;
+
+    // Cross-route links fall through to a normal navigation.
+    if (!target) {
+      onClose();
+      return;
+    }
+
     e.preventDefault();
     onClose();
-    
-    // Smooth scroll to the anchor element
-    const element = document.querySelector(link);
-    if (element) {
-      setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth" });
-      }, 500); // Wait for menu close transition to start
-    }
+    // Wait for the menu close transition to start before scrolling.
+    setTimeout(() => target.scrollIntoView({ behavior: "smooth" }), 500);
   };
 
   const itemVariants = {
@@ -101,10 +106,10 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <m.div
+          key="staggered-menu"
           className="fixed inset-0 z-[90] overflow-hidden"
           initial="closed"
           animate="open"
-          exit="closed"
         >
           {/* Layer 1: Neon Green Stepped SVG Overlay */}
           <m.div
@@ -211,7 +216,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     <a
                       href={item.link}
                       onClick={(e) => handleLinkClick(e, item.link)}
-                      className="font-heading-bold text-4xl sm:text-6xl font-normal uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
+                      className="font-sans text-4xl sm:text-6xl font-bold uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
                     >
                       <span className="text-brand-neon font-mono text-base font-semibold">
                         0{idx + 1}

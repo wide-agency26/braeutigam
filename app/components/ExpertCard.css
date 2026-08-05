@@ -1,0 +1,390 @@
+/* Figma trading-card small — 403×522 */
+
+.expert-card-hit {
+  position: relative;
+  width: 100%;
+  max-width: 403px;
+  margin-inline: auto;
+  /* Absorb the lift so cursor never leaves the hit target */
+  padding-bottom: 3px;
+  /* Tilt happens in the hit box's perspective, not the card's own */
+  perspective: 1100px;
+  touch-action: none;
+}
+
+.expert-card-hit:hover {
+  --lift: -3px;
+  --card-opacity: 1;
+}
+
+/* Reflections only light up while the tilt engine is driving the pointer vars,
+   so they never sit stuck on after a tap on a touch device. */
+.expert-card-hit.is-tilting {
+  --lift: -3px;
+  --card-opacity: 1;
+}
+
+.expert-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 403 / 522;
+  container-type: inline-size;
+  isolation: isolate;
+  /* Silhouette of the shell asset — reused by every clipped overlay */
+  --card-clip: polygon(
+    0 4.536%,
+    5.97% 0,
+    85.075% 0,
+    100% 11.342%,
+    100% 95.463%,
+    94.03% 100%,
+    5.97% 100%,
+    0 95.463%
+  );
+  /* Transform only — never animate filter (causes blink/jump) */
+  transform: translate3d(0, var(--lift, 0px), 0) rotateX(var(--rotate-y, 0deg))
+    rotateY(var(--rotate-x, 0deg));
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  backface-visibility: hidden;
+}
+
+/* While following the pointer the rAF loop supplies the smoothing, so the
+   transition would only add lag. It stays on for the entry frames. */
+.expert-card-hit.is-tilting .expert-card {
+  transition: none;
+}
+.expert-card-hit.is-tilt-entering .expert-card {
+  transition: transform 180ms ease-out;
+}
+
+/* Pointer-tracking bloom cast behind the card */
+.expert-card__behind {
+  position: absolute;
+  inset: 8%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    rgba(0, 255, 0, 0.5) 0%,
+    transparent 62%
+  );
+  filter: blur(46px);
+  opacity: calc(0.75 * var(--card-opacity, 0));
+  transition: opacity 260ms ease;
+}
+
+/* Static glow on the shape asset — not on the hovering card */
+.expert-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  object-fit: fill;
+  filter: drop-shadow(0 0 24px rgba(0, 255, 0, 0.14902));
+}
+
+/* Dense 3×6 Bootzy initials (Figma overlay) */
+.expert-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  clip-path: var(--card-clip);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+}
+
+.expert-card__initial {
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: 31.5cqi; /* ≈127px @ 403 */
+  line-height: 0.85;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.28);
+  transform: rotate(-30deg);
+  user-select: none;
+  pointer-events: none;
+}
+
+.expert-card__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.expert-card__meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16.5px;
+  width: auto;
+  max-width: 100%;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.expert-card__sys {
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #4f6e5a;
+  white-space: nowrap;
+}
+
+.expert-card__badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  height: 12px;
+  box-sizing: border-box;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: #4f6e5a;
+  color: #131414;
+  border-radius: 4px;
+}
+
+/* Top-right corner is bevelled parallel to the card shell (50×50 @ 363×340).
+   The green fill shows through the 1px padding to form the edge, since a
+   clip-path would otherwise shear off a normal border along the diagonal. */
+.expert-card__portrait {
+  --portrait-clip: polygon(0 0, 86.23% 0, 100% 14.71%, 100% 100%, 0 100%);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 363 / 340;
+  flex: 0 0 auto;
+  background: #00ff00;
+  padding: 1px;
+  box-sizing: border-box;
+  clip-path: var(--portrait-clip);
+}
+
+.expert-card__portrait-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0b0c;
+  clip-path: var(--portrait-clip);
+}
+
+.expert-card__grid {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #00ff00;
+  background: #131414;
+  padding: 4px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.expert-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  flex-shrink: 0;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+}
+
+.expert-card__name {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.1rem, 6cqi, 24.0832px);
+  line-height: 36px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #fbfafc;
+}
+
+.expert-card__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 8px;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.expert-card__verified {
+  margin: 0;
+  color: #00ff00;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.expert-card__id {
+  margin: 0;
+  color: #b2b1b3;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.expert-card__line {
+  width: 100%;
+  height: 0;
+  border: none;
+  border-top: 1px solid rgba(0, 255, 0, 0.2);
+  margin: 0;
+}
+
+.expert-card__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding-top: 6px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin-top: auto;
+}
+
+.expert-card__action-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.expert-card__btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 63px;
+  height: 32px;
+  padding: 0;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #00ff00;
+  border: 1.5px solid #00ff00;
+  background: #131414;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.121569);
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.expert-card__btn:hover,
+.expert-card__btn:focus-visible {
+  background: rgba(0, 255, 0, 0.1);
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.28);
+  outline: none;
+}
+
+/* ── Reflective glass layers (reactbits ProfileCard treatment) ──
+   Both are clipped to the shell silhouette and blend inside the card's own
+   stacking context, so nothing leaks onto the page behind it. The palette is
+   green rather than reactbits' rainbow to stay on brand. */
+.expert-card__sheen,
+.expert-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: var(--card-clip);
+  transition: opacity 260ms ease;
+}
+
+/* Banded holographic sweep — the bands slide as the pointer moves.
+   Blends additively rather than with reactbits' color-dodge, which collapses
+   to nothing over a card this dark. */
+.expert-card__sheen {
+  z-index: 3;
+  mix-blend-mode: screen;
+  opacity: var(--card-opacity, 0);
+  background-image:
+    repeating-linear-gradient(
+      -42deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 255, 120, 0.05) 2.8%,
+      rgba(198, 255, 210, 0.17) 4.4%,
+      rgba(0, 255, 120, 0.05) 6%,
+      rgba(0, 0, 0, 0) 10%,
+      rgba(0, 0, 0, 0) 16%
+    ),
+    radial-gradient(
+      farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(220, 255, 225, 0.2) 6%,
+      rgba(0, 255, 90, 0.08) 34%,
+      rgba(0, 0, 0, 0) 70%
+    );
+  background-size: 260% 260%, 190% 190%;
+  background-position: var(--background-x, 50%) var(--background-y, 50%), center;
+  /* Sheen sharpens as the pointer nears the edges, like a tilted surface
+     catching the light */
+  filter: brightness(calc(0.85 + 0.45 * var(--pointer-from-center, 0)));
+}
+
+/* Specular hotspot directly under the cursor */
+.expert-card__glare {
+  z-index: 4;
+  mix-blend-mode: screen;
+  opacity: calc(0.85 * var(--card-opacity, 0));
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(130, 255, 170, 0.1) 26%,
+    rgba(0, 0, 0, 0) 60%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expert-card {
+    transition: none;
+    transform: none;
+  }
+  .expert-card-hit:hover .expert-card {
+    transform: none;
+  }
+  .expert-card__sheen,
+  .expert-card__glare,
+  .expert-card__behind {
+    display: none;
+  }
+}

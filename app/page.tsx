@@ -1,4 +1,3 @@
-import { ThemeProvider } from "./components/ThemeProvider";
 import HomePage from "./components/HomePage";
 
 /**
@@ -7,9 +6,5 @@ import HomePage from "./components/HomePage";
  * so static markup can still theme via CSS without prop drilling.
  */
 export default function Page() {
-  return (
-    <ThemeProvider defaultTheme="dark">
-      <HomePage />
-    </ThemeProvider>
-  );
+  return <HomePage />;
 }
