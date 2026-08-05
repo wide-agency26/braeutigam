@@ -106,10 +106,10 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <m.div
+          key="staggered-menu"
           className="fixed inset-0 z-[90] overflow-hidden"
           initial="closed"
           animate="open"
-          exit="closed"
         >
           {/* Layer 1: Neon Green Stepped SVG Overlay */}
           <m.div
