@@ -60,7 +60,7 @@ const oswald = Oswald({
 /* ── Font 5: JetBrains Mono — mono/tech labels ──
    Only the weights the UI requests (regular labels + bold/semibold HUD). */
 const jetbrainsMono = JetBrains_Mono({
-  weight: ["400", "600", "700"],
+  weight: ["300", "400", "600", "700"],
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   preload: false,

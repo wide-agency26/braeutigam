@@ -46,7 +46,7 @@ export default function SiteChrome() {
 
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="h-12 px-5 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer border-none outline-none focus:outline-none backdrop-blur-sm bg-zinc-900/90 hover:bg-zinc-800 dark:bg-zinc-100/90 dark:hover:bg-white"
+          className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer border-none outline-none focus:outline-none backdrop-blur-sm bg-zinc-900/90 hover:bg-zinc-800 dark:bg-zinc-100/90 dark:hover:bg-white"
           title="Toggle navigation menu"
         >
           <div className="flex flex-col items-center justify-center gap-[5px] w-6">
