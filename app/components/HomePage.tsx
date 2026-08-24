@@ -6,11 +6,10 @@ import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from 
 import NotchedBorderGlow from "./NotchedBorderGlow";
 import TrackScrollMap from "./TrackScrollMap";
 import ScrollTelemetry from "./ScrollTelemetry";
-import DecryptedText from "./DecryptedText";
 import LazyOnVisible from "./LazyOnVisible";
-import Reveal from "./Reveal";
 import SiteChrome from "./SiteChrome";
 import SiteHero from "./SiteHero";
+import ManifestBlock from "./ManifestBlock";
 import { useTheme } from "./ThemeProvider";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
@@ -22,7 +21,6 @@ import story01Dark from "../../public/images/Part_01_darkmode.webp";
 import story01Light from "../../public/images/Part_01.webp";
 import story02 from "../../public/images/Part_02.webp";
 import story03 from "../../public/images/Part_03.webp";
-import craftHandwork from "../../public/images/craft_handwork.webp";
 import laserTech from "../../public/images/laser_technology.webp";
 
 const EXPERT_PORTRAIT = "/images/experts/portrait.webp";
@@ -38,18 +36,6 @@ const WIDE_CREDIT_URL = "https://wide-communication.com";
 
 export default function HomePage() {
   const { isDark } = useTheme();
-
-  // Section 2 Scrollytelling targets
-  // New "Craft + Technology" section parallax
-  const craftSectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: craftScrollProgress } = useScroll({
-    target: craftSectionRef,
-    offset: ["start end", "end start"],
-  });
-  const craftImgY = useTransform(craftScrollProgress, [0, 1], [80, -80]);
-  const techImgY = useTransform(craftScrollProgress, [0, 1], [-80, 80]);
-  const craftImgX = useTransform(craftScrollProgress, [0, 0.5, 1], [60, 0, -30]);
-  const techImgX = useTransform(craftScrollProgress, [0, 0.5, 1], [-60, 0, 30]);
 
   // Parallax layers refs
   const backgroundRef = useRef<HTMLDivElement>(null);
@@ -108,146 +94,7 @@ export default function HomePage() {
       <SiteHero scrollTarget="#story" />
 
 
-      {/* 1.5. SECTION: CRAFT + TECHNOLOGY — Full-width statement with parallax images */}
-      <section 
-        ref={craftSectionRef}
-        id="craft-technology" 
-        className="cv-auto relative min-h-screen flex items-center justify-center overflow-hidden py-32 md:py-40"
-      >
-
-
-        {/* Background flowing curves — Light Mode (kept as-is) */}
-        <div className={`absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-500 opacity-100 dark:opacity-0`}>
-          <svg 
-            className="w-full h-full opacity-[0.08]" 
-            viewBox="0 0 1440 900" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            preserveAspectRatio="xMidYMid slice"
-          >
-            <path d="M-100 200 C 300 100, 500 400, 800 300 S 1100 100, 1500 250" stroke="#27272a" strokeWidth="1" />
-            <path d="M-100 350 C 200 250, 600 550, 900 400 S 1200 200, 1600 350" stroke="#27272a" strokeWidth="1" />
-            <path d="M-100 500 C 400 400, 700 700, 1000 500 S 1300 300, 1600 500" stroke="#27272a" strokeWidth="1" />
-            <path d="M-100 650 C 250 550, 550 800, 850 650 S 1150 450, 1600 650" stroke="#27272a" strokeWidth="1" />
-          </svg>
-        </div>
-
-        {/* Dark Mode subtle green curves on top of carbon texture */}
-        <div className={`absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-500 opacity-0 dark:opacity-100`}>
-          <svg 
-            className="w-full h-full opacity-[0.06]" 
-            viewBox="0 0 1440 900" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            preserveAspectRatio="xMidYMid slice"
-          >
-            <path d="M-100 200 C 300 100, 500 400, 800 300 S 1100 100, 1500 250" stroke="#39FF14" strokeWidth="1" />
-            <path d="M-100 350 C 200 250, 600 550, 900 400 S 1200 200, 1600 350" stroke="#39FF14" strokeWidth="1" />
-            <path d="M-100 500 C 400 400, 700 700, 1000 500 S 1300 300, 1600 500" stroke="#39FF14" strokeWidth="1" />
-            <path d="M-100 650 C 250 550, 550 800, 850 650 S 1150 450, 1600 650" stroke="#39FF14" strokeWidth="1" />
-          </svg>
-        </div>
-
-
-
-        {/* Dark Mode gradient overlay — black > transparent > black for smooth section blending */}
-        <div className={`absolute inset-0 pointer-events-none z-[2] transition-opacity duration-700 opacity-0 dark:opacity-100`} style={{
-          background: 'linear-gradient(to bottom, #0B0B0C 0%, transparent 25%, transparent 75%, #0B0B0C 100%)'
-        }} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-          <div className="relative">
-
-            {/* Parallax Image — Top Left (Craft/Handwork) */}
-            <m.div 
-              className="absolute -top-8 -left-4 md:left-0 w-[45%] max-w-[380px] aspect-[4/3] z-0 rounded-sm overflow-hidden"
-              style={{ y: craftImgY, x: craftImgX }}
-            >
-              <Image 
-                src={craftHandwork}
-                alt="Carbon fiber handcraft layup"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 45vw, 380px"
-              />
-              <div className={`absolute inset-0 bg-black/10 dark:bg-black/30`} />
-            </m.div>
-
-            {/* Parallax Image — Bottom Right (Technology/Laser) */}
-            <m.div 
-              className="absolute -bottom-8 -right-4 md:right-0 w-[45%] max-w-[380px] aspect-[4/3] z-0 rounded-sm overflow-hidden"
-              style={{ y: techImgY, x: techImgX }}
-            >
-              <Image 
-                src={laserTech}
-                alt="Laser cutting technology"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 45vw, 380px"
-              />
-              <div className={`absolute inset-0 bg-black/10 dark:bg-black/30`} />
-            </m.div>
-
-            {/* Manifest — Figma Final Home: Univers 119 / Bootzy neon; decrypt on hover only */}
-            <div className="manifest-figma relative text-center py-16 md:py-24 flex flex-col items-center gap-10 md:gap-16">
-              <Reveal as="h2" className="manifest-figma__line">
-                <DecryptedText
-                  text="unsere kunden: "
-                  animateOn="hover"
-                  speed={120}
-                  maxIterations={7}
-                  sequential={false}
-                  characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-                  className="decrypt-char-revealed"
-                  encryptedClassName="decrypt-char-encrypted"
-                />
-                <span className="manifest-figma__neon">
-                  <DecryptedText
-                    text="höchste anforderungen."
-                    animateOn="hover"
-                    speed={120}
-                    maxIterations={7}
-                    sequential={false}
-                    revealDirection="center"
-                    characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmnöäü."
-                    className="decrypt-char-revealed"
-                    encryptedClassName="decrypt-char-encrypted"
-                  />
-                </span>
-              </Reveal>
-
-              <div className="manifest-figma__block">
-                <Reveal as="p" className="manifest-figma__line">
-                  <DecryptedText
-                    text="Unser Grundsatz:"
-                    animateOn="hover"
-                    speed={120}
-                    maxIterations={7}
-                    sequential={false}
-                    characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmn:"
-                    className="decrypt-char-revealed"
-                    encryptedClassName="decrypt-char-encrypted"
-                  />
-                </Reveal>
-                <Reveal as="p" className="manifest-figma__neon">
-                  <DecryptedText
-                    text="KOMPLEX, SCHNELL, INHOUSE"
-                    animateOn="hover"
-                    speed={120}
-                    maxIterations={7}
-                    sequential={false}
-                    revealDirection="start"
-                    characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ, "
-                    className="decrypt-char-revealed"
-                    encryptedClassName="decrypt-char-encrypted"
-                  />
-                </Reveal>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      <ManifestBlock />
 
       {/* 2. SECTION: SEAMLESS EVOLUTION SCROLLYTELLING (CAD -> Autoclave -> Finished Product) */}
       <section id="story" ref={scrollyRef} className="cv-auto relative h-[300vh]">
@@ -281,8 +128,8 @@ export default function HomePage() {
           {/* Technical grid overlay */}
           <div className={`absolute inset-0 pointer-events-none transition-all duration-500 technical-grid-theme`} />
 
-          {/* Top HUD Telemetry bar */}
-          <div className={`absolute top-20 left-0 w-full border-b font-mono text-[9px] py-2 px-6 flex justify-between items-center z-30 transition-colors duration-500 border-zinc-200/60 bg-brand-light/40 text-zinc-500 dark:border-zinc-800 dark:bg-brand-dark/40 dark:text-zinc-400`}>
+          {/* Top HUD Telemetry — Figma CAD corners */}
+          <div className="absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
@@ -471,12 +318,12 @@ export default function HomePage() {
                   <div className={`font-mono text-[9px] leading-normal text-zinc-700 dark:text-zinc-300`}>
                     <div className={`text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 uppercase tracking-wider text-[10px] pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800`}>
                       <span>// COMPOSITE_SPEC</span>
-                      <span className="text-[8px] text-brand-neon font-bold">[ CERTIFIED ]</span>
+                      <span className="text-[8px] text-brand-neon font-bold">[QC CERTIFIED]</span>
                     </div>
                     <div className="space-y-1.5 mt-2">
                       <div className="flex justify-between">
                         <span className="font-bold uppercase text-zinc-400">PART:</span>
-                        <span>CFRP REAR WING</span>
+                        <span>VEHICLE_BR_CHASSIS</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="font-bold uppercase text-zinc-400">WEAVE:</span>
@@ -484,11 +331,11 @@ export default function HomePage() {
                       </div>
                       <div className="flex justify-between">
                         <span className="font-bold uppercase text-zinc-400">VOIDS:</span>
-                        <span>&lt; 0.05% [SCAN NOMINAL]</span>
+                        <span>&lt; 0.05 %</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="font-bold uppercase text-zinc-400">TOLER:</span>
-                        <span>&lt; 0.05 mm [CNC PASS]</span>
+                        <span className="font-bold uppercase text-zinc-400">TOLERANCE</span>
+                        <span>&lt; 0.05 MM</span>
                       </div>
                     </div>
                   </div>
@@ -511,36 +358,75 @@ export default function HomePage() {
 
       {/* 2.5. SECTION: MISSION — Final Home (Figma 989:2 proportions) */}
       <section id="mission" className="mission-figma cv-auto relative overflow-hidden transition-colors duration-500">
-        {/* Giant Bootzy watermark — 330px @ 1920 ≈ 17.2vw */}
-        <div className="mission-figma__watermark" aria-hidden>
-          <p>
-            OUR
-            <br />
-            MISSION:
-          </p>
-        </div>
-
-        <div className="mission-figma__grid relative z-10">
-          <Reveal as="div" className="mission-figma__headline uppercase">
-            <h2 className="mission-figma__quality">Flawless QUALITY &amp;</h2>
-            <p className="mission-figma__perf">HIGH performance.</p>
-          </Reveal>
-
-          <div className="mission-figma__aside">
-            <span className="mission-figma__status">
-              PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS
-            </span>
-            <p className="mission-figma__copy">
-              Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
+        <div className="mission-figma__stage">
+          <div className="mission-figma__watermark" aria-hidden>
+            <p>
+              OUR
+              <br />
+              CRAFT
             </p>
-            <a href="#datasheet" className="mission-figma__btn" aria-label="About us">
-              <span>About us</span>
-            </a>
           </div>
 
-          <div className="mission-figma__hud">
-            <p>PROGRESS:&nbsp;0% STATE:&nbsp;01_WIRE_BLUEPRINT</p>
-            <p className="mission-figma__axes">AXIS_X: +1.28 &nbsp;&nbsp; AXIS_Y: -0.49 &nbsp;&nbsp; AXIS_Z: +0.00</p>
+          <aside className="mission-figma__sidebar" aria-label="Craft principles">
+            <div className="mission-figma__chip">
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <circle cx="16" cy="16" r="2" fill="currentColor" />
+                {Array.from({ length: 8 }, (_, i) => {
+                  const a = (i * Math.PI) / 4;
+                  return (
+                    <line
+                      key={i}
+                      x1={16 + Math.cos(a) * 5}
+                      y1={16 + Math.sin(a) * 5}
+                      x2={16 + Math.cos(a) * 13}
+                      y2={16 + Math.sin(a) * 13}
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                    />
+                  );
+                })}
+              </svg>
+              <span>END 2 END EXPERTS</span>
+            </div>
+            <div className="mission-figma__chip">
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <circle cx="16" cy="16" r="10" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M16 6v20M6 16h20" stroke="currentColor" strokeWidth="1.4" />
+                <circle cx="16" cy="16" r="2.2" fill="currentColor" />
+              </svg>
+              <span>PRECISION CRAFT</span>
+            </div>
+            <div className="mission-figma__chip">
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <circle cx="16" cy="16" r="10" stroke="currentColor" strokeWidth="1.4" />
+              </svg>
+              <span>FLAWLESS EXECUTION</span>
+            </div>
+          </aside>
+
+          <div className="mission-figma__headline">
+            <h2 className="mission-figma__quality">FLAWLESS QUALITY &amp;</h2>
+            <p className="mission-figma__perf">HIGH PERFORMANCE.</p>
+          </div>
+
+          <div className="mission-figma__split">
+            <div className="mission-figma__image">
+              <Image
+                src={laserTech}
+                alt="Precision finishing on a carbon fiber component"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 30vw"
+              />
+            </div>
+            <div className="mission-figma__aside">
+              <p className="mission-figma__copy">
+                Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
+              </p>
+              <a href="#story" className="mission-figma__btn">
+                MANUFACTURING
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -550,32 +436,30 @@ export default function HomePage() {
         <LazyOnVisible
           loader={loadTimeline}
           rootMargin="100px"
-          style={{ minHeight: "1100vh" }}
+          style={{ minHeight: "calc(100svh + 1100vh)" }}
         />
       </div>
 
       {/* 4. SECTION: MEET THE EXPERTS — HUD trading cards */}
-      <section id="datasheet" className="cv-auto relative py-24 md:py-32 px-6 lg:px-16 overflow-hidden">
+      <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 px-6 lg:px-16 overflow-hidden">
         <div className={`absolute inset-0 pointer-events-none transition-all duration-500 technical-grid-theme`} />
 
         <div className="relative z-10">
-          <div className="mb-10 lg:mb-4 max-w-xl">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-zinc-500 dark:text-zinc-400 block mb-8">
-              CORPORATE EVOLUTION: LOADED
-            </span>
-            <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[76px] font-light uppercase tracking-tight leading-[1.06] text-zinc-950 dark:text-white">
-              Meet
-              <span className="block font-bold">The experts</span>
+          <div className="experts-figma__header">
+            <h2 className="experts-figma__title">
+              <span className="experts-figma__meet">MEET</span>
+              <span className="experts-figma__experts">THE EXPERTS</span>
             </h2>
-            <div className="mt-8 space-y-1 font-mono text-[13px] tracking-wider uppercase">
-              <div className="flex items-center justify-between max-w-[242px] text-zinc-500">
-                <span>ACTIVE YEAR:</span>
-                <span className="text-brand-neon">2016</span>
-              </div>
-              <div className="flex items-center justify-between max-w-[242px] text-zinc-500">
-                <span>SCROLL STATE:</span>
-                <span className="text-brand-neon">0%</span>
-              </div>
+            <div className="experts-figma__hud">
+              <p className="experts-figma__hud-kicker">** END 2 END EXPERTS **</p>
+              <p>
+                <span>HEADCOUNT:</span>
+                <span className="experts-figma__hud-val">88+</span>
+              </p>
+              <p>
+                <span>DIVISIONS:</span>
+                <span className="experts-figma__hud-val">9</span>
+              </p>
             </div>
           </div>
 
@@ -587,12 +471,11 @@ export default function HomePage() {
               style={{ width: "100%", aspectRatio: "403 / 522" }}
               componentProps={{
                 name: "Ralf Schuster",
-                title: "DIGITAL VERIFIED",
+                title: "PRODUCTION & PROJECT MANAGER",
                 email: "ralf@braeutigam-gmbh.eu",
                 phone: "07141/2996-701",
                 avatarUrl: EXPERT_PORTRAIT,
                 memberId: "#701-RS",
-                gridTag: "GRID_Z_71.1",
               }}
             />
             <LazyOnVisible
@@ -601,12 +484,11 @@ export default function HomePage() {
               style={{ width: "100%", aspectRatio: "403 / 522" }}
               componentProps={{
                 name: "Heiko Euteneuer",
-                title: "DIGITAL VERIFIED",
+                title: "PRODUCTION & PROJECT MANAGER",
                 email: "heiko@braeutigam-gmbh.eu",
                 phone: "07141/2996-702",
                 avatarUrl: EXPERT_PORTRAIT,
                 memberId: "#702-HE",
-                gridTag: "GRID_Z_72.0",
               }}
             />
             <LazyOnVisible
@@ -615,14 +497,19 @@ export default function HomePage() {
               style={{ width: "100%", aspectRatio: "403 / 522" }}
               componentProps={{
                 name: "Hans Braun",
-                title: "DIGITAL VERIFIED",
+                title: "PRODUCTION & PROJECT MANAGER",
                 email: "hans@braeutigam-gmbh.eu",
                 phone: "07141/2996-708",
                 avatarUrl: EXPERT_PORTRAIT,
                 memberId: "#934-241",
-                gridTag: "GRID_Z_72.4",
               }}
             />
+          </div>
+
+          <div className="experts-figma__cta-wrap">
+            <a href="mailto:info@braeutigam-gmbh.eu" className="experts-figma__cta">
+              ALL EXPERTS
+            </a>
           </div>
         </div>
       </section>

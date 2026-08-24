@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" width="402" height="529" viewBox="0 0 402 529" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="card-bg-shape">
+    <path d="M0 24C0 10.7452 10.7452 0 24 0H342L402 60V505C402 518.255 391.255 529 378 529H24C10.7452 529 0 518.255 0 505V24Z" fill="#ffffff"/>
+    <path d="M24 0.75H341.689L401.25 60.3105V505C401.25 517.841 390.841 528.25 378 528.25H24C11.1594 528.25 0.75 517.841 0.75 505V24C0.75 11.1594 11.1594 0.75 24 0.75Z" stroke="#0A9E0A" stroke-opacity="0.7" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,350 @@
+/* Figma Final Home — Micrographic HUD + Manifest + stats strip.
+   Tokens invert in light mode; neon stays the single accent. */
+
+.manifest-shell {
+  --mg-fg: #fbfafc;
+  --mg-dim: #8a8a8a;
+  --mg-muted: #b2b1b2;
+  --mg-neon: #00ff00;
+  --mg-amber: #c9a227;
+  --mg-line: rgba(251, 250, 252, 0.18);
+  color: var(--mg-fg);
+}
+
+:root:not(.dark) .manifest-shell {
+  --mg-fg: #131414;
+  --mg-dim: #5c5c5c;
+  --mg-muted: #4a4a4a;
+  --mg-neon: #0a9e0a;
+  --mg-amber: #8a6a10;
+  --mg-line: rgba(19, 20, 20, 0.14);
+}
+
+.mg-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(16px, 3vw, 48px);
+  padding: 14px clamp(20px, 3.33vw, 64px);
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  border-block: 1px solid var(--mg-line);
+}
+
+.mg-bar--values {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-block: 28px;
+  justify-items: center;
+}
+
+.mg-bar__cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mg-bar__cluster--center {
+  align-items: center;
+  text-align: center;
+}
+
+.mg-bar__cluster--end {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.mg-neon {
+  color: var(--mg-neon);
+}
+
+.mg-amber {
+  color: var(--mg-amber);
+}
+
+.mg-dim {
+  color: var(--mg-dim);
+}
+
+.mg-muted {
+  color: var(--mg-muted);
+}
+
+.mg-credit {
+  margin-top: 8px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--mg-dim);
+}
+
+.mg-core {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.mg-core__label {
+  color: var(--mg-dim);
+  letter-spacing: 0.08em;
+  font-size: 9px;
+}
+
+.mg-core__row {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(18px, 2.2vw, 36px);
+}
+
+.mg-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--mg-fg);
+}
+
+.mg-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.mg-icon span {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.mg-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--mg-muted);
+  text-align: center;
+}
+
+.mg-stat svg {
+  width: 50px;
+  height: 50px;
+}
+
+.mg-stat span {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+}
+
+/* ── Manifest stage ── */
+.manifest-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(160px, 346px) minmax(0, 1fr) minmax(200px, 500px);
+  grid-template-areas:
+    "overview headlines photo-tr"
+    "photo-tl headlines photo-tr"
+    "photo-tl headlines mission"
+    "photo-bl headlines photo-br";
+  column-gap: clamp(16px, 1.2vw, 24px);
+  row-gap: clamp(16px, 2vw, 32px);
+  padding: clamp(40px, 4.5vw, 72px) clamp(20px, 3.33vw, 64px) clamp(48px, 5vw, 88px);
+  max-width: 1920px;
+  margin-inline: auto;
+  align-items: start;
+}
+
+.manifest-overview {
+  grid-area: overview;
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.manifest-overview__title {
+  margin: 0 0 10px;
+  color: var(--mg-dim);
+  letter-spacing: 0.16em;
+}
+
+.manifest-overview__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  margin: 0 0 6px;
+  color: var(--mg-dim);
+}
+
+.manifest-overview__wait {
+  margin: 10px 0 0;
+  color: var(--mg-dim);
+}
+
+.manifest-headlines {
+  grid-area: headlines;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 4vw, 56px);
+  min-height: 420px;
+  padding-block: 12px;
+}
+
+@media (min-width: 1101px) {
+  .manifest-headlines {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    justify-self: stretch;
+    align-self: stretch;
+    padding-inline: clamp(140px, 16vw, 360px);
+    pointer-events: none;
+  }
+
+  .manifest-headlines > * {
+    pointer-events: auto;
+  }
+}
+
+.manifest-photo {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: #0b0b0c;
+  min-height: 180px;
+  width: 100%;
+}
+
+.manifest-photo img {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+
+:root:not(.dark) .manifest-photo {
+  background: #e7e7ea;
+  outline: 1px solid rgba(19, 20, 20, 0.08);
+}
+
+:root:not(.dark) .manifest-photo img {
+  filter: grayscale(0.2) contrast(1.02);
+}
+
+.manifest-photo--tl {
+  grid-area: photo-tl;
+  aspect-ratio: auto;
+  min-height: 240px;
+  height: 100%;
+}
+
+.manifest-photo--tr {
+  grid-area: photo-tr;
+  aspect-ratio: auto;
+  min-height: 280px;
+  height: 100%;
+}
+
+.manifest-photo--bl {
+  grid-area: photo-bl;
+  aspect-ratio: 450 / 450;
+}
+
+.manifest-photo--br {
+  grid-area: photo-br;
+  aspect-ratio: 700 / 560;
+  align-self: end;
+}
+
+.manifest-mission {
+  grid-area: mission;
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: var(--mg-muted);
+  align-self: end;
+}
+
+.manifest-mission__title {
+  margin: 0 0 10px;
+  letter-spacing: 0.14em;
+  color: var(--mg-dim);
+}
+
+.manifest-mission p {
+  margin: 0 0 8px;
+  max-width: 34ch;
+}
+
+.manifest-mission p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1100px) {
+  .manifest-stage {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "overview mission"
+      "headlines headlines"
+      "photo-tl photo-tr"
+      "photo-bl photo-br";
+  }
+
+  .manifest-headlines {
+    min-height: 0;
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .mg-bar {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .mg-bar--values {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mg-bar__cluster--end,
+  .mg-core {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .mg-bar--values {
+    grid-template-columns: 1fr;
+    row-gap: 22px;
+  }
+
+  .manifest-stage {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "overview"
+      "headlines"
+      "mission"
+      "photo-tl"
+      "photo-tr"
+      "photo-bl"
+      "photo-br";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifest-photo img {
+    filter: none;
+  }
+}

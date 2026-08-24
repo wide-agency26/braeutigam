@@ -3,12 +3,16 @@
 import { useRef } from "react";
 import { MotionValue, useMotionValueEvent } from "framer-motion";
 
-const STATES = ["01_WIRE_BLUEPRINT", "02_STRESS_AUTOCLAVE", "03_FINISHED_COMPOSITE"];
+function statusFor(progress: number) {
+  if (progress < 0.3) return "LOADING";
+  if (progress < 0.65) return "NOMINAL";
+  return "APPROVED";
+}
 
-function stateFor(progress: number) {
-  if (progress < 0.3) return STATES[0];
-  if (progress < 0.65) return STATES[1];
-  return STATES[2];
+function pctClass(progress: number) {
+  if (progress >= 0.65) return "cad-hud__ok";
+  if (progress >= 0.3) return "cad-hud__warn";
+  return "";
 }
 
 /**
@@ -17,18 +21,30 @@ function stateFor(progress: number) {
  */
 export default function ScrollTelemetry({ progress }: { progress: MotionValue<number> }) {
   const percentRef = useRef<HTMLSpanElement>(null);
-  const stateRef = useRef<HTMLSpanElement>(null);
+  const statusRef = useRef<HTMLSpanElement>(null);
 
   useMotionValueEvent(progress, "change", (latest) => {
     const pct = Math.min(Math.round(latest * 100), 100);
-    if (percentRef.current) percentRef.current.textContent = `${pct}%`;
-    if (stateRef.current) stateRef.current.textContent = stateFor(latest);
+    if (percentRef.current) {
+      percentRef.current.textContent = `${pct}%`;
+      percentRef.current.className = pctClass(latest);
+    }
+    if (statusRef.current) {
+      statusRef.current.textContent = statusFor(latest);
+      statusRef.current.className = latest < 0.3 ? "" : "cad-hud__ok";
+    }
   });
 
   return (
-    <div className="flex items-center gap-6">
-      <span>PROGRESS: <span ref={percentRef}>0%</span></span>
-      <span>STATE: <span ref={stateRef}>{STATES[0]}</span></span>
+    <div className="cad-hud__meta">
+      <p>** PROJECT: AERO_HYPERCAR_V2.2 **</p>
+      <p>
+        PROGRESS: <span ref={percentRef}>0%</span>
+      </p>
+      <p>
+        STATUS: <span ref={statusRef}>LOADING</span>
+      </p>
+      <p>COMPONENT: VEHICLE_RP_CHASSIS</p>
     </div>
   );
 }
