@@ -6,6 +6,7 @@ import { LazyMotion, domAnimation } from "framer-motion";
 import { Cpu, Play, TrendingUp, Trophy } from "lucide-react";
 import Reveal from "./Reveal";
 import SiteChrome from "./SiteChrome";
+import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
 import "./CareerPage.css";
 
@@ -388,6 +389,8 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
             </Reveal>
           </div>
         </section>
+
+        <SiteFooter />
       </div>
     </LazyMotion>
   );

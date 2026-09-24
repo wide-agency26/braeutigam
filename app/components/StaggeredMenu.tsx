@@ -55,7 +55,8 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
     { label: "LEISTUNGEN", link: "/#story" },
     { label: "BAUTEILE", link: "/#mission" },
     { label: "KARRIERE", link: "/karriere" },
-    { label: "TEAM", link: "/#datasheet" }
+    { label: "TEAM", link: "/#datasheet" },
+    { label: "KONTAKT", link: "/kontakt" }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
@@ -149,7 +150,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
 
           {/* Layer 3: Main Full Screen Content Panel */}
           <m.div
-            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 bg-white dark:bg-[#0B0B0C]"
+            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-[#0B0B0C] overflow-y-auto"
             variants={{
               closed: { x: "-100%" },
               open: { 
@@ -205,21 +206,21 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
               </m.div>
 
               {/* Right Column: Dynamic Menu Items */}
-              <ul className="lg:col-span-7 flex flex-col justify-center gap-6">
+              <ul className="lg:col-span-7 flex flex-col justify-center gap-3 sm:gap-4">
                 {menuItems.map((item, idx) => (
                   <m.li
                     key={item.label}
                     custom={idx}
                     variants={itemVariants}
-                    className="overflow-hidden border-b border-zinc-200/10 dark:border-zinc-800/60 pb-4"
+                    className="overflow-hidden border-b border-zinc-200/10 dark:border-zinc-800/60 pb-3"
                   >
                     <a
                       href={item.link}
                       onClick={(e) => handleLinkClick(e, item.link)}
-                      className="font-sans text-4xl sm:text-6xl font-bold uppercase tracking-tight flex items-center gap-6 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
+                      className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
                     >
                       <span className="text-brand-neon font-mono text-base font-semibold">
-                        0{idx + 1}
+                        {String(idx + 1).padStart(2, "0")}
                       </span>
                       <span>{item.label}</span>
                     </a>
