@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import CareerPage from "../components/CareerPage";
+import CareerPage, { type CareerOpening } from "../components/CareerPage";
+import { listPublishedJobs } from "@/lib/data/jobs";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Karriere | Bräutigam GmbH",
   description:
-    "Fünf Berufe, fünf Geschichten. Offene Stellen in der Carbonfaser-Verarbeitung bei Bräutigam GmbH — Lamination, CAD/CAM, Qualitätssicherung, CNC und Projektleitung.",
+    "Offene Stellen in der Carbonfaser-Verarbeitung bei Bräutigam GmbH — Lamination, CAD/CAM, Qualitätssicherung, CNC und Projektleitung.",
 };
 
-export default function Page() {
-  return <CareerPage />;
+export default async function Page() {
+  const openings: CareerOpening[] = await listPublishedJobs();
+  return <CareerPage openings={openings} />;
 }

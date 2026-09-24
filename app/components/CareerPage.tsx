@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { LazyMotion, domAnimation } from "framer-motion";
 import { Cpu, Play, TrendingUp, Trophy } from "lucide-react";
 import Reveal from "./Reveal";
@@ -9,7 +10,6 @@ import SiteHero from "./SiteHero";
 import "./CareerPage.css";
 
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
-const JOB_LOCATION = "LOCATION: GERMANY [48.9° N, 9.2° E]";
 
 const STATS = [
   { value: "81", label: "TEAM MEMBERS" },
@@ -62,13 +62,12 @@ const ROLE_FILMS = [
   },
 ] as const;
 
-const OPENINGS = [
-  { title: "SENIOR CARBON FIBER LAMINATOR", department: "PRODUCTION" },
-  { title: "CAD/CAM CATIA DESIGN ENGINEER", department: "ENGINEERING" },
-  { title: "QUALITY INSPECTOR - NDT & METROLOGY", department: "QUALITY" },
-  { title: "PROJECT LEAD - MOTORSPORT PROGRAMS", department: "MANAGEMENT" },
-  { title: "CNC CUTTING & MATERIALS TECHNICIAN", department: "CUTTING" },
-] as const;
+export type CareerOpening = {
+  slug: string;
+  title: string;
+  department: string;
+  location: string;
+};
 
 const VALUES = [
   {
@@ -149,7 +148,7 @@ function RoleTile({
   );
 }
 
-export default function CareerPage() {
+export default function CareerPage({ openings }: { openings: CareerOpening[] }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="career relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
@@ -182,7 +181,9 @@ export default function CareerPage() {
 
               <div className="font-mono text-[9px] leading-relaxed tracking-[0.18em] text-zinc-500 lg:text-right dark:text-zinc-500">
                 <div className="text-[var(--career-neon)]">{"// STATUS: ACTIVE"}</div>
-                <div>CURRENT OFFERS: 5 OPENINGS // ESTABLISHED: 2016</div>
+                <div>
+                  CURRENT OFFERS: {openings.length} OPENINGS // ESTABLISHED: 2016
+                </div>
               </div>
             </div>
 
@@ -273,28 +274,36 @@ export default function CareerPage() {
             </div>
 
             <div className="mt-12 md:mt-20">
-              {OPENINGS.map((job) => (
-                <a
-                  key={job.title}
-                  className="career-job group"
-                  href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent(`Bewerbung: ${job.title}`)}`}
-                >
-                  <span>
-                    <span className="block font-sans text-sm font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
-                      {job.title}
+              {openings.length === 0 ? (
+                <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-zinc-500">
+                  No published openings right now.
+                </p>
+              ) : (
+                openings.map((job) => (
+                  <Link
+                    key={job.slug}
+                    className="career-job group"
+                    href={`/karriere/${job.slug}`}
+                  >
+                    <span>
+                      <span className="block font-sans text-sm font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
+                        {job.title}
+                      </span>
+                      <span className="career-eyebrow mt-1 block text-zinc-500 dark:text-zinc-500">
+                        DEPARTMENT: {job.department}
+                      </span>
                     </span>
-                    <span className="career-eyebrow mt-1 block text-zinc-500 dark:text-zinc-500">
-                      DEPARTMENT: {job.department}
+                    <span className="flex flex-wrap items-center gap-x-8 gap-y-1">
+                      <span className="career-eyebrow text-zinc-500 dark:text-zinc-600">
+                        LOCATION: {job.location}
+                      </span>
+                      <span className="career-eyebrow text-[var(--career-neon)] group-hover:underline">
+                        VIEW ROLE // APPLY
+                      </span>
                     </span>
-                  </span>
-                  <span className="flex flex-wrap items-center gap-x-8 gap-y-1">
-                    <span className="career-eyebrow text-zinc-500 dark:text-zinc-600">{JOB_LOCATION}</span>
-                    <span className="career-eyebrow text-[var(--career-neon)] group-hover:underline">
-                      VIEW ROLE // APPLY
-                    </span>
-                  </span>
-                </a>
-              ))}
+                  </Link>
+                ))
+              )}
             </div>
           </div>
         </section>
