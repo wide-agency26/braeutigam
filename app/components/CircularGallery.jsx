@@ -262,6 +262,8 @@ const CircularGallery = ({
   const fontRef = useRef(font);
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
+  const [canvasEpoch, setCanvasEpoch] = useState(0);
+  const recoveriesRef = useRef(0);
   const list = Array.isArray(items) && items.length ? items : DEFAULT_ITEMS;
   const settings = {
     items: list,
@@ -304,9 +306,28 @@ const CircularGallery = ({
 
   useEffect(() => {
     const container = containerRef.current;
-    let canvas = canvasRef.current;
+    const canvas = canvasRef.current;
     const labelLayer = labelsRef.current;
     const caption = captionRef.current;
+    if (!container || !canvas || !labelLayer || !caption) return undefined;
+
+    // Strict mode runs setup then cleanup before paint. Creating the context
+    // on the next frame lets that first cleanup cancel before a context exists,
+    // so the real setup is the only one that has to release it.
+    let alive = true;
+    let stop = () => {};
+    const bootId = requestAnimationFrame(() => {
+      if (!alive) return;
+      stop = boot();
+    });
+
+    return () => {
+      alive = false;
+      cancelAnimationFrame(bootId);
+      stop();
+    };
+
+    function boot() {
     const glAttrs = {
       alpha: true,
       premultipliedAlpha: true,
@@ -314,18 +335,20 @@ const CircularGallery = ({
       depth: false,
       stencil: false
     };
-    let gl = canvas?.getContext('webgl2', glAttrs);
-    if (gl?.isContextLost()) {
-      const fresh = canvas.cloneNode(false);
-      canvas.replaceWith(fresh);
-      canvasRef.current = fresh;
-      canvas = fresh;
-      gl = fresh.getContext('webgl2', glAttrs);
+    const gl = canvas.getContext('webgl2', glAttrs);
+    if (!gl || gl.isContextLost()) {
+      if (alive && recoveriesRef.current < 3) {
+        recoveriesRef.current += 1;
+        setCanvasEpoch(epoch => epoch + 1);
+      }
+      return () => {};
     }
-    if (!container || !canvas || !labelLayer || !caption || !gl || gl.isContextLost()) return undefined;
 
     const program = link(gl);
-    if (!program) return undefined;
+    if (!program) {
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      return () => {};
+    }
     const u = program.uniforms;
 
     const vertices = [];
@@ -405,6 +428,28 @@ const CircularGallery = ({
     let snapTimer = 0;
     let lastItems = null;
     let typing = false;
+    let dead = false;
+    let stableFrames = 0;
+
+    const recover = () => {
+      if (dead || !alive) return;
+      dead = true;
+      cancelAnimationFrame(raf);
+      const drag = state.drag;
+      if (drag && container.hasPointerCapture?.(drag.id)) {
+        try {
+          container.releasePointerCapture(drag.id);
+        } catch {
+          /* capture already released */
+        }
+      }
+      state.drag = null;
+      container.removeAttribute('data-dragging');
+      if (recoveriesRef.current < 3) {
+        recoveriesRef.current += 1;
+        setCanvasEpoch(epoch => epoch + 1);
+      }
+    };
 
     const textureFor = url => {
       const existing = textures.get(url);
@@ -415,25 +460,33 @@ const CircularGallery = ({
       image.crossOrigin = 'anonymous';
       image.decoding = 'async';
       image.onload = () => {
-        if (!textures.has(url)) return;
-        const texture = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        if (anisotropy) {
-          const max = gl.getParameter(anisotropy.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
-          gl.texParameterf(gl.TEXTURE_2D, anisotropy.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, max));
+        if (!textures.has(url) || dead) return;
+        try {
+          if (gl.isContextLost()) {
+            recover();
+            return;
+          }
+          const texture = gl.createTexture();
+          gl.bindTexture(gl.TEXTURE_2D, texture);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+          gl.generateMipmap(gl.TEXTURE_2D);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          if (anisotropy) {
+            const max = gl.getParameter(anisotropy.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+            gl.texParameterf(gl.TEXTURE_2D, anisotropy.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, max || 0));
+          }
+          entry.texture = texture;
+          entry.aspect = image.naturalWidth / Math.max(1, image.naturalHeight);
+          entry.loaded = true;
+          wake();
+        } catch {
+          recover();
         }
-        entry.texture = texture;
-        entry.aspect = image.naturalWidth / Math.max(1, image.naturalHeight);
-        entry.loaded = true;
-        wake();
       };
       image.src = url;
       return entry;
@@ -667,7 +720,7 @@ const CircularGallery = ({
       if (slot !== state.active) {
         state.active = slot;
         const index = wrap(slot, s.items.length);
-        if (announce) setActive(index);
+        if (announce && alive) setActive(index);
         s.onActiveChange?.(index);
       }
       wake();
@@ -676,19 +729,24 @@ const CircularGallery = ({
     const openSlot = slot => {
       setSlot(slot);
       state.openTarget = 1;
-      setOpen(true);
+      if (alive) setOpen(true);
       wake();
     };
 
     const close = () => {
       state.openTarget = 0;
-      setOpen(false);
+      if (alive) setOpen(false);
       wake();
     };
 
     const frame = now => {
       raf = 0;
-      if (!visible || document.hidden) return;
+      if (dead || !visible || document.hidden) return;
+      try {
+        if (gl.isContextLost()) {
+          recover();
+          return;
+        }
       const s = settingsRef.current;
       const dt = last ? clamp((now - last) / 1000, 0.0005, 0.05) : 1 / 60;
       last = now;
@@ -754,7 +812,7 @@ const CircularGallery = ({
       if (slot !== state.active && !state.drag) {
         state.active = slot;
         const index = wrap(slot, s.items.length);
-        setActive(index);
+        if (alive) setActive(index);
         s.onActiveChange?.(index);
       }
       const metrics = layout();
@@ -770,10 +828,16 @@ const CircularGallery = ({
         settling;
       if (moving) raf = requestAnimationFrame(frame);
       else last = 0;
+        stableFrames += 1;
+        if (stableFrames === 30) recoveriesRef.current = 0;
+      } catch {
+        recover();
+      }
     };
 
     function wake() {
-      if (!raf && visible && !document.hidden) raf = requestAnimationFrame(frame);
+      if (dead || !alive || raf || !visible || document.hidden) return;
+      raf = requestAnimationFrame(frame);
     }
 
     const resize = () => {
@@ -1001,6 +1065,12 @@ const CircularGallery = ({
     document.addEventListener('visibilitychange', onVisibility);
     document.addEventListener('keydown', onAnyKey, true);
     document.addEventListener('pointerdown', onAnyPointer, true);
+    const onContextLost = event => {
+      event.preventDefault();
+      recover();
+    };
+    canvas.addEventListener('webglcontextlost', onContextLost);
+
     lastItems = settingsRef.current.items;
     lastItems.forEach(item => textureFor(item.image));
     resize();
@@ -1022,11 +1092,13 @@ const CircularGallery = ({
     };
 
     return () => {
+      dead = true;
       cancelAnimationFrame(raf);
       clearTimeout(snapTimer);
       engineRef.current = null;
       resizeObserver.disconnect();
       intersection.disconnect();
+      canvas.removeEventListener('webglcontextlost', onContextLost);
       container.removeEventListener('pointerdown', onPointerDown);
       container.removeEventListener('pointermove', onPointerMove);
       container.removeEventListener('pointerup', onPointerUp);
@@ -1040,14 +1112,20 @@ const CircularGallery = ({
       document.removeEventListener('keydown', onAnyKey, true);
       document.removeEventListener('pointerdown', onAnyPointer, true);
       labelLayer.replaceChildren();
-      textures.forEach(entry => entry.texture && gl.deleteTexture(entry.texture));
-      gl.deleteTexture(blank);
-      gl.deleteProgram(program.program);
-      gl.deleteBuffer(vertexBuffer);
-      gl.deleteBuffer(indexBuffer);
-      gl.deleteVertexArray(vao);
+      try {
+        textures.forEach(entry => entry.texture && gl.deleteTexture(entry.texture));
+        gl.deleteTexture(blank);
+        gl.deleteProgram(program.program);
+        gl.deleteBuffer(vertexBuffer);
+        gl.deleteBuffer(indexBuffer);
+        gl.deleteVertexArray(vao);
+        gl.getExtension('WEBGL_lose_context')?.loseContext();
+      } catch {
+        /* context already gone */
+      }
     };
-  }, []);
+    }
+  }, [canvasEpoch]);
 
   useEffect(() => {
     engineRef.current?.wake();
@@ -1066,7 +1144,7 @@ const CircularGallery = ({
       aria-label="Image gallery"
       {...rest}
     >
-      <canvas ref={canvasRef} className={CLASSES.canvas} aria-hidden="true" />
+      <canvas key={canvasEpoch} ref={canvasRef} className={CLASSES.canvas} aria-hidden="true" />
       <div ref={labelsRef} className={CLASSES.labels} aria-hidden="true" />
       <div ref={captionRef} className={CLASSES.caption} aria-hidden={!open}>
         {current?.description && <p className={CLASSES.captionText}>{current.description}</p>}

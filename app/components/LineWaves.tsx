@@ -169,14 +169,15 @@ export default function LineWaves({
   const programRef = useRef<Program | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
 
-  const { visible, hasBeenVisible } = useVisibility(containerRef);
+  const { visible } = useVisibility(containerRef);
   const afterPaint = useAfterPaint();
   const reducedMotion = usePrefersReducedMotion();
   const active = visible && !reducedMotion;
 
   // This canvas lives in the footer, many screens below the fold. Building the
-  // context on mount meant compiling a shader nobody could see yet.
-  const shouldInit = hasBeenVisible && afterPaint && !reducedMotion;
+  // context on mount meant compiling a shader nobody could see yet. Release it
+  // again once the footer leaves the viewport so the slot is free elsewhere.
+  const shouldInit = visible && afterPaint && !reducedMotion;
 
   const activeRef = useRef(active);
   const enableMouseRef = useRef(enableMouseInteraction);

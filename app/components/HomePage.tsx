@@ -12,6 +12,7 @@ import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
 import ManifestBlock from "./ManifestBlock";
 import SiteButton from "./SiteButton";
+import SocialGalleryBoundary from "./SocialGalleryBoundary";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -604,26 +605,28 @@ export default function HomePage() {
 
       {/* 5. SECTION: SOCIAL — Circular gallery, Figma 1154:1338 */}
       <section id="social" className="social-section cv-auto relative overflow-hidden">
-        <LazyOnVisible
-          loader={loadCircularGallery}
-          className="social-gallery"
-          rootMargin="240px"
-          componentProps={{
-            items: SOCIAL_GALLERY_ITEMS,
-            bend: 3,
-            textColor: "#ffffff",
-            borderRadius: 0.05,
-            scrollEase: 0.05,
-            itemAspect: 326 / 474,
-            showTitles: false,
-            font: "700 30px sans-serif",
-            openOnClick: false,
-            onItemClick: (item: { href?: string }) => {
-              if (!item.href) return;
-              window.open(item.href, "_blank", "noopener,noreferrer");
-            },
-          }}
-        />
+        <SocialGalleryBoundary items={SOCIAL_GALLERY_ITEMS}>
+          <LazyOnVisible
+            loader={loadCircularGallery}
+            className="social-gallery"
+            rootMargin="240px"
+            componentProps={{
+              items: SOCIAL_GALLERY_ITEMS,
+              bend: 3,
+              textColor: "#ffffff",
+              borderRadius: 0.05,
+              scrollEase: 0.05,
+              itemAspect: 326 / 474,
+              showTitles: false,
+              font: "700 30px sans-serif",
+              openOnClick: false,
+              onItemClick: (item: { href?: string }) => {
+                if (!item.href) return;
+                window.open(item.href, "_blank", "noopener,noreferrer");
+              },
+            }}
+          />
+        </SocialGalleryBoundary>
         <div className="social-section__copy">
           <h2 className="social-section__title">
             <span>Follow the daily</span>

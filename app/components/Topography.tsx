@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
+import { useVisibility } from '../hooks/useVisible';
 import './Topography.css';
 
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -211,10 +212,12 @@ export default function Topography({
   className = '',
 }: TopographyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { visible } = useVisibility(containerRef);
 
   useEffect(() => {
+    if (!visible) return undefined;
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) return undefined;
 
     const renderer = new Renderer({
       webgl: 2,
@@ -397,7 +400,7 @@ export default function Topography({
       } catch {}
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, []);
+  }, [visible]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -451,7 +454,8 @@ export default function Topography({
     mouseInteraction,
     mouseRadius,
     mouseStrength,
-    lightMode
+    lightMode,
+    visible
   ]);
 
   return <div ref={containerRef} className={`topography-container ${className}`.trim()} />;

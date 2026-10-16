@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './SpecularButton.css';
 
@@ -13,6 +13,24 @@ const GL_ATTRS = {
   depth: false,
   stencil: false
 };
+
+const MAX_SPECULAR_CONTEXTS = 4;
+let specularLive = 0;
+const specularWaiters = new Set();
+
+function acquireSpecular() {
+  if (specularLive >= MAX_SPECULAR_CONTEXTS) return false;
+  specularLive += 1;
+  return true;
+}
+
+function releaseSpecular() {
+  specularLive = Math.max(0, specularLive - 1);
+  const next = specularWaiters.values().next();
+  if (next.done) return;
+  specularWaiters.delete(next.value);
+  next.value();
+}
 
 const VERTEX = `#version 300 es
 in vec2 aPosition;
@@ -234,6 +252,10 @@ const SpecularButton = ({
   const buttonRef = useRef(null);
   const canvasRef = useRef(null);
   const wakeRef = useRef(null);
+  const wantsRef = useRef(false);
+  const retriesRef = useRef(0);
+  const [live, setLive] = useState(false);
+  const [generation, setGeneration] = useState(0);
   const settings = {
     radius: Math.max(0, radius),
     lineColor: String(lineColor),
@@ -256,42 +278,63 @@ const SpecularButton = ({
   useEffect(() => {
     const button = buttonRef.current;
     if (!button) return undefined;
-    let alive = true;
-    let session = null;
-    let retries = 0;
-    let retryFrame = 0;
+    const intersection = new IntersectionObserver(entries => {
+      const visible = entries.some(entry => entry.isIntersecting);
+      wantsRef.current = visible;
+      setLive(visible);
+    }, { rootMargin: '120px' });
+    intersection.observe(button);
+    return () => {
+      wantsRef.current = false;
+      intersection.disconnect();
+    };
+  }, []);
 
-    const destroy = () => {
-      cancelAnimationFrame(retryFrame);
-      if (!session) return;
-      session.cleanup();
-      session = null;
+  useEffect(() => {
+    if (!live) return undefined;
+    const button = buttonRef.current;
+    const canvas = canvasRef.current;
+    if (!button || !canvas) return undefined;
+
+    let cancelled = false;
+    let stop = () => {};
+    const bootId = requestAnimationFrame(() => {
+      if (!cancelled) stop = boot();
+    });
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(bootId);
+      stop();
     };
 
-    const create = () => {
-      if (!alive || session) return;
-      let canvas = canvasRef.current;
-      if (!canvas) return;
-      let gl = canvas.getContext('webgl2', GL_ATTRS);
-      // A lost context stays dead on this canvas. Swap the node so the next
-      // mount (strict mode, or a button scrolling back in) can paint again.
-      if (!gl || gl.isContextLost()) {
-        const fresh = canvas.cloneNode(false);
-        canvas.replaceWith(fresh);
-        canvasRef.current = fresh;
-        canvas = fresh;
-        gl = fresh.getContext('webgl2', GL_ATTRS);
+    function boot() {
+      let recovering = false;
+      const askForCanvas = () => {
+        if (cancelled || recovering || retriesRef.current >= 3) return;
+        recovering = true;
+        retriesRef.current += 1;
+        setGeneration(value => value + 1);
+      };
+
+      if (!acquireSpecular()) {
+        const wake = () => {
+          if (!cancelled && wantsRef.current) setGeneration(value => value + 1);
+        };
+        specularWaiters.add(wake);
+        return () => {
+          specularWaiters.delete(wake);
+        };
       }
-      if (!gl || gl.isContextLost()) {
-        if (retries < 8) {
-          retries += 1;
-          retryFrame = requestAnimationFrame(create);
-        }
-        return;
+
+      const gl = canvas.getContext('webgl2', GL_ATTRS);
+      const program = gl && !gl.isContextLost() ? link(gl) : null;
+      if (!gl || gl.isContextLost() || !program) {
+        gl?.getExtension('WEBGL_lose_context')?.loseContext();
+        releaseSpecular();
+        askForCanvas();
+        return () => {};
       }
-      retries = 0;
-      const program = link(gl);
-      if (!program) return;
+      retriesRef.current = 0;
       const uniforms = {};
       for (const name of UNIFORMS) uniforms[name] = gl.getUniformLocation(program, name);
       const buffer = gl.createBuffer();
@@ -311,6 +354,7 @@ const SpecularButton = ({
       const state = { spot: 0, level: 0, press: 0, ready: false };
       let raf = 0;
       let last = 0;
+      let running = true;
 
       const toRgb = value => {
         if (colors.has(value)) return colors.get(value);
@@ -384,7 +428,7 @@ const SpecularButton = ({
 
       const frame = now => {
         raf = 0;
-        if (!session) return;
+        if (!running) return;
         const s = settingsRef.current;
         const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
         last = now;
@@ -406,7 +450,16 @@ const SpecularButton = ({
         const level = s.autoAnimate ? 1 : s.idleIntensity + (1 - s.idleIntensity) * (target ? target.near : 0);
         state.level += (level - state.level) * (1 - Math.exp(-dt * 7));
         state.press *= Math.exp(-dt * 5);
-        draw(s);
+        try {
+          if (gl.isContextLost()) {
+            askForCanvas();
+            return;
+          }
+          draw(s);
+        } catch {
+          askForCanvas();
+          return;
+        }
         const settling = Math.abs(diff) > 0.0002 || Math.abs(level - state.level) > 0.001 || state.press > 0.002;
         if (settling || (spinning && !steering)) raf = requestAnimationFrame(frame);
         else last = 0;
@@ -463,37 +516,35 @@ const SpecularButton = ({
       measure();
       wakeRef.current = wake;
 
-      session = {
-        cleanup() {
-          cancelAnimationFrame(raf);
-          if (wakeRef.current === wake) wakeRef.current = null;
-          resizeObserver.disconnect();
-          window.removeEventListener('pointermove', onPointerMove);
-          window.removeEventListener('pointerup', onPointerEnd);
-          window.removeEventListener('pointercancel', onPointerEnd);
-          document.documentElement.removeEventListener('pointerleave', onPointerLeave);
-          button.removeEventListener('pointerdown', onPointerDown);
+      const onContextLost = event => {
+        event.preventDefault();
+        askForCanvas();
+      };
+      canvas.addEventListener('webglcontextlost', onContextLost);
+
+      return () => {
+        running = false;
+        cancelAnimationFrame(raf);
+        if (wakeRef.current === wake) wakeRef.current = null;
+        canvas.removeEventListener('webglcontextlost', onContextLost);
+        resizeObserver.disconnect();
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerEnd);
+        window.removeEventListener('pointercancel', onPointerEnd);
+        document.documentElement.removeEventListener('pointerleave', onPointerLeave);
+        button.removeEventListener('pointerdown', onPointerDown);
+        try {
           gl.deleteBuffer(buffer);
           gl.deleteVertexArray(vao);
           gl.deleteProgram(program);
           gl.getExtension('WEBGL_lose_context')?.loseContext();
+        } catch {
+          /* context already gone */
         }
+        releaseSpecular();
       };
-    };
-
-    const intersection = new IntersectionObserver(entries => {
-      const visible = entries.some(entry => entry.isIntersecting);
-      if (visible) create();
-      else destroy();
-    }, { rootMargin: '120px' });
-    intersection.observe(button);
-
-    return () => {
-      alive = false;
-      intersection.disconnect();
-      destroy();
-    };
-  }, []);
+    }
+  }, [live, generation]);
 
   useEffect(() => {
     wakeRef.current?.();
@@ -517,7 +568,7 @@ const SpecularButton = ({
       }}
       {...rest}
     >
-      <canvas ref={canvasRef} className="specular-button__light" aria-hidden="true" />
+      {live ? <canvas key={generation} ref={canvasRef} className="specular-button__light" aria-hidden="true" /> : null}
       <span className="specular-button__label">{children}</span>
     </Tag>
   );
