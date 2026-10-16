@@ -173,6 +173,36 @@ const link = gl => {
   return null;
 };
 
+/**
+ * @param {object} props
+ * @param {import('react').ReactNode} [props.children]
+ * @param {'sm' | 'lg'} [props.size]
+ * @param {number} [props.radius]
+ * @param {string} [props.tint]
+ * @param {number} [props.tintOpacity]
+ * @param {number} [props.blur]
+ * @param {string} [props.textColor]
+ * @param {string} [props.lineColor]
+ * @param {string} [props.baseColor]
+ * @param {number} [props.intensity]
+ * @param {number} [props.idleIntensity]
+ * @param {number} [props.shineSize]
+ * @param {number} [props.shineFade]
+ * @param {number} [props.thickness]
+ * @param {number} [props.glow]
+ * @param {number} [props.speed]
+ * @param {boolean} [props.followMouse]
+ * @param {number} [props.proximity]
+ * @param {boolean} [props.autoAnimate]
+ * @param {boolean} [props.disabled]
+ * @param {string} [props.href]
+ * @param {string} [props.target]
+ * @param {string} [props.rel]
+ * @param {'button' | 'submit' | 'reset'} [props.type]
+ * @param {import('react').MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>} [props.onClick]
+ * @param {string} [props.className]
+ * @param {import('react').CSSProperties} [props.style]
+ */
 const SpecularButton = ({
   children = 'Get Started',
   size = 'lg',
