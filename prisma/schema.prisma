@@ -1,12 +1,13 @@
-// Local mock uses SQLite. For the remote database later, change `provider` to
-// "postgresql" and point DATABASE_URL at that server. Models stay the same.
+// Production and local CMS share the hosted Postgres database.
+// DATABASE_URL is the pooled connection. DIRECT_URL is the direct one used by migrations.
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum JobStatus {
