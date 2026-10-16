@@ -10,6 +10,7 @@ import "./ContactPage.css";
 const SHOP_EMAIL = "info@braeutigam.de";
 const SHOP_PHONE_DISPLAY = "+49 (0) 7141/2996700";
 const SHOP_PHONE_TEL = "+4971412996700";
+const SHOW_CONTACT_FAQ = false;
 const SHOP_ADDRESS = "Daimlerstraße 13, 71691 Freiberg am Neckar";
 const SHOP_DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SHOP_ADDRESS)}`;
 
@@ -344,16 +345,18 @@ export default function ContactPage() {
             </aside>
           </section>
 
-          <section className="contact-faq" aria-label="Häufig gestellte Fragen">
-            <header className="contact-faq__head">
-              <p>{"// FAQ_ENGINEERING_ANSWERS"}</p>
-              <h2>
-                <span>HÄUFIG</span>
-                <span>GESTELLTE FRAGEN.</span>
-              </h2>
-            </header>
-            <ContactFaq />
-          </section>
+          {SHOW_CONTACT_FAQ ? (
+            <section className="contact-faq" aria-label="Häufig gestellte Fragen">
+              <header className="contact-faq__head">
+                <p>{"// FAQ_ENGINEERING_ANSWERS"}</p>
+                <h2>
+                  <span>HÄUFIG</span>
+                  <span>GESTELLTE FRAGEN.</span>
+                </h2>
+              </header>
+              <ContactFaq />
+            </section>
+          ) : null}
 
           <section className="contact-map" aria-label="Standort">
             <header>
