@@ -35,47 +35,16 @@ function HudLine({
   );
 }
 
-function IconSpeed() {
-  return (
-    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <circle cx="20" cy="20" r="3" fill="currentColor" />
-      {Array.from({ length: 12 }, (_, i) => {
-        const a = (i * Math.PI) / 6;
-        const x1 = 20 + Math.cos(a) * 7;
-        const y1 = 20 + Math.sin(a) * 7;
-        const x2 = 20 + Math.cos(a) * (i % 2 === 0 ? 18 : 14);
-        const y2 = 20 + Math.sin(a) * (i % 2 === 0 ? 18 : 14);
-        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1.4" />;
-      })}
-    </svg>
-  );
-}
-
-function IconComplexity() {
-  return (
-    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <circle cx="20" cy="20" r="5" stroke="currentColor" strokeWidth="1.4" />
-      <circle cx="20" cy="20" r="10" stroke="currentColor" strokeWidth="1.4" />
-      <circle cx="20" cy="20" r="15" stroke="currentColor" strokeWidth="1.4" />
-    </svg>
-  );
-}
-
-function IconInhouse() {
-  const dots = [
-    [20, 6],
-    [12, 12], [20, 12], [28, 12],
-    [8, 20], [16, 20], [24, 20], [32, 20],
-    [12, 28], [20, 28], [28, 28],
-    [20, 34],
-  ];
-  return (
-    <svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true">
-      {dots.map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="2.1" />
-      ))}
-    </svg>
-  );
+function CoreValueIcon({
+  src,
+  width,
+  height,
+}: {
+  src: string;
+  width: number;
+  height: number;
+}) {
+  return <img src={src} alt="" width={width} height={height} />;
 }
 
 function IconFlag() {
@@ -163,15 +132,15 @@ export default function ManifestBlock() {
             <span className="mg-core__label">CORE VALUE DEFINITION:</span>
             <div className="mg-core__row">
               <div className="mg-icon">
-                <IconSpeed />
+                <CoreValueIcon src="/images/core-values/speed.svg" width={40} height={40} />
                 <span>SPEED</span>
               </div>
               <div className="mg-icon">
-                <IconComplexity />
+                <CoreValueIcon src="/images/core-values/complexity.svg" width={42} height={41} />
                 <span>COMPLEXITY</span>
               </div>
               <div className="mg-icon">
-                <IconInhouse />
+                <CoreValueIcon src="/images/core-values/inhouse.svg" width={46.67} height={40} />
                 <span>INHOUSE</span>
               </div>
             </div>
