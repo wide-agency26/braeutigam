@@ -840,10 +840,62 @@ body {
   flex: 0 1 403px;
 }
 
+.experts-figma__more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 720ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experts-figma__more.is-open {
+  grid-template-rows: 1fr;
+}
+
+.experts-figma__more-inner {
+  overflow: hidden;
+}
+
+.experts-figma__more .experts-figma__grid {
+  padding-top: 40px;
+}
+
+.experts-figma__more .experts-figma__grid > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 480ms ease,
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experts-figma__more.is-open .experts-figma__grid > * {
+  opacity: 1;
+  transform: none;
+}
+
 .experts-figma__cta-wrap {
   display: flex;
   justify-content: center;
   margin-top: clamp(36px, 4.5vw, 64px);
+  max-height: 140px;
+  overflow: hidden;
+  transition:
+    opacity 360ms ease,
+    max-height 480ms cubic-bezier(0.16, 1, 0.3, 1),
+    margin-top 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experts-figma__cta-wrap.is-hidden {
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experts-figma__more,
+  .experts-figma__more .experts-figma__grid > *,
+  .experts-figma__cta-wrap {
+    transition: none;
+  }
 }
 
 /* ── Footer — Figma 1154:1356 ──
@@ -1103,14 +1155,14 @@ body {
 
 .social-section {
   padding: 52px 0;
-  background: #131414;
+  background: #0b0b0c;
   color: #f3f3f3;
 }
 
 .social-gallery {
   width: 100%;
   height: 600px;
-  background: #131414;
+  background: #0b0b0c;
 }
 
 .social-section__copy {

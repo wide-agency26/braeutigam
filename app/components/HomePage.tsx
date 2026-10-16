@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from "framer-motion";
 import NotchedBorderGlow from "./NotchedBorderGlow";
@@ -217,7 +217,28 @@ const SOCIAL_GALLERY_ITEMS = [
   },
 ];
 
+const EXPERT_PREVIEW = 3;
+
+function ExpertSlot({
+  expert,
+  delay,
+}: {
+  expert: (typeof EXPERTS)[number];
+  delay?: string;
+}) {
+  return (
+    <LazyOnVisible
+      loader={loadExpertCard}
+      rootMargin="100px"
+      className="experts-figma__card"
+      style={{ width: "100%", aspectRatio: "403 / 522", transitionDelay: delay }}
+      componentProps={{ ...expert }}
+    />
+  );
+}
+
 export default function HomePage() {
+  const [showAllExperts, setShowAllExperts] = useState(false);
   // Parallax layers refs
   const backgroundRef = useRef<HTMLDivElement>(null);
   const midgroundRef = useRef<HTMLDivElement>(null);
@@ -543,19 +564,40 @@ export default function HomePage() {
           </div>
 
           <div className="experts-figma__grid">
-            {EXPERTS.map((expert) => (
-              <LazyOnVisible
-                key={expert.email}
-                loader={loadExpertCard}
-                rootMargin="100px"
-                style={{ width: "100%", aspectRatio: "403 / 522" }}
-                componentProps={{ ...expert }}
-              />
+            {EXPERTS.slice(0, EXPERT_PREVIEW).map((expert) => (
+              <ExpertSlot key={expert.email} expert={expert} />
             ))}
           </div>
 
-          <div className="experts-figma__cta-wrap">
-            <SiteButton href="mailto:info@braeutigam-gmbh.eu">ALL EXPERTS</SiteButton>
+          <div
+            className={`experts-figma__more${showAllExperts ? " is-open" : ""}`}
+            id="experts-rest"
+            aria-hidden={!showAllExperts}
+            inert={!showAllExperts}
+          >
+            <div className="experts-figma__more-inner">
+              <div className="experts-figma__grid">
+                {EXPERTS.slice(EXPERT_PREVIEW).map((expert, index) => (
+                  <ExpertSlot
+                    key={expert.email}
+                    expert={expert}
+                    delay={showAllExperts ? `${Math.floor(index / 3) * 80 + (index % 3) * 45}ms` : "0ms"}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className={`experts-figma__cta-wrap${showAllExperts ? " is-hidden" : ""}`}>
+            <SiteButton
+              type="button"
+              aria-expanded={showAllExperts}
+              aria-controls="experts-rest"
+              disabled={showAllExperts}
+              onClick={() => setShowAllExperts(true)}
+            >
+              ALL EXPERTS
+            </SiteButton>
           </div>
         </div>
       </section>
