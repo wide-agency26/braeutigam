@@ -138,34 +138,84 @@
   line-height: 1.35;
 }
 
-/* ── Manifest stage ── */
+/* ── Manifest stage: Figma Main Image 937:253, 1920×1890, 5-col grid ──
+   The frame is the query container so padding does not shrink 100cqi. */
+.manifest-frame {
+  container-type: inline-size;
+  width: min(100%, 1920px);
+  margin-inline: auto;
+}
+
 .manifest-stage {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(160px, 346px) minmax(0, 1fr) minmax(200px, 500px);
-  grid-template-areas:
-    "overview headlines photo-tr"
-    "photo-tl headlines photo-tr"
-    "photo-tl headlines mission"
-    "photo-bl headlines photo-br";
-  column-gap: clamp(16px, 1.2vw, 24px);
-  row-gap: clamp(16px, 2vw, 32px);
-  padding: clamp(40px, 4.5vw, 72px) clamp(20px, 3.33vw, 64px) clamp(48px, 5vw, 88px);
-  max-width: 1920px;
-  margin-inline: auto;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: calc(16 / 1920 * 100cqi);
+  row-gap: calc(16 / 1920 * 100cqi);
+  padding: calc(72 / 1920 * 100cqi) calc(64 / 1920 * 100cqi);
+  overflow: hidden;
   align-items: start;
 }
 
+.manifest-stack {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(10 / 1920 * 100cqi);
+  min-width: 0;
+}
+
+.manifest-lead {
+  grid-column: 2 / span 3;
+  grid-row: 1;
+  align-self: center;
+  justify-self: stretch;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+
+.manifest-principle {
+  grid-column: 2 / span 3;
+  grid-row: 2;
+  align-self: center;
+  justify-self: stretch;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(571 / 1920 * 100cqi);
+  text-align: center;
+  min-width: 0;
+}
+
+.manifest-bottom {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .manifest-overview {
-  grid-area: overview;
   position: relative;
   z-index: 3;
+  width: min(100%, calc(280 / 1920 * 100cqi));
+  min-height: calc(211 / 1920 * 100cqi);
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 10px;
+  font-size: calc(10 / 1920 * 100cqi);
   font-weight: 300;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .manifest-overview__title {
@@ -187,46 +237,38 @@
   color: var(--mg-dim);
 }
 
-.manifest-headlines {
-  grid-area: headlines;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(28px, 4vw, 56px);
-  min-height: 420px;
-  padding-block: 12px;
+.manifest-stage .manifest-figma__line {
+  max-width: none;
+  font-family: var(--font-univers-bold-cn), var(--font-sans);
+  font-size: calc(119.05 / 1920 * 100cqi);
+  white-space: nowrap;
 }
 
-@media (min-width: 1101px) {
-  .manifest-headlines {
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    justify-self: stretch;
-    align-self: stretch;
-    padding-inline: clamp(140px, 16vw, 360px);
-    pointer-events: none;
-  }
-
-  .manifest-headlines > * {
-    pointer-events: auto;
-  }
+.manifest-stage .manifest-figma__neon {
+  display: block;
+  margin: 0;
+  font-size: calc(127.053 / 1920 * 100cqi);
+  text-align: center;
 }
 
 .manifest-photo {
   position: relative;
   z-index: 1;
+  flex: none;
   overflow: hidden;
   background: #0b0b0c;
-  min-height: 180px;
-  width: 100%;
+}
+
+.manifest-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(19, 20, 20, 0.3);
+  pointer-events: none;
 }
 
 .manifest-photo img {
   object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
 }
 
 :root:not(.dark) .manifest-photo {
@@ -234,47 +276,63 @@
   outline: 1px solid rgba(19, 20, 20, 0.08);
 }
 
-:root:not(.dark) .manifest-photo img {
-  filter: grayscale(0.2) contrast(1.02);
+:root:not(.dark) .manifest-photo::after {
+  background: rgba(19, 20, 20, 0.12);
 }
 
 .manifest-photo--tl {
-  grid-area: photo-tl;
-  aspect-ratio: auto;
-  min-height: 240px;
-  height: 100%;
+  width: 100%;
+  height: calc(350 / 1920 * 100cqi);
+}
+
+/* Figma crop on the weave: imageTransform [[0.895, 0, 0.052], [0, 0.716, 0.142]] */
+.manifest-photo__crop {
+  position: absolute;
+  width: 111.71%;
+  height: 139.64%;
+  left: -5.86%;
+  top: -19.82%;
 }
 
 .manifest-photo--tr {
-  grid-area: photo-tr;
-  aspect-ratio: auto;
-  min-height: 280px;
-  height: 100%;
+  grid-column: 5;
+  grid-row: 1;
+  justify-self: start;
+  align-self: start;
+  width: calc(500 / 1920 * 100cqi);
+  height: calc(500 / 1920 * 100cqi);
 }
 
 .manifest-photo--bl {
-  grid-area: photo-bl;
-  aspect-ratio: 450 / 450;
+  width: calc(450 / 1920 * 100cqi);
+  height: calc(450 / 1920 * 100cqi);
 }
 
 .manifest-photo--br {
-  grid-area: photo-br;
-  aspect-ratio: 700 / 560;
-  align-self: end;
+  width: calc(700 / 1920 * 100cqi);
+  height: calc(560 / 1920 * 100cqi);
 }
 
 .manifest-mission {
-  grid-area: mission;
+  grid-column: 5;
+  grid-row: 2;
+  align-self: center;
+  justify-self: end;
   position: relative;
   z-index: 3;
+  width: min(100%, calc(280 / 1920 * 100cqi));
+  min-height: calc(571 / 1920 * 100cqi);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 10px;
+  font-size: calc(10 / 1920 * 100cqi);
   font-weight: 300;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  line-height: 1.35;
+  line-height: 1;
+  text-align: right;
   color: var(--mg-muted);
-  align-self: end;
 }
 
 .manifest-mission__title {
@@ -294,18 +352,86 @@
 
 @media (max-width: 1100px) {
   .manifest-stage {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "overview mission"
-      "headlines headlines"
-      "photo-tl photo-tr"
-      "photo-bl photo-br";
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 48px 20px 64px;
+    overflow: visible;
   }
 
-  .manifest-headlines {
-    min-height: 0;
+  .manifest-stack,
+  .manifest-lead,
+  .manifest-principle,
+  .manifest-mission,
+  .manifest-bottom,
+  .manifest-photo--tr {
     grid-column: auto;
     grid-row: auto;
+    width: 100%;
+    min-height: 0;
+    justify-self: stretch;
+  }
+
+  .manifest-principle,
+  .manifest-mission {
+    min-height: 0;
+  }
+
+  .manifest-mission {
+    align-items: flex-start;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+  }
+
+  .manifest-overview {
+    width: 100%;
+    min-height: 0;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+  }
+
+  .manifest-stage .manifest-figma__line {
+    font-size: clamp(2.25rem, 8vw, 4.5rem);
+    white-space: normal;
+  }
+
+  .manifest-stage .manifest-figma__neon {
+    font-size: clamp(2.25rem, 8.4vw, 4.75rem);
+  }
+
+  .manifest-photo--tl,
+  .manifest-photo--tr,
+  .manifest-photo--bl,
+  .manifest-photo--br {
+    width: 100%;
+    height: auto;
+  }
+
+  .manifest-photo--tl {
+    aspect-ratio: 346 / 350;
+  }
+
+  .manifest-photo--tr {
+    aspect-ratio: 1;
+    max-width: 500px;
+  }
+
+  .manifest-photo--bl {
+    aspect-ratio: 1;
+    max-width: 450px;
+  }
+
+  .manifest-photo--br {
+    aspect-ratio: 700 / 560;
+    max-width: 700px;
+  }
+
+  .manifest-bottom {
+    flex-direction: column;
+    gap: 16px;
   }
 
   .mg-bar {
@@ -328,18 +454,6 @@
   .mg-bar--values {
     grid-template-columns: 1fr;
     row-gap: 22px;
-  }
-
-  .manifest-stage {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "overview"
-      "headlines"
-      "mission"
-      "photo-tl"
-      "photo-tr"
-      "photo-bl"
-      "photo-br";
   }
 }
 

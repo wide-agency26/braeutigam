@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 11456px;
+  width: 12352px;
   height: 1080px;
   overflow: hidden;
   background: transparent;
@@ -90,7 +90,7 @@
 .tl-panel--2019 { width: 2500px; }
 .tl-panel--gallery { width: 600px; overflow: hidden; }
 .tl-panel--2020 { width: 3276px; }
-.tl-panel--2024 { width: 2200px; }
+.tl-panel--2024 { width: 3096px; }
 
 .tl-photo {
   position: absolute;
@@ -107,8 +107,26 @@
   position: absolute !important;
 }
 
+.tl-photo__crop {
+  position: absolute;
+  display: block;
+}
+
+.tl-photo__crop img {
+  object-fit: fill;
+}
+
 .tl-photo--contain img {
   object-fit: contain;
+}
+
+.tl-photo--dim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .tl-copy {
@@ -145,12 +163,12 @@
   position: relative;
   z-index: 31;
   font-size: 332px;
-  line-height: 0.7;
+  line-height: calc(232 / 332);
   letter-spacing: 8px;
 }
 
 .tl-y-sm {
-  font-size: 76px;
+  font-size: 72px;
   line-height: 84px;
   letter-spacing: 4px;
   text-align: right;
@@ -158,7 +176,7 @@
 
 .tl-h-founded {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-bold-cn), var(--font-sans);
   font-weight: 700;
   font-size: 100px;
   line-height: 100px;
@@ -167,29 +185,29 @@
 
 .tl-h-light {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
-  font-size: 77.9px;
-  line-height: 0.84;
-  letter-spacing: -0.04em;
+  font-size: 76px;
+  line-height: 52px;
+  letter-spacing: -2px;
   text-transform: uppercase;
   color: var(--tl-ink);
 }
 
 .tl-h-bold {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-bold-cn), var(--font-sans);
   font-weight: 700;
-  font-size: 77.9px;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  font-size: 76px;
+  line-height: 76px;
+  letter-spacing: -2px;
   text-transform: uppercase;
   color: var(--tl-ink);
 }
 
 .tl-h-f1 {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
   font-size: 77.9px;
   line-height: 0.84;
@@ -199,6 +217,7 @@
 }
 
 .tl-h-f1 strong {
+  font-family: var(--font-univers-bold-cn), var(--font-sans);
   font-weight: 700;
   display: block;
   line-height: 1;
@@ -206,7 +225,7 @@
 
 .tl-h-award {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
   font-size: 57px;
   line-height: 57px;
@@ -251,7 +270,7 @@
 
 .tl-logo {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
   font-size: 24px;
   line-height: 1;
@@ -259,6 +278,13 @@
   text-transform: uppercase;
   color: var(--tl-ink);
   opacity: 0.75;
+}
+
+.tl-logo--mark {
+  font-size: 57px;
+  line-height: 57px;
+  letter-spacing: 0;
+  opacity: 1;
 }
 
 .tl-logo span {
@@ -279,7 +305,7 @@
   user-select: none;
   font-family: var(--font-bootzy), sans-serif;
   font-size: 332px;
-  line-height: 0.7;
+  line-height: calc(232 / 332);
   letter-spacing: 8px;
   text-transform: uppercase;
   color: transparent;
@@ -318,34 +344,33 @@
 }
 
 .tl-cta {
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  min-height: 51px;
-  width: 297px;
+  width: fit-content;
   padding: 16px 40px;
-  background: var(--tl-cta);
+  border: 1px solid #00ff00;
+  border-radius: 12px;
+  background: #1f2020;
   box-shadow: 0 1px 10px -3px #1f2020, inset 0 1px 2px -1px #424343;
-  border-radius: 999px;
-  color: var(--tl-cta-ink);
-  font-family: var(--font-sans);
+  color: #f3f3f3;
+  font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
   font-size: 24px;
   line-height: 24px;
+  letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
 }
 
 .tl-cta:hover,
 .tl-cta:focus-visible {
-  background: var(--tl-year);
-  color: #131414;
+  border-color: #00cc00;
+  background: #424343;
+  color: #00cc00;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   outline: none;
-}
-
-:root:not(.dark) .tl-cta:hover,
-:root:not(.dark) .tl-cta:focus-visible {
-  color: #fbfafc;
 }
 
 .tl-ruler-wrap {

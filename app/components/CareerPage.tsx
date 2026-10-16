@@ -3,63 +3,110 @@
 import React from "react";
 import Link from "next/link";
 import { LazyMotion, domAnimation } from "framer-motion";
-import { Cpu, Play, TrendingUp, Trophy } from "lucide-react";
-import Reveal from "./Reveal";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
-import SiteHero from "./SiteHero";
 import "./CareerPage.css";
 
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
 
-const STATS = [
-  { value: "81", label: "TEAM MEMBERS" },
-  { value: "100%", label: "IN-HOUSE PRODUCTION" },
-  { value: "15+", label: "RACING TEAMS SERVED" },
-] as const;
-
-const BENEFITS = [
+const PILLARS = [
   {
-    index: "01 // TECHNOLOGY",
-    title: "HANDWORK MEETS HIGH-TECH",
-    body: "Precision engineering meets artisanal handwork. We combine the latest CNC and autoclave technology with the sensory human touch required for carbon fiber perfection.",
-    Icon: Cpu,
+    title: "team events",
+    image: "/images/crew/pillar-events.png",
+    crop: "crew-photo--events",
+    body: "Cutting-edge composite engineering using advanced simulation, precision tooling, and optimized layup processes.",
   },
   {
-    index: "02 // DEVELOPMENT",
-    title: "OUR SKILLS, YOUR ASSET",
-    body: "We run continuous internal academies. We invest heavily in your specialized laminating, engineering, and programming skillsets, steering you toward carbon dominance.",
-    Icon: TrendingUp,
+    title: "weiterbildungen",
+    image: "/images/crew/pillar-training.png",
+    crop: "crew-photo--cover",
+    paragraphs: [
+      "Wir glauben an die kontinuierliche Weiterentwicklung unserer Mitarbeiter. Bei uns erhältst du eine umfangreiche Einarbeitung, da die Arbeit mit Kohlefaser Komponenten eine spezielle Expertise erfordert.",
+      "Neben spezifischen Schulungen zur Materialkunde, Bauteilherstellung und dem Umgang mit Geräten bieten wir auch Weiterbildungen für Abteilungsleiter und Führungspositionen an. Wir legen Wert darauf, dass unsere Mitarbeiter ihr Potenzial voll ausschöpfen und sich beruflich weiterentwickeln können.",
+    ],
   },
   {
-    index: "03 // LEGACY",
-    title: "BUILT TO PERFORM",
-    body: "We don't build generic parts; we construct structural racing components for hypersport programs and hypercars. Every micron of your work defines elite automotive history.",
-    Icon: Trophy,
+    title: "Work-life balance",
+    image: "/images/crew/pillar-balance.png",
+    crop: "crew-photo--balance",
+    body: "A proven track record in motorsport and aerospace with over eight years of high-performance component delivery.",
   },
 ] as const;
 
-/* Tiles render as empty dark plates until the role films are supplied. */
+/* Same five role films as before. Posters are the Figma frames; playback stays on the play control. */
 const ROLE_FILMS = [
   {
-    title: "KONSTRUKTEUR (CAD/CAM)",
-    body: "Designing the millimetric fiber layouts in Catia to withstand extreme aerodynamic load.",
+    title: "Konstruktion",
+    body: "Designing the mathematical fiber layouts in Catia to withstand extreme aerodynamic load.",
+    poster: "/images/crew/film-1.png",
+    crop: "crew-photo--konstruktion",
+    play: "/images/crew/play-lg.svg",
+    playWidth: 128,
+    playHeight: 128,
+    large: true,
   },
   {
-    title: "LAMINIERER (CARBON LAMINATOR)",
-    body: "Placing resin-infused fiber orientations layer-by-layer with surgical German precision.",
+    title: "Pre-preg Laminierer",
+    body: "Placing resin-infused fiber orientations layer-by-layer with surgical human precision.",
+    poster: "/images/crew/film-2.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-lg.svg",
+    playWidth: 128,
+    playHeight: 128,
+    large: true,
   },
   {
-    title: "CUTTER BEREICH",
+    title: "Zuschnitt",
     body: "Nesting and optimizing fiber templates for perfect cutting layouts.",
+    poster: "/images/crew/film-3.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-sm.svg",
+    playWidth: 64,
+    playHeight: 64,
+    large: false,
   },
   {
-    title: "PRODUKTIONSPLANER & PM",
+    title: "Produktionsplanung & Projektmanagement",
     body: "Coordinating autoclave schedules and managing client racing constraints.",
+    poster: "/images/crew/film-4.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-sm-2.svg",
+    playWidth: 112,
+    playHeight: 112,
+    large: false,
   },
   {
-    title: "ASSEMBLY & SURFACE",
-    body: "Assembling cured composite structures and polishing showroom finishes.",
+    title: "Montage",
+    body: "Assembling cured composite structures and polishing clearcoats.",
+    poster: "/images/crew/film-5.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-sm.svg",
+    playWidth: 64,
+    playHeight: 64,
+    large: false,
+  },
+] as const;
+
+const APPLY_STEPS = [
+  {
+    index: "01",
+    title: "Bewerbung",
+    body: "Sende uns deine Unterlagen über unser Online-Formular oder per E-Mail.",
+  },
+  {
+    index: "02",
+    title: "Interview",
+    body: "Lerne unser Team in einem persönlichen Gespräch kennen.",
+  },
+  {
+    index: "03",
+    title: "Probearbeit",
+    body: "Zeige dein Können in einem praxisnahen Probetag vor Ort.",
+  },
+  {
+    index: "04",
+    title: "Angebot",
+    body: "Erhalte dein Vertragsangebot und werde Teil des Teams.",
   },
 ] as const;
 
@@ -68,327 +115,220 @@ export type CareerOpening = {
   title: string;
   department: string;
   location: string;
+  employmentType: "FULL_TIME" | "PART_TIME" | "APPRENTICESHIP";
 };
 
-const VALUES = [
-  {
-    title: "SURGICAL PRECISION",
-    body: "We measure our success in single-digit microns. Every orientation, every fiber lay-up, and every autoclave cure cycle is executed with extreme, uncompromised precision.",
-  },
-  {
-    title: "ABSOLUTE PRIDE",
-    body: "We operate at the peak of the automotive craft. Every technician takes absolute ownership of their composite assemblies—ensuring extreme durability, zero voiding, and flawless cosmetics.",
-  },
-  {
-    title: "PIONEERING PROGRESS",
-    body: "We continuously push material science boundaries. Adapting high-modulus fibers, researching sustainable bio-resins, and refining curing patterns keep us and our partners winning.",
-  },
-] as const;
+const EMPLOYMENT_DE: Record<CareerOpening["employmentType"], string> = {
+  FULL_TIME: "VOLLZEIT",
+  PART_TIME: "TEILZEIT",
+  APPRENTICESHIP: "AUSBILDUNG",
+};
 
-const APPLY_STEPS = [
-  {
-    index: "01 // IMPRESSION",
-    title: "APPLY ONLINE",
-    body: "Submit your credentials or racing portfolio. Show us your deep technical drive.",
-  },
-  {
-    index: "02 // DIALOGUE",
-    title: "TECHNICAL CHAT",
-    body: "A conversation about manufacturing standards, fiber chemistry, and custom projects.",
-  },
-  {
-    index: "03 // BENCH TEST",
-    title: "THE TRIAL DAY",
-    body: "Spend a highly practical day inside our cleanrooms or design bay testing your actual craft.",
-  },
-  {
-    index: "04 // WELCOME",
-    title: "JOIN THE CREW",
-    body: "Secure your carbon workbench and build parts that set track records globally.",
-  },
-] as const;
-
-/** Rounded card with the bottom-right step notch from the Figma careers page. */
-function NotchCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function FilmCard({ film }: { film: (typeof ROLE_FILMS)[number] }) {
   return (
-    <div className={`notch-card ${className}`.trim()}>
-      <span className="notch-card__edge notch-card__edge--top" aria-hidden="true" />
-      <span className="notch-card__edge notch-card__edge--left" aria-hidden="true" />
-      <span className="notch-card__fill notch-card__fill--top" aria-hidden="true" />
-      <span className="notch-card__fill notch-card__fill--left" aria-hidden="true" />
-      <div className="notch-card__body">{children}</div>
-    </div>
-  );
-}
-
-function RoleTile({
-  role,
-  large,
-}: {
-  role: (typeof ROLE_FILMS)[number];
-  large?: boolean;
-}) {
-  return (
-    <figure className="m-0">
-      <div className={`career-tile ${large ? "aspect-[16/9]" : "aspect-[16/10]"}`}>
-        <button type="button" className="career-tile__play" aria-label={`Play film: ${role.title}`}>
-          <span>
-            <Play className="h-4 w-4 translate-x-[1px]" fill="currentColor" strokeWidth={0} />
-          </span>
+    <article className="crew-film">
+      <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}`}>
+        <img className={film.crop} src={film.poster} alt="" />
+        <button type="button" className="crew-play" aria-label={`Film abspielen: ${film.title}`}>
+          <img src={film.play} alt="" width={film.playWidth} height={film.playHeight} />
         </button>
       </div>
-      <figcaption className="pt-3">
-        <h3 className="font-sans text-[13px] font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
-          {role.title}
-        </h3>
-        <p className="mt-1 max-w-md font-sans text-[11px] leading-snug text-zinc-500 dark:text-zinc-500">
-          {role.body}
-        </p>
-      </figcaption>
-    </figure>
+      <h3 className="crew-film__title">{film.title}</h3>
+      <p className="crew-film__body">{film.body}</p>
+    </article>
   );
 }
 
 export default function CareerPage({ openings }: { openings: CareerOpening[] }) {
   return (
     <LazyMotion features={domAnimation}>
-      <div className="career relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
-        <div className="noise-overlay pointer-events-none" />
-
+      <div className="crew-page">
         <SiteChrome />
-        <SiteHero scrollTarget="#careers-intro" priority={false} isPageHeading={false} />
 
-        {/* ── Intro + stats ── */}
-        <section id="careers-intro" className="relative overflow-hidden py-24 md:py-32">
-          <div className="career-shell relative">
-            <p
-              className="career-watermark absolute -top-10 left-[8%] text-[clamp(3rem,11vw,10rem)] md:-top-4 md:left-[38%]"
-              aria-hidden="true"
-            >
-              CAREERS
+        <section className="crew-hero" aria-label="Crew">
+          <div className="crew-hero__media" aria-hidden="true">
+            <img className="crew-photo--hero" src="/images/crew/hero.png" alt="" />
+          </div>
+          <div className="crew-hero__shade" aria-hidden="true" />
+
+          <p className="crew-hero__join">[ JOIN THE CREW ]</p>
+          <p className="crew-hero__pitch">
+            <span>We build with precision, passion, and purpose. Join a team</span>
+            <span>of world-class engineers pushing the boundaries of composite technology.</span>
+          </p>
+
+          <div className="crew-hero__title">
+            <h1>CREW</h1>
+            <a className="site-btn" href="#stellen">
+              Offene stellenanzeigen
+            </a>
+          </div>
+
+          <a className="crew-hero__status" href="#crew-intro">
+            <span>CREW STATUS: RECRUITING</span>
+            <span>SCROLL TO EXPLORE</span>
+          </a>
+        </section>
+
+        <div className="crew-body">
+          <section id="crew-intro" className="crew-block crew-intro">
+            <p className="crew-mark crew-mark--crew" aria-hidden="true">
+              CREW
             </p>
-
-            <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-              <Reveal className="max-w-xl pt-[clamp(3rem,9vw,7rem)]">
-                <h1 className="career-heading text-zinc-950 dark:text-white">
-                  <span className="block text-[var(--career-neon)]">Careers at</span>
-                  Bräutigam
-                </h1>
-                <p className="mt-6 max-w-md font-sans text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                  Fünf Berufe. Fünf Geschichten. Finde deinen Platz in der Champions League der
-                  Carbonfaser-Verarbeitung. Wir suchen Visionäre, Handwerker und Perfektionisten.
-                </p>
-              </Reveal>
-
-              <div className="font-mono text-[9px] leading-relaxed tracking-[0.18em] text-zinc-500 lg:text-right dark:text-zinc-500">
-                <div className="text-[var(--career-neon)]">{"// STATUS: ACTIVE"}</div>
-                <div>
-                  CURRENT OFFERS: {openings.length} OPENINGS // ESTABLISHED: 2016
-                </div>
-              </div>
+            <p className="crew-micro">
+              <span>BRAEUTIGAM_WEBFILE / CREW</span>
+              <span>ZUGANG GEWÄHRT</span>
+            </p>
+            <h2 className="crew-intro__title">
+              <span>UNSER TEAM:</span>
+              <span>EINZIGARTIG</span>
+            </h2>
+            <p className="crew-copy crew-copy--narrow">
+              Hinter jedem Bauteil steckt ein Team, das Höchstleistung als Standard setzt. Unser Team
+              arbeitet präzise, innovativ, kompromisslos.
+            </p>
+            <div className="crew-actions">
+              <a className="site-btn" href="#stellen">
+                Offene stellenanzeigen
+              </a>
+              <a className="site-btn site-btn--amber" href="#truppe">
+                Über das team
+              </a>
             </div>
+          </section>
 
-            <dl className="relative z-10 mt-16 flex flex-wrap justify-center gap-x-[clamp(2rem,7vw,6rem)] gap-y-8 md:mt-24">
-              {STATS.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <dt className="sr-only">{stat.label}</dt>
-                  <dd className="m-0">
-                    <span className="block font-sans text-[clamp(2.25rem,4.5vw,3.5rem)] font-bold leading-none text-[var(--career-neon)]">
-                      {stat.value}
-                    </span>
-                    <span className="career-eyebrow mt-3 block text-zinc-500 dark:text-zinc-500">
-                      {stat.label}
-                    </span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        {/* ── Why you'll love building ── */}
-        <section className="cv-auto relative py-16 md:py-24">
-          <div className="career-shell">
-            <Reveal as="h2" className="career-heading text-zinc-950 dark:text-white">
-              Why you&rsquo;ll love building
-              <span className="block">the future with us</span>
-            </Reveal>
-
-            <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-3 md:gap-6">
-              {BENEFITS.map(({ index, title, body, Icon }) => (
-                <NotchCard key={title}>
-                  <div className="px-6 pb-14 pt-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="career-eyebrow text-[var(--career-neon)]">{index}</span>
-                      <Icon className="h-4 w-4 shrink-0 text-[var(--career-neon)]" strokeWidth={1.6} />
-                    </div>
-                    <h3 className="mt-6 font-sans text-base font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
-                      {title}
-                    </h3>
-                    <p className="mt-3 font-sans text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
-                      {body}
-                    </p>
+          <section id="truppe" className="crew-block">
+            <div className="crew-lead">
+              <p className="crew-kicker">ARBEITSWEISE</p>
+              <h2 className="crew-display">
+                <span>DAS WICHTIGSTE:</span>
+                <span>DIE TRUPPE.</span>
+              </h2>
+              <p className="crew-copy crew-copy--narrow">Unser Alltag ist dynamisch und anspruchsvoll.</p>
+            </div>
+            <div className="crew-pillars">
+              {PILLARS.map((pillar) => (
+                <article key={pillar.title} className="crew-pillar">
+                  <div className="crew-pillar__frame">
+                    <img className={pillar.crop} src={pillar.image} alt="" />
                   </div>
-                </NotchCard>
+                  <h3>{pillar.title}</h3>
+                  {"paragraphs" in pillar ? (
+                    <div className="crew-copy">
+                      {pillar.paragraphs.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="crew-copy">{pillar.body}</p>
+                  )}
+                </article>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ── One day of our team ── */}
-        <section className="cv-auto relative overflow-hidden py-16 md:py-28">
-          <div className="career-shell relative">
-            <div className="relative flex flex-wrap items-end justify-between gap-6">
-              <Reveal as="h2" className="career-heading relative z-10 text-zinc-950 dark:text-white">
-                <span className="block text-[var(--career-neon)]">One day</span>
-                of our team
-              </Reveal>
-              <p className="career-watermark -mb-2" aria-hidden="true">
+          <section className="crew-block crew-day" aria-label="Ein Tag im Team">
+            <div className="crew-day__head">
+              <div className="crew-lead">
+                <p className="crew-kicker">{"// EIN TAG IM TEAM"}</p>
+                <h2 className="crew-display">
+                  <span>Unser alltag</span>
+                  <span>Ein tag im team</span>
+                </h2>
+              </div>
+              <p className="crew-mark crew-mark--life" aria-hidden="true">
                 LIFE
               </p>
             </div>
-
-            <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
-              {ROLE_FILMS.slice(0, 2).map((role) => (
-                <RoleTile key={role.title} role={role} large />
+            <div className="crew-films crew-films--lg">
+              {ROLE_FILMS.slice(0, 2).map((film) => (
+                <FilmCard key={film.title} film={film} />
               ))}
             </div>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {ROLE_FILMS.slice(2).map((role) => (
-                <RoleTile key={role.title} role={role} />
+            <div className="crew-films crew-films--sm">
+              {ROLE_FILMS.slice(2).map((film) => (
+                <FilmCard key={film.title} film={film} />
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ── Current openings ── */}
-        <section className="cv-auto relative overflow-hidden py-16 md:py-28">
-          <div className="career-shell relative">
-            <div className="relative flex flex-wrap items-end justify-between gap-6">
-              <Reveal as="h2" className="career-heading relative z-10 text-zinc-950 dark:text-white">
-                Current
-                <span className="block">openings</span>
-              </Reveal>
-              <p className="career-watermark -mb-2" aria-hidden="true">
-                JOBS
-              </p>
+          <section id="stellen" className="crew-block">
+            <div className="crew-lead">
+              <p className="crew-kicker crew-kicker--tiny">{"// OFFENE STELLEN"}</p>
+              <h2 className="crew-display">
+                <span>Offene</span>
+                <span>Stellen.</span>
+              </h2>
             </div>
-
-            <div className="mt-12 md:mt-20">
+            <div className="crew-jobs">
               {openings.length === 0 ? (
-                <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-zinc-500">
-                  No published openings right now.
-                </p>
+                <p className="crew-jobs__empty">Keine veröffentlichten Stellen.</p>
               ) : (
                 openings.map((job) => (
-                  <Link
-                    key={job.slug}
-                    className="career-job group"
-                    href={`/karriere/${job.slug}`}
-                  >
-                    <span>
-                      <span className="block font-sans text-sm font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
-                        {job.title}
-                      </span>
-                      <span className="career-eyebrow mt-1 block text-zinc-500 dark:text-zinc-500">
-                        DEPARTMENT: {job.department}
-                      </span>
+                  <Link key={job.slug} className="crew-job" href={`/karriere/${job.slug}`}>
+                    <span className="crew-job__title">
+                      <span>{job.title}</span>
+                      <span>ABTEILUNG: {job.department}</span>
                     </span>
-                    <span className="flex flex-wrap items-center gap-x-8 gap-y-1">
-                      <span className="career-eyebrow text-zinc-500 dark:text-zinc-600">
-                        LOCATION: {job.location}
-                      </span>
-                      <span className="career-eyebrow text-[var(--career-neon)] group-hover:underline">
-                        VIEW ROLE // APPLY
-                      </span>
+                    <span className="crew-job__meta">
+                      <span>{job.department}</span>
+                      <span aria-hidden="true">·</span>
+                      <span>{job.location}</span>
+                      <span aria-hidden="true">·</span>
+                      <span>{EMPLOYMENT_DE[job.employmentType]}</span>
                     </span>
+                    <img src="/images/crew/status-dot.svg" alt="" width={21} height={21} />
                   </Link>
                 ))
               )}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ── Precision. Pride. Progress. ── */}
-        <section className="cv-auto relative py-16 md:py-24">
-          <div className="career-shell">
-            <Reveal
-              as="h2"
-              className="career-heading flex flex-wrap gap-x-[0.6em] text-zinc-950 dark:text-white"
-            >
-              <span>Precision.</span>
-              <span>Pride.</span>
-              <span className="text-[var(--career-neon)]">Progress.</span>
-            </Reveal>
-
-            <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-3 md:gap-10">
-              {VALUES.map((value) => (
-                <div key={value.title}>
-                  <h3 className="font-sans text-[13px] font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
-                    {value.title}
-                  </h3>
-                  <p className="mt-3 font-sans text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
-                    {value.body}
-                  </p>
-                </div>
-              ))}
+          <section className="crew-block">
+            <div className="crew-lead">
+              <p className="crew-kicker crew-kicker--tiny">{"// BEWERBUNGSPROZESS"}</p>
+              <h2 className="crew-display">
+                <span>So kommst du</span>
+                <span>ins team:</span>
+              </h2>
             </div>
-          </div>
-        </section>
-
-        {/* ── How to apply ── */}
-        <section className="cv-auto relative overflow-hidden py-16 md:py-28">
-          <div className="career-shell relative">
-            <div className="relative flex flex-wrap items-end justify-between gap-6">
-              <Reveal as="h2" className="career-heading relative z-10 text-zinc-950 dark:text-white">
-                How to apply
-              </Reveal>
-              <p className="career-watermark -mb-2" aria-hidden="true">
-                JOIN
+            <div className="crew-split">
+              <p>
+                Unser Bewerbungsprozess ist transparent und effizient. Du musst uns nur deine Unterlagen
+                wie Lebenslauf und kurzes Anschreiben zukommen lassen. In einem persönlichen Gespräch mit
+                unserer Personalabteilung und dem entsprechenden Abteilungsleiter können wir uns
+                kennenlernen und detailliertere Informationen austauschen.
+              </p>
+              <p>
+                Anschließend laden wir dich zu einem Probetag ein, bei dem du das Team und die
+                Arbeitsumgebung kennenlernen kannst, während wir deine Fähigkeiten genauer prüfen.
               </p>
             </div>
-
-            <ol className="mt-10 grid list-none gap-6 p-0 md:mt-14 md:grid-cols-4">
+            <ol className="crew-steps">
               {APPLY_STEPS.map((step) => (
-                <li key={step.title} className="career-card px-5 py-5">
-                  <span className="career-eyebrow block text-[var(--career-neon)]">{step.index}</span>
-                  <h3 className="mt-5 font-sans text-sm font-bold uppercase tracking-tight text-zinc-950 dark:text-white">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 font-sans text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400">
-                    {step.body}
-                  </p>
+                <li key={step.index}>
+                  <span>{step.index}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
+          </section>
 
-        {/* ── Speculative application CTA ── */}
-        <section className="cv-auto relative overflow-hidden pb-28 pt-16 md:pb-40 md:pt-28">
-          <div className="career-shell relative">
-            <p className="career-watermark text-[clamp(4rem,14vw,13rem)]" aria-hidden="true">
-              READY
-            </p>
-
-            <Reveal className="relative z-10 -mt-2">
-              <h2 className="career-heading text-zinc-950 dark:text-white">
-                Dein Beruf ist nicht dabei?
-              </h2>
-              <p className="mt-5 max-w-2xl font-sans text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
-                Wir sind stets auf der Suche nach motivierten Talenten und Carbonfaser-Spezialisten.
-                Wenn du deine handwerkliche Leidenschaft oder dein ingenieurtechnisches Wissen
-                einbringen willst, freuen wir uns über deine Initiativbewerbung.
-              </p>
+          <section className="crew-block">
+            <div className="crew-cta">
+              <p>INITIATIVBEWERBUNG</p>
+              <h2>WERDE TEIL DES TEAMS.</h2>
+              <p>Auch ohne ausgeschriebene Stelle — überzeuge uns mit deiner Bewerbung.</p>
               <a
-                className="mt-8 inline-flex items-center rounded-md bg-[var(--career-neon)] px-5 py-2.5 font-sans text-xs font-bold uppercase tracking-wide text-black transition-transform duration-200 hover:scale-[1.03]"
+                className="site-btn site-btn--fill"
                 href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent("Initiativbewerbung")}`}
               >
                 Jetzt bewerben
               </a>
-            </Reveal>
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
 
         <SiteFooter />
       </div>

@@ -95,10 +95,10 @@ function ExpertCardComponent({
 
           <div className="expert-card__actions">
             <div className="expert-card__action-group">
-              <a href={`mailto:${email}`} className="expert-card__btn">
+              <a href={`mailto:${email}`} className="site-btn site-btn--sm">
                 EMAIL
               </a>
-              <a href={telHref} className="expert-card__btn expert-card__btn--solid">
+              <a href={telHref} className="site-btn site-btn--sm site-btn--solid">
                 PHONE
               </a>
             </div>

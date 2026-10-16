@@ -6,7 +6,7 @@ import NotchedBorderGlow from "./NotchedBorderGlow";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
 import "./MagicRingsPoster.css";
-import carDark from "../../public/images/car_silhouette_02_DarkMode.webp";
+import carDark from "../../public/images/hero-figma.jpg";
 import carLight from "../../public/images/car_silhouette_02_LightMode.webp";
 
 const loadMagicRings = () => import("./MagicRings");
@@ -39,14 +39,19 @@ export default function SiteHero({
     >
       <div className="absolute inset-0 w-full h-full select-none pointer-events-none z-0">
         <div className="absolute inset-0 transition-opacity duration-1000 opacity-0 dark:opacity-100">
-          <Image
-            src={carDark}
-            alt="Carbon Fiber Supercar Silhouette Dark"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority={priority}
-          />
+          <div
+            className="absolute"
+            style={{ width: "119.76%", height: "118.84%", left: "-9.95%", top: "-6.81%" }}
+          >
+            <Image
+              src={carDark}
+              alt="Formula car in the Bräutigam workshop"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority={priority}
+            />
+          </div>
         </div>
 
         <div className="absolute inset-0 transition-opacity duration-1000 opacity-100 dark:opacity-0">
@@ -97,14 +102,14 @@ export default function SiteHero({
       </div>
 
       <div className="absolute z-20 top-28 left-6 hidden md:block font-mono text-[9px] font-light leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
-        <div>LOCATION: GERMANY [48.9298° N, 9.2878° E]</div>
+        <div>LOCATION: GERMANY [48.9298° N, 9.2070° E]</div>
         <div>ESTABLISHED: 2016</div>
         <div>CURRENT TEAM SIZE: 81</div>
       </div>
 
       <div className="absolute z-20 top-28 right-6 hidden md:block font-mono text-[9px] font-light text-right leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
         <div>**COMPOSITE COMPONENT DEVELOPMENT INSIGHT**</div>
-        <div>PROJECT: AERO_HYPERCAR_V2.2</div>
+        <div>PROJECT: AERO_HYPERCAR_v2.2</div>
       </div>
 
       <div className="relative z-20 w-full max-w-5xl flex flex-col items-center text-center px-6 pointer-events-none">

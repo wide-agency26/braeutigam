@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="PlayButton" filter="url(#filter0_d_0_31)">
+<rect x="24" y="24" width="80" height="80" rx="40" fill="#131414" fill-opacity="0.5"/>
+<rect x="24.75" y="24.75" width="78.5" height="78.5" rx="39.25" stroke="#00FF00" stroke-width="1.5"/>
+<path id="PlayTriangle" d="M74 64L59 72.6603V55.3397L74 64Z" fill="#00FF00"/>
+</g>
+<defs>
+<filter id="filter0_d_0_31" x="0" y="0" width="128" height="128" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="12"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0.14902 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_31"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_31" result="shape"/>
+</filter>
+</defs>
+</svg>

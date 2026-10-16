@@ -299,43 +299,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
-.expert-card__btn {
-  box-sizing: border-box;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 72px;
-  height: 28px;
-  padding: 0 12px;
-  border-radius: 999px;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--ec-btn-fg);
-  border: 1px solid var(--ec-btn-border);
-  background: transparent;
-  text-decoration: none;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
-}
-
-.expert-card__btn--solid {
-  background: var(--ec-btn-bg);
-  border-color: var(--ec-btn-bg);
-}
-
-.expert-card__btn:hover,
-.expert-card__btn:focus-visible {
-  background: color-mix(in srgb, var(--ec-neon) 12%, transparent);
-  border-color: var(--ec-neon);
-  color: var(--ec-neon);
-  outline: none;
-}
 
 /* ── Reflective glass layers (reactbits ProfileCard treatment) ──
    Both are clipped to the shell silhouette and blend inside the card's own

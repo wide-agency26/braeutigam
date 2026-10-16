@@ -51,12 +51,10 @@ const SteppedTransitionLayer = ({ className }: { className: string }) => {
 
 export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
   const menuItems = [
-    { label: "HOME", link: "/#silhouette" },
-    { label: "LEISTUNGEN", link: "/#story" },
-    { label: "BAUTEILE", link: "/#mission" },
-    { label: "KARRIERE", link: "/karriere" },
-    { label: "TEAM", link: "/#datasheet" },
-    { label: "KONTAKT", link: "/kontakt" }
+    { label: "HOME", link: "/" },
+    { label: "CREW", link: "/karriere" },
+    { label: "CRAFT", link: "/craft" },
+    { label: "CONTACT", link: "/kontakt" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
@@ -182,7 +180,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                   </span>
                   <div className="text-[10px] tracking-wider mt-4 leading-relaxed text-zinc-400 dark:text-zinc-500">
                     <div>DIVISION // COMPOSITE ENGINEERING</div>
-                    <div>PROJECT // AERO_HYPERCAR_v2.0</div>
+                    <div>PROJECT // AERO_HYPERCAR_v2.2</div>
                     <div>STATUS // SYSTEM_ACTIVE</div>
                   </div>
                 </div>

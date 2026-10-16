@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="PlayButton">
+<rect x="0.75" y="0.75" width="62.5" height="62.5" rx="31.25" fill="#131414" fill-opacity="0.898039"/>
+<rect x="0.75" y="0.75" width="62.5" height="62.5" rx="31.25" stroke="#00FF00" stroke-width="1.5"/>
+<path id="PlayTriangle" d="M40 32L28 38.9282V25.0718L40 32Z" fill="#00FF00"/>
+</g>
+</svg>

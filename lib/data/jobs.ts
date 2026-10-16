@@ -12,6 +12,7 @@ export async function listPublishedJobs() {
       title: true,
       department: true,
       location: true,
+      employmentType: true,
     },
   });
 }

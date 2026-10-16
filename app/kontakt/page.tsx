@@ -4,7 +4,7 @@ import ContactPage from "../components/ContactPage";
 export const metadata: Metadata = {
   title: "Kontakt | Bräutigam GmbH",
   description:
-    "Kontakt zur Bräutigam GmbH in Freiberg am Neckar. Carbonfaser-Bauteile für den Motorsport. Telefon +49 7141 2996-700, E-Mail info@braeutigam-gmbh.eu.",
+    "Haben Sie ein Projekt? Ob Formula 1 Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage. Bräutigam GmbH, Daimlerstraße 13, 70173 Stuttgart.",
 };
 
 export default function Page() {

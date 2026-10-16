@@ -8,12 +8,10 @@ const loadLineWaves = () => import("./LineWaves");
 const WIDE_CREDIT_URL = "https://wide-communication.com";
 
 const PAGE_NAV = [
-  { label: "HOME", href: "/#silhouette" },
-  { label: "LEISTUNGEN", href: "/#story" },
-  { label: "BAUTEILE", href: "/#mission" },
-  { label: "KARRIERE", href: "/karriere" },
-  { label: "TEAM", href: "/#datasheet" },
-  { label: "KONTAKT", href: "/kontakt" },
+  { label: "HOME", href: "/" },
+  { label: "CREW", href: "/karriere" },
+  { label: "CRAFT", href: "/craft" },
+  { label: "CONTACT", href: "/kontakt" },
 ] as const;
 
 const SOCIAL_NAV = [

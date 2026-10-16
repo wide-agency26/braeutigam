@@ -19,6 +19,22 @@ const universLTStd = localFont({
   display: "swap",
 });
 
+/* Figma Main Image headlines use Univers LT Std 67 Bold Condensed, not 65 Bold. */
+const universBoldCn = localFont({
+  src: "./fonts/UniversLTStd-BoldCn.otf",
+  weight: "700",
+  variable: "--font-univers-bold-cn",
+  display: "swap",
+});
+
+/* Timeline headlines use Univers LT Std 57 Condensed. */
+const universCn = localFont({
+  src: "./fonts/UniversLTStd-Cn.otf",
+  weight: "400",
+  variable: "--font-univers-cn",
+  display: "swap",
+});
+
 /* ── Font 2: DxBurst-Smooth — display/heading font ──
    Below the fold only, so it must not compete with the LCP image for
    bandwidth. */
@@ -82,7 +98,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`dark ${universLTStd.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`dark ${universLTStd.variable} ${universBoldCn.variable} ${universCn.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <body className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         {/* Lives in the root layout so the toggle persists across routes. */}

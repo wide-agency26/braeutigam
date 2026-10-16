@@ -4,10 +4,10 @@ import React from "react";
 import Image, { type StaticImageData } from "next/image";
 import DecryptedText from "./DecryptedText";
 import Reveal from "./Reveal";
-import weave from "../../public/images/grundsatz/weave.webp";
-import clkGtr from "../../public/images/grundsatz/clk-gtr.webp";
-import precision from "../../public/images/grundsatz/precision.webp";
-import autoclave from "../../public/images/grundsatz/autoclave.webp";
+import weave from "../../public/images/grundsatz/figma/tl.jpg";
+import clkGtr from "../../public/images/grundsatz/figma/tr.jpg";
+import precision from "../../public/images/grundsatz/figma/bl.jpg";
+import autoclave from "../../public/images/grundsatz/figma/br.jpg";
 import "./ManifestSection.css";
 
 const HUD_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]!.*:_> ";
@@ -115,6 +115,13 @@ function IconSpark() {
   );
 }
 
+const PHOTO_SIZES = {
+  tl: "(max-width: 1100px) 100vw, 346px",
+  tr: "(max-width: 1100px) 100vw, 500px",
+  bl: "(max-width: 1100px) 100vw, 450px",
+  br: "(max-width: 1100px) 100vw, 700px",
+} as const;
+
 function Photo({
   src,
   alt,
@@ -122,11 +129,15 @@ function Photo({
 }: {
   src: StaticImageData;
   alt: string;
-  area: "tl" | "tr" | "bl" | "br";
+  area: keyof typeof PHOTO_SIZES;
 }) {
+  const image = (
+    <Image src={src} alt={alt} fill className="object-cover" sizes={PHOTO_SIZES[area]} />
+  );
+
   return (
     <div className={`manifest-photo manifest-photo--${area}`}>
-      <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, 32vw" />
+      {area === "tl" ? <div className="manifest-photo__crop">{image}</div> : image}
     </div>
   );
 }
@@ -169,12 +180,9 @@ export default function ManifestBlock() {
       </div>
 
       <section id="craft-technology" className="cv-auto relative">
+        <div className="manifest-frame">
         <div className="manifest-stage">
-          <Photo src={weave} alt="Carbon fiber weave through a circular aperture" area="tl" />
-          <Photo src={clkGtr} alt="Mercedes-Benz CLK GTR body shell in the workshop" area="tr" />
-          <Photo src={precision} alt="Precision tool on a carbon fiber component" area="bl" />
-          <Photo src={autoclave} alt="Open autoclave with technicians" area="br" />
-
+          <div className="manifest-stack">
           <div className="manifest-overview">
             <p className="manifest-overview__title">
               <HudLine text="*** CLIENT OVERVIEW ***" className="mg-dim" />
@@ -191,61 +199,88 @@ export default function ManifestBlock() {
               <HudLine text="... WAITING FOR USER INPUT" className="mg-dim" />
             </p>
           </div>
+          <Photo src={weave} alt="Carbon fiber weave through a circular aperture" area="tl" />
+          </div>
 
-          <div className="manifest-headlines">
+          <div className="manifest-lead">
             <Reveal as="h2" className="manifest-figma__line">
               <DecryptedText
-                text="unsere kunden: "
+                text="unsere kunden:"
                 animateOn="hover"
                 speed={120}
                 maxIterations={7}
                 sequential={false}
-                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:"
                 className="decrypt-char-revealed"
                 encryptedClassName="decrypt-char-encrypted"
               />
-              <span className="manifest-figma__neon">
-                <DecryptedText
-                  text="höchste anforderungen."
-                  animateOn="hover"
-                  speed={120}
-                  maxIterations={7}
-                  sequential={false}
-                  revealDirection="center"
-                  characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmnöäü."
-                  className="decrypt-char-revealed"
-                  encryptedClassName="decrypt-char-encrypted"
-                />
-              </span>
             </Reveal>
+            <p className="manifest-figma__neon">
+              <DecryptedText
+                text="höchste"
+                animateOn="hover"
+                speed={120}
+                maxIterations={7}
+                sequential={false}
+                characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmnöäü"
+                className="decrypt-char-revealed"
+                encryptedClassName="decrypt-char-encrypted"
+              />
+            </p>
+            <p className="manifest-figma__neon">
+              <DecryptedText
+                text="anforderungen."
+                animateOn="hover"
+                speed={120}
+                maxIterations={7}
+                sequential={false}
+                characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmnöäü."
+                className="decrypt-char-revealed"
+                encryptedClassName="decrypt-char-encrypted"
+              />
+            </p>
+          </div>
 
-            <div className="manifest-figma__block">
-              <Reveal as="p" className="manifest-figma__line">
-                <DecryptedText
-                  text="Unser Grundsatz:"
-                  animateOn="hover"
-                  speed={120}
-                  maxIterations={7}
-                  sequential={false}
-                  characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmn:"
-                  className="decrypt-char-revealed"
-                  encryptedClassName="decrypt-char-encrypted"
-                />
-              </Reveal>
-              <Reveal as="p" className="manifest-figma__neon">
-                <DecryptedText
-                  text="KOMPLEX, SCHNELL, INHOUSE"
-                  animateOn="hover"
-                  speed={120}
-                  maxIterations={7}
-                  sequential={false}
-                  revealDirection="start"
-                  characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ, "
-                  className="decrypt-char-revealed"
-                  encryptedClassName="decrypt-char-encrypted"
-                />
-              </Reveal>
-            </div>
+          <Photo src={clkGtr} alt="Mercedes-Benz CLK GTR body shell in the workshop" area="tr" />
+
+          <div className="manifest-principle">
+            <Reveal as="p" className="manifest-figma__line">
+              <DecryptedText
+                text="Unser Grundsatz:"
+                animateOn="hover"
+                speed={120}
+                maxIterations={7}
+                sequential={false}
+                characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmn:"
+                className="decrypt-char-revealed"
+                encryptedClassName="decrypt-char-encrypted"
+              />
+            </Reveal>
+            <p className="manifest-figma__neon">
+              <DecryptedText
+                text="KOMPLEX, SCHNELL,"
+                animateOn="hover"
+                speed={120}
+                maxIterations={7}
+                sequential={false}
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ, "
+                className="decrypt-char-revealed"
+                encryptedClassName="decrypt-char-encrypted"
+              />
+            </p>
+            <p className="manifest-figma__neon">
+              <DecryptedText
+                text="INHOUSE"
+                animateOn="hover"
+                speed={120}
+                maxIterations={7}
+                sequential={false}
+                revealDirection="start"
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                className="decrypt-char-revealed"
+                encryptedClassName="decrypt-char-encrypted"
+              />
+            </p>
           </div>
 
           <div className="manifest-mission">
@@ -266,12 +301,18 @@ export default function ManifestBlock() {
             </p>
             <p>
               <HudLine
-                text="COMBINING ADVANCED MATERIALS KNOWLEDGE WITH HIGH-PRECISION MANUFACTURING, WE TRANSFORM COMPLEX REQUIREMENTS INTO UNCOMPROMISED QUALITY."
+                text="COMBINING ADVANCED MATERIALS KNOWLEDGE WITH HIGH-PRECISION MANUFACTURING, WE TRANSFORM COMPLEX REQUIREMENTS INTO UNCOMPROMISING QUALITY."
                 className="mg-muted"
                 sequential={false}
               />
             </p>
           </div>
+
+          <div className="manifest-bottom">
+            <Photo src={precision} alt="Precision tool on a carbon fiber component" area="bl" />
+            <Photo src={autoclave} alt="Open autoclave with technicians" area="br" />
+          </div>
+        </div>
         </div>
       </section>
 
