@@ -3,6 +3,7 @@
 import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, CSSProperties } from "react";
 import Image from "next/image";
 import { m, useScroll, useTransform, useMotionValueEvent, useSpring, useReducedMotion } from "framer-motion";
+import SiteButton from "./SiteButton";
 import "./HorizontalTimeline.css";
 
 const BOARD_W = 12352;
@@ -332,9 +333,7 @@ function Board() {
             <h3 className="tl-h-light">JOIN OUR</h3>
             <h3 className="tl-h-bold">TEAM</h3>
           </div>
-          <a href="/karriere" className="tl-cta">
-            SEE OPEN POSITIONS
-          </a>
+          <SiteButton href="/karriere">SEE OPEN POSITIONS</SiteButton>
         </div>
         <div className="tl-photo tl-placeholder" style={box(2484, 666, 481, 350)} aria-hidden />
       </section>

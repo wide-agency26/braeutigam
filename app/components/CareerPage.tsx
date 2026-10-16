@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
+import SiteButton from "./SiteButton";
 import "./CareerPage.css";
 
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
@@ -159,9 +160,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
 
           <div className="crew-hero__title">
             <h1>CREW</h1>
-            <a className="site-btn" href="#stellen">
-              Offene stellenanzeigen
-            </a>
+            <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
           </div>
 
           <a className="crew-hero__status" href="#crew-intro">
@@ -188,12 +187,10 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
               arbeitet präzise, innovativ, kompromisslos.
             </p>
             <div className="crew-actions">
-              <a className="site-btn" href="#stellen">
-                Offene stellenanzeigen
-              </a>
-              <a className="site-btn site-btn--amber" href="#truppe">
+              <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
+              <SiteButton href="#truppe" variant="amber">
                 Über das team
-              </a>
+              </SiteButton>
             </div>
           </section>
 
@@ -320,12 +317,12 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
               <p>INITIATIVBEWERBUNG</p>
               <h2>WERDE TEIL DES TEAMS.</h2>
               <p>Auch ohne ausgeschriebene Stelle — überzeuge uns mit deiner Bewerbung.</p>
-              <a
-                className="site-btn site-btn--fill"
+              <SiteButton
+                variant="fill"
                 href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent("Initiativbewerbung")}`}
               >
                 Jetzt bewerben
-              </a>
+              </SiteButton>
             </div>
           </section>
         </div>

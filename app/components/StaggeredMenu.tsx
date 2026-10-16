@@ -50,10 +50,10 @@ const SteppedTransitionLayer = ({ className }: { className: string }) => {
 };
 
 export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
-  const menuItems = [
+  const menuItems: { label: string; link: string; soon?: boolean }[] = [
     { label: "HOME", link: "/" },
     { label: "CREW", link: "/karriere" },
-    { label: "CRAFT", link: "/craft" },
+    { label: "CRAFT", link: "/craft", soon: true },
     { label: "CONTACT", link: "/kontakt" },
   ];
 
@@ -212,16 +212,31 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     variants={itemVariants}
                     className="overflow-hidden border-b border-zinc-200/10 dark:border-zinc-800/60 pb-3"
                   >
-                    <a
-                      href={item.link}
-                      onClick={(e) => handleLinkClick(e, item.link)}
-                      className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
-                    >
-                      <span className="text-brand-neon font-mono text-base font-semibold">
-                        {String(idx + 1).padStart(2, "0")}
+                    {item.soon ? (
+                      <span
+                        aria-disabled="true"
+                        className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 text-zinc-950 dark:text-zinc-100 cursor-default"
+                      >
+                        <span className="text-brand-neon font-mono text-base font-semibold">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <span>{item.label}</span>
+                        <span className="normal-case font-mono text-[10px] sm:text-xs font-semibold tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
+                          coming soon
+                        </span>
                       </span>
-                      <span>{item.label}</span>
-                    </a>
+                    ) : (
+                      <a
+                        href={item.link}
+                        onClick={(e) => handleLinkClick(e, item.link)}
+                        className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
+                      >
+                        <span className="text-brand-neon font-mono text-base font-semibold">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <span>{item.label}</span>
+                      </a>
+                    )}
                   </m.li>
                 ))}
               </ul>

@@ -11,6 +11,7 @@ import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
 import ManifestBlock from "./ManifestBlock";
+import SiteButton from "./SiteButton";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -69,14 +70,151 @@ function SpecCard({
   );
 }
 
-const EXPERT_PORTRAIT = "/images/experts/portrait.webp";
+const EXPERTS = [
+  {
+    name: "Manuel Wezel",
+    title: "Managing Director",
+    email: "manuel@braeutigam-gmbh.eu",
+    phone: "07141/2996-706",
+    avatarUrl: "/images/experts/manuel-wezel.webp",
+    memberId: "#706-MW",
+  },
+  {
+    name: "Ralf Schuster",
+    title: "Management / Project Management",
+    email: "ralf@braeutigam-gmbh.eu",
+    phone: "07141/2996-701",
+    avatarUrl: "/images/experts/ralf-schuster.webp",
+    memberId: "#701-RS",
+  },
+  {
+    name: "Heiko Euteneuer",
+    title: "Head of Design & Quality Management",
+    email: "heiko@braeutigam-gmbh.eu",
+    phone: "07141/2996-702",
+    avatarUrl: "/images/experts/heiko-euteneuer.webp",
+    memberId: "#702-HE",
+  },
+  {
+    name: "Igor Stach",
+    title: "Head of CNC Department",
+    email: "igor@braeutigam-gmbh.eu",
+    phone: "07141/2996-712",
+    avatarUrl: "/images/experts/igor-stach.webp",
+    memberId: "#712-IS",
+  },
+  {
+    name: "Hans Braun",
+    title: "Project Management / Production Planning",
+    email: "hans@braeutigam-gmbh.eu",
+    phone: "07141/2996-708",
+    avatarUrl: "/images/experts/hans-braun.webp",
+    memberId: "#708-HB",
+  },
+  {
+    name: "Christian Grunert",
+    title: "Head of Prepreg Department",
+    email: "christian@braeutigam-gmbh.eu",
+    phone: "07141/2996-711",
+    avatarUrl: "/images/experts/christian-grunert.webp",
+    memberId: "#711-CG",
+  },
+  {
+    name: "Boris Sidji",
+    title: "Work Preparation Assembly",
+    email: "boris@braeutigam-gmbh.eu",
+    phone: "07141/2996-715",
+    avatarUrl: "/images/experts/boris-sidji.webp",
+    memberId: "#715-BS",
+  },
+  {
+    name: "Tim Schäfer",
+    title: "Head of Assembly Department",
+    email: "tim@braeutigam-gmbh.eu",
+    phone: "07141/2996-700",
+    avatarUrl: "/images/experts/tim-schaefer.webp",
+    memberId: "#700-TS",
+  },
+  {
+    name: "Christian Zinth",
+    title: "Quality Management",
+    email: "christian.zinth@braeutigam-gmbh.eu",
+    phone: "07141/2996-709",
+    avatarUrl: "/images/experts/christian-zinth.webp",
+    memberId: "#709-CZ",
+  },
+  {
+    name: "Jonas Boxhorn",
+    title: "Quality Management",
+    email: "jonas@braeutigam-gmbh.eu",
+    phone: "07141/2996-709",
+    avatarUrl: "/images/experts/jonas-boxhorn.webp",
+    memberId: "#709-JB",
+  },
+  {
+    name: "Samuel Schmidt",
+    title: "Quality Management",
+    email: "samuel@braeutigam-gmbh.eu",
+    phone: "07141/2996-709",
+    avatarUrl: "/images/experts/samuel-schmidt.webp",
+    memberId: "#709-SS",
+  },
+  {
+    name: "Stephan Steiner",
+    title: "Technical Purchasing",
+    email: "stephan@braeutigam-gmbh.eu",
+    phone: "07141/2996-701",
+    avatarUrl: "/images/experts/stephan-steiner.webp",
+    memberId: "#701-SS",
+  },
+  {
+    name: "Francesco Di Costanzo",
+    title: "Administration",
+    email: "francesco@braeutigam-gmbh.eu",
+    phone: "07141/2996-700",
+    avatarUrl: "/images/experts/francesco-di-costanzo.webp",
+    memberId: "#700-FD",
+  },
+  {
+    name: "Kurt Lander",
+    title: "Head of Warehouse & Logistics",
+    email: "kurt@braeutigam-gmbh.eu",
+    phone: "07141/2996-714",
+    avatarUrl: "/images/experts/kurt-lander.webp",
+    memberId: "#714-KL",
+  },
+] as const;
 const SOCIAL_GALLERY_ITEMS = [
-  { image: "/images/social/figma/1.png", alt: "Workshop story still" },
-  { image: "/images/social/figma/2.png", alt: "Carrera GT engine bay" },
-  { image: "/images/social/figma/3.png", alt: "Bräutigam technician on the shop floor" },
-  { image: "/images/social/figma/4.png", alt: "Caliper check on a carbon part" },
-  { image: "/images/social/figma/5.png", alt: "Carbon fiber explainer" },
-  { image: "/images/social/figma/6.png", alt: "Carbon weave detail" },
+  {
+    image: "/images/social/reels/DMFYazaOIoF.jpg",
+    alt: "Formel 1 Öltanks reel",
+    href: "https://www.instagram.com/braeutigamgmbh/reel/DMFYazaOIoF/",
+  },
+  {
+    image: "/images/social/reels/DbvB42ZlH5d.jpg",
+    alt: "Autoklaven reel",
+    href: "https://www.instagram.com/braeutigamgmbh/reel/DbvB42ZlH5d/",
+  },
+  {
+    image: "/images/social/reels/Dbp4OcWgFZ0.jpg",
+    alt: "F1-Ballastplatte Gummierung reel",
+    href: "https://www.instagram.com/braeutigamgmbh/reel/Dbp4OcWgFZ0/",
+  },
+  {
+    image: "/images/social/reels/Dbkum1MjefO.jpg",
+    alt: "Carbon Handarbeit reel",
+    href: "https://www.instagram.com/braeutigamgmbh/reel/Dbkum1MjefO/",
+  },
+  {
+    image: "/images/social/reels/DbdALvFD9y7.jpg",
+    alt: "Werkzeuge aus Carbon reel",
+    href: "https://www.instagram.com/braeutigamgmbh/reel/DbdALvFD9y7/",
+  },
+  {
+    image: "/images/social/reels/DbabXLzgm8W.jpg",
+    alt: "Formel-1-Ballastplatte reel",
+    href: "https://www.instagram.com/braeutigamgmbh/reel/DbabXLzgm8W/",
+  },
 ];
 
 export default function HomePage() {
@@ -368,9 +506,7 @@ export default function HomePage() {
               <p className="mission-figma__copy">
                 Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
               </p>
-              <a href="#story" className="site-btn">
-                MANUFACTURING
-              </a>
+              <SiteButton href="#story">MANUFACTURING</SiteButton>
             </div>
           </div>
         </div>
@@ -406,53 +542,20 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Figma: 1243px row centred in the page — 3 × 403px cards, 17px gutters */}
-          <div className="mx-auto grid w-full max-w-[1243px] grid-cols-1 justify-items-center gap-10 lg:grid-cols-3 lg:gap-[17px]">
-            <LazyOnVisible
-              loader={loadExpertCard}
-              rootMargin="100px"
-              style={{ width: "100%", aspectRatio: "403 / 522" }}
-              componentProps={{
-                name: "Ralf Schuster",
-                title: "PRODUCTION & PROJECT MANAGER",
-                email: "ralf@braeutigam-gmbh.eu",
-                phone: "07141/2996-701",
-                avatarUrl: EXPERT_PORTRAIT,
-                memberId: "#701-RS",
-              }}
-            />
-            <LazyOnVisible
-              loader={loadExpertCard}
-              rootMargin="100px"
-              style={{ width: "100%", aspectRatio: "403 / 522" }}
-              componentProps={{
-                name: "Heiko Euteneuer",
-                title: "PRODUCTION & PROJECT MANAGER",
-                email: "heiko@braeutigam-gmbh.eu",
-                phone: "07141/2996-702",
-                avatarUrl: EXPERT_PORTRAIT,
-                memberId: "#702-HE",
-              }}
-            />
-            <LazyOnVisible
-              loader={loadExpertCard}
-              rootMargin="100px"
-              style={{ width: "100%", aspectRatio: "403 / 522" }}
-              componentProps={{
-                name: "Hans Braun",
-                title: "PRODUCTION & PROJECT MANAGER",
-                email: "hans@braeutigam-gmbh.eu",
-                phone: "07141/2996-708",
-                avatarUrl: EXPERT_PORTRAIT,
-                memberId: "#934-241",
-              }}
-            />
+          <div className="experts-figma__grid">
+            {EXPERTS.map((expert) => (
+              <LazyOnVisible
+                key={expert.email}
+                loader={loadExpertCard}
+                rootMargin="100px"
+                style={{ width: "100%", aspectRatio: "403 / 522" }}
+                componentProps={{ ...expert }}
+              />
+            ))}
           </div>
 
           <div className="experts-figma__cta-wrap">
-            <a href="mailto:info@braeutigam-gmbh.eu" className="site-btn">
-              ALL EXPERTS
-            </a>
+            <SiteButton href="mailto:info@braeutigam-gmbh.eu">ALL EXPERTS</SiteButton>
           </div>
         </div>
       </section>
@@ -472,6 +575,11 @@ export default function HomePage() {
             itemAspect: 326 / 474,
             showTitles: false,
             font: "700 30px sans-serif",
+            openOnClick: false,
+            onItemClick: (item: { href?: string }) => {
+              if (!item.href) return;
+              window.open(item.href, "_blank", "noopener,noreferrer");
+            },
           }}
         />
         <div className="social-section__copy">
@@ -480,7 +588,7 @@ export default function HomePage() {
             <span>Bräutigam Experience</span>
           </h2>
           <nav className="social-section__links" aria-label="Social">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Linkedin</a>
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
           </nav>

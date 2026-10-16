@@ -4,6 +4,7 @@ import { FormEvent, useId, useState } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
+import SiteButton from "./SiteButton";
 import "./ContactPage.css";
 
 const SHOP_EMAIL = "info@braeutigam.de";
@@ -11,12 +12,66 @@ const SHOP_PHONE_DISPLAY = "+49 (0) 7141/2996700";
 const SHOP_PHONE_TEL = "+4971412996700";
 
 const FAQS = [
-  "Welche Toleranzen können Sie einhalten?",
-  "Können Sie CAD-Daten verarbeiten?",
-  "Bieten Sie auch Kleinserienfertigung an?",
-  "Wie lange dauert ein typisches Projekt?",
-  "Welche Materialien verarbeiten Sie?",
+  {
+    question: "Welche Toleranzen können Sie einhalten?",
+    answer:
+      "Platzhalter. Hier folgt die Angabe zu den Toleranzen, die wir am Carbon-Bauteil und in der CNC-Prüfung einhalten.",
+  },
+  {
+    question: "Können Sie CAD-Daten verarbeiten?",
+    answer:
+      "Platzhalter. Hier folgt, welche CAD-Formate wir annehmen und wie der Datenaustausch abläuft.",
+  },
+  {
+    question: "Bieten Sie auch Kleinserienfertigung an?",
+    answer:
+      "Platzhalter. Hier folgt, ab welcher Stückzahl wir Kleinserien fertigen und wie der Ablauf aussieht.",
+  },
+  {
+    question: "Wie lange dauert ein typisches Projekt?",
+    answer:
+      "Platzhalter. Hier folgt die typische Dauer von der Anfrage bis zum fertigen Bauteil.",
+  },
+  {
+    question: "Welche Materialien verarbeiten Sie?",
+    answer:
+      "Platzhalter. Hier folgt die Übersicht der Werkstoffe, die wir in der Fertigung verarbeiten.",
+  },
 ] as const;
+
+function ContactFaq() {
+  const baseId = useId();
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <ul>
+      {FAQS.map((item, index) => {
+        const expanded = open === index;
+        const panelId = `${baseId}-faq-${index}`;
+        return (
+          <li key={item.question} className={expanded ? "is-open" : undefined}>
+            <button
+              type="button"
+              className="contact-faq__question"
+              aria-expanded={expanded}
+              aria-controls={panelId}
+              onClick={() => setOpen(expanded ? null : index)}
+            >
+              <span>{item.question}</span>
+              <span className="contact-faq__mark" aria-hidden="true" />
+            </button>
+            <div className="contact-faq__panel" id={panelId} role="region" aria-hidden={!expanded}>
+              <div className="contact-faq__panel-inner">
+                <p>{item.answer}</p>
+              </div>
+            </div>
+            <span className="contact-faq__rule" aria-hidden="true" />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
 
@@ -144,9 +199,7 @@ function ContactForm() {
         ) : null}
       </div>
 
-      <button className="site-btn" type="submit">
-        Anfrage senden
-      </button>
+      <SiteButton type="submit">Anfrage senden</SiteButton>
       {note ? <p className="contact-form__note">{note}</p> : null}
     </form>
   );
@@ -207,7 +260,7 @@ export default function ContactPage() {
                   <p className="contact-info__address">
                     <span>Bräutigam GmbH</span>
                     <span>Daimlerstraße 13</span>
-                    <span>70173 Stuttgart</span>
+                    <span>71691 Freiberg am Neckar</span>
                     <span>Deutschland</span>
                   </p>
                 </div>
@@ -243,14 +296,7 @@ export default function ContactPage() {
                 <span>GESTELLTE FRAGEN.</span>
               </h2>
             </header>
-            <ul>
-              {FAQS.map((question) => (
-                <li key={question}>
-                  <p>{question}</p>
-                  <span className="contact-faq__rule" aria-hidden="true" />
-                </li>
-              ))}
-            </ul>
+            <ContactFaq />
           </section>
 
           <section className="contact-map" aria-label="Standort">
@@ -262,7 +308,12 @@ export default function ContactPage() {
               <p>AXIS_X: +1.28 AXIS_Y: -0.49 AXIS_Z: +0.00</p>
             </header>
             <div className="contact-map__frame">
-              <img src="/images/contact/map.png" alt="Karte mit dem Standort Bräutigam bei Ludwigsburg" />
+              <iframe
+                title="Karte: Daimlerstraße 13, 71691 Freiberg am Neckar"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=9.1973%2C48.9276%2C9.2093%2C48.9316&layer=mapnik&marker=48.9296318%2C9.2033270"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </section>
         </div>

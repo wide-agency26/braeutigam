@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { useCardTilt } from "../hooks/useCardTilt";
+import SiteButton from "./SiteButton";
 import "./ExpertCard.css";
 
 export interface ExpertCardProps {
@@ -95,12 +96,12 @@ function ExpertCardComponent({
 
           <div className="expert-card__actions">
             <div className="expert-card__action-group">
-              <a href={`mailto:${email}`} className="site-btn site-btn--sm">
+              <SiteButton href={`mailto:${email}`} size="sm">
                 EMAIL
-              </a>
-              <a href={telHref} className="site-btn site-btn--sm site-btn--solid">
+              </SiteButton>
+              <SiteButton href={telHref} size="sm" variant="solid">
                 PHONE
-              </a>
+              </SiteButton>
             </div>
           </div>
         </div>

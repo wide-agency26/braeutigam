@@ -256,14 +256,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 8px;
   width: 100%;
   min-height: 8px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
   font-size: 9px;
   font-weight: 300;
-  line-height: 0.9;
+  line-height: 1.25;
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
@@ -271,9 +271,6 @@
 .expert-card__role {
   margin: 0;
   color: var(--ec-meta);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .expert-card__id {
