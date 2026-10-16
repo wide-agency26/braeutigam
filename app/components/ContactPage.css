@@ -547,6 +547,75 @@
   height: 100%;
   border: 0;
   filter: grayscale(1) contrast(1.08);
+  pointer-events: none;
+}
+
+.contact-map__pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translate(-50%, -100%);
+}
+
+.contact-map__pin-card {
+  width: max-content;
+  max-width: min(280px, calc(100vw - 96px));
+  padding: 12px 14px 10px;
+  border-radius: 10px;
+  background: #0b0b0c;
+  color: #f3f3f3;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.contact-map__pin-card p {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+}
+
+.contact-map__pin-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.contact-map__pin-actions a,
+.contact-map__pin-actions button {
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid #00ff00;
+  border-radius: 6px;
+  background: transparent;
+  color: #00ff00;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.contact-map__pin-actions a:hover,
+.contact-map__pin-actions button:hover,
+.contact-map__pin-actions a:focus-visible,
+.contact-map__pin-actions button:focus-visible {
+  background: #00ff00;
+  color: #0b0b0c;
+  outline: none;
+}
+
+.contact-map__pin-mark {
+  display: block;
+  line-height: 0;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
 }
 
 @media (max-width: 1100px) {

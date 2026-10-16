@@ -215,13 +215,13 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     {item.soon ? (
                       <span
                         aria-disabled="true"
-                        className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 text-zinc-950 dark:text-zinc-100 cursor-default"
+                        className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 text-zinc-400 dark:text-zinc-500 cursor-default"
                       >
-                        <span className="text-brand-neon font-mono text-base font-semibold">
+                        <span className="text-zinc-400 dark:text-zinc-500 font-mono text-base font-semibold">
                           {String(idx + 1).padStart(2, "0")}
                         </span>
                         <span>{item.label}</span>
-                        <span className="normal-case font-mono text-[10px] sm:text-xs font-semibold tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
+                        <span className="normal-case font-mono text-[10px] sm:text-xs font-semibold tracking-[0.16em] text-zinc-400 dark:text-zinc-600">
                           coming soon
                         </span>
                       </span>

@@ -10,6 +10,8 @@ import "./ContactPage.css";
 const SHOP_EMAIL = "info@braeutigam.de";
 const SHOP_PHONE_DISPLAY = "+49 (0) 7141/2996700";
 const SHOP_PHONE_TEL = "+4971412996700";
+const SHOP_ADDRESS = "Daimlerstraße 13, 71691 Freiberg am Neckar";
+const SHOP_DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SHOP_ADDRESS)}`;
 
 const FAQS = [
   {
@@ -205,6 +207,60 @@ function ContactForm() {
   );
 }
 
+function ContactMapPin() {
+  const cardId = useId();
+  const [copied, setCopied] = useState(false);
+
+  async function copyAddress() {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(SHOP_ADDRESS);
+      ok = true;
+    } catch {
+      const field = document.createElement("textarea");
+      field.value = SHOP_ADDRESS;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+      ok = document.execCommand("copy");
+      field.remove();
+    }
+    if (!ok) return;
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  }
+
+  return (
+    <div className="contact-map__pin">
+      <div className="contact-map__pin-card" id={cardId}>
+        <p>Daimlerstraße 13</p>
+        <p>71691 Freiberg am Neckar</p>
+        <div className="contact-map__pin-actions">
+          <a href={SHOP_DIRECTIONS} target="_blank" rel="noopener noreferrer">
+            Route
+          </a>
+          <button type="button" onClick={copyAddress}>
+            {copied ? "Kopiert" : "Kopieren"}
+          </button>
+        </div>
+      </div>
+      <span className="contact-map__pin-mark" aria-hidden="true">
+        <svg width="28" height="36" viewBox="0 0 28 36" fill="none">
+          <path
+            d="M14 35C14 35 3 20.2 3 13.2C3 7.03 7.92 2 14 2C20.08 2 25 7.03 25 13.2C25 20.2 14 35 14 35Z"
+            fill="#0b0b0c"
+            stroke="#00ff00"
+            strokeWidth="1.6"
+          />
+          <circle cx="14" cy="13" r="3.4" fill="#00ff00" />
+        </svg>
+      </span>
+    </div>
+  );
+}
+
 export default function ContactPage() {
   return (
     <LazyMotion features={domAnimation}>
@@ -310,10 +366,11 @@ export default function ContactPage() {
             <div className="contact-map__frame">
               <iframe
                 title="Karte: Daimlerstraße 13, 71691 Freiberg am Neckar"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=9.1973%2C48.9276%2C9.2093%2C48.9316&layer=mapnik&marker=48.9296318%2C9.2033270"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=9.1973%2C48.9276%2C9.2093%2C48.9316&layer=mapnik"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
+              <ContactMapPin />
             </div>
           </section>
         </div>
