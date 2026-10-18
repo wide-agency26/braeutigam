@@ -6,7 +6,7 @@ import NotchedBorderGlow from "./NotchedBorderGlow";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
 import "./MagicRingsPoster.css";
-import carDark from "../../public/images/hero-figma.jpg";
+import carDark from "../../public/images/car_silhouette_02_DarkMode.webp";
 import carLight from "../../public/images/car_silhouette_02_LightMode.webp";
 
 const loadMagicRings = () => import("./MagicRings");
@@ -39,19 +39,14 @@ export default function SiteHero({
     >
       <div className="absolute inset-0 w-full h-full select-none pointer-events-none z-0">
         <div className="absolute inset-0 transition-opacity duration-1000 opacity-0 dark:opacity-100">
-          <div
-            className="absolute"
-            style={{ width: "119.76%", height: "118.84%", left: "-9.95%", top: "-6.81%" }}
-          >
-            <Image
-              src={carDark}
-              alt="Formula car in the Bräutigam workshop"
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority={priority}
-            />
-          </div>
+          <Image
+            src={carDark}
+            alt="Formula car in the Bräutigam workshop"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={priority}
+          />
         </div>
 
         <div className="absolute inset-0 transition-opacity duration-1000 opacity-100 dark:opacity-0">
