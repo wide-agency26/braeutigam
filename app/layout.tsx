@@ -96,10 +96,18 @@ export default function RootLayout({
     // `dark` is the default theme — set on <html> so first paint matches and
     // Tailwind `dark:` utilities work before the client ThemeProvider hydrates.
     <html
-      lang="en"
+      lang="de"
       suppressHydrationWarning
       className={`dark ${universLTStd.variable} ${universBoldCn.variable} ${universCn.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('braeutigam-theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light'}}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         {/* Lives in the root layout so the toggle persists across routes. */}
         <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>

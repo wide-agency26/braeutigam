@@ -37,6 +37,8 @@ export async function applyToJob(
     email: formData.get("email"),
     phone: formData.get("phone") ?? "",
     coverLetter: formData.get("coverLetter") ?? "",
+    wasRecommended: formData.get("wasRecommended") === "on",
+    recommenderName: formData.get("recommenderName") ?? "",
   });
   if (!parsed.success) {
     return { fieldErrors: fieldErrors(parsed.error) };

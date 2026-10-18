@@ -11,6 +11,16 @@ const BOARD_H = 1080;
 const HOLD = 0.08;
 const LAST_PANEL_W = 3096;
 const TICK_YEARS = ["2016", "2017", "2019", "2020", "2021", "2022", "2024", "2026"];
+const REDUCED_JOURNEY = [
+  ["2016", "Founded"],
+  ["2017", "Entry into Formula 1"],
+  ["2019", "More space"],
+  ["2020", "Monocoque construction"],
+  ["2021", "Development and manufacturing"],
+  ["2022", "Growth and recognition"],
+  ["2024", "Powered by Brabus"],
+  ["2026", "80+ experts"],
+] as const;
 
 function box(left: number, top: number, width: number, height: number, extra?: CSSProperties): CSSProperties {
   return { position: "absolute", left, top, width, height, ...extra };
@@ -479,6 +489,18 @@ export default function HorizontalTimeline() {
         </div>
       </section>
 
+      {reduceMotion ? (
+        <section className="site-container py-16" aria-label="Unternehmensgeschichte">
+          <ol className="grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
+            {REDUCED_JOURNEY.map(([year, title]) => (
+              <li key={year} className="border-t border-zinc-300 py-5 dark:border-zinc-700">
+                <p className="font-mono text-sm font-bold text-brand-neon">{year}</p>
+                <h3 className="mt-2 font-sans text-xl uppercase text-zinc-950 dark:text-zinc-100">{title}</h3>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : (
       <section ref={sectionRef} className="relative" style={{ height: "1100vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div
@@ -587,6 +609,7 @@ export default function HorizontalTimeline() {
           </div>
         </div>
       </section>
+      )}
     </>
   );
 }

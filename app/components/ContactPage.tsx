@@ -203,7 +203,7 @@ function ContactForm() {
       </div>
 
       <SiteButton type="submit">Anfrage senden</SiteButton>
-      {note ? <p className="contact-form__note">{note}</p> : null}
+      {note ? <p className="contact-form__note" role="status" aria-live="polite">{note}</p> : null}
     </form>
   );
 }
@@ -245,6 +245,9 @@ function ContactMapPin() {
           <button type="button" onClick={copyAddress}>
             {copied ? "Kopiert" : "Kopieren"}
           </button>
+          <span className="sr-only" role="status" aria-live="polite">
+            {copied ? "Adresse in die Zwischenablage kopiert." : ""}
+          </span>
         </div>
       </div>
       <span className="contact-map__pin-mark" aria-hidden="true">
@@ -268,6 +271,7 @@ export default function ContactPage() {
       <div className="contact-page">
         <SiteChrome />
 
+        <main id="main-content">
         <section className="contact-hero" aria-label="Kontakt">
           <div className="contact-hero__media" aria-hidden="true">
             <img className="contact-photo--hero" src="/images/contact/hero.png" alt="" />
@@ -377,6 +381,7 @@ export default function ContactPage() {
             </div>
           </section>
         </div>
+        </main>
 
         <SiteFooter />
       </div>

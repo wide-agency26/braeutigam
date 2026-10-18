@@ -25,6 +25,9 @@
   --foreground: #111111;
   --surface: #F9F9FB;
   --surface-muted: #ffffff;
+  --site-max-width: 1440px;
+  --site-gutter: clamp(1.5rem, 4vw, 4rem);
+  --focus-ring: #087a08;
 }
 
 .dark {
@@ -32,6 +35,7 @@
   --foreground: #f4f4f5;
   --surface: #0B0B0C;
   --surface-muted: #18181b;
+  --focus-ring: #39ff14;
 }
 
 html {
@@ -44,6 +48,61 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.site-container {
+  width: min(100%, var(--site-max-width));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  z-index: 120;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #111111;
+  color: #ffffff;
+  font: 600 0.75rem/1 var(--font-jetbrains-mono), monospace;
+  text-transform: uppercase;
+  transform: translate(-50%, -200%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translate(-50%, 0);
+  outline: 3px solid #39ff14;
+  outline-offset: 3px;
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+:root:not(.dark) .text-brand-neon {
+  color: #087a08;
+}
+
+:root:not(.dark) .border-brand-neon {
+  border-color: #087a08;
 }
 
 /* Custom Technical Background Grid — one class, theme via .dark */
@@ -96,34 +155,6 @@ body {
 .cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 800px;
-}
-
-/* CSS stand-in for simple whileInView fade/slide — no Framer needed. */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition:
-    opacity 800ms cubic-bezier(0, 0, 0.58, 1),
-    transform 800ms cubic-bezier(0, 0, 0.58, 1);
-}
-.reveal-up.is-inview {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-fade {
-  opacity: 0;
-  transition: opacity 800ms cubic-bezier(0, 0, 0.58, 1);
-}
-.reveal-fade.is-inview {
-  opacity: 1;
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal-up,
-  .reveal-fade {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 /* Glowing LED Pillars for Silhouette screen */
@@ -216,16 +247,6 @@ body {
     0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Encrypted character styling — visible scramble effect */
-.decrypt-char-encrypted {
-  opacity: 0.35;
-  color: inherit;
-}
-
-.decrypt-char-revealed {
-  opacity: 1;
-}
-
 .cad-hud__meta {
   text-align: right;
   line-height: 1.5;
@@ -242,7 +263,7 @@ body {
   color: #c9a227;
 }
 :root:not(.dark) .cad-hud__ok {
-  color: #0a9e0a;
+  color: #087a08;
 }
 :root:not(.dark) .cad-hud__warn {
   color: #8a6a10;
@@ -404,7 +425,7 @@ body {
   white-space: nowrap;
 }
 :root:not(.dark) .journey-intro__value {
-  color: #0a9e0a;
+  color: #087a08;
 }
 :root:not(.dark) .journey-intro__watermark p {
   -webkit-text-stroke: 1px rgba(10, 158, 10, 0.4);
@@ -442,7 +463,7 @@ body {
   color: #131414;
 }
 .dark .manifest-figma__line {
-  /* Figma Gradient White base #FBFAFC (clip skipped so DecryptedText works) */
+  /* Figma Gradient White base #FBFAFC */
   color: #fbfafc;
 }
 .manifest-figma__neon {
@@ -475,8 +496,8 @@ body {
   text-align: center;
 }
 :root:not(.dark) .manifest-figma__neon {
-  color: #0a9e0a;
-  -webkit-text-fill-color: #0a9e0a;
+  color: #087a08;
+  -webkit-text-fill-color: #087a08;
 }
 
 /* ── Mission — outline watermark, then the solid headline, then the still ── */
@@ -563,6 +584,7 @@ body {
   margin: 0;
 }
 .mission-figma__quality {
+  display: block;
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 700;
@@ -574,6 +596,7 @@ body {
   white-space: nowrap;
 }
 .mission-figma__perf {
+  display: block;
   margin: 0;
   font-family: var(--font-bootzy), sans-serif;
   font-weight: 400;
@@ -756,7 +779,7 @@ body {
   color: #111111;
 }
 :root:not(.dark) .mission-figma__perf {
-  color: #0a9e0a;
+  color: #087a08;
 }
 :root:not(.dark) .mission-figma__watermark p {
   -webkit-text-stroke: 1px rgba(10, 158, 10, 0.55);
@@ -819,7 +842,7 @@ body {
   margin-bottom: 8px !important;
 }
 .experts-figma__hud-val {
-  color: #0a9e0a;
+  color: #087a08;
   font-variant-numeric: tabular-nums;
 }
 .dark .experts-figma__hud-val {
@@ -1044,7 +1067,8 @@ body {
   white-space: nowrap;
 }
 
-.footer-figma__imprint a {
+.footer-figma__imprint a,
+.footer-figma__imprint span {
   color: #fbfafc;
   text-decoration: none;
   transition: color 160ms ease;
@@ -1067,7 +1091,8 @@ body {
   white-space: nowrap;
 }
 
-.footer-figma__legal a {
+.footer-figma__legal a,
+.footer-figma__legal span {
   color: #fbfafc;
   text-decoration: none;
   white-space: nowrap;

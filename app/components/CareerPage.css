@@ -12,12 +12,12 @@
      darker stroke than the card borders. */
   --career-stroke: rgba(0, 130, 0, 0.7);
   --career-fill: #ffffff;
-  --career-neon: #0a9e0a;
+  --career-neon: #087a08;
 }
 
 .career-shell {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--site-max-width, 1440px);
   margin-inline: auto;
   padding-inline: clamp(1.5rem, 4vw, 4rem);
 }
@@ -313,6 +313,8 @@
   display: flex;
   flex-direction: column;
   gap: 64px;
+  width: min(100%, var(--site-max-width, 1440px));
+  margin-inline: auto;
   padding: 64px;
   background: #131414;
   overflow: hidden;
@@ -830,4 +832,69 @@
   .crew-cta {
     padding: 40px 24px;
   }
+}
+
+/* The photographic recruiting hero intentionally remains dark in both themes.
+   The content surface below it follows the selected site theme. */
+:root:not(.dark) .crew-page {
+  background: #f9f9fb;
+  color: #171717;
+}
+
+:root:not(.dark) .crew-hero__shade {
+  background: linear-gradient(to bottom, rgba(19, 20, 20, 0) 63.194%, #f9f9fb 100%);
+}
+
+:root:not(.dark) .crew-body {
+  background: #f9f9fb;
+}
+
+:root:not(.dark) .crew-intro__title span:first-child,
+:root:not(.dark) .crew-display span:first-child,
+:root:not(.dark) .crew-film__title,
+:root:not(.dark) .crew-job__title span:first-child,
+:root:not(.dark) .crew-steps h3 {
+  color: #171717;
+}
+
+:root:not(.dark) .crew-intro__title span:last-child,
+:root:not(.dark) .crew-display span:last-child,
+:root:not(.dark) .crew-steps li span,
+:root:not(.dark) .crew-cta h2 {
+  color: #087a08;
+}
+
+:root:not(.dark) .crew-copy,
+:root:not(.dark) .crew-split p,
+:root:not(.dark) .crew-steps p,
+:root:not(.dark) .crew-pillar .crew-copy,
+:root:not(.dark) .crew-pillar h3,
+:root:not(.dark) .crew-film__body {
+  color: #3f3f46;
+}
+
+:root:not(.dark) .crew-kicker,
+:root:not(.dark) .crew-micro span:first-child,
+:root:not(.dark) .crew-job__title span:last-child,
+:root:not(.dark) .crew-job__meta span,
+:root:not(.dark) .crew-jobs__empty {
+  color: #52525b;
+}
+
+:root:not(.dark) .crew-mark {
+  -webkit-text-stroke-color: rgba(8, 122, 8, 0.55);
+}
+
+:root:not(.dark) .crew-job {
+  border-color: #d4d4d8;
+}
+
+:root:not(.dark) .crew-cta {
+  border-color: #d4d4d8;
+  background: #ffffff;
+}
+
+:root:not(.dark) .crew-cta p:nth-of-type(2),
+:root:not(.dark) .crew-cta p:first-child {
+  color: #3f3f46;
 }

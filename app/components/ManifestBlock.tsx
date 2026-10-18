@@ -2,37 +2,20 @@
 
 import React from "react";
 import Image, { type StaticImageData } from "next/image";
-import DecryptedText from "./DecryptedText";
-import Reveal from "./Reveal";
 import weave from "../../public/images/grundsatz/figma/tl.jpg";
 import clkGtr from "../../public/images/grundsatz/figma/tr.jpg";
 import precision from "../../public/images/grundsatz/figma/bl.jpg";
 import autoclave from "../../public/images/grundsatz/figma/br.jpg";
 import "./ManifestSection.css";
 
-const HUD_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]!.*:_> ";
-
 function HudLine({
   text,
   className = "",
-  sequential = true,
 }: {
   text: string;
   className?: string;
-  sequential?: boolean;
 }) {
-  return (
-    <DecryptedText
-      text={text}
-      animateOn="view"
-      sequential={sequential}
-      speed={28}
-      maxIterations={6}
-      characters={HUD_CHARS}
-      className={className}
-      encryptedClassName={`${className} decrypt-char-encrypted`}
-    />
-  );
+  return <span className={className}>{text}</span>;
 }
 
 function CoreValueIcon({
@@ -120,7 +103,7 @@ export default function ManifestBlock() {
           <HudLine text="ACCESS GRANTED" className="mg-neon" />
           <HudLine text=">>_UPDATE LOADED" className="mg-neon" />
           <p className="mg-credit">
-            <HudLine text="©2026 MADE BY WIDE" className="mg-dim" sequential={false} />
+            <HudLine text="©2026 MADE BY WIDE" className="mg-dim" />
           </p>
         </div>
         <div className="mg-bar__cluster mg-bar__cluster--center">
@@ -148,7 +131,7 @@ export default function ManifestBlock() {
         </div>
       </div>
 
-      <section id="craft-technology" className="cv-auto relative">
+      <section id="craft-technology" className="cv-auto relative" lang="de">
         <div className="manifest-frame">
         <div className="manifest-stage">
           <div className="manifest-stack">
@@ -158,7 +141,7 @@ export default function ManifestBlock() {
             </p>
             <p className="manifest-overview__row">
               <HudLine text="CLIENT COUNT:" className="mg-dim" />
-              <HudLine text="265" className="mg-neon" sequential={false} />
+              <HudLine text="265" className="mg-neon" />
             </p>
             <p className="manifest-overview__row">
               <HudLine text="CLIENT NAMES:" className="mg-dim" />
@@ -172,84 +155,17 @@ export default function ManifestBlock() {
           </div>
 
           <div className="manifest-lead">
-            <Reveal as="h2" className="manifest-figma__line">
-              <DecryptedText
-                text="unsere kunden:"
-                animateOn="hover"
-                speed={120}
-                maxIterations={7}
-                sequential={false}
-                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:"
-                className="decrypt-char-revealed"
-                encryptedClassName="decrypt-char-encrypted"
-              />
-            </Reveal>
-            <p className="manifest-figma__neon">
-              <DecryptedText
-                text="höchste"
-                animateOn="hover"
-                speed={120}
-                maxIterations={7}
-                sequential={false}
-                characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmnöäü"
-                className="decrypt-char-revealed"
-                encryptedClassName="decrypt-char-encrypted"
-              />
-            </p>
-            <p className="manifest-figma__neon">
-              <DecryptedText
-                text="anforderungen."
-                animateOn="hover"
-                speed={120}
-                maxIterations={7}
-                sequential={false}
-                characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmnöäü."
-                className="decrypt-char-revealed"
-                encryptedClassName="decrypt-char-encrypted"
-              />
-            </p>
+            <h2 className="manifest-figma__line">unsere kunden:</h2>
+            <p className="manifest-figma__neon">höchste</p>
+            <p className="manifest-figma__neon">anforderungen.</p>
           </div>
 
           <Photo src={clkGtr} alt="Mercedes-Benz CLK GTR body shell in the workshop" area="tr" />
 
           <div className="manifest-principle">
-            <Reveal as="p" className="manifest-figma__line">
-              <DecryptedText
-                text="Unser Grundsatz:"
-                animateOn="hover"
-                speed={120}
-                maxIterations={7}
-                sequential={false}
-                characters="ABCDEFGHIJKLMNÖÄÜabcdefghijklmn:"
-                className="decrypt-char-revealed"
-                encryptedClassName="decrypt-char-encrypted"
-              />
-            </Reveal>
-            <p className="manifest-figma__neon">
-              <DecryptedText
-                text="KOMPLEX, SCHNELL,"
-                animateOn="hover"
-                speed={120}
-                maxIterations={7}
-                sequential={false}
-                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ, "
-                className="decrypt-char-revealed"
-                encryptedClassName="decrypt-char-encrypted"
-              />
-            </p>
-            <p className="manifest-figma__neon">
-              <DecryptedText
-                text="INHOUSE"
-                animateOn="hover"
-                speed={120}
-                maxIterations={7}
-                sequential={false}
-                revealDirection="start"
-                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                className="decrypt-char-revealed"
-                encryptedClassName="decrypt-char-encrypted"
-              />
-            </p>
+            <p className="manifest-figma__line">Unser Grundsatz:</p>
+            <p className="manifest-figma__neon">KOMPLEX, SCHNELL,</p>
+            <p className="manifest-figma__neon">INHOUSE</p>
           </div>
 
           <div className="manifest-mission">
@@ -272,7 +188,6 @@ export default function ManifestBlock() {
               <HudLine
                 text="COMBINING ADVANCED MATERIALS KNOWLEDGE WITH HIGH-PRECISION MANUFACTURING, WE TRANSFORM COMPLEX REQUIREMENTS INTO UNCOMPROMISING QUALITY."
                 className="mg-muted"
-                sequential={false}
               />
             </p>
           </div>

@@ -13,11 +13,12 @@ import SiteHero from "./SiteHero";
 import ManifestBlock from "./ManifestBlock";
 import SiteButton from "./SiteButton";
 import SocialGalleryBoundary from "./SocialGalleryBoundary";
+import ExpertSlot from "./ExpertSlot";
+import { EXPERTS } from "@/lib/data/experts";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
 const loadTimeline = () => import("./HorizontalTimeline");
-const loadExpertCard = () => import("./ExpertCard");
 const loadTopography = () => import("./Topography");
 const loadCircularGallery = () => import("./CircularGallery");
 import story01Dark from "../../public/images/Part_01_darkmode.webp";
@@ -45,7 +46,7 @@ function SpecCard({
     <NotchedBorderGlow notchPosition="bottom-right" className="w-full max-w-sm shadow-sm pointer-events-auto">
       <div className="font-mono text-[9px] leading-normal text-zinc-700 dark:text-zinc-300">
         <div className="text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 uppercase tracking-wider text-[10px] pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
-          <span>// COMPOSITE_SPEC</span>
+          <span>{"// COMPOSITE_SPEC"}</span>
           <span className="text-[8px] text-brand-neon font-bold">{badge}</span>
         </div>
         <div className="space-y-1.5 mt-2">
@@ -71,120 +72,6 @@ function SpecCard({
   );
 }
 
-const EXPERTS = [
-  {
-    name: "Manuel Wezel",
-    title: "Managing Director",
-    email: "manuel@braeutigam-gmbh.eu",
-    phone: "07141/2996-706",
-    avatarUrl: "/images/experts/manuel-wezel.webp",
-    memberId: "#706-MW",
-  },
-  {
-    name: "Ralf Schuster",
-    title: "Management / Project Management",
-    email: "ralf@braeutigam-gmbh.eu",
-    phone: "07141/2996-701",
-    avatarUrl: "/images/experts/ralf-schuster.webp",
-    memberId: "#701-RS",
-  },
-  {
-    name: "Heiko Euteneuer",
-    title: "Head of Design & Quality Management",
-    email: "heiko@braeutigam-gmbh.eu",
-    phone: "07141/2996-702",
-    avatarUrl: "/images/experts/heiko-euteneuer.webp",
-    memberId: "#702-HE",
-  },
-  {
-    name: "Igor Stach",
-    title: "Head of CNC Department",
-    email: "igor@braeutigam-gmbh.eu",
-    phone: "07141/2996-712",
-    avatarUrl: "/images/experts/igor-stach.webp",
-    memberId: "#712-IS",
-  },
-  {
-    name: "Hans Braun",
-    title: "Project Management / Production Planning",
-    email: "hans@braeutigam-gmbh.eu",
-    phone: "07141/2996-708",
-    avatarUrl: "/images/experts/hans-braun.webp",
-    memberId: "#708-HB",
-  },
-  {
-    name: "Christian Grunert",
-    title: "Head of Prepreg Department",
-    email: "christian@braeutigam-gmbh.eu",
-    phone: "07141/2996-711",
-    avatarUrl: "/images/experts/christian-grunert.webp",
-    memberId: "#711-CG",
-  },
-  {
-    name: "Boris Sidji",
-    title: "Work Preparation Assembly",
-    email: "boris@braeutigam-gmbh.eu",
-    phone: "07141/2996-715",
-    avatarUrl: "/images/experts/boris-sidji.webp",
-    memberId: "#715-BS",
-  },
-  {
-    name: "Tim Schäfer",
-    title: "Head of Assembly Department",
-    email: "tim@braeutigam-gmbh.eu",
-    phone: "07141/2996-700",
-    avatarUrl: "/images/experts/tim-schaefer.webp",
-    memberId: "#700-TS",
-  },
-  {
-    name: "Christian Zinth",
-    title: "Quality Management",
-    email: "christian.zinth@braeutigam-gmbh.eu",
-    phone: "07141/2996-709",
-    avatarUrl: "/images/experts/christian-zinth.webp",
-    memberId: "#709-CZ",
-  },
-  {
-    name: "Jonas Boxhorn",
-    title: "Quality Management",
-    email: "jonas@braeutigam-gmbh.eu",
-    phone: "07141/2996-709",
-    avatarUrl: "/images/experts/jonas-boxhorn.webp",
-    memberId: "#709-JB",
-  },
-  {
-    name: "Samuel Schmidt",
-    title: "Quality Management",
-    email: "samuel@braeutigam-gmbh.eu",
-    phone: "07141/2996-709",
-    avatarUrl: "/images/experts/samuel-schmidt.webp",
-    memberId: "#709-SS",
-  },
-  {
-    name: "Stephan Steiner",
-    title: "Technical Purchasing",
-    email: "stephan@braeutigam-gmbh.eu",
-    phone: "07141/2996-701",
-    avatarUrl: "/images/experts/stephan-steiner.webp",
-    memberId: "#701-SS",
-  },
-  {
-    name: "Francesco Di Costanzo",
-    title: "Administration",
-    email: "francesco@braeutigam-gmbh.eu",
-    phone: "07141/2996-700",
-    avatarUrl: "/images/experts/francesco-di-costanzo.webp",
-    memberId: "#700-FD",
-  },
-  {
-    name: "Kurt Lander",
-    title: "Head of Warehouse & Logistics",
-    email: "kurt@braeutigam-gmbh.eu",
-    phone: "07141/2996-714",
-    avatarUrl: "/images/experts/kurt-lander.webp",
-    memberId: "#714-KL",
-  },
-] as const;
 const SOCIAL_GALLERY_ITEMS = [
   {
     image: "/images/social/reels/DMFYazaOIoF.jpg",
@@ -220,30 +107,8 @@ const SOCIAL_GALLERY_ITEMS = [
 
 const EXPERT_PREVIEW = 3;
 
-function ExpertSlot({
-  expert,
-  delay,
-}: {
-  expert: (typeof EXPERTS)[number];
-  delay?: string;
-}) {
-  return (
-    <LazyOnVisible
-      loader={loadExpertCard}
-      rootMargin="100px"
-      className="experts-figma__card"
-      style={{ width: "100%", aspectRatio: "403 / 522", transitionDelay: delay }}
-      componentProps={{ ...expert }}
-    />
-  );
-}
-
 export default function HomePage() {
   const [showAllExperts, setShowAllExperts] = useState(false);
-  // Parallax layers refs
-  const backgroundRef = useRef<HTMLDivElement>(null);
-  const midgroundRef = useRef<HTMLDivElement>(null);
-  const foregroundRef = useRef<HTMLDivElement>(null);
 
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
@@ -286,6 +151,7 @@ export default function HomePage() {
 
       <SiteChrome />
 
+      <main id="main-content" lang="en">
       {/* 1. HERO / LANDING SECTION — shared with /karriere */}
       <SiteHero scrollTarget="#story" />
 
@@ -509,10 +375,10 @@ export default function HomePage() {
             </div>
           </aside>
 
-          <div className="mission-figma__headline">
-            <h2 className="mission-figma__quality">FLAWLESS QUALITY &amp;</h2>
-            <p className="mission-figma__perf">HIGH PERFORMANCE.</p>
-          </div>
+          <h2 className="mission-figma__headline">
+            <span className="mission-figma__quality">FLAWLESS QUALITY &amp;</span>
+            <span className="mission-figma__perf">HIGH PERFORMANCE.</span>
+          </h2>
 
           <div className="mission-figma__split">
             <div className="mission-figma__image">
@@ -544,8 +410,8 @@ export default function HomePage() {
       </div>
 
       {/* 4. SECTION: MEET THE EXPERTS — HUD trading cards */}
-      <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 px-6 lg:px-16 overflow-hidden">
-        <div className="relative z-10">
+      <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
+        <div className="site-container relative z-10">
           <div className="experts-figma__header">
             <h2 className="experts-figma__title">
               <span className="experts-figma__meet">MEET</span>
@@ -627,7 +493,7 @@ export default function HomePage() {
             }}
           />
         </SocialGalleryBoundary>
-        <div className="social-section__copy">
+        <div className="social-section__copy site-container">
           <h2 className="social-section__title">
             <span>Follow the daily</span>
             <span>Bräutigam Experience</span>
@@ -639,6 +505,7 @@ export default function HomePage() {
           </nav>
         </div>
       </section>
+      </main>
 
       {/* FOOTER — Figma 1154:1356 (Oswald + frame notches) + LineWaves */}
       <SiteFooter />

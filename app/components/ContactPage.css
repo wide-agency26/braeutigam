@@ -130,6 +130,8 @@
   display: flex;
   flex-direction: column;
   gap: 64px;
+  width: min(100%, var(--site-max-width, 1440px));
+  margin-inline: auto;
   background: #131414;
 }
 
@@ -609,7 +611,8 @@
 .contact-map__pin-actions button:focus-visible {
   background: #00ff00;
   color: #0b0b0c;
-  outline: none;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
 }
 
 .contact-map__pin-mark {
@@ -684,4 +687,69 @@
   .contact-map__frame {
     height: 360px;
   }
+}
+
+/* Keep the photographic hero legible while the content surface follows the
+   selected theme. */
+:root:not(.dark) .contact-page {
+  background: #f9f9fb;
+  color: #171717;
+}
+
+:root:not(.dark) .contact-hero__shade {
+  background: linear-gradient(to bottom, rgba(19, 20, 20, 0) 63.194%, #f9f9fb 100%);
+}
+
+:root:not(.dark) .contact-body {
+  background: #f9f9fb;
+}
+
+:root:not(.dark) .contact-section-head p,
+:root:not(.dark) .contact-faq__head > p,
+:root:not(.dark) .contact-map header p:first-child,
+:root:not(.dark) .contact-form__note {
+  color: #087a08;
+}
+
+:root:not(.dark) .contact-section-head h2,
+:root:not(.dark) .contact-info__value,
+:root:not(.dark) .contact-map h2,
+:root:not(.dark) .contact-field input,
+:root:not(.dark) .contact-field textarea {
+  color: #171717;
+}
+
+:root:not(.dark) .contact-field label,
+:root:not(.dark) .contact-info__address,
+:root:not(.dark) .contact-info__hours,
+:root:not(.dark) .contact-map header > p {
+  color: #3f3f46;
+}
+
+:root:not(.dark) .contact-field input,
+:root:not(.dark) .contact-field textarea {
+  border-bottom-color: #a1a1aa;
+}
+
+:root:not(.dark) .contact-field input::placeholder,
+:root:not(.dark) .contact-field textarea::placeholder {
+  color: #62626b;
+}
+
+:root:not(.dark) .contact-field input:focus-visible,
+:root:not(.dark) .contact-field textarea:focus-visible {
+  border-bottom-color: #087a08;
+}
+
+:root:not(.dark) .contact-shield {
+  border-color: #d4d4d8;
+  background: #ffffff;
+}
+
+:root:not(.dark) .contact-shield p:first-child {
+  color: #171717;
+}
+
+:root:not(.dark) .contact-shield p:last-child {
+  color: #3f3f46;
 }

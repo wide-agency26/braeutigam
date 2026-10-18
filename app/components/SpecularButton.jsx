@@ -273,7 +273,9 @@ const SpecularButton = ({
     disabled
   };
   const settingsRef = useRef(settings);
-  settingsRef.current = settings;
+  useEffect(() => {
+    settingsRef.current = settings;
+  });
 
   useEffect(() => {
     const button = buttonRef.current;

@@ -15,13 +15,29 @@ export const jobSchema = z.object({
   requirements: z.string().trim().max(4000).default(""),
 });
 
-export const applicationSchema = z.object({
-  firstName: z.string().trim().min(1, "First name is required.").max(80),
-  lastName: z.string().trim().min(1, "Last name is required.").max(80),
-  email: z.string().trim().email("Enter a valid email."),
-  phone: z.string().trim().max(40).optional().default(""),
-  coverLetter: z.string().trim().max(4000).optional().default(""),
-});
+export const applicationSchema = z
+  .object({
+    firstName: z.string().trim().min(1, "First name is required.").max(80),
+    lastName: z.string().trim().min(1, "Last name is required.").max(80),
+    email: z.string().trim().email("Enter a valid email."),
+    phone: z.string().trim().max(40).optional().default(""),
+    coverLetter: z.string().trim().max(4000).optional().default(""),
+    wasRecommended: z.boolean().default(false),
+    recommenderName: z.string().trim().max(120).optional().default(""),
+  })
+  .superRefine((data, ctx) => {
+    if (data.wasRecommended && data.recommenderName.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["recommenderName"],
+        message: "Please enter the name of the person who recommended you.",
+      });
+    }
+  })
+  .transform((data) => ({
+    ...data,
+    recommenderName: data.wasRecommended ? data.recommenderName : "",
+  }));
 
 export const applicationStatusSchema = z.enum([
   "NEW",

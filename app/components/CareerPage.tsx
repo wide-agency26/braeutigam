@@ -129,10 +129,10 @@ function FilmCard({ film }: { film: (typeof ROLE_FILMS)[number] }) {
   return (
     <article className="crew-film">
       <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}`}>
-        <img className={film.crop} src={film.poster} alt="" />
-        <button type="button" className="crew-play" aria-label={`Film abspielen: ${film.title}`}>
+        <img className={film.crop} src={film.poster} alt={`${film.title} bei Bräutigam`} />
+        <span className="crew-play" aria-hidden="true">
           <img src={film.play} alt="" width={film.playWidth} height={film.playHeight} />
-        </button>
+        </span>
       </div>
       <h3 className="crew-film__title">{film.title}</h3>
       <p className="crew-film__body">{film.body}</p>
@@ -146,6 +146,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
       <div className="crew-page">
         <SiteChrome />
 
+        <main id="main-content">
         <section className="crew-hero" aria-label="Crew">
           <div className="crew-hero__media" aria-hidden="true">
             <img className="crew-photo--hero" src="/images/crew/hero.png" alt="" />
@@ -188,7 +189,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
             </p>
             <div className="crew-actions">
               <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
-              <SiteButton href="#truppe" variant="amber">
+              <SiteButton href="/team" variant="amber">
                 Über das team
               </SiteButton>
             </div>
@@ -207,7 +208,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
               {PILLARS.map((pillar) => (
                 <article key={pillar.title} className="crew-pillar">
                   <div className="crew-pillar__frame">
-                    <img className={pillar.crop} src={pillar.image} alt="" />
+                    <img className={pillar.crop} src={pillar.image} alt={`${pillar.title} bei Bräutigam`} />
                   </div>
                   <h3>{pillar.title}</h3>
                   {"paragraphs" in pillar ? (
@@ -326,6 +327,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
             </div>
           </section>
         </div>
+        </main>
 
         <SiteFooter />
       </div>

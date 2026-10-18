@@ -1,6 +1,7 @@
 "use client";
 
 import { LazyMotion, domAnimation } from "framer-motion";
+import Link from "next/link";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
@@ -15,6 +16,7 @@ export default function CraftPage() {
       <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
         <div className="noise-overlay pointer-events-none" />
         <SiteChrome />
+        <main id="main-content" lang="en">
         <SiteHero scrollTarget="#craft-soon" isPageHeading={false} />
 
         <section
@@ -32,20 +34,21 @@ export default function CraftPage() {
             In the meantime, explore open roles or get in touch.
           </p>
           <div className="flex flex-wrap gap-4 pt-2 font-mono text-[11px] uppercase tracking-wider">
-            <a
+            <Link
               href="/karriere"
               className="text-zinc-800 underline-offset-4 hover:text-brand-neon hover:underline dark:text-zinc-200"
             >
               Crew
-            </a>
-            <a
+            </Link>
+            <Link
               href="/kontakt"
               className="text-zinc-800 underline-offset-4 hover:text-brand-neon hover:underline dark:text-zinc-200"
             >
               Contact
-            </a>
+            </Link>
           </div>
         </section>
+        </main>
 
         <SiteFooter />
       </div>

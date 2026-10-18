@@ -17,11 +17,11 @@
 }
 
 :root:not(.dark) .tl-strip {
-  --tl-year: #0a9e0a;
+  --tl-year: #087a08;
   --tl-ink: #131414;
   --tl-muted: #3f3f46;
   --tl-meta: #3f3f46;
-  --tl-dim: #0a9e0a;
+  --tl-dim: #087a08;
   --tl-pill-bg: #ececec;
   --tl-pill-border: #c4c4c4;
   --tl-pill-ink: #131414;

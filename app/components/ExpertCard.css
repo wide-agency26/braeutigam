@@ -9,7 +9,7 @@
   padding-bottom: 3px;
   /* Tilt happens in the hit box's perspective, not the card's own */
   perspective: 1100px;
-  touch-action: none;
+  touch-action: pan-y;
   --ec-name: #fbfafc;
   --ec-meta: #b2b1b3;
   --ec-neon: #00ff00;
@@ -27,13 +27,13 @@
 :root:not(.dark) .expert-card-hit {
   --ec-name: #131414;
   --ec-meta: #3f3f46;
-  --ec-neon: #0a9e0a;
+  --ec-neon: #087a08;
   --ec-btn-fg: #131414;
   --ec-btn-bg: #e7e7ea;
   --ec-btn-border: #c4c4c8;
   --ec-tag-bg: #ffffff;
-  --ec-tag-fg: #0a9e0a;
-  --ec-portrait-edge: #0a9e0a;
+  --ec-tag-fg: #087a08;
+  --ec-portrait-edge: #087a08;
   --ec-glow: rgba(10, 158, 10, 0.28);
   --ec-drop: drop-shadow(0 0 16px rgba(10, 158, 10, 0.16));
   --ec-initial-stroke: rgba(19, 20, 20, 0.16);

@@ -39,34 +39,36 @@ model Admin {
 }
 
 model Job {
-  id              String           @id @default(cuid())
-  slug            String           @unique
-  title           String
-  department      String
-  location        String
-  employmentType  EmploymentType   @default(FULL_TIME)
-  description     String
-  requirements    String
-  status          JobStatus        @default(DRAFT)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  applications    Application[]
+  id             String         @id @default(cuid())
+  slug           String         @unique
+  title          String
+  department     String
+  location       String
+  employmentType EmploymentType @default(FULL_TIME)
+  description    String
+  requirements   String
+  status         JobStatus      @default(DRAFT)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  applications   Application[]
 }
 
 model Application {
-  id           String             @id @default(cuid())
-  jobId        String
-  job          Job                @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  firstName    String
-  lastName     String
-  email        String
-  phone        String             @default("")
-  coverLetter  String             @default("")
-  resumePath   String?
-  resumeName   String?
-  status       ApplicationStatus  @default(NEW)
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  id              String            @id @default(cuid())
+  jobId           String
+  job             Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  firstName       String
+  lastName        String
+  email           String
+  phone           String            @default("")
+  coverLetter     String            @default("")
+  wasRecommended  Boolean           @default(false)
+  recommenderName String            @default("")
+  resumePath      String?
+  resumeName      String?
+  status          ApplicationStatus @default(NEW)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 
   @@index([jobId])
   @@index([status])
