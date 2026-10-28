@@ -66,10 +66,24 @@ model Application {
   recommenderName String            @default("")
   resumePath      String?
   resumeName      String?
+  resumeMime      String?
+  resumeSize      Int?
+  resumeSha256    String?
+  // Set when a retention period is chosen. Nothing deletes the row until then.
+  retainUntil     DateTime?
   status          ApplicationStatus @default(NEW)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 
   @@index([jobId])
   @@index([status])
+}
+
+// Hashed client address and time of a stored application. Closed to the Data API.
+model ApplicationRateLimit {
+  id        String   @id @default(cuid())
+  ipHash    String
+  createdAt DateTime @default(now())
+
+  @@index([ipHash, createdAt])
 }
