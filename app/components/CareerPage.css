@@ -1,4 +1,4 @@
-/* ── Career page (Figma "Careers") ───────────────────────────────────────── */
+/* ── Crew page (was Careers). Shared tokens also style /karriere/[slug]. ── */
 
 .career {
   --career-line: rgba(0, 255, 0, 0.5);
@@ -56,57 +56,7 @@
   text-transform: uppercase;
 }
 
-/* ── Notched card ──
-   Outline is the union of two rounded rectangles (a full-width top block and
-   a narrower full-height left block) with the interior painted over by two
-   matching inset fills. This keeps the bottom-right step notch and every
-   convex corner rounded without measuring the element in JS. */
-.notch-card {
-  --notch-r: 12px;
-  --notch-h: 34px;
-  --notch-x: 54%;
-  position: relative;
-  isolation: isolate;
-}
-.notch-card__edge,
-.notch-card__fill {
-  position: absolute;
-  pointer-events: none;
-}
-.notch-card__edge {
-  background: var(--career-line);
-}
-.notch-card__fill {
-  background: var(--career-fill);
-}
-/* Top block spans the full width and stops above the notch. */
-.notch-card__edge--top {
-  inset: 0 0 auto 0;
-  height: calc(100% - var(--notch-h));
-  border-radius: var(--notch-r);
-}
-.notch-card__fill--top {
-  inset: 1px 1px auto 1px;
-  height: calc(100% - var(--notch-h) - 2px);
-  border-radius: calc(var(--notch-r) - 1px);
-}
-/* Left block runs the full height and stops before the notch. */
-.notch-card__edge--left {
-  inset: 0 auto 0 0;
-  width: var(--notch-x);
-  border-radius: var(--notch-r);
-}
-.notch-card__fill--left {
-  inset: 1px auto 1px 1px;
-  width: calc(var(--notch-x) - 2px);
-  border-radius: calc(var(--notch-r) - 1px);
-}
-.notch-card__body {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Plain rounded card (How to apply) ── */
+/* ── Plain rounded card (job application form) ── */
 .career-card {
   position: relative;
   border: 1px solid var(--career-line);
@@ -114,66 +64,407 @@
   background: var(--career-fill);
 }
 
-/* ── Video tile ── */
-.career-tile {
+/* ── Crew layout ── */
+.crew-block {
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  padding-block: clamp(4.25rem, 8vw, 7rem);
+}
+.crew-block--last {
+  padding-bottom: clamp(5rem, 10vw, 8.5rem);
+}
+
+.crew-kicker,
+.crew-display {
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.crew-kicker {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--foreground);
+  font-size: clamp(1.05rem, 1.8vw, 1.55rem);
+  line-height: 1;
+}
+.crew-kicker--neon {
+  color: var(--career-neon);
+}
+.crew-display {
+  display: block;
+  margin: 0;
+  color: var(--foreground);
+  font-size: clamp(2.15rem, 4.4vw, 3.85rem);
+  line-height: 0.96;
+}
+.crew-display--neon {
+  color: var(--career-neon);
+}
+
+.crew-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.crew-head__mark {
+  flex: 0 0 auto;
+  font-size: clamp(3.5rem, 11vw, 10.5rem);
+  line-height: 0.72;
+  margin-bottom: -0.06em;
+}
+
+.crew-lead {
+  max-width: 38rem;
+  margin: 1.35rem 0 0;
+  color: #3a3a40;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.dark .crew-lead {
+  color: #d4d4d8;
+}
+
+.crew-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: clamp(2.75rem, 6vw, 4.5rem) 0 0;
+  text-align: center;
+}
+.crew-stats > div {
+  display: flex;
+  flex-direction: column;
+}
+.crew-stats dd {
+  order: -1;
+}
+.crew-stats dt {
+  margin-top: 0.7rem;
+  color: #3a3a40;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.dark .crew-stats dt {
+  color: #c6c6cb;
+}
+.crew-stats dd {
+  margin: 0;
+  color: var(--career-neon);
+  font-family: var(--font-univers), sans-serif;
+  font-size: clamp(2.1rem, 4vw, 3.35rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.9;
+}
+
+.crew-stories {
+  display: grid;
+  gap: 2rem 1.25rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.crew-story {
+  margin: 0;
+}
+.crew-story h3,
+.crew-film h3 {
+  margin: 0.8rem 0 0;
+  color: var(--foreground);
+  font-family: var(--font-univers), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.crew-story p,
+.crew-film p {
+  margin: 0.35rem 0 0;
+  color: #3a3a40;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.dark .crew-story p,
+.dark .crew-film p {
+  color: #d4d4d8;
+}
+.crew-film p {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.crew-shot {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: 2px;
   background: #17171a;
 }
-:root:not(.dark) .career-tile {
-  background: #e7e7ea;
+.crew-shot--wide {
+  aspect-ratio: 16 / 9;
 }
-.career-tile__play {
+.crew-shot img {
+  object-fit: cover;
+}
+
+.crew-films {
+  display: grid;
+  gap: 1.75rem 1.15rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.crew-film {
+  margin: 0;
+}
+.crew-play {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
   display: grid;
+  width: 46px;
+  height: 46px;
   place-items: center;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.career-tile__play span {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
+  translate: -50% -50%;
   border: 1px solid var(--career-neon);
   border-radius: 50%;
-  background: rgba(0, 255, 0, 0.14);
+  background: rgba(0, 0, 0, 0.38);
   color: var(--career-neon);
-  transition: background 200ms ease, transform 200ms ease;
-}
-.career-tile__play:hover span {
-  background: rgba(0, 255, 0, 0.3);
-  transform: scale(1.08);
+  pointer-events: none;
 }
 
-/* ── Job list ── */
-.career-job {
+.crew-jobs {
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+}
+.crew-job {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.15rem 0;
-  border-bottom: 1px solid rgba(127, 127, 127, 0.18);
-  text-decoration: none;
+  gap: 0.75rem 1.5rem;
+  padding: 1.15rem 0.15rem;
+  border-bottom: 2px solid var(--career-neon);
   color: inherit;
-  transition: padding-left 250ms ease;
+  text-decoration: none;
 }
-.career-job:hover {
-  padding-left: 0.75rem;
+.crew-job:first-child {
+  border-top: 2px solid var(--career-neon);
 }
-.career-job:first-child {
-  border-top: 1px solid rgba(127, 127, 127, 0.18);
+.crew-job:hover .crew-job__title,
+.crew-job:focus-visible .crew-job__title {
+  color: var(--career-neon);
+}
+.crew-job:focus-visible {
+  outline: 2px solid var(--career-neon);
+  outline-offset: 4px;
+}
+.crew-job__title {
+  display: block;
+  color: var(--foreground);
+  font-family: var(--font-univers), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.crew-job__dept,
+.crew-job__meta {
+  color: #3a3a40;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.dark .crew-job__dept,
+.dark .crew-job__meta {
+  color: #c6c6cb;
+}
+.crew-job__dept {
+  display: block;
+  margin-top: 0.3rem;
+}
+.crew-job__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--career-neon);
 }
 
-@media (max-width: 640px) {
-  .career-job {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
+.crew-steps {
+  display: grid;
+  gap: 2.25rem 3.5rem;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.crew-step__top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+.crew-step__no {
+  color: var(--career-neon);
+  font-family: var(--font-univers), sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.crew-step h3 {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-univers), sans-serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+.crew-step p {
+  max-width: 34rem;
+  margin: 0.55rem 0 0;
+  color: #3a3a40;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.dark .crew-step p {
+  color: #d4d4d8;
+}
+
+.crew-join {
+  border: 1px solid var(--career-line);
+  border-radius: 8px;
+  padding: clamp(2.75rem, 6vw, 4.5rem) 1.5rem;
+  text-align: center;
+}
+.crew-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.35rem;
+  border-radius: 6px;
+  background: var(--career-neon);
+  color: #0b0b0c;
+  font-family: var(--font-univers), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.crew-cta:hover {
+  filter: brightness(1.12);
+}
+.crew-cta:focus-visible {
+  outline: 2px solid var(--career-neon);
+  outline-offset: 3px;
+}
+
+/* ── Header photo ── */
+.crew-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #0b0b0c;
+}
+.crew-hero__photo {
+  object-fit: cover;
+  object-position: 42% 38%;
+}
+.crew-hero__fade {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 14%;
+  background: linear-gradient(to top, var(--background), transparent);
+  pointer-events: none;
+}
+.crew-hero__mark {
+  position: absolute;
+  z-index: 2;
+  top: 46%;
+  right: clamp(1rem, 3.5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transform: translateY(-42%);
+  pointer-events: none;
+}
+.crew-hero__mark .career-watermark {
+  font-size: clamp(4rem, 11vw, 9.75rem);
+  line-height: 0.92;
+}
+.crew-hiring {
+  margin: 0.65rem 0 0 0.12rem;
+  color: #fff;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@media (min-width: 800px) {
+  .crew-stories {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .notch-card {
-    --notch-h: 26px;
+  .crew-films {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .crew-film--wide {
+    grid-column: span 3;
+  }
+  .crew-film--third {
+    grid-column: span 2;
+  }
+  .crew-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 799px) {
+  /* The outline word shares a line with the headline and covers it. */
+  .crew-head__mark {
+    display: none;
+  }
+  /* Keep headlines clear of the fixed theme and menu buttons. */
+  .crew h1 .crew-display,
+  .crew h2 .crew-display {
+    max-width: calc(100% - 6.25rem);
+  }
+  .crew-join .crew-display {
+    max-width: 14rem;
+    margin-inline: auto;
+  }
+  .crew-hero__mark {
+    top: auto;
+    bottom: 14%;
+    transform: none;
+    right: 1rem;
+  }
+  .crew-hero__mark .career-watermark {
+    font-size: 4.4rem;
+  }
+  .crew-hiring {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+  }
+  .crew-job {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .crew-job__meta {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 420px) {
+  .crew-stats dt {
+    letter-spacing: 0.08em;
   }
 }

@@ -5,9 +5,9 @@ import { listPublishedJobs } from "@/lib/data/jobs";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Karriere | Bräutigam GmbH",
+  title: "Crew | Bräutigam GmbH",
   description:
-    "Offene Stellen in der Carbonfaser-Verarbeitung bei Bräutigam GmbH — Lamination, CAD/CAM, Qualitätssicherung, CNC und Projektleitung.",
+    "Das Team von Bräutigam GmbH in Weissach. Offene Stellen in Laminieren, Zuschnitt, Konstruktion und Projektleitung.",
 };
 
 export default async function Page() {
