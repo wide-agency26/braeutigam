@@ -1,0 +1,45 @@
+/* Instant stand-in for CAD topography — visible until a canvas mounts. */
+.cad-topo-stage {
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cad-topo-stage .topography-container,
+.cad-topo-stage canvas {
+  pointer-events: auto;
+}
+
+.cad-topo-poster {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: #020802;
+  background-image:
+    repeating-radial-gradient(
+      ellipse at 35% 55%,
+      transparent 0,
+      transparent 18px,
+      rgba(0, 128, 0, 0.22) 19px,
+      transparent 21px
+    ),
+    repeating-radial-gradient(
+      ellipse at 65% 40%,
+      transparent 0,
+      transparent 26px,
+      rgba(51, 255, 51, 0.12) 27px,
+      transparent 30px
+    ),
+    radial-gradient(ellipse at 50% 60%, rgba(0, 51, 0, 0.55) 0%, transparent 70%);
+  opacity: 1;
+  transition: opacity 280ms ease-out;
+}
+
+.cad-topo-stage:has(canvas) .cad-topo-poster {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cad-topo-poster {
+    transition: none;
+  }
+}

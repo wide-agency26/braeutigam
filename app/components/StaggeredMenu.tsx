@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import TopoBackground from "./TopoBackground";
 import "./StaggeredMenu.css";
@@ -13,6 +13,7 @@ interface StaggeredMenuProps {
 const SteppedTransitionLayer = ({ className }: { className: string }) => {
   return (
     <svg
+      aria-hidden="true"
       width="100%"
       height="100%"
       viewBox="0 0 100 100"
@@ -50,13 +51,13 @@ const SteppedTransitionLayer = ({ className }: { className: string }) => {
 };
 
 export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
-  const menuItems = [
-    { label: "HOME", link: "/#silhouette" },
-    { label: "LEISTUNGEN", link: "/#story" },
-    { label: "BAUTEILE", link: "/#mission" },
-    { label: "KARRIERE", link: "/karriere" },
-    { label: "TEAM", link: "/#datasheet" },
-    { label: "KONTAKT", link: "/kontakt" }
+  const panelRef = useRef<HTMLDivElement>(null);
+  const menuItems: { label: string; link: string; soon?: boolean }[] = [
+    { label: "HOME", link: "/" },
+    { label: "WORK AT BRÄUTIGAM", link: "/karriere" },
+    { label: "TEAM", link: "/team" },
+    { label: "CRAFT", link: "/craft", soon: true },
+    { label: "CONTACT", link: "/kontakt" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
@@ -103,12 +104,77 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
     }
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const panel = panelRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const backgroundRegions = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    const backgroundState = backgroundRegions.map((element) => ({
+      element,
+      inert: element.inert,
+      ariaHidden: element.getAttribute("aria-hidden"),
+    }));
+    for (const { element } of backgroundState) {
+      element.inert = true;
+      element.setAttribute("aria-hidden", "true");
+    }
+
+    const focusables = () =>
+      Array.from(
+        panel?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((element) => !element.hasAttribute("aria-hidden"));
+
+    const focusTimer = window.setTimeout(() => focusables()[0]?.focus(), 180);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) {
+        event.preventDefault();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      for (const { element, inert, ariaHidden } of backgroundState) {
+        element.inert = inert;
+        if (ariaHidden == null) element.removeAttribute("aria-hidden");
+        else element.setAttribute("aria-hidden", ariaHidden);
+      }
+    };
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <m.div
+          ref={panelRef}
+          id="site-menu"
           key="staggered-menu"
           className="fixed inset-0 z-[90] overflow-hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Hauptnavigation"
           initial="closed"
           animate="open"
         >
@@ -182,7 +248,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                   </span>
                   <div className="text-[10px] tracking-wider mt-4 leading-relaxed text-zinc-400 dark:text-zinc-500">
                     <div>DIVISION // COMPOSITE ENGINEERING</div>
-                    <div>PROJECT // AERO_HYPERCAR_v2.0</div>
+                    <div>PROJECT // AERO_HYPERCAR_v2.2</div>
                     <div>STATUS // SYSTEM_ACTIVE</div>
                   </div>
                 </div>
@@ -214,16 +280,31 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     variants={itemVariants}
                     className="overflow-hidden border-b border-zinc-200/10 dark:border-zinc-800/60 pb-3"
                   >
-                    <a
-                      href={item.link}
-                      onClick={(e) => handleLinkClick(e, item.link)}
-                      className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight flex items-center gap-5 transition-all duration-300 hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100"
-                    >
-                      <span className="text-brand-neon font-mono text-base font-semibold">
-                        {String(idx + 1).padStart(2, "0")}
+                    {item.soon ? (
+                      <span
+                        aria-disabled="true"
+                        className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight flex items-start gap-4 sm:gap-5 text-zinc-400 dark:text-zinc-500 cursor-default"
+                      >
+                        <span className="text-zinc-400 dark:text-zinc-500 font-mono text-base font-semibold">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <span>{item.label}</span>
+                        <span className="normal-case font-mono text-[10px] sm:text-xs font-semibold tracking-[0.16em] text-zinc-400 dark:text-zinc-600">
+                          coming soon
+                        </span>
                       </span>
-                      <span>{item.label}</span>
-                    </a>
+                    ) : (
+                      <a
+                        href={item.link}
+                        onClick={(e) => handleLinkClick(e, item.link)}
+                        className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight leading-[0.95] flex items-start gap-4 sm:gap-5 transition-all duration-300 hover:translate-x-3 sm:hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100 focus-visible:rounded-sm"
+                      >
+                        <span className="text-brand-neon font-mono text-base font-semibold">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <span>{item.label}</span>
+                      </a>
+                    )}
                   </m.li>
                 ))}
               </ul>

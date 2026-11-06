@@ -19,6 +19,22 @@ const universLTStd = localFont({
   display: "swap",
 });
 
+/* Figma Main Image headlines use Univers LT Std 67 Bold Condensed, not 65 Bold. */
+const universBoldCn = localFont({
+  src: "./fonts/UniversLTStd-BoldCn.otf",
+  weight: "700",
+  variable: "--font-univers-bold-cn",
+  display: "swap",
+});
+
+/* Timeline headlines use Univers LT Std 57 Condensed. */
+const universCn = localFont({
+  src: "./fonts/UniversLTStd-Cn.otf",
+  weight: "400",
+  variable: "--font-univers-cn",
+  display: "swap",
+});
+
 /* ── Font 2: DxBurst-Smooth — display/heading font ──
    Below the fold only, so it must not compete with the LCP image for
    bandwidth. */
@@ -80,10 +96,18 @@ export default function RootLayout({
     // `dark` is the default theme — set on <html> so first paint matches and
     // Tailwind `dark:` utilities work before the client ThemeProvider hydrates.
     <html
-      lang="en"
+      lang="de"
       suppressHydrationWarning
-      className={`dark ${universLTStd.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`dark ${universLTStd.variable} ${universBoldCn.variable} ${universCn.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('braeutigam-theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light'}}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         {/* Lives in the root layout so the toggle persists across routes. */}
         <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>

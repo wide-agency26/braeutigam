@@ -12,12 +12,12 @@
      darker stroke than the card borders. */
   --career-stroke: rgba(0, 130, 0, 0.7);
   --career-fill: #ffffff;
-  --career-neon: #0a9e0a;
+  --career-neon: #087a08;
 }
 
 .career-shell {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--site-max-width, 1440px);
   margin-inline: auto;
   padding-inline: clamp(1.5rem, 4vw, 4rem);
 }
@@ -353,6 +353,9 @@
   letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
+}
+:root:not(.dark) .crew-cta {
+  color: #ffffff;
 }
 .crew-cta:hover {
   filter: brightness(1.12);

@@ -9,7 +9,7 @@
   padding-bottom: 3px;
   /* Tilt happens in the hit box's perspective, not the card's own */
   perspective: 1100px;
-  touch-action: none;
+  touch-action: pan-y;
   --ec-name: #fbfafc;
   --ec-meta: #b2b1b3;
   --ec-neon: #00ff00;
@@ -27,13 +27,13 @@
 :root:not(.dark) .expert-card-hit {
   --ec-name: #131414;
   --ec-meta: #3f3f46;
-  --ec-neon: #0a9e0a;
+  --ec-neon: #087a08;
   --ec-btn-fg: #131414;
   --ec-btn-bg: #e7e7ea;
   --ec-btn-border: #c4c4c8;
   --ec-tag-bg: #ffffff;
-  --ec-tag-fg: #0a9e0a;
-  --ec-portrait-edge: #0a9e0a;
+  --ec-tag-fg: #087a08;
+  --ec-portrait-edge: #087a08;
   --ec-glow: rgba(10, 158, 10, 0.28);
   --ec-drop: drop-shadow(0 0 16px rgba(10, 158, 10, 0.16));
   --ec-initial-stroke: rgba(19, 20, 20, 0.16);
@@ -256,14 +256,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 8px;
   width: 100%;
   min-height: 8px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
   font-size: 9px;
   font-weight: 300;
-  line-height: 0.9;
+  line-height: 1.25;
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
@@ -271,9 +271,6 @@
 .expert-card__role {
   margin: 0;
   color: var(--ec-meta);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .expert-card__id {
@@ -299,43 +296,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
-.expert-card__btn {
-  box-sizing: border-box;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 72px;
-  height: 28px;
-  padding: 0 12px;
-  border-radius: 999px;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--ec-btn-fg);
-  border: 1px solid var(--ec-btn-border);
-  background: transparent;
-  text-decoration: none;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
-}
-
-.expert-card__btn--solid {
-  background: var(--ec-btn-bg);
-  border-color: var(--ec-btn-bg);
-}
-
-.expert-card__btn:hover,
-.expert-card__btn:focus-visible {
-  background: color-mix(in srgb, var(--ec-neon) 12%, transparent);
-  border-color: var(--ec-neon);
-  color: var(--ec-neon);
-  outline: none;
-}
 
 /* ── Reflective glass layers (reactbits ProfileCard treatment) ──
    Both are clipped to the shell silhouette and blend inside the card's own

@@ -8,12 +8,11 @@ const loadLineWaves = () => import("./LineWaves");
 const WIDE_CREDIT_URL = "https://wide-communication.com";
 
 const PAGE_NAV = [
-  { label: "HOME", href: "/#silhouette" },
-  { label: "LEISTUNGEN", href: "/#story" },
-  { label: "BAUTEILE", href: "/#mission" },
-  { label: "KARRIERE", href: "/karriere" },
-  { label: "TEAM", href: "/#datasheet" },
-  { label: "KONTAKT", href: "/kontakt" },
+  { label: "HOME", href: "/" },
+  { label: "WORK AT BRÄUTIGAM", href: "/karriere" },
+  { label: "TEAM", href: "/team" },
+  { label: "CRAFT", href: "/craft" },
+  { label: "CONTACT", href: "/kontakt" },
 ] as const;
 
 const SOCIAL_NAV = [
@@ -106,15 +105,15 @@ export default function SiteFooter() {
 
           <div className="footer-figma__bottom">
             <div className="footer-figma__imprint">
-              <a href="#">IMPRESSUM</a>
-              <a href="#">DATENSCHUTZ</a>
+              <span>IMPRESSUM</span>
+              <span>DATENSCHUTZ</span>
             </div>
             <div className="footer-figma__legal">
-              <a href="#">Legal Notice</a>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Change Privacy Settings</a>
-              <a href="#">History of Privacy Settings</a>
-              <a href="#">Revoke Consent</a>
+              <span>Legal Notice</span>
+              <span>Privacy Policy</span>
+              <span>Change Privacy Settings</span>
+              <span>History of Privacy Settings</span>
+              <span>Revoke Consent</span>
             </div>
             <a
               href={WIDE_CREDIT_URL}

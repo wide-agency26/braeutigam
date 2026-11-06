@@ -42,6 +42,10 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
             </dd>
             <dt>Phone</dt>
             <dd>{application.phone || "Not given"}</dd>
+            <dt>Recommended</dt>
+            <dd>{application.wasRecommended ? "Yes" : "No"}</dd>
+            <dt>Recommended by</dt>
+            <dd>{application.wasRecommended ? application.recommenderName || "Not given" : "—"}</dd>
             <dt>Resume</dt>
             <dd>
               {application.resumePath ? (

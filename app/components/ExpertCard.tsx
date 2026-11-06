@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { useCardTilt } from "../hooks/useCardTilt";
+import SiteButton from "./SiteButton";
 import "./ExpertCard.css";
 
 export interface ExpertCardProps {
@@ -12,6 +13,7 @@ export interface ExpertCardProps {
   phone: string;
   avatarUrl: string;
   memberId?: string;
+  headingLevel?: 2 | 3;
 }
 
 function initialsOf(name: string) {
@@ -31,10 +33,12 @@ function ExpertCardComponent({
   phone,
   avatarUrl,
   memberId = "#000-000",
+  headingLevel = 3,
 }: ExpertCardProps) {
   const initials = useMemo(() => initialsOf(name), [name]);
   const telHref = `tel:${phone.replace(/[^\d+]/g, "")}`;
   const tiltRef = useCardTilt<HTMLDivElement>(9);
+  const NameHeading = headingLevel === 2 ? "h2" : "h3";
 
   return (
     /* Stable hit box — card can lift without losing :hover (no blink loop).
@@ -86,7 +90,7 @@ function ExpertCardComponent({
           </div>
 
           <div className="expert-card__info">
-            <h3 className="expert-card__name">{name}</h3>
+            <NameHeading className="expert-card__name">{name}</NameHeading>
             <div className="expert-card__row">
               <p className="expert-card__role">{title}</p>
               <p className="expert-card__id">ID: {memberId}</p>
@@ -95,12 +99,12 @@ function ExpertCardComponent({
 
           <div className="expert-card__actions">
             <div className="expert-card__action-group">
-              <a href={`mailto:${email}`} className="expert-card__btn">
+              <SiteButton href={`mailto:${email}`} size="sm">
                 EMAIL
-              </a>
-              <a href={telHref} className="expert-card__btn expert-card__btn--solid">
+              </SiteButton>
+              <SiteButton href={telHref} size="sm" variant="solid">
                 PHONE
-              </a>
+              </SiteButton>
             </div>
           </div>
         </div>

@@ -1,12 +1,13 @@
-// Local mock uses SQLite. For the remote database later, change `provider` to
-// "postgresql" and point DATABASE_URL at that server. Models stay the same.
+// Production and local CMS share the hosted Postgres database.
+// DATABASE_URL is the pooled connection. DIRECT_URL is the direct one used by migrations.
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum JobStatus {
@@ -38,35 +39,51 @@ model Admin {
 }
 
 model Job {
-  id              String           @id @default(cuid())
-  slug            String           @unique
-  title           String
-  department      String
-  location        String
-  employmentType  EmploymentType   @default(FULL_TIME)
-  description     String
-  requirements    String
-  status          JobStatus        @default(DRAFT)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  applications    Application[]
+  id             String         @id @default(cuid())
+  slug           String         @unique
+  title          String
+  department     String
+  location       String
+  employmentType EmploymentType @default(FULL_TIME)
+  description    String
+  requirements   String
+  status         JobStatus      @default(DRAFT)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  applications   Application[]
 }
 
 model Application {
-  id           String             @id @default(cuid())
-  jobId        String
-  job          Job                @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  firstName    String
-  lastName     String
-  email        String
-  phone        String             @default("")
-  coverLetter  String             @default("")
-  resumePath   String?
-  resumeName   String?
-  status       ApplicationStatus  @default(NEW)
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  id              String            @id @default(cuid())
+  jobId           String
+  job             Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  firstName       String
+  lastName        String
+  email           String
+  phone           String            @default("")
+  coverLetter     String            @default("")
+  wasRecommended  Boolean           @default(false)
+  recommenderName String            @default("")
+  resumePath      String?
+  resumeName      String?
+  resumeMime      String?
+  resumeSize      Int?
+  resumeSha256    String?
+  // Set when a retention period is chosen. Nothing deletes the row until then.
+  retainUntil     DateTime?
+  status          ApplicationStatus @default(NEW)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 
   @@index([jobId])
   @@index([status])
+}
+
+// Hashed client address and time of a stored application. Closed to the Data API.
+model ApplicationRateLimit {
+  id        String   @id @default(cuid())
+  ipHash    String
+  createdAt DateTime @default(now())
+
+  @@index([ipHash, createdAt])
 }

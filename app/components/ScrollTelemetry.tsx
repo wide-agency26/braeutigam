@@ -37,14 +37,14 @@ export default function ScrollTelemetry({ progress }: { progress: MotionValue<nu
 
   return (
     <div className="cad-hud__meta">
-      <p>** PROJECT: AERO_HYPERCAR_V2.2 **</p>
+      <p>*** project: AERO_HYPERCAR_v2.2 ***</p>
       <p>
         PROGRESS: <span ref={percentRef}>0%</span>
       </p>
       <p>
         STATUS: <span ref={statusRef}>LOADING</span>
       </p>
-      <p>COMPONENT: VEHICLE_RP_CHASSIS</p>
+      <p>COMPONENT: VEHICLE_BR_CHASSIS</p>
     </div>
   );
 }

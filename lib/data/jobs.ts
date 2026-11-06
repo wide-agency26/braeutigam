@@ -3,7 +3,12 @@ import "server-only";
 import { prisma } from "@/lib/prisma";
 import type { JobStatus } from "@prisma/client";
 
+function databaseReady() {
+  return Boolean(process.env.DATABASE_URL);
+}
+
 export async function listPublishedJobs() {
+  if (!databaseReady()) return [];
   return prisma.job.findMany({
     where: { status: "PUBLISHED" },
     orderBy: { createdAt: "desc" },
@@ -12,11 +17,13 @@ export async function listPublishedJobs() {
       title: true,
       department: true,
       location: true,
+      employmentType: true,
     },
   });
 }
 
 export async function getPublishedJobBySlug(slug: string) {
+  if (!databaseReady()) return null;
   return prisma.job.findFirst({
     where: { slug, status: "PUBLISHED" },
   });

@@ -41,7 +41,7 @@ export default function SiteHero({
         <div className="absolute inset-0 transition-opacity duration-1000 opacity-0 dark:opacity-100">
           <Image
             src={carDark}
-            alt="Carbon Fiber Supercar Silhouette Dark"
+            alt="Formula car in the Bräutigam workshop"
             fill
             className="object-cover"
             sizes="100vw"
@@ -97,14 +97,14 @@ export default function SiteHero({
       </div>
 
       <div className="absolute z-20 top-28 left-6 hidden md:block font-mono text-[9px] font-light leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
-        <div>LOCATION: GERMANY [48.9298° N, 9.2878° E]</div>
+        <div>LOCATION: GERMANY [48.9298° N, 9.2070° E]</div>
         <div>ESTABLISHED: 2016</div>
         <div>CURRENT TEAM SIZE: 81</div>
       </div>
 
       <div className="absolute z-20 top-28 right-6 hidden md:block font-mono text-[9px] font-light text-right leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
         <div>**COMPOSITE COMPONENT DEVELOPMENT INSIGHT**</div>
-        <div>PROJECT: AERO_HYPERCAR_V2.2</div>
+        <div>PROJECT: AERO_HYPERCAR_v2.2</div>
       </div>
 
       <div className="relative z-20 w-full max-w-5xl flex flex-col items-center text-center px-6 pointer-events-none">

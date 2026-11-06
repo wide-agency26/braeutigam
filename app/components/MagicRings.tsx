@@ -127,7 +127,7 @@ export default function MagicRings({
   const mountRef = useRef<HTMLDivElement>(null);
   const programRef = useRef<Program | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
-  const { visible, hasBeenVisible } = useVisibility(mountRef);
+  const { visible } = useVisibility(mountRef);
   // Wait past first paint/hydration, then attach. Short enough to feel instant;
   // long enough that FCP/LCP aren't blocked by shader compile.
   const settled = useAfterSettled(500, 1200);
@@ -136,7 +136,9 @@ export default function MagicRings({
 
   // Shader compilation is synchronous and dominates Total Blocking Time under
   // CPU throttle. Keep the hero looking finished first; attach WebGL after.
-  const shouldInit = hasBeenVisible && settled && !reducedMotion;
+  // Drop the context once the hero leaves the viewport so it does not hold a
+  // slot the social gallery needs. The CSS poster covers the gap.
+  const shouldInit = visible && settled && !reducedMotion;
 
   // Values read inside the frame loop; kept in refs so the GL context is
   // never rebuilt when a prop (e.g. theme colour) changes.

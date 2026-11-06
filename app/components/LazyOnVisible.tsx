@@ -8,11 +8,11 @@ import {
   useState,
 } from "react";
 
-interface LazyOnVisibleProps {
+interface LazyOnVisibleProps<Props extends object> {
   /** Factory matching next/dynamic's loader shape. */
-  loader: () => Promise<{ default: ComponentType<any> }>;
+  loader: () => Promise<{ default: ComponentType<Props> }>;
   /** Props forwarded to the loaded component once it mounts. */
-  componentProps?: Record<string, unknown>;
+  componentProps?: Partial<Props>;
   /** How far before the placeholder enters the viewport to start loading. */
   rootMargin?: string;
   /**
@@ -33,7 +33,7 @@ interface LazyOnVisibleProps {
  * sentinel is near the viewport. Plain `next/dynamic` still downloads the
  * chunk during hydration; this waits for an IntersectionObserver hit.
  */
-export default function LazyOnVisible({
+export default function LazyOnVisible<Props extends object>({
   loader,
   componentProps,
   rootMargin = "200px",
@@ -41,9 +41,9 @@ export default function LazyOnVisible({
   fallback = null,
   className,
   style,
-}: LazyOnVisibleProps) {
+}: LazyOnVisibleProps<Props>) {
   const ref = useRef<HTMLDivElement>(null);
-  const [Comp, setComp] = useState<ComponentType<any> | null>(null);
+  const [Comp, setComp] = useState<ComponentType<Props> | null>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -95,7 +95,7 @@ export default function LazyOnVisible({
 
   return (
     <div ref={ref} className={className} style={style}>
-      {Comp ? <Comp {...componentProps} /> : fallback}
+      {Comp ? <Comp {...((componentProps ?? {}) as Props)} /> : fallback}
     </div>
   );
 }

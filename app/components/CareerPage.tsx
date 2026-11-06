@@ -93,6 +93,13 @@ export type CareerOpening = {
   title: string;
   department: string;
   location: string;
+  employmentType: "FULL_TIME" | "PART_TIME" | "APPRENTICESHIP";
+};
+
+const EMPLOYMENT_DE: Record<CareerOpening["employmentType"], string> = {
+  FULL_TIME: "VOLLZEIT",
+  PART_TIME: "TEILZEIT",
+  APPRENTICESHIP: "AUSBILDUNG",
 };
 
 function Story({
@@ -153,142 +160,146 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
         <div className="noise-overlay pointer-events-none" />
         <SiteChrome />
 
-        <section className="crew-hero" aria-label="Crew">
-          <Image
-            src={hero}
-            alt="Mitarbeiter von hinten im Bräutigam-Shirt, Berge im Hintergrund."
-            fill
-            priority
-            sizes="100vw"
-            className="crew-hero__photo"
-          />
-          <div className="crew-hero__fade" aria-hidden="true" />
-          <div className="crew-hero__mark">
-            <p className="career-watermark">Crew</p>
-            <p className="crew-hiring">We&apos;re hiring</p>
-          </div>
-        </section>
+        <main id="main-content">
+          <section className="crew-hero" aria-label="Crew">
+            <Image
+              src={hero}
+              alt="Mitarbeiter von hinten im Bräutigam-Shirt, Berge im Hintergrund."
+              fill
+              priority
+              sizes="100vw"
+              className="crew-hero__photo"
+            />
+            <div className="crew-hero__fade" aria-hidden="true" />
+            <div className="crew-hero__mark">
+              <p className="career-watermark">Crew</p>
+              <p className="crew-hiring">We&apos;re hiring</p>
+            </div>
+          </section>
 
-        <section id="crew-intro" className="crew-block">
-          <div className="career-shell">
-            <div className="crew-head">
-              <h1>
-                <span className="crew-kicker">Unser Team:</span>
-                <span className="crew-display">Einzigartig</span>
-              </h1>
-              <p className="career-watermark crew-head__mark" aria-hidden="true">
-                Crew
+          <section id="crew-intro" className="crew-block">
+            <div className="career-shell">
+              <div className="crew-head">
+                <h1>
+                  <span className="crew-kicker">Unser Team:</span>
+                  <span className="crew-display">Einzigartig</span>
+                </h1>
+                <p className="career-watermark crew-head__mark" aria-hidden="true">
+                  Crew
+                </p>
+              </div>
+              <p className="crew-lead">
+                Laminieren, Zuschnitt, Autoklav und Qualität liegen in Weissach unter einem Dach.
+                Die Truppe kennt die Teile, weil sie sie selbst baut.
               </p>
-            </div>
-            <p className="crew-lead">
-              Laminieren, Zuschnitt, Autoklav und Qualität liegen in Weissach unter einem Dach.
-              Die Truppe kennt die Teile, weil sie sie selbst baut.
-            </p>
-            <dl className="crew-stats">
-              {STATS.map((stat) => (
-                <div key={stat.label}>
-                  <dt>{stat.label}</dt>
-                  <dd>{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        <section className="crew-block" aria-labelledby="crew-truppe">
-          <div className="career-shell">
-            <h2 id="crew-truppe">
-              <span className="crew-kicker">Das Wichtigste:</span>
-              <span className="crew-display">Die Truppe.</span>
-            </h2>
-            <p className="crew-lead">
-              Events, Weiterbildung, der Kalender daneben. Darum bleibt die Truppe.
-            </p>
-            <div className="crew-stories">
-              {STORIES.map((story) => (
-                <Story key={story.title} {...story} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="crew-block" aria-labelledby="crew-alltag">
-          <div className="career-shell">
-            <div className="crew-head">
-              <h2 id="crew-alltag">
-                <span className="crew-kicker crew-kicker--neon">Unser Alltag</span>
-                <span className="crew-display">Ein Tag im Team</span>
-              </h2>
-              <p className="career-watermark crew-head__mark" aria-hidden="true">
-                Life
-              </p>
-            </div>
-            <div className="crew-films">
-              {CREW.map((person) => (
-                <Film key={person.name} {...person} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="offene-stellen" className="crew-block" aria-labelledby="crew-jobs">
-          <div className="career-shell">
-            <h2 id="crew-jobs">
-              <span className="crew-display">Offene Stellen</span>
-            </h2>
-            <div className="crew-jobs">
-              {openings.length === 0 ? (
-                <p className="crew-lead">Aktuell keine veröffentlichten Stellen.</p>
-              ) : (
-                openings.map((job) => (
-                  <Link key={job.slug} className="crew-job" href={`/karriere/${job.slug}`}>
-                    <span>
-                      <span className="crew-job__title">{job.title}</span>
-                      <span className="crew-job__dept">{job.department}</span>
-                    </span>
-                    <span className="crew-job__meta">{job.location}</span>
-                    <ChevronRight className="crew-job__icon" aria-hidden="true" strokeWidth={1.6} />
-                  </Link>
-                ))
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="crew-block" aria-labelledby="crew-path">
-          <div className="career-shell">
-            <h2 id="crew-path">
-              <span className="crew-display">So kommst du ins Team:</span>
-            </h2>
-            <p className="crew-lead">
-              Vier Schritte, ohne Umwege. Die Stelle bleibt offen, bis beide Seiten ja sagen.
-            </p>
-            <ol className="crew-steps">
-              {STEPS.map((step) => (
-                <li key={step.index} className="crew-step">
-                  <div className="crew-step__top">
-                    <span className="crew-step__no">{step.index}</span>
-                    <h3>{step.title}</h3>
+              <dl className="crew-stats">
+                {STATS.map((stat) => (
+                  <div key={stat.label}>
+                    <dt>{stat.label}</dt>
+                    <dd>{stat.value}</dd>
                   </div>
-                  <p>{step.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="crew-block crew-block--last" aria-labelledby="crew-join">
-          <div className="career-shell">
-            <div className="crew-join">
-              <h2 id="crew-join">
-                <span className="crew-display crew-display--neon">Werde Teil des Teams.</span>
-              </h2>
-              <a className="crew-cta" href={applyHref}>
-                Jetzt bewerben
-              </a>
+                ))}
+              </dl>
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section className="crew-block" aria-labelledby="crew-truppe">
+            <div className="career-shell">
+              <h2 id="crew-truppe">
+                <span className="crew-kicker">Das Wichtigste:</span>
+                <span className="crew-display">Die Truppe.</span>
+              </h2>
+              <p className="crew-lead">
+                Events, Weiterbildung, der Kalender daneben. Darum bleibt die Truppe.
+              </p>
+              <div className="crew-stories">
+                {STORIES.map((story) => (
+                  <Story key={story.title} {...story} />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="crew-block" aria-labelledby="crew-alltag">
+            <div className="career-shell">
+              <div className="crew-head">
+                <h2 id="crew-alltag">
+                  <span className="crew-kicker crew-kicker--neon">Unser Alltag</span>
+                  <span className="crew-display">Ein Tag im Team</span>
+                </h2>
+                <p className="career-watermark crew-head__mark" aria-hidden="true">
+                  Life
+                </p>
+              </div>
+              <div className="crew-films">
+                {CREW.map((person) => (
+                  <Film key={person.name} {...person} />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="offene-stellen" className="crew-block" aria-labelledby="crew-jobs">
+            <div id="stellen" className="career-shell">
+              <h2 id="crew-jobs">
+                <span className="crew-display">Offene Stellen</span>
+              </h2>
+              <div className="crew-jobs">
+                {openings.length === 0 ? (
+                  <p className="crew-lead">Aktuell keine veröffentlichten Stellen.</p>
+                ) : (
+                  openings.map((job) => (
+                    <Link key={job.slug} className="crew-job" href={`/karriere/${job.slug}`}>
+                      <span>
+                        <span className="crew-job__title">{job.title}</span>
+                        <span className="crew-job__dept">{job.department}</span>
+                      </span>
+                      <span className="crew-job__meta">
+                        {job.location} <span aria-hidden="true">·</span> {EMPLOYMENT_DE[job.employmentType]}
+                      </span>
+                      <ChevronRight className="crew-job__icon" aria-hidden="true" strokeWidth={1.6} />
+                    </Link>
+                  ))
+                )}
+              </div>
+            </div>
+          </section>
+
+          <section className="crew-block" aria-labelledby="crew-path">
+            <div className="career-shell">
+              <h2 id="crew-path">
+                <span className="crew-display">So kommst du ins Team:</span>
+              </h2>
+              <p className="crew-lead">
+                Vier Schritte, ohne Umwege. Die Stelle bleibt offen, bis beide Seiten ja sagen.
+              </p>
+              <ol className="crew-steps">
+                {STEPS.map((step) => (
+                  <li key={step.index} className="crew-step">
+                    <div className="crew-step__top">
+                      <span className="crew-step__no">{step.index}</span>
+                      <h3>{step.title}</h3>
+                    </div>
+                    <p>{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          <section className="crew-block crew-block--last" aria-labelledby="crew-join">
+            <div className="career-shell">
+              <div className="crew-join">
+                <h2 id="crew-join">
+                  <span className="crew-display crew-display--neon">Werde Teil des Teams.</span>
+                </h2>
+                <a className="crew-cta" href={applyHref}>
+                  Jetzt bewerben
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
 
         <SiteFooter />
       </div>

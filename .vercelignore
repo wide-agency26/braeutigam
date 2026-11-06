@@ -1,0 +1,35 @@
+# Keeps secret env files and local databases out of deployment uploads.
+# This file replaces .gitignore for the Vercel CLI, so the same exclusions are listed here.
+
+node_modules
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+coverage
+.next
+out
+build
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.env*
+!.env.example
+*.db
+prisma/dev.db
+*.db-journal
+*.db-shm
+*.db-wal
+uploads
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+.agents
+.cursor
+skills-lock.json

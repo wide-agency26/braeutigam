@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifySession } from "@/lib/auth/dal";
 import { prisma } from "@/lib/prisma";
-import { readResume } from "@/lib/uploads";
+import { createResumeDownloadUrl, objectKeyFromStoredPath } from "@/lib/storage";
 
 type RouteProps = {
   params: Promise<{ id: string }>;
@@ -14,23 +14,23 @@ export async function GET(_request: Request, { params }: RouteProps) {
     where: { id },
     select: { resumePath: true, resumeName: true },
   });
-
-  if (!application?.resumePath) {
+  const objectKey = application?.resumePath
+    ? objectKeyFromStoredPath(application.resumePath)
+    : null;
+  if (!objectKey) {
     return new NextResponse("Resume not found.", { status: 404 });
   }
 
-  const file = await readResume(application.resumePath);
-  if (!file) {
+  const filename = (application?.resumeName ?? "resume").replace(/["\r\n]/g, "");
+  const url = await createResumeDownloadUrl(objectKey, filename);
+  if (!url) {
     return new NextResponse("Resume not found.", { status: 404 });
   }
 
-  const filename = (application.resumeName ?? "resume").replace(/"/g, "");
-  return new NextResponse(new Uint8Array(file), {
+  return NextResponse.redirect(url, {
     headers: {
-      "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="${filename}"`,
-      "X-Content-Type-Options": "nosniff",
       "Cache-Control": "private, no-store",
+      "X-Content-Type-Options": "nosniff",
     },
   });
 }

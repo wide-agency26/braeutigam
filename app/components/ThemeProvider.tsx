@@ -11,6 +11,7 @@ import {
 } from "react";
 
 type Theme = "light" | "dark";
+const THEME_STORAGE_KEY = "braeutigam-theme";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -40,7 +41,10 @@ export function ThemeProvider({
   children: ReactNode;
   defaultTheme?: Theme;
 }) {
-  const [theme, setThemeState] = useState<Theme>(defaultTheme);
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof document === "undefined") return defaultTheme;
+    return document.documentElement.classList.contains("light") ? "light" : "dark";
+  });
 
   // useLayoutEffect: apply before paint so `dark:` utilities match the SSR
   // <html class="dark"> and we never flash light-theme (black text on black).
@@ -50,10 +54,15 @@ export function ThemeProvider({
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);
+    window.localStorage.setItem(THEME_STORAGE_KEY, next);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setThemeState(prev => (prev === "dark" ? "light" : "dark"));
+    setThemeState(prev => {
+      const next = prev === "dark" ? "light" : "dark";
+      window.localStorage.setItem(THEME_STORAGE_KEY, next);
+      return next;
+    });
   }, []);
 
   const value = useMemo(
