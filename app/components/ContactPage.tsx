@@ -5,6 +5,7 @@ import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteButton from "./SiteButton";
+import type { Locale } from "@/lib/i18n";
 import "./ContactPage.css";
 
 const SHOP_EMAIL = "info@braeutigam.de";
@@ -265,13 +266,13 @@ function ContactMapPin() {
   );
 }
 
-export default function ContactPage() {
+export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="contact-page">
         <SiteChrome />
 
-        <main id="main-content">
+        <main id="main-content" lang={locale}>
         <section className="contact-hero" aria-label="Kontakt">
           <div className="contact-hero__media" aria-hidden="true">
             <img className="contact-photo--hero" src="/images/contact/hero.png" alt="" />

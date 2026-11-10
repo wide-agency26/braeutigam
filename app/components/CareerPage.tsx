@@ -18,6 +18,7 @@ import florian from "../../public/images/crew/florian.webp";
 import jens from "../../public/images/crew/jens.webp";
 import niko from "../../public/images/crew/niko.webp";
 import atila from "../../public/images/crew/atila.webp";
+import { localizedHref, type Locale } from "@/lib/i18n";
 
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
 
@@ -144,7 +145,13 @@ function Film({ image, role, wide }: (typeof CREW)[number]) {
   );
 }
 
-export default function CareerPage({ openings }: { openings: CareerOpening[] }) {
+export default function CareerPage({
+  openings,
+  locale = "de",
+}: {
+  openings: CareerOpening[];
+  locale?: Locale;
+}) {
   const applyHref =
     openings.length > 0
       ? "#offene-stellen"
@@ -156,7 +163,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
         <div className="noise-overlay pointer-events-none" />
         <SiteChrome />
 
-        <main id="main-content">
+        <main id="main-content" lang={locale}>
           <section className="crew-hero" aria-label="Karriere">
             <Image
               src={hero}
@@ -247,7 +254,11 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
                   <p className="crew-lead">Aktuell keine veröffentlichten Stellen.</p>
                 ) : (
                   openings.map((job) => (
-                    <Link key={job.slug} className="crew-job" href={`/karriere/${job.slug}`}>
+                    <Link
+                      key={job.slug}
+                      className="crew-job"
+                      href={localizedHref(`/karriere/${job.slug}`, locale)}
+                    >
                       <span>
                         <span className="crew-job__title">{job.title}</span>
                         <span className="crew-job__dept">{job.department}</span>

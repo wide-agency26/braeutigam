@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: pageTitle("Start"),
   description:
     "Bräutigam GmbH — Premium-Carbon in Freiberg am Neckar für Motorsport und Serienfertigung.",
+  alternates: { languages: { de: "/", en: "/en" } },
 };
 
 /**

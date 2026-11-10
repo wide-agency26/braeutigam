@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: pageTitle("Experten"),
   description:
     "Lernen Sie die Expertinnen und Experten hinter den Carbon-Komponenten von Bräutigam kennen.",
+  alternates: { languages: { de: "/team", en: "/en/team" } },
 };
 
 export default function Page() {

@@ -47,6 +47,9 @@ model Job {
   employmentType EmploymentType @default(FULL_TIME)
   description    String
   requirements   String
+  titleEn        String?
+  descriptionEn  String?
+  requirementsEn String?
   status         JobStatus      @default(DRAFT)
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt

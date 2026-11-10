@@ -4,6 +4,9 @@ import React, { useCallback, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useTheme } from "./ThemeProvider";
+import LanguageSwitch from "./LanguageSwitch";
+import { getDictionary, localizedHref } from "@/lib/i18n";
+import { useSiteLocale } from "@/lib/i18n/use-locale";
 
 /* Opened from the hero on every route, so it stays eagerly dynamic rather
    than waiting on an intersection observer. */
@@ -21,6 +24,9 @@ export default function SiteChrome() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toggleTheme } = useTheme();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const locale = useSiteLocale();
+  const chrome = getDictionary(locale).chrome;
+  const homeHref = localizedHref("/", locale);
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
@@ -30,15 +36,15 @@ export default function SiteChrome() {
   return (
     <>
       <a className="skip-link" href="#main-content">
-        Zum Hauptinhalt
+        {chrome.skipLink}
       </a>
       <div className="fixed top-6 left-6 z-[95] flex items-center gap-3">
         <button
           ref={menuButtonRef}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className={controlClass}
-          title="Toggle navigation menu"
-          aria-label="Toggle navigation menu"
+          title={chrome.menuToggle}
+          aria-label={chrome.menuToggle}
           aria-expanded={isMenuOpen}
           aria-controls="site-menu"
         >
@@ -49,7 +55,7 @@ export default function SiteChrome() {
           </div>
         </button>
 
-        <Link href="/" className={controlClass} title="Home" aria-label="Home">
+        <Link href={homeHref} className={controlClass} title={chrome.home} aria-label={chrome.home}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M4 10.5 12 4l8 6.5" />
             <path d="M6.5 9.8V20h11V9.8" />
@@ -60,8 +66,8 @@ export default function SiteChrome() {
           type="button"
           onClick={toggleTheme}
           className={controlClass}
-          title="Farbmodus wechseln"
-          aria-label="Farbmodus wechseln"
+          title={chrome.theme}
+          aria-label={chrome.theme}
         >
           <svg className="hidden dark:block" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="5" />
@@ -71,6 +77,8 @@ export default function SiteChrome() {
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
         </button>
+
+        <LanguageSwitch />
       </div>
 
       <StaggeredMenu isOpen={isMenuOpen} onClose={closeMenu} />

@@ -8,6 +8,8 @@ const loadLineWaves = () => import("./LineWaves");
 const WIDE_CREDIT_URL = "https://wide-communication.com";
 
 import { SITE_NAV } from "@/lib/site-nav";
+import { localizedHref } from "@/lib/i18n";
+import { useSiteLocale } from "@/lib/i18n/use-locale";
 
 const SOCIAL_NAV = [
   { label: "INSTAGRAM", href: "https://instagram.com" },
@@ -21,6 +23,7 @@ const SOCIAL_NAV = [
  */
 export default function SiteFooter() {
   const { isDark } = useTheme();
+  const locale = useSiteLocale();
 
   return (
     <footer className="footer-figma-section cv-auto">
@@ -62,18 +65,23 @@ export default function SiteFooter() {
         <div className="footer-figma__inner">
           <div className="footer-figma__main">
             <nav className="footer-figma__nav" aria-label="Footer">
-              {SITE_NAV.map((item) =>
-                item.soon ? (
+              {SITE_NAV.map((item) => {
+                const label =
+                  locale === "en" ? item.labelEn : item.titleDe.toUpperCase();
+                return item.soon ? (
                   <span key={item.labelEn} className="opacity-50" aria-disabled="true">
-                    {item.labelEn}
+                    {label}
                     <span className="sr-only"> coming soon</span>
                   </span>
                 ) : (
-                  <a key={item.labelEn} href={item.href}>
-                    {item.labelEn}
+                  <a
+                    key={item.labelEn}
+                    href={item.href ? localizedHref(item.href, locale) : undefined}
+                  >
+                    {label}
                   </a>
-                ),
-              )}
+                );
+              })}
             </nav>
 
             <div className="footer-figma__brand">

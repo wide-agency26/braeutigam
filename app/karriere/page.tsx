@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: pageTitle("Karriere"),
   description:
     "Karriere bei Bräutigam in Freiberg am Neckar: offene Stellen in Laminieren, Zuschnitt, Konstruktion und Projektleitung.",
+  alternates: { languages: { de: "/karriere", en: "/en/karriere" } },
 };
 
 export default async function Page() {

@@ -18,10 +18,33 @@ export const SITE_NAV: SiteNavItem[] = [
 
 export const SITE_TITLE_SUFFIX = "Bräutigam GmbH";
 
+const PAGE_TITLE_EN: Record<string, string> = {
+  Start: "Home",
+  Karriere: "Careers",
+  Experten: "Team",
+  Leistungen: "Craft",
+  Kontakt: "Contact",
+};
+
 export function pageTitle(titleDe: string) {
   return `${titleDe} | ${SITE_TITLE_SUFFIX}`;
 }
 
+export function pageTitleForLocale(titleDe: string, locale: "de" | "en") {
+  if (locale === "en") {
+    const en = PAGE_TITLE_EN[titleDe] ?? titleDe;
+    return `${en} | ${SITE_TITLE_SUFFIX}`;
+  }
+  return pageTitle(titleDe);
+}
+
 export function jobPageTitle(jobTitle: string) {
   return `${jobTitle} | Karriere | ${SITE_TITLE_SUFFIX}`;
+}
+
+export function jobPageTitleForLocale(jobTitle: string, locale: "de" | "en") {
+  if (locale === "en") {
+    return `${jobTitle} | Careers | ${SITE_TITLE_SUFFIX}`;
+  }
+  return jobPageTitle(jobTitle);
 }

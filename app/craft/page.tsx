@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: pageTitle("Leistungen"),
   description:
     "Kohlefaser-Lösungen von Bräutigam — Craft page coming soon.",
+  alternates: { languages: { de: "/craft", en: "/en/craft" } },
 };
 
 export default function Page() {

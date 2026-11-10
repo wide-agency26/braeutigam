@@ -2,11 +2,21 @@
 
 import { type FormEvent, useActionState, useId, useState } from "react";
 import { applyToJob, type ApplyState } from "@/app/actions/applications";
+import { getDictionary, type Locale } from "@/lib/i18n";
 import { MAX_RESUME_BYTES, RESUME_ERRORS } from "@/lib/resume-limits";
 
 const INITIAL: ApplyState = {};
 
-export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string }) {
+export function ApplyForm({
+  jobId,
+  jobTitle,
+  locale = "de",
+}: {
+  jobId: string;
+  jobTitle: string;
+  locale?: Locale;
+}) {
+  const t = getDictionary(locale).apply;
   const action = applyToJob.bind(null, jobId);
   const [state, formAction, pending] = useActionState(action, INITIAL);
   const [wasRecommended, setWasRecommended] = useState(false);
@@ -32,30 +42,39 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
   if (state.ok) {
     return (
       <div className="career-card px-5 py-6" role="status" aria-live="polite">
-        <p className="career-eyebrow text-[var(--career-neon)]">Received</p>
+        <p className="career-eyebrow text-[var(--career-neon)]">{t.received}</p>
         <h2 className="mt-4 font-sans text-sm font-bold uppercase tracking-tight">
-          Application is on the desk
+          {t.successTitle}
         </h2>
         <p className="mt-2 font-sans text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400">
-          We logged your file for {jobTitle}. The team reads every application that
-          lands here.
+          {t.successBody(jobTitle)}
         </p>
       </div>
     );
   }
 
   return (
-    <form action={formAction} className="career-card px-5 py-6" aria-labelledby={`${formId}-title`} onSubmit={onSubmit}>
-      <p className="career-eyebrow text-[var(--career-neon)]">Apply</p>
-      <h2 id={`${formId}-title`} className="mt-4 font-sans text-sm font-bold uppercase tracking-tight">
-        Send your file
+    <form
+      action={formAction}
+      className="career-card px-5 py-6"
+      aria-labelledby={`${formId}-title`}
+      onSubmit={onSubmit}
+    >
+      <p className="career-eyebrow text-[var(--career-neon)]">{t.eyebrow}</p>
+      <h2
+        id={`${formId}-title`}
+        className="mt-4 font-sans text-sm font-bold uppercase tracking-tight"
+      >
+        {t.title}
       </h2>
       {clientError || state.error ? (
-        <p className="mt-3 font-sans text-xs text-red-600" role="alert">{clientError || state.error}</p>
+        <p className="mt-3 font-sans text-xs text-red-600" role="alert">
+          {clientError || state.error}
+        </p>
       ) : null}
 
       <label className="mt-5 block">
-        <span className="career-eyebrow text-zinc-500">First name</span>
+        <span className="career-eyebrow text-zinc-500">{t.firstName}</span>
         <input
           className={inputClass}
           name="firstName"
@@ -65,11 +84,13 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
           aria-describedby={errors?.firstName ? `${formId}-first-name-error` : undefined}
         />
         {errors?.firstName ? (
-          <p id={`${formId}-first-name-error`} className="mt-1 font-sans text-xs text-red-600">{errors.firstName[0]}</p>
+          <p id={`${formId}-first-name-error`} className="mt-1 font-sans text-xs text-red-600">
+            {errors.firstName[0]}
+          </p>
         ) : null}
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">Last name</span>
+        <span className="career-eyebrow text-zinc-500">{t.lastName}</span>
         <input
           className={inputClass}
           name="lastName"
@@ -79,11 +100,13 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
           aria-describedby={errors?.lastName ? `${formId}-last-name-error` : undefined}
         />
         {errors?.lastName ? (
-          <p id={`${formId}-last-name-error`} className="mt-1 font-sans text-xs text-red-600">{errors.lastName[0]}</p>
+          <p id={`${formId}-last-name-error`} className="mt-1 font-sans text-xs text-red-600">
+            {errors.lastName[0]}
+          </p>
         ) : null}
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">Email</span>
+        <span className="career-eyebrow text-zinc-500">{t.email}</span>
         <input
           className={inputClass}
           type="email"
@@ -94,25 +117,18 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
           aria-describedby={errors?.email ? `${formId}-email-error` : undefined}
         />
         {errors?.email ? (
-          <p id={`${formId}-email-error`} className="mt-1 font-sans text-xs text-red-600">{errors.email[0]}</p>
+          <p id={`${formId}-email-error`} className="mt-1 font-sans text-xs text-red-600">
+            {errors.email[0]}
+          </p>
         ) : null}
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">Phone</span>
-        <input
-          className={inputClass}
-          type="tel"
-          name="phone"
-          autoComplete="tel"
-        />
+        <span className="career-eyebrow text-zinc-500">{t.phone}</span>
+        <input className={inputClass} type="tel" name="phone" autoComplete="tel" />
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">Cover letter</span>
-        <textarea
-          className={inputClass}
-          name="coverLetter"
-          rows={5}
-        />
+        <span className="career-eyebrow text-zinc-500">{t.coverLetter}</span>
+        <textarea className={inputClass} name="coverLetter" rows={5} />
       </label>
       <div className="mt-5">
         <label className="flex min-h-11 cursor-pointer items-center gap-3 font-sans text-sm">
@@ -125,18 +141,20 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
             aria-controls={`${formId}-recommender`}
             aria-expanded={wasRecommended}
           />
-          <span>I was recommended</span>
+          <span>{t.recommended}</span>
         </label>
         {wasRecommended ? (
           <label id={`${formId}-recommender`} className="mt-3 block">
-            <span className="career-eyebrow text-zinc-500">Name of the person who recommended me</span>
+            <span className="career-eyebrow text-zinc-500">{t.recommender}</span>
             <input
               className={inputClass}
               name="recommenderName"
               autoComplete="name"
               required
               aria-invalid={Boolean(errors?.recommenderName)}
-              aria-describedby={errors?.recommenderName ? `${formId}-recommender-error` : undefined}
+              aria-describedby={
+                errors?.recommenderName ? `${formId}-recommender-error` : undefined
+              }
             />
             {errors?.recommenderName ? (
               <p id={`${formId}-recommender-error`} className="mt-1 font-sans text-xs text-red-600">
@@ -147,7 +165,7 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
         ) : null}
       </div>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">Resume (PDF or Word, max 4 MB)</span>
+        <span className="career-eyebrow text-zinc-500">{t.resume}</span>
         <input
           className="mt-2 w-full font-sans text-xs file:mr-3 file:border-0 file:bg-[var(--career-neon)] file:px-3 file:py-2 file:font-sans file:text-xs file:font-bold file:uppercase file:text-black"
           type="file"
@@ -167,7 +185,7 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
         type="submit"
         disabled={pending}
       >
-        {pending ? "Sending" : "Submit application"}
+        {pending ? t.submitting : t.submit}
       </button>
     </form>
   );

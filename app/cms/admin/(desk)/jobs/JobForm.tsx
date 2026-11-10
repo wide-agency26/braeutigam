@@ -15,6 +15,9 @@ type JobValues = {
   status: JobStatus;
   description: string;
   requirements: string;
+  titleEn?: string | null;
+  descriptionEn?: string | null;
+  requirementsEn?: string | null;
 };
 
 export function JobForm({
@@ -99,9 +102,15 @@ export function JobForm({
               </option>
             ))}
           </select>
-          <p className="desk-hint">Published jobs appear on /karriere.</p>
+          <p className="desk-hint">Published jobs appear on /karriere and /en/karriere.</p>
         </label>
       </div>
+
+      <p className="desk-hint">Optional English copy for /en/karriere (falls back to German when empty).</p>
+      <label className="desk-field">
+        <span>Title (EN)</span>
+        <input className="desk-input" name="titleEn" defaultValue={job?.titleEn ?? ""} />
+      </label>
 
       <label className="desk-field">
         <span>Description</span>
@@ -124,6 +133,26 @@ export function JobForm({
           name="requirements"
           rows={6}
           defaultValue={job?.requirements}
+        />
+      </label>
+
+      <label className="desk-field">
+        <span>Description (EN)</span>
+        <textarea
+          className="desk-textarea"
+          name="descriptionEn"
+          rows={6}
+          defaultValue={job?.descriptionEn ?? ""}
+        />
+      </label>
+
+      <label className="desk-field">
+        <span>Requirements (EN)</span>
+        <textarea
+          className="desk-textarea"
+          name="requirementsEn"
+          rows={4}
+          defaultValue={job?.requirementsEn ?? ""}
         />
       </label>
 

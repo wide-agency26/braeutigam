@@ -13,6 +13,9 @@ export const jobSchema = z.object({
   status: z.enum(["DRAFT", "PUBLISHED", "CLOSED"]),
   description: z.string().trim().min(20, "Write a short role description.").max(8000),
   requirements: z.string().trim().max(4000).default(""),
+  titleEn: z.string().trim().max(120).optional().default(""),
+  descriptionEn: z.string().trim().max(8000).optional().default(""),
+  requirementsEn: z.string().trim().max(4000).optional().default(""),
 });
 
 export const applicationSchema = z
