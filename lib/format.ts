@@ -29,9 +29,31 @@ export const EMPLOYMENT_LABEL: Record<EmploymentType, string> = {
 };
 
 export const APPLICATION_STATUS_LABEL: Record<ApplicationStatus, string> = {
-  NEW: "New",
-  REVIEWING: "Reviewing",
-  SHORTLISTED: "Shortlisted",
-  REJECTED: "Rejected",
-  HIRED: "Hired",
+  NEW: "New (legacy)",
+  REVIEWING: "Reviewing (legacy)",
+  SHORTLISTED: "Shortlisted (legacy)",
+  REJECTED: "Rejected (legacy)",
+  HIRED: "Hired (legacy)",
+  REACHED_OUT: "Reached out",
+  FIRST_INTERVIEW: "First interview",
+  INTERNAL_DECISION: "Internal decision",
+  ACCEPTED: "Accepted",
+  DECLINED: "Declined",
 };
+
+export const APPLICATION_PIPELINE_STATUSES: ApplicationStatus[] = [
+  "REACHED_OUT",
+  "FIRST_INTERVIEW",
+  "INTERNAL_DECISION",
+  "ACCEPTED",
+  "DECLINED",
+];
+
+export function retentionBadgeLabel(retainUntil: Date | null | undefined, now = new Date()) {
+  if (!retainUntil) return null;
+  const ms = retainUntil.getTime() - now.getTime();
+  if (ms <= 0) return null;
+  const days = Math.ceil(ms / (24 * 60 * 60 * 1000));
+  if (days > 7) return null;
+  return `Wird in ${days} Tag${days === 1 ? "" : "en"} gelöscht`;
+}

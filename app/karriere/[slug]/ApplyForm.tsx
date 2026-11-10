@@ -1,11 +1,13 @@
 "use client";
 
+import Script from "next/script";
 import { type FormEvent, useActionState, useId, useState } from "react";
 import { applyToJob, type ApplyState } from "@/app/actions/applications";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { MAX_RESUME_BYTES, RESUME_ERRORS } from "@/lib/resume-limits";
 
 const INITIAL: ApplyState = {};
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 export function ApplyForm({
   jobId,
@@ -174,6 +176,16 @@ export function ApplyForm({
           required
         />
       </label>
+      {TURNSTILE_SITE_KEY ? (
+        <>
+          <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+          <div
+            className="cf-turnstile mt-4"
+            data-sitekey={TURNSTILE_SITE_KEY}
+            data-theme="auto"
+          />
+        </>
+      ) : null}
       <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
         <label>
           Company website

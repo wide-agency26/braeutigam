@@ -48,6 +48,11 @@ export const applicationStatusSchema = z.enum([
   "SHORTLISTED",
   "REJECTED",
   "HIRED",
+  "REACHED_OUT",
+  "FIRST_INTERVIEW",
+  "INTERNAL_DECISION",
+  "ACCEPTED",
+  "DECLINED",
 ]);
 
 export type FieldErrors = Record<string, string[] | undefined>;

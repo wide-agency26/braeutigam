@@ -24,6 +24,8 @@ const PAGE_TITLE_EN: Record<string, string> = {
   Experten: "Team",
   Leistungen: "Craft",
   Kontakt: "Contact",
+  Impressum: "Imprint",
+  Datenschutz: "Privacy",
 };
 
 export function pageTitle(titleDe: string) {

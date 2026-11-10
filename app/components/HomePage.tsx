@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from "framer-motion";
 import NotchedBorderGlow from "./NotchedBorderGlow";
 import TrackScrollMap from "./TrackScrollMap";
@@ -17,6 +18,7 @@ import ExpertSlot from "./ExpertSlot";
 import { EXPERTS } from "@/lib/data/experts";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
+import { localizedHref } from "@/lib/i18n";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -471,8 +473,14 @@ export default function HomePage({
               disabled={showAllExperts}
               onClick={() => setShowAllExperts(true)}
             >
-              ALL EXPERTS
+              {locale === "en" ? "MORE ON PAGE" : "MEHR HIER"}
             </SiteButton>
+            <Link
+              href={localizedHref("/team", locale)}
+              className="mt-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-brand-neon underline-offset-4 hover:underline"
+            >
+              {locale === "en" ? "ALL EXPERTS" : "ALLE EXPERTEN"}
+            </Link>
           </div>
         </div>
       </section>

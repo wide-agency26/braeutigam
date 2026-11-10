@@ -1,5 +1,8 @@
 "use client";
 
+/** TODO(client): confirm F1 supply timeline copy before enabling. */
+const SHOW_F1_CLAIM = false;
+
 import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, CSSProperties } from "react";
 import Image from "next/image";
 import { m, useScroll, useTransform, useMotionValueEvent, useSpring, useReducedMotion } from "framer-motion";
@@ -156,9 +159,13 @@ function Board() {
             <strong>FORMULA 1</strong>
           </h3>
           <div className="tl-gap" style={{ maxWidth: 500 }}>
-            <p className="tl-meta">SUPPLYING THE F1</p>
+            <p className="tl-meta">
+              {SHOW_F1_CLAIM ? "SUPPLYING THE F1" : "MOTORSPORT PROGRAMS"}
+            </p>
             <p className="tl-body">
-              We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams.
+              {SHOW_F1_CLAIM
+                ? "We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams."
+                : "Within the first years we moved from prototype work into demanding motorsport and performance programs — complex carbon parts, tight timelines."}
             </p>
           </div>
           <p className="tl-y-sm" style={{ textAlign: "left" }}>2017</p>

@@ -5,6 +5,8 @@ export interface Expert {
   phone: string;
   avatarUrl: string;
   memberId: string;
+  /** When false, public UI hides email/phone (e.g. Francesco). */
+  showContact?: boolean;
 }
 
 export const EXPERTS: readonly Expert[] = [
@@ -65,14 +67,6 @@ export const EXPERTS: readonly Expert[] = [
     memberId: "#715-BS",
   },
   {
-    name: "Tim Schäfer",
-    title: "Head of Assembly Department",
-    email: "tim@braeutigam-gmbh.eu",
-    phone: "07141/2996-700",
-    avatarUrl: "/images/experts/tim-schaefer.webp",
-    memberId: "#700-TS",
-  },
-  {
     name: "Christian Zinth",
     title: "Quality Management",
     email: "christian.zinth@braeutigam-gmbh.eu",
@@ -111,6 +105,7 @@ export const EXPERTS: readonly Expert[] = [
     phone: "07141/2996-700",
     avatarUrl: "/images/experts/francesco-di-costanzo.webp",
     memberId: "#700-FD",
+    showContact: false,
   },
   {
     name: "Kurt Lander",
