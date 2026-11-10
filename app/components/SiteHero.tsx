@@ -1,15 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useSyncExternalStore } from "react";
 import Image from "next/image";
 import NotchedBorderGlow from "./NotchedBorderGlow";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
 import "./MagicRingsPoster.css";
-import carDark from "../../public/images/car_silhouette_02_DarkMode.webp";
-import carLight from "../../public/images/car_silhouette_02_LightMode.webp";
+import {
+  activeHeroSlides,
+  type HeroSlide,
+} from "@/lib/hero-slides";
 
 const loadMagicRings = () => import("./MagicRings");
+
+function subscribeReducedMotion(cb: () => void) {
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+
+function getReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function serverReducedMotion() {
+  return false;
+}
 
 interface SiteHeroProps {
   /** Anchor the "scroll to explore" affordance jumps to on this route. */
@@ -18,6 +34,10 @@ interface SiteHeroProps {
   priority?: boolean;
   /** Off when the route already has its own <h1> below the fold. */
   isPageHeading?: boolean;
+  /** Light/dark pair for this hero (from server random on Start). */
+  slide?: HeroSlide;
+  /** Alt text language for the silhouette. */
+  locale?: "de" | "en";
 }
 
 /**
@@ -28,9 +48,29 @@ export default function SiteHero({
   scrollTarget = "#story",
   priority = true,
   isPageHeading = true,
+  slide,
+  locale = "de",
 }: SiteHeroProps) {
   const { isDark } = useTheme();
   const Title = isPageHeading ? "h1" : "p";
+  const resolved =
+    slide ?? activeHeroSlides()[0] ?? {
+      id: "f1",
+      light: "/images/hero/f1-light.webp",
+      dark: "/images/hero/f1-dark.webp",
+      altDe: "Formel-1-Fahrzeug als Silhouette",
+      altEn: "Formula car silhouette",
+      enabled: true,
+    };
+  const alt = locale === "en" ? resolved.altEn : resolved.altDe;
+  const reduceMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    serverReducedMotion,
+  );
+  const crossfadeClass = reduceMotion
+    ? ""
+    : "transition-opacity duration-1000";
 
   return (
     <section
@@ -38,10 +78,12 @@ export default function SiteHero({
       className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden transition-colors duration-500 text-zinc-900 dark:text-zinc-100"
     >
       <div className="absolute inset-0 w-full h-full select-none pointer-events-none z-0">
-        <div className="absolute inset-0 transition-opacity duration-1000 opacity-0 dark:opacity-100">
+        <div
+          className={`absolute inset-0 opacity-0 dark:opacity-100 ${crossfadeClass}`}
+        >
           <Image
-            src={carDark}
-            alt="Formula car in the Bräutigam workshop"
+            src={resolved.dark}
+            alt={alt}
             fill
             className="object-cover"
             sizes="100vw"
@@ -49,13 +91,16 @@ export default function SiteHero({
           />
         </div>
 
-        <div className="absolute inset-0 transition-opacity duration-1000 opacity-100 dark:opacity-0">
+        <div
+          className={`absolute inset-0 opacity-100 dark:opacity-0 ${crossfadeClass}`}
+        >
           <Image
-            src={carLight}
-            alt="Carbon Fiber Supercar Silhouette Light"
+            src={resolved.light}
+            alt={alt}
             fill
             className="object-cover"
             sizes="100vw"
+            priority={priority}
           />
         </div>
 

@@ -15,6 +15,7 @@ import SiteButton from "./SiteButton";
 import SocialGalleryBoundary from "./SocialGalleryBoundary";
 import ExpertSlot from "./ExpertSlot";
 import { EXPERTS } from "@/lib/data/experts";
+import type { HeroSlide } from "@/lib/hero-slides";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -107,7 +108,7 @@ const SOCIAL_GALLERY_ITEMS = [
 
 const EXPERT_PREVIEW = 3;
 
-export default function HomePage() {
+export default function HomePage({ heroSlide }: { heroSlide: HeroSlide }) {
   const [showAllExperts, setShowAllExperts] = useState(false);
 
   // Section 2 Scrollytelling targets
@@ -153,7 +154,7 @@ export default function HomePage() {
 
       <main id="main-content" lang="en">
       {/* 1. HERO / LANDING SECTION — shared with /karriere */}
-      <SiteHero scrollTarget="#story" />
+      <SiteHero scrollTarget="#story" slide={heroSlide} />
 
 
       <ManifestBlock />

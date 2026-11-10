@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HomePage from "./components/HomePage";
 import { pageTitle } from "@/lib/site-nav";
+import { pickRandomHeroSlide } from "@/lib/hero-slides";
 
 export const metadata: Metadata = {
   title: pageTitle("Start"),
@@ -14,5 +15,6 @@ export const metadata: Metadata = {
  * so static markup can still theme via CSS without prop drilling.
  */
 export default function Page() {
-  return <HomePage />;
+  const heroSlide = pickRandomHeroSlide();
+  return <HomePage heroSlide={heroSlide} />;
 }
