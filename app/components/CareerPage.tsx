@@ -7,7 +7,9 @@ import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import "./CareerPage.css";
+// TODO(client): confirm licence — internal/placeholder shoot asset.
 import hero from "../../public/images/crew/hero.webp";
+// TODO(client): confirm licence for stock culture imagery.
 import events from "../../public/images/crew/events.webp";
 import training from "../../public/images/crew/training.webp";
 import balance from "../../public/images/crew/balance.webp";
@@ -19,13 +21,14 @@ import atila from "../../public/images/crew/atila.webp";
 
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
 
+/** TODO(client): confirm team size, in-house rate, and race-team count before enabling. */
+const SHOW_CREW_STATS = false;
+
 const STATS = [
   { value: "81", label: "Teammitglieder" },
   { value: "100%", label: "Eigenfertigung" },
   { value: "15+", label: "Rennteams" },
 ] as const;
-
-/* Culture frames and portraits are Unsplash stand-ins until the shoot arrives. */
 const STORIES: ReadonlyArray<{
   image: StaticImageData;
   title: string;
@@ -34,7 +37,7 @@ const STORIES: ReadonlyArray<{
 }> = [
   {
     image: events,
-    title: "Team Events",
+    title: "Teamveranstaltungen",
     body: "Einmal im Jahr raus aus der Halle. Gleiche Truppe, andere Strecke.",
     alt: "Gruppe von Menschen im Freien, Platzhalter für Team Events.",
   },
@@ -46,7 +49,7 @@ const STORIES: ReadonlyArray<{
   },
   {
     image: balance,
-    title: "Work-Life Balance",
+    title: "Work-Life-Balance",
     body: "Saisonpeaks sind planbar. Schicht und Familie teilen sich denselben Kalender.",
     alt: "Erwachsene Person mit einem Kind, Platzhalter für Work-Life Balance.",
   },
@@ -54,22 +57,21 @@ const STORIES: ReadonlyArray<{
 
 const CREW: ReadonlyArray<{
   image: StaticImageData;
-  name: string;
   role: string;
   wide?: boolean;
 }> = [
-  { image: christian, name: "Christian", role: "Geschäftsführer", wide: true },
-  { image: florian, name: "Florian", role: "Fertigungsleiter", wide: true },
-  { image: jens, name: "Jens", role: "Laminierer" },
-  { image: niko, name: "Niko", role: "Meister" },
-  { image: atila, name: "Atila", role: "Qualität" },
+  { image: christian, role: "Laminierer", wide: true },
+  { image: florian, role: "Fertigung", wide: true },
+  { image: jens, role: "Laminierer" },
+  { image: niko, role: "Qualität" },
+  { image: atila, role: "Qualität" },
 ];
 
 const STEPS = [
   {
     index: "01",
     title: "Bewerbung",
-    body: "Unterlagen direkt an die Stelle, oder initiativ an die Crew-Adresse.",
+    body: "Unterlagen direkt an die Stelle oder initiativ an unsere Karriere-Adresse.",
   },
   {
     index: "02",
@@ -121,18 +123,13 @@ function Story({
   );
 }
 
-function Film({
-  image,
-  name,
-  role,
-  wide,
-}: (typeof CREW)[number]) {
+function Film({ image, role, wide }: (typeof CREW)[number]) {
   return (
     <figure className={`crew-film${wide ? " crew-film--wide" : " crew-film--third"}`}>
       <div className={`crew-shot${wide ? " crew-shot--wide" : ""}`}>
         <Image
           src={image}
-          alt={`Platzhalter-Porträt: ${name}, ${role}.`}
+          alt={`Platzhalter: ${role}.`}
           fill
           sizes={wide ? "(min-width: 800px) 46vw, 100vw" : "(min-width: 800px) 30vw, 100vw"}
         />
@@ -141,8 +138,7 @@ function Film({
         </span>
       </div>
       <figcaption>
-        <h3>{name}</h3>
-        <p>{role}</p>
+        <h3>{role}</h3>
       </figcaption>
     </figure>
   );
@@ -161,7 +157,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
         <SiteChrome />
 
         <main id="main-content">
-          <section className="crew-hero" aria-label="Crew">
+          <section className="crew-hero" aria-label="Karriere">
             <Image
               src={hero}
               alt="Mitarbeiter von hinten im Bräutigam-Shirt, Berge im Hintergrund."
@@ -173,7 +169,7 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
             <div className="crew-hero__fade" aria-hidden="true" />
             <div className="crew-hero__mark">
               <p className="career-watermark">Crew</p>
-              <p className="crew-hiring">We&apos;re hiring</p>
+              <p className="crew-hiring">Wir suchen Verstärkung</p>
             </div>
           </section>
 
@@ -189,17 +185,19 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
                 </p>
               </div>
               <p className="crew-lead">
-                Laminieren, Zuschnitt, Autoklav und Qualität liegen in Weissach unter einem Dach.
+                Laminieren, Zuschnitt, Autoklav und Qualität liegen in Freiberg am Neckar unter einem Dach.
                 Die Truppe kennt die Teile, weil sie sie selbst baut.
               </p>
-              <dl className="crew-stats">
-                {STATS.map((stat) => (
-                  <div key={stat.label}>
-                    <dt>{stat.label}</dt>
-                    <dd>{stat.value}</dd>
-                  </div>
-                ))}
-              </dl>
+              {SHOW_CREW_STATS ? (
+                <dl className="crew-stats">
+                  {STATS.map((stat) => (
+                    <div key={stat.label}>
+                      <dt>{stat.label}</dt>
+                      <dd>{stat.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
             </div>
           </section>
 
@@ -228,12 +226,12 @@ export default function CareerPage({ openings }: { openings: CareerOpening[] }) 
                   <span className="crew-display">Ein Tag im Team</span>
                 </h2>
                 <p className="career-watermark crew-head__mark" aria-hidden="true">
-                  Life
+                  Alltag
                 </p>
               </div>
               <div className="crew-films">
                 {CREW.map((person) => (
-                  <Film key={person.name} {...person} />
+                  <Film key={person.role + String(person.wide)} {...person} />
                 ))}
               </div>
             </div>
