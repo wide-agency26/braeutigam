@@ -4,10 +4,12 @@ import { listPublishedJobs } from "@/lib/data/jobs";
 
 export const dynamic = "force-dynamic";
 
+import { pageTitle } from "@/lib/site-nav";
+
 export const metadata: Metadata = {
-  title: "Crew | Bräutigam GmbH",
+  title: pageTitle("Karriere"),
   description:
-    "Das Team von Bräutigam GmbH in Weissach. Offene Stellen in Laminieren, Zuschnitt, Konstruktion und Projektleitung.",
+    "Karriere bei Bräutigam in Freiberg am Neckar: offene Stellen in Laminieren, Zuschnitt, Konstruktion und Projektleitung.",
 };
 
 export default async function Page() {

@@ -7,13 +7,7 @@ const loadLineWaves = () => import("./LineWaves");
 
 const WIDE_CREDIT_URL = "https://wide-communication.com";
 
-const PAGE_NAV = [
-  { label: "HOME", href: "/" },
-  { label: "WORK AT BRÄUTIGAM", href: "/karriere" },
-  { label: "TEAM", href: "/team" },
-  { label: "CRAFT", href: "/craft" },
-  { label: "CONTACT", href: "/kontakt" },
-] as const;
+import { SITE_NAV } from "@/lib/site-nav";
 
 const SOCIAL_NAV = [
   { label: "INSTAGRAM", href: "https://instagram.com" },
@@ -68,11 +62,18 @@ export default function SiteFooter() {
         <div className="footer-figma__inner">
           <div className="footer-figma__main">
             <nav className="footer-figma__nav" aria-label="Footer">
-              {PAGE_NAV.map((item) => (
-                <a key={item.label} href={item.href}>
-                  {item.label}
-                </a>
-              ))}
+              {SITE_NAV.map((item) =>
+                item.soon ? (
+                  <span key={item.labelEn} className="opacity-50" aria-disabled="true">
+                    {item.labelEn}
+                    <span className="sr-only"> coming soon</span>
+                  </span>
+                ) : (
+                  <a key={item.labelEn} href={item.href}>
+                    {item.labelEn}
+                  </a>
+                ),
+              )}
             </nav>
 
             <div className="footer-figma__brand">

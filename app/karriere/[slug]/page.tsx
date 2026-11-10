@@ -7,6 +7,7 @@ import SiteFooter from "../../components/SiteFooter";
 import "../../components/CareerPage.css";
 import { getPublishedJobBySlug } from "@/lib/data/jobs";
 import { EMPLOYMENT_LABEL } from "@/lib/format";
+import { jobPageTitle, SITE_TITLE_SUFFIX } from "@/lib/site-nav";
 import { ApplyForm } from "./ApplyForm";
 
 export const dynamic = "force-dynamic";
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const job = await getPublishedJobBySlug(slug);
   if (!job) {
-    return { title: "Stelle nicht gefunden | Bräutigam GmbH" };
+    return { title: `Stelle nicht gefunden | ${SITE_TITLE_SUFFIX}` };
   }
   return {
-    title: `${job.title} | Karriere | Bräutigam GmbH`,
+    title: jobPageTitle(job.title),
     description: job.description.slice(0, 160),
   };
 }
