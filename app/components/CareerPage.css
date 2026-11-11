@@ -249,10 +249,6 @@
 .crew-job__dept,
 .crew-job__meta {
   color: #3a3a40;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 .dark .crew-job__dept,
 .dark .crew-job__meta {

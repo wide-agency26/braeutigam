@@ -82,6 +82,16 @@
 }
 
 /* Site buttons keep the Figma type and padding. The canvas is the border. */
+.specular-button.site-btn,
+.specular-button.site-btn.specular-button--sm,
+.specular-button.site-btn.specular-button--md,
+.specular-button.site-btn.specular-button--lg {
+  font-weight: unset;
+  font-size: unset;
+  line-height: unset;
+  letter-spacing: unset;
+}
+
 .specular-button.site-btn {
   box-sizing: border-box;
   gap: 0;

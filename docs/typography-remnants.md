@@ -1,26 +1,39 @@
 # Typography remnants (outside `typography-tokens.css`)
 
-Public surfaces should use token utility classes. Remaining rules are layout-only, non-text, CMS, or deliberate unmapped specs.
+Public copy should use token classes. What remains is layout-only, non-text, CMS, or specs without a Figma token.
 
-## Intentional unmapped (no Figma token)
+## Fixed rules still on public routes
 
-| Location | Rule | Reason |
+| Location | What | Reason |
 |----------|------|--------|
-| `ExpertCard.css` `.expert-card__initial` | `42cqi` display initial | Card grid display scale, not copy |
-| `HorizontalTimeline.tsx` `.tl-h-f1-unmapped` | `heading-secondary` (+ bold on strong) | Figma 77.9px headline — nearest token is 76px `heading-secondary` |
-| `HorizontalTimeline.tsx` `.tl-logo__tagline` | `copy-body-lg` (28/38) | Figma wordmark tagline ~22.94px — no token |
-| `globals.css` `.journey-intro__watermark` | `min(17.2vw, 28vh)` | Stroked background watermark, viewport-relative display |
-| `CareerPage.css` | `clamp` display type, `rem` meta | Careers marketing layout (outline watermarks, job UI) — token pass deferred |
-| `SpecularButton.css` `.specular-button--sm/md/lg` | `0.875–1.125rem` | Generic glass buttons (non–site-btn); site CTAs use `button-body-*` on `.site-btn` |
+| `ExpertCard.css` `.expert-card__initial` | `42cqi` display letter | Grid display initial, not body copy |
+| `HorizontalTimeline.tsx` `.tl-h-f1-unmapped` | nearest `heading-secondary` | Figma 77.9px — no exact token |
+| `HorizontalTimeline.tsx` `.tl-logo__tagline` | `copy-body-lg` (28/38) | Figma ~22.94px tagline |
+| `globals.css` `.journey-intro__watermark` | `min(17.2vw, 28vh)` | Stroked watermark, not vw token scale |
+| `CareerPage.css` | `clamp` hero/watermarks, `crew-job__title` `0.95rem` | Careers marketing display + job title row |
+| `CareerPage.css` `crew-stats` | `0.62rem` dt, clamp dd | Stats strip — partial token pass (job meta → `copy-tiny`) |
+| `SpecularButton.css` `.specular-button--sm/md/lg` | `0.875–1.125rem` | Non–`site-btn` glass buttons only; **`site-btn` unsets** so `button-body-*` wins |
+| Legal long-form (`impressum`, `datenschutz`, EN) | prose spacing via layout | Headings use `heading-tertiary`; body relies on Tailwind prose defaults |
 
-## Layout / non-typography `clamp` (gutters, padding, gaps)
+## Audit limitation
 
-`globals.css` (`--site-gutter`, mission/experts spacing), `ManifestSection.css`, `CareerPage.css`, `ContactPage.css` — spacing only, not `font-size`.
+Expert cards load via `LazyOnVisible`; headless audit may not hydrate them in dev. **EMAIL/PHONE** (`button-body-caption`) — check on Vercel preview or after scrolling `/team` in the browser.
+
+## Mapped in PR #10 follow-up (no longer remnants)
+
+- Expert **EMAIL/PHONE** CTAs → `button-body-caption` via `SiteButton` (`.site-btn` resets Specular `font-size`/`font-weight`)
+- Home **#story** scrolly headline → `heading-secondary` + `heading-secondary-bold`
+- Karriere job list meta → `copy-tiny`; apply submit → `copy-caption`
+- Home HUD / manifest bars → `copy-tiny` / `copy-caption`
+
+## Layout `clamp` (not font-size)
+
+`globals.css`, `ManifestSection.css`, `CareerPage.css`, `ContactPage.css` — gutters, padding, image bands.
 
 ## CMS (`app/cms/`)
 
-Admin UI uses separate sizing; excluded from public token audit.
+Admin UI sizing excluded.
 
-## Tailwind `text-[var(--…)]`
+## `text-[var(--…)]` on shells
 
-Theme foreground/background on page shells — not font-size overrides.
+Theme colors only, not typography overrides.

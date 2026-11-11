@@ -47,14 +47,40 @@ const ROUTE_PROBES = [
       { selector: "#silhouette .heading-secondary", token: "heading-secondary" },
       { selector: "#silhouette .decorative-tertiary", token: "decorative-tertiary" },
       { selector: "#silhouette .copy-tiny", token: "copy-tiny" },
+      { selector: "#story .heading-secondary", token: "heading-secondary" },
+      { selector: "#mission a.site-btn.button-body-lg", token: "button-body-lg" },
       { selector: ".mission-figma__copy", token: "copy-body" },
       { selector: ".footer-headline-primary", token: "footer-headline-primary" },
     ],
   },
-  { path: "/en", probes: [{ selector: "#silhouette .heading-primary-bold", token: "heading-primary-bold" }] },
+  {
+    path: "/en",
+    probes: [
+      { selector: "#silhouette .heading-primary-bold", token: "heading-primary-bold" },
+      { selector: "#story .heading-secondary", token: "heading-secondary" },
+      { selector: "#mission a.site-btn.button-body-lg", token: "button-body-lg" },
+    ],
+  },
   { path: "/kontakt", probes: [{ selector: ".contact-hero__title .heading-primary-bold", token: "heading-primary-bold" }] },
-  { path: "/karriere", probes: [{ selector: ".heading-secondary-bold", token: "heading-secondary-bold" }] },
-  { path: "/en/team", probes: [{ selector: ".heading-secondary", token: "heading-secondary" }] },
+  {
+    path: "/karriere",
+    probes: [
+      { selector: ".heading-secondary-bold", token: "heading-secondary-bold" },
+      { selector: ".crew-job__meta.copy-tiny", token: "copy-tiny" },
+    ],
+  },
+  {
+    path: "/en/karriere",
+    probes: [{ selector: ".crew-job__meta.copy-tiny", token: "copy-tiny" }],
+  },
+  {
+    path: "/en/team",
+    probes: [{ selector: ".experts-figma__title.heading-secondary", token: "heading-secondary" }],
+  },
+  {
+    path: "/team",
+    probes: [{ selector: ".experts-figma__title.heading-secondary", token: "heading-secondary" }],
+  },
   { path: "/impressum", probes: [{ selector: ".heading-tertiary", token: "heading-tertiary" }] },
 ];
 
@@ -89,6 +115,8 @@ async function run() {
     "",
     "Scale: at viewport W, expected px = spec × (W / 1440). No cap above 1440.",
     "",
+    "Note: expert card EMAIL/PHONE (`button-body-caption`) are lazy-hydrated; verify those on a warmed preview. Home probes `button-body-lg` on `#mission`.",
+    "",
     "| Route | VP | Theme | Token | font-size | expected | lh | expected lh | match |",
     "|-------|-----|-------|-------|-----------|----------|-----|-------------|-------|",
   ];
@@ -121,6 +149,22 @@ async function run() {
         for (const probe of route.probes) {
           const spec = TOKEN_SPEC[probe.token];
           if (!spec) continue;
+          await page.evaluate((sel) => {
+            const target = document.querySelector(sel);
+            if (target) {
+              target.scrollIntoView({ block: "center", inline: "nearest" });
+            } else {
+              document
+                .querySelector(".experts-figma__grid, #datasheet, #story")
+                ?.scrollIntoView({ block: "center", inline: "nearest" });
+            }
+          }, probe.selector);
+          try {
+            await page.waitForSelector(probe.selector, { timeout: 12_000 });
+          } catch {
+            /* probe records missing */
+          }
+          await new Promise((r) => setTimeout(r, 400));
           const row = await page.evaluate((sel) => {
             const el = document.querySelector(sel);
             if (!el) return null;

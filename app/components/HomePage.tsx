@@ -238,9 +238,9 @@ export default function HomePage({
                     </div>
                   </NotchedBorderGlow>
                 </div>
-                <h2 className="font-sans text-5xl sm:text-7xl font-light tracking-tight leading-[0.95] uppercase text-zinc-950 dark:text-white">
+                <h2 className="heading-secondary text-zinc-950 dark:text-white">
                   To the finished
-                  <strong className="font-semibold block font-sans">component.</strong>
+                  <strong className="heading-secondary-bold block">component.</strong>
                 </h2>
               </div>
             </div>

@@ -261,9 +261,9 @@ export default function CareerPage({
                     >
                       <span>
                         <span className="crew-job__title">{job.title}</span>
-                        <span className="crew-job__dept">{job.department}</span>
+                        <span className="crew-job__dept copy-tiny">{job.department}</span>
                       </span>
-                      <span className="crew-job__meta">
+                      <span className="crew-job__meta copy-tiny">
                         {job.location} <span aria-hidden="true">·</span> {EMPLOYMENT_DE[job.employmentType]}
                       </span>
                       <ChevronRight className="crew-job__icon" aria-hidden="true" strokeWidth={1.6} />

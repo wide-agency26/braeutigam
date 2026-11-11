@@ -193,7 +193,7 @@ export function ApplyForm({
         </label>
       </div>
       <button
-        className="mt-6 inline-flex min-h-11 items-center bg-[var(--career-neon)] px-5 font-sans text-xs font-bold uppercase tracking-wide text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--career-neon)] disabled:cursor-wait disabled:opacity-60"
+        className="copy-caption mt-6 inline-flex min-h-11 items-center bg-[var(--career-neon)] px-5 font-bold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--career-neon)] disabled:cursor-wait disabled:opacity-60"
         type="submit"
         disabled={pending}
       >
