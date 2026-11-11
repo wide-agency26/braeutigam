@@ -11,7 +11,7 @@ import {
 import { useSiteLocale } from "@/lib/i18n/use-locale";
 
 const shellClass =
-  "h-12 rounded-xl flex items-center justify-center gap-2 px-3 font-mono text-[10px] uppercase tracking-wider transition-all duration-300 border-none backdrop-blur-sm bg-zinc-900/90 text-zinc-100 dark:bg-zinc-100/90 dark:text-zinc-900";
+  "h-12 rounded-xl flex items-center justify-center gap-2 px-3 copy-caption transition-all duration-300 border-none backdrop-blur-sm bg-zinc-900/90 text-zinc-100 dark:bg-zinc-100/90 dark:text-zinc-900";
 
 function LangLink({
   label,

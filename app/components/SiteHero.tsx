@@ -141,28 +141,28 @@ export default function SiteHero({
         />
       </div>
 
-      <div className="absolute z-20 top-28 left-6 hidden md:block font-mono text-[9px] font-light leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
+      <div className="absolute z-20 top-28 left-6 hidden md:block copy-tiny text-zinc-800 dark:text-zinc-200">
         <div>LOCATION: GERMANY [48.9298° N, 9.2070° E]</div>
         <div>ESTABLISHED: 2016</div>
         <div>CURRENT TEAM SIZE: 81</div>
       </div>
 
-      <div className="absolute z-20 top-28 right-6 hidden md:block font-mono text-[9px] font-light text-right leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
+      <div className="absolute z-20 top-28 right-6 hidden md:block copy-tiny text-right text-zinc-800 dark:text-zinc-200">
         <div>**COMPOSITE COMPONENT DEVELOPMENT INSIGHT**</div>
         <div>PROJECT: AERO_HYPERCAR_v2.2</div>
       </div>
 
       <div className="relative z-20 w-full max-w-5xl flex flex-col items-center text-center px-6 pointer-events-none">
-        <div className="hero-rise flex flex-col items-center relative gap-1">
-          <p className="font-sans font-bold text-[11vw] sm:text-[7vw] tracking-tighter uppercase leading-[0.9] select-none text-zinc-950 dark:text-zinc-100">
+        <div className="hero-rise site-hero__stack flex flex-col items-center relative">
+          <p className="heading-primary-bold select-none text-zinc-950 dark:text-zinc-100">
             BRÄUTIGAM
           </p>
 
-          <Title className="font-sans font-light text-[8vw] sm:text-[5.5vw] tracking-tighter uppercase leading-[0.85] select-none text-zinc-800 dark:text-zinc-100">
+          <Title className="heading-secondary select-none text-zinc-800 dark:text-zinc-100">
             CARBON FIBER WORKS
           </Title>
 
-          <div className="hero-since mt-4 pointer-events-auto">
+          <div className="hero-since pointer-events-auto">
             <NotchedBorderGlow
               notchPosition="slanted"
               active={true}
@@ -170,7 +170,7 @@ export default function SiteHero({
               className="select-none"
             >
               <div className="px-8 py-2.5">
-                <span className="font-accent text-brand-neon text-2xl sm:text-3xl md:text-4xl tracking-wide uppercase">
+                <span className="decorative-tertiary text-brand-neon">
                   SINCE 2016
                 </span>
               </div>
@@ -179,7 +179,7 @@ export default function SiteHero({
         </div>
       </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-8 font-mono text-[9px] tracking-[0.2em] uppercase text-zinc-700 dark:text-zinc-300">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-8 copy-tiny text-zinc-700 dark:text-zinc-300">
         <div className="select-none">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</div>
         <a
           href={scrollTarget}

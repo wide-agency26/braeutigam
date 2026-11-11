@@ -48,10 +48,10 @@ function SpecCard({
 }) {
   return (
     <NotchedBorderGlow notchPosition="bottom-right" className="w-full max-w-sm shadow-sm pointer-events-auto">
-      <div className="font-mono text-[9px] leading-normal text-zinc-700 dark:text-zinc-300">
-        <div className="text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 uppercase tracking-wider text-[10px] pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
+      <div className="copy-tiny text-zinc-700 dark:text-zinc-300">
+        <div className="copy-tiny text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
           <span>{"// COMPOSITE_SPEC"}</span>
-          <span className="text-[8px] text-brand-neon font-bold">{badge}</span>
+          <span className="copy-tiny text-brand-neon font-bold">{badge}</span>
         </div>
         <div className="space-y-1.5 mt-2">
           <div className="flex justify-between gap-4">
@@ -212,7 +212,7 @@ export default function HomePage({
           </div>
 
           {/* Top HUD Telemetry — Figma CAD corners */}
-          <div className="absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
+          <div className="absolute top-20 left-0 w-full copy-tiny py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
@@ -231,16 +231,16 @@ export default function HomePage({
                     notchPosition="slanted"
                     active={true}
                     noPadding={true}
-                    className="font-mono text-[9px] font-bold tracking-widest uppercase select-none pointer-events-auto"
+                    className="copy-tiny font-bold select-none pointer-events-auto"
                   >
                     <div className="px-4 py-1.5 transition-colors duration-500 text-zinc-800 dark:text-brand-neon">
                       HIGH PERFORMANCE
                     </div>
                   </NotchedBorderGlow>
                 </div>
-                <h2 className="font-sans text-5xl sm:text-7xl font-light tracking-tight leading-[0.95] uppercase text-zinc-950 dark:text-white">
+                <h2 className="heading-secondary text-zinc-950 dark:text-white">
                   To the finished
-                  <strong className="font-semibold block font-sans">component.</strong>
+                  <strong className="heading-secondary-bold block">component.</strong>
                 </h2>
               </div>
             </div>
@@ -341,7 +341,7 @@ export default function HomePage({
           </div>
 
           {/* Bottom scrollytelling coordinate HUD indicators */}
-          <div className="absolute bottom-4 left-8 md:left-16 z-40 hidden lg:flex items-center gap-8 font-mono text-[9px] transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
+          <div className="absolute bottom-4 left-8 md:left-16 z-40 hidden lg:flex items-center gap-8 copy-tiny transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
             <span>AXIS_X: +1.28</span>
             <span>AXIS_Y: -0.49</span>
             <span>AXIS_Z: +0.00</span>
@@ -354,7 +354,7 @@ export default function HomePage({
       <section id="mission" className="mission-figma cv-auto relative overflow-hidden transition-colors duration-500">
         <div className="mission-figma__stage">
           <div className="mission-figma__watermark" aria-hidden>
-            <p>
+            <p className="decorative-primary">
               OUR
               <br />
               CRAFT
@@ -365,29 +365,29 @@ export default function HomePage({
             <div className="mission-figma__chip">
               <img src="/images/mission/chip-experts.svg" alt="" width={50} height={47} />
               <span className="mission-figma__chip-label">
-                <span>End 2 end</span>
-                <span>Experts</span>
+                <span className="copy-tiny">End 2 end</span>
+                <span className="copy-tiny">Experts</span>
               </span>
             </div>
             <div className="mission-figma__chip">
               <img src="/images/mission/chip-craft.svg" alt="" width={50} height={50} />
               <span className="mission-figma__chip-label">
-                <span>Precision</span>
-                <span>Craft</span>
+                <span className="copy-tiny">Precision</span>
+                <span className="copy-tiny">Craft</span>
               </span>
             </div>
             <div className="mission-figma__chip">
               <img src="/images/mission/chip-execution.svg" alt="" width={50} height={50} />
               <span className="mission-figma__chip-label">
-                <span>Flawless</span>
-                <span>Execution</span>
+                <span className="copy-tiny">Flawless</span>
+                <span className="copy-tiny">Execution</span>
               </span>
             </div>
           </aside>
 
           <h2 className="mission-figma__headline">
-            <span className="mission-figma__quality">FLAWLESS QUALITY &amp;</span>
-            <span className="mission-figma__perf">HIGH PERFORMANCE.</span>
+            <span className="mission-figma__quality heading-primary-bold">FLAWLESS QUALITY &amp;</span>
+            <span className="mission-figma__perf decorative-primary">HIGH PERFORMANCE.</span>
           </h2>
 
           <div className="mission-figma__split">
@@ -401,7 +401,7 @@ export default function HomePage({
               />
             </div>
             <div className="mission-figma__aside">
-              <p className="mission-figma__copy">
+              <p className="mission-figma__copy copy-body">
                 Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
               </p>
               <SiteButton href="#story">MANUFACTURING</SiteButton>
@@ -423,12 +423,12 @@ export default function HomePage({
       <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
         <div className="site-container relative z-10">
           <div className="experts-figma__header">
-            <h2 className="experts-figma__title">
+            <h2 className="experts-figma__title heading-secondary">
               <span className="experts-figma__meet">MEET</span>
-              <span className="experts-figma__experts">THE EXPERTS</span>
+              <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
             </h2>
             <div className="experts-figma__hud">
-              <p className="experts-figma__hud-kicker">** END 2 END EXPERTS **</p>
+              <p className="experts-figma__hud-kicker copy-tiny">** END 2 END EXPERTS **</p>
               <p>
                 <span>HEADCOUNT:</span>
                 <span className="experts-figma__hud-val">80+</span>
@@ -477,7 +477,7 @@ export default function HomePage({
             </SiteButton>
             <Link
               href={localizedHref("/team", locale)}
-              className="mt-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-brand-neon underline-offset-4 hover:underline"
+              className="mt-4 block copy-tiny text-brand-neon underline-offset-4 hover:underline"
             >
               {locale === "en" ? "ALL EXPERTS" : "ALLE EXPERTEN"}
             </Link>
@@ -511,19 +511,19 @@ export default function HomePage({
         </SocialGalleryBoundary>
         <div className="social-section__copy site-container">
           <h2 className="social-section__title">
-            <span>Follow the daily</span>
-            <span>Bräutigam Experience</span>
+            <span className="heading-secondary">Follow the daily</span>
+            <span className="heading-secondary-bold">Bräutigam Experience</span>
           </h2>
           <nav className="social-section__links" aria-label="Social">
-            <a href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Linkedin</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a className="copy-body-sm" href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a className="copy-body-sm" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Linkedin</a>
+            <a className="copy-body-sm" href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
           </nav>
         </div>
       </section>
       </main>
 
-      {/* FOOTER — Figma 1154:1356 (Oswald + frame notches) + LineWaves */}
+      {/* FOOTER — Figma 1154:1356 (frame notches) + LineWaves */}
       <SiteFooter />
     </div>
     </LazyMotion>

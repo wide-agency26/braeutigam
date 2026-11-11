@@ -73,7 +73,7 @@ function ExpertCardComponent({
 
         <div className="expert-card__inner">
           <header className="expert-card__meta">
-            <span className="expert-card__sys">
+            <span className="expert-card__sys copy-tiny">
               SYS_OPERATIONAL // CORE_MEMBER
             </span>
           </header>
@@ -88,12 +88,12 @@ function ExpertCardComponent({
                 sizes="(max-width: 768px) 90vw, 362px"
               />
             </div>
-            <span className="expert-card__verified-tag">DIGITAL VERIFIED</span>
+            <span className="expert-card__verified-tag copy-tiny">DIGITAL VERIFIED</span>
           </div>
 
           <div className="expert-card__info">
-            <NameHeading className="expert-card__name">{name}</NameHeading>
-            <div className="expert-card__row">
+            <NameHeading className="expert-card__name team-card-primary">{name}</NameHeading>
+            <div className="expert-card__row copy-tiny">
               <p className="expert-card__role">{title}</p>
               <p className="expert-card__id">ID: {memberId}</p>
             </div>

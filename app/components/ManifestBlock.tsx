@@ -102,12 +102,12 @@ function Photo({
 export default function ManifestBlock() {
   return (
     <div className="manifest-shell">
-      <div className="mg-bar" aria-label="System status">
+      <div className="mg-bar copy-tiny" aria-label="System status">
         <div className="mg-bar__cluster">
           <HudLine text="BRAEUTIGAM_WEBFILE" className="" />
           <HudLine text="ACCESS GRANTED" className="mg-neon" />
           <HudLine text=">>_UPDATE LOADED" className="mg-neon" />
-          <p className="mg-credit">
+          <p className="mg-credit copy-tiny">
             <HudLine text="©2026 MADE BY WIDE" className="mg-dim" />
           </p>
         </div>
@@ -117,19 +117,19 @@ export default function ManifestBlock() {
         </div>
         <div className="mg-bar__cluster mg-bar__cluster--end">
           <div className="mg-core">
-            <span className="mg-core__label">CORE VALUE DEFINITION:</span>
+            <span className="mg-core__label copy-tiny">CORE VALUE DEFINITION:</span>
             <div className="mg-core__row">
               <div className="mg-icon">
                 <CoreValueIcon src="/images/core-values/speed.svg" width={40} height={40} />
-                <span>SPEED</span>
+                <span className="copy-tiny">SPEED</span>
               </div>
               <div className="mg-icon">
                 <CoreValueIcon src="/images/core-values/complexity.svg" width={42} height={41} />
-                <span>COMPLEXITY</span>
+                <span className="copy-tiny">COMPLEXITY</span>
               </div>
               <div className="mg-icon">
                 <CoreValueIcon src="/images/core-values/inhouse.svg" width={46.67} height={40} />
-                <span>INHOUSE</span>
+                <span className="copy-tiny">INHOUSE</span>
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function ManifestBlock() {
         <div className="manifest-frame">
         <div className="manifest-stage">
           <div className="manifest-stack">
-          <div className="manifest-overview">
+          <div className="manifest-overview copy-tiny">
             <p className="manifest-overview__title">
               <HudLine text="*** CLIENT OVERVIEW ***" className="mg-dim" />
             </p>
@@ -160,9 +160,9 @@ export default function ManifestBlock() {
           </div>
 
           <div className="manifest-lead">
-            <h2 className="manifest-figma__line">unsere kunden:</h2>
-            <p className="manifest-figma__neon">höchste</p>
-            <p className="manifest-figma__neon">anforderungen.</p>
+            <h2 className="manifest-figma__line heading-primary-bold">unsere kunden:</h2>
+            <p className="manifest-figma__neon decorative-primary">höchste</p>
+            <p className="manifest-figma__neon decorative-primary">anforderungen.</p>
           </div>
 
           {SHOW_CLK_GTR ? (
@@ -179,12 +179,12 @@ export default function ManifestBlock() {
           )}
 
           <div className="manifest-principle">
-            <p className="manifest-figma__line">Unser Grundsatz:</p>
-            <p className="manifest-figma__neon">KOMPLEX, SCHNELL,</p>
-            <p className="manifest-figma__neon">INHOUSE</p>
+            <p className="manifest-figma__line heading-primary-bold">Unser Grundsatz:</p>
+            <p className="manifest-figma__neon decorative-primary">KOMPLEX, SCHNELL,</p>
+            <p className="manifest-figma__neon decorative-primary">INHOUSE</p>
           </div>
 
-          <div className="manifest-mission">
+          <div className="manifest-mission copy-tiny">
             <p className="manifest-mission__title">
               <HudLine text="*** MISSION STATEMENT ***" className="mg-dim" />
             </p>
@@ -216,10 +216,10 @@ export default function ManifestBlock() {
         </div>
       </section>
 
-      <div className="mg-bar mg-bar--values" aria-label="Company facts">
+      <div className="mg-bar mg-bar--values copy-tiny" aria-label="Company facts">
         <div className="mg-stat">
           <IconFlag />
-          <span>
+          <span className="copy-caption">
             {SHOW_F1_CLAIM ? (
               <>
                 SUPPLYING MAJORITY
@@ -237,7 +237,7 @@ export default function ManifestBlock() {
         </div>
         <div className="mg-stat">
           <IconGlobe />
-          <span>
+          <span className="copy-caption">
             ACTIVE
             <br />
             WORLDWIDE
@@ -245,7 +245,7 @@ export default function ManifestBlock() {
         </div>
         <div className="mg-stat">
           <IconSpark />
-          <span>
+          <span className="copy-caption">
             SOPHISTICATED
             <br />
             MACHINERY

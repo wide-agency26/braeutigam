@@ -184,14 +184,14 @@ export default function CareerPage({
             <div className="career-shell">
               <div className="crew-head">
                 <h1>
-                  <span className="crew-kicker">Unser Team:</span>
-                  <span className="crew-display">Einzigartig</span>
+                  <span className="crew-kicker copy-body-lg">Unser Team:</span>
+                  <span className="crew-display heading-secondary-bold">Einzigartig</span>
                 </h1>
                 <p className="career-watermark crew-head__mark" aria-hidden="true">
                   Team
                 </p>
               </div>
-              <p className="crew-lead">
+              <p className="crew-lead copy-body">
                 Laminieren, Zuschnitt, Autoklav und Qualität liegen in Freiberg am Neckar unter einem Dach.
                 Die Truppe kennt die Teile, weil sie sie selbst baut.
               </p>
@@ -211,10 +211,10 @@ export default function CareerPage({
           <section className="crew-block" aria-labelledby="crew-truppe">
             <div className="career-shell">
               <h2 id="crew-truppe">
-                <span className="crew-kicker">Das Wichtigste:</span>
-                <span className="crew-display">Die Truppe.</span>
+                <span className="crew-kicker copy-body-lg">Das Wichtigste:</span>
+                <span className="crew-display heading-secondary-bold">Die Truppe.</span>
               </h2>
-              <p className="crew-lead">
+              <p className="crew-lead copy-body">
                 Events, Weiterbildung, der Kalender daneben. Darum bleibt die Truppe.
               </p>
               <div className="crew-stories">
@@ -229,8 +229,8 @@ export default function CareerPage({
             <div className="career-shell">
               <div className="crew-head">
                 <h2 id="crew-alltag">
-                  <span className="crew-kicker crew-kicker--neon">Unser Alltag</span>
-                  <span className="crew-display">Ein Tag im Team</span>
+                  <span className="crew-kicker copy-body-lg crew-kicker--neon">Unser Alltag</span>
+                  <span className="crew-display heading-secondary-bold">Ein Tag im Team</span>
                 </h2>
                 <p className="career-watermark crew-head__mark" aria-hidden="true">
                   Alltag
@@ -247,11 +247,11 @@ export default function CareerPage({
           <section id="offene-stellen" className="crew-block" aria-labelledby="crew-jobs">
             <div id="stellen" className="career-shell">
               <h2 id="crew-jobs">
-                <span className="crew-display">Offene Stellen</span>
+                <span className="crew-display heading-secondary-bold">Offene Stellen</span>
               </h2>
               <div className="crew-jobs">
                 {openings.length === 0 ? (
-                  <p className="crew-lead">Aktuell keine veröffentlichten Stellen.</p>
+                  <p className="crew-lead copy-body">Aktuell keine veröffentlichten Stellen.</p>
                 ) : (
                   openings.map((job) => (
                     <Link
@@ -261,9 +261,9 @@ export default function CareerPage({
                     >
                       <span>
                         <span className="crew-job__title">{job.title}</span>
-                        <span className="crew-job__dept">{job.department}</span>
+                        <span className="crew-job__dept copy-tiny">{job.department}</span>
                       </span>
-                      <span className="crew-job__meta">
+                      <span className="crew-job__meta copy-tiny">
                         {job.location} <span aria-hidden="true">·</span> {EMPLOYMENT_DE[job.employmentType]}
                       </span>
                       <ChevronRight className="crew-job__icon" aria-hidden="true" strokeWidth={1.6} />
@@ -277,9 +277,9 @@ export default function CareerPage({
           <section className="crew-block" aria-labelledby="crew-path">
             <div className="career-shell">
               <h2 id="crew-path">
-                <span className="crew-display">So kommst du ins Team:</span>
+                <span className="crew-display heading-secondary-bold">So kommst du ins Team:</span>
               </h2>
-              <p className="crew-lead">
+              <p className="crew-lead copy-body">
                 Vier Schritte, ohne Umwege. Die Stelle bleibt offen, bis beide Seiten ja sagen.
               </p>
               <ol className="crew-steps">

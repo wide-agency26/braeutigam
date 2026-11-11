@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "sync:typography": "node scripts/generate-typography-tokens.mjs",
+    "dev": "pnpm run sync:typography && next dev",
     "build": "prisma generate && node scripts/migrate-if-production.mjs && next build",
     "start": "next start",
     "lint": "eslint",
@@ -46,6 +47,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "prisma": "^6.19.3",
+    "puppeteer": "^25.17.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5"

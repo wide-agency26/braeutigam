@@ -60,7 +60,7 @@ function ContactFaq() {
           <li key={item.question} className={expanded ? "is-open" : undefined}>
             <button
               type="button"
-              className="contact-faq__question"
+              className="contact-faq__question copy-body-lg"
               aria-expanded={expanded}
               aria-controls={panelId}
               onClick={() => setOpen(expanded ? null : index)}
@@ -70,7 +70,7 @@ function ContactFaq() {
             </button>
             <div className="contact-faq__panel" id={panelId} role="region" aria-hidden={!expanded}>
               <div className="contact-faq__panel-inner">
-                <p>{item.answer}</p>
+                <p className="copy-body">{item.answer}</p>
               </div>
             </div>
             <span className="contact-faq__rule" aria-hidden="true" />
@@ -136,10 +136,11 @@ function ContactForm({ locale }: { locale: Locale }) {
     <form className="contact-form" onSubmit={handleSubmit} noValidate>
       <div className="contact-form__row">
         <div className="contact-field">
-          <label htmlFor={`${formId}-name`}>
+          <label className="copy-caption" htmlFor={`${formId}-name`}>
             NAME <span className="text-brand-neon" aria-hidden>*</span>
           </label>
           <input
+            className="copy-body"
             id={`${formId}-name`}
             name="name"
             type="text"
@@ -150,16 +151,17 @@ function ContactForm({ locale }: { locale: Locale }) {
             aria-describedby={errors.name ? `${formId}-name-err` : undefined}
           />
           {errors.name ? (
-            <p id={`${formId}-name-err`} className="contact-field__error">
+            <p id={`${formId}-name-err`} className="contact-field__error copy-caption">
               {errors.name}
             </p>
           ) : null}
         </div>
         <div className="contact-field">
-          <label htmlFor={`${formId}-email`}>
+          <label className="copy-caption" htmlFor={`${formId}-email`}>
             E-MAIL <span className="text-brand-neon" aria-hidden>*</span>
           </label>
           <input
+            className="copy-body"
             id={`${formId}-email`}
             name="email"
             type="email"
@@ -170,7 +172,7 @@ function ContactForm({ locale }: { locale: Locale }) {
             aria-describedby={errors.email ? `${formId}-email-err` : undefined}
           />
           {errors.email ? (
-            <p id={`${formId}-email-err`} className="contact-field__error">
+            <p id={`${formId}-email-err`} className="contact-field__error copy-caption">
               {errors.email}
             </p>
           ) : null}
@@ -179,8 +181,9 @@ function ContactForm({ locale }: { locale: Locale }) {
 
       <div className="contact-form__row">
         <div className="contact-field">
-          <label htmlFor={`${formId}-phone`}>TELEFON</label>
+          <label className="copy-caption" htmlFor={`${formId}-phone`}>TELEFON</label>
           <input
+            className="copy-body"
             id={`${formId}-phone`}
             name="phone"
             type="tel"
@@ -189,8 +192,9 @@ function ContactForm({ locale }: { locale: Locale }) {
           />
         </div>
         <div className="contact-field">
-          <label htmlFor={`${formId}-subject`}>BETREFF</label>
+          <label className="copy-caption" htmlFor={`${formId}-subject`}>BETREFF</label>
           <input
+            className="copy-body"
             id={`${formId}-subject`}
             name="subject"
             type="text"
@@ -200,10 +204,11 @@ function ContactForm({ locale }: { locale: Locale }) {
       </div>
 
       <div className="contact-field">
-        <label htmlFor={`${formId}-message`}>
+        <label className="copy-caption" htmlFor={`${formId}-message`}>
           NACHRICHT <span className="text-brand-neon" aria-hidden>*</span>
         </label>
         <textarea
+          className="copy-body"
           id={`${formId}-message`}
           name="message"
           required
@@ -212,16 +217,16 @@ function ContactForm({ locale }: { locale: Locale }) {
           aria-describedby={errors.message ? `${formId}-message-err` : undefined}
         />
         {errors.message ? (
-          <p id={`${formId}-message-err`} className="contact-field__error">
+          <p id={`${formId}-message-err`} className="contact-field__error copy-caption">
             {errors.message}
           </p>
         ) : null}
       </div>
 
-      <p className="contact-form__hint font-mono text-[9px] uppercase tracking-wide text-zinc-500">
+      <p className="contact-form__hint copy-tiny text-zinc-500">
         {locale === "en" ? "Fields marked * are required." : "Mit * markierte Felder sind Pflichtfelder."}
       </p>
-      <p className="contact-form__privacy mt-3 text-xs text-zinc-600 dark:text-zinc-400">
+      <p className="contact-form__privacy copy-caption mt-3 text-zinc-600 dark:text-zinc-400">
         {locale === "en" ? "We process your data to handle your request. See our " : "Wir verarbeiten Ihre Angaben zur Bearbeitung der Anfrage. Details in der "}
         <Link className="text-brand-neon underline-offset-2 hover:underline" href={privacyHref}>
           {locale === "en" ? "privacy policy" : "Datenschutzerklärung"}
@@ -264,13 +269,13 @@ function ContactMapPin() {
   return (
     <div className="contact-map__pin">
       <div className="contact-map__pin-card" id={cardId}>
-        <p>Daimlerstraße 13</p>
-        <p>71691 Freiberg am Neckar</p>
+        <p className="copy-body-sm">Daimlerstraße 13</p>
+        <p className="copy-body-sm">71691 Freiberg am Neckar</p>
         <div className="contact-map__pin-actions">
-          <a href={SHOP_DIRECTIONS} target="_blank" rel="noopener noreferrer">
+          <a className="copy-caption" href={SHOP_DIRECTIONS} target="_blank" rel="noopener noreferrer">
             Route
           </a>
-          <button type="button" onClick={copyAddress}>
+          <button className="copy-caption" type="button" onClick={copyAddress}>
             {copied ? "Kopiert" : "Kopieren"}
           </button>
           <span className="sr-only" role="status" aria-live="polite">
@@ -306,24 +311,24 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
           </div>
           <div className="contact-hero__shade" aria-hidden="true" />
 
-          <p className="contact-hero__portal">
+          <p className="contact-hero__portal copy-caption">
             <span>PORTAL [48.9298° N, 9.2070° E]</span>
             <span>STATUS: ONLINE // READY FOR UPLOAD</span>
             <span>INCOMING INQUIRIES ROUTED VIA SSL</span>
           </p>
-          <p className="contact-hero__build">
+          <p className="contact-hero__build copy-caption">
             <span>CONTACT INTERFACE v2.4</span>
             <span>UPDATE 2026 // CERTIFIED CFRP</span>
           </p>
 
           <div className="contact-hero__title">
-            <h1>Kontakt</h1>
-            <p>Haben Sie ein Projekt? Ob Formula 1 Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.</p>
+            <h1 className="heading-primary-bold">Kontakt</h1>
+            <p className="copy-body">Haben Sie ein Projekt? Ob Formula 1 Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.</p>
           </div>
 
-          <a className="contact-hero__status" href="#anfrage">
+          <a className="contact-hero__status copy-tiny" href="#anfrage">
             <span>PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</span>
-            <span>SCROLL TO EXPLORE</span>
+            <span className="copy-body-sm">SCROLL TO EXPLORE</span>
           </a>
         </section>
 
@@ -331,22 +336,22 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
           <section id="anfrage" className="contact-split">
             <div className="contact-form-side">
               <header className="contact-section-head">
-                <p>{">> START_PROJECT_MANIFEST"}</p>
-                <h2>PROJEKTANFRAGE STARTEN</h2>
+                <p className="copy-caption">{">> START_PROJECT_MANIFEST"}</p>
+                <h2 className="heading-tertiary">PROJEKTANFRAGE STARTEN</h2>
               </header>
               <ContactForm locale={locale} />
             </div>
 
             <aside className="contact-info" aria-label="Direkter Kontakt">
               <header className="contact-section-head">
-                <p>{"// DIRECT_CONTACT_DETAILS"}</p>
-                <h2>DIREKTER KONTAKT</h2>
+                <p className="copy-caption">{"// DIRECT_CONTACT_DETAILS"}</p>
+                <h2 className="heading-tertiary">DIREKTER KONTAKT</h2>
               </header>
               <div className="contact-info__blocks">
                 <div>
-                  <p className="contact-info__kicker">UNSERE HAUPTSTELLE</p>
-                  <p className="contact-info__value">HEADQUARTERS</p>
-                  <p className="contact-info__address">
+                  <p className="contact-info__kicker copy-caption">UNSERE HAUPTSTELLE</p>
+                  <p className="contact-info__value heading-tertiary">HEADQUARTERS</p>
+                  <p className="contact-info__address copy-body">
                     <span>Bräutigam GmbH</span>
                     <span>Daimlerstraße 13</span>
                     <span>71691 Freiberg am Neckar</span>
@@ -354,22 +359,22 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
                   </p>
                 </div>
                 <div>
-                  <p className="contact-info__kicker">TELEFONISCHER SUPPORT</p>
-                  <a className="contact-info__value" href={`tel:${SHOP_PHONE_TEL}`}>
+                  <p className="contact-info__kicker copy-caption">TELEFONISCHER SUPPORT</p>
+                  <a className="contact-info__value heading-tertiary" href={`tel:${SHOP_PHONE_TEL}`}>
                     {SHOP_PHONE_DISPLAY}
                   </a>
-                  <p className="contact-info__hours">Mo - Fr: 08:00 - 18:00 Uhr (CET)</p>
+                  <p className="contact-info__hours copy-body-sm">Mo - Fr: 08:00 - 18:00 Uhr (CET)</p>
                 </div>
                 <div>
-                  <p className="contact-info__kicker">E-Mail</p>
-                  <a className="contact-info__value" href={`mailto:${SHOP_EMAIL}`}>
+                  <p className="contact-info__kicker copy-caption">E-Mail</p>
+                  <a className="contact-info__value heading-tertiary" href={`mailto:${SHOP_EMAIL}`}>
                     INFO@BRAEUTIGAM.DE
                   </a>
                 </div>
               </div>
               <div className="contact-shield">
-                <p>SSL_ENCRYPTED_PORTAL // SECURE</p>
-                <p>
+                <p className="copy-tiny">SSL_ENCRYPTED_PORTAL // SECURE</p>
+                <p className="copy-body-sm">
                   Sämtliche Zeichnungsdaten und CAD-Modelle werden nach ISO 27001 auf redundanten,
                   lokalen Servern gesichert.
                 </p>
@@ -380,10 +385,10 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
           {SHOW_CONTACT_FAQ ? (
             <section className="contact-faq" aria-label="Häufig gestellte Fragen">
               <header className="contact-faq__head">
-                <p>{"// FAQ_ENGINEERING_ANSWERS"}</p>
+                <p className="copy-caption">{"// FAQ_ENGINEERING_ANSWERS"}</p>
                 <h2>
-                  <span>HÄUFIG</span>
-                  <span>GESTELLTE FRAGEN.</span>
+                  <span className="heading-secondary-bold">HÄUFIG</span>
+                  <span className="decorative-secondary">GESTELLTE FRAGEN.</span>
                 </h2>
               </header>
               <ContactFaq />
@@ -393,10 +398,10 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
           <section className="contact-map" aria-label="Standort">
             <header>
               <div>
-                <p>{">>_TARGET_GEOLOCATION"}</p>
-                <h2>UNSER STANDORT</h2>
+                <p className="copy-caption">{">>_TARGET_GEOLOCATION"}</p>
+                <h2 className="heading-secondary-bold">UNSER STANDORT</h2>
               </div>
-              <p>AXIS_X: +1.28 AXIS_Y: -0.49 AXIS_Z: +0.00</p>
+              <p className="copy-caption">AXIS_X: +1.28 AXIS_Y: -0.49 AXIS_Z: +0.00</p>
             </header>
             <div className="contact-map__frame">
               <ConsentGate

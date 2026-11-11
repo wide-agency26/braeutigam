@@ -179,12 +179,6 @@
 }
 
 .expert-card__sys {
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
   color: var(--ec-neon);
   white-space: nowrap;
 }
@@ -217,12 +211,6 @@
   position: absolute;
   left: 12px;
   bottom: 12px;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
   color: var(--ec-tag-fg);
   background: var(--ec-tag-bg);
   padding: 4px 6px;
@@ -241,14 +229,7 @@
 }
 
 .expert-card__name {
-  margin: 0;
   width: 100%;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: clamp(1.1rem, 6cqi, 24.0832px);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
   color: var(--ec-name);
 }
 
@@ -260,12 +241,6 @@
   gap: 8px;
   width: 100%;
   min-height: 8px;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
 
 .expert-card__role {

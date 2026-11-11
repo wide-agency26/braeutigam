@@ -17,15 +17,15 @@ export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
           <section className="experts-figma relative overflow-hidden pb-24 pt-40 md:pb-32 md:pt-48">
             <div className="site-container relative z-10">
               <div className="experts-figma__header">
-                <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600 dark:text-zinc-400">
+                <p className="mb-4 copy-tiny text-zinc-600 dark:text-zinc-400">
                   {"// TEAM DIRECTORY"}
                 </p>
-                <h1 className="experts-figma__title">
+                <h1 className="experts-figma__title heading-secondary">
                   <span className="experts-figma__meet">MEET</span>
-                  <span className="experts-figma__experts">THE EXPERTS</span>
+                  <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
                 </h1>
                 <div className="experts-figma__hud">
-                  <p className="experts-figma__hud-kicker">** END 2 END EXPERTS **</p>
+                  <p className="experts-figma__hud-kicker copy-tiny">** END 2 END EXPERTS **</p>
                   <p>
                     <span>HEADCOUNT:</span>
                     <span className="experts-figma__hud-val">80+</span>

@@ -41,19 +41,10 @@
 
 .career-heading {
   margin: 0;
-  font-family: var(--font-univers), sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.85rem, 3.4vw, 3.25rem);
-  line-height: 1.04;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
 }
 
 .career-eyebrow {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  margin: 0;
 }
 
 /* ── Plain rounded card (job application form) ── */
@@ -74,29 +65,17 @@
   padding-bottom: clamp(5rem, 10vw, 8.5rem);
 }
 
-.crew-kicker,
-.crew-display {
-  font-family: var(--font-univers), sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
 .crew-kicker {
   display: block;
   margin-bottom: 0.28rem;
   color: var(--foreground);
-  font-size: clamp(1.05rem, 1.8vw, 1.55rem);
-  line-height: 1;
 }
 .crew-kicker--neon {
   color: var(--career-neon);
 }
 .crew-display {
   display: block;
-  margin: 0;
   color: var(--foreground);
-  font-size: clamp(2.15rem, 4.4vw, 3.85rem);
-  line-height: 0.96;
 }
 .crew-display--neon {
   color: var(--career-neon);
@@ -119,8 +98,6 @@
   max-width: 38rem;
   margin: 1.35rem 0 0;
   color: #3a3a40;
-  font-size: 0.95rem;
-  line-height: 1.55;
 }
 .dark .crew-lead {
   color: #d4d4d8;
@@ -272,10 +249,6 @@
 .crew-job__dept,
 .crew-job__meta {
   color: #3a3a40;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 .dark .crew-job__dept,
 .dark .crew-job__meta {

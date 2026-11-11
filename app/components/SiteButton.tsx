@@ -34,8 +34,10 @@ export default function SiteButton({
   ...rest
 }: SiteButtonProps) {
   const look = LOOK[variant];
+  const typeClass = size === "sm" ? "button-body-caption" : "button-body-lg";
   const classes = [
     "site-btn",
+    typeClass,
     size === "sm" ? "site-btn--sm" : "",
     variant === "solid" ? "site-btn--solid" : "",
     variant === "amber" ? "site-btn--amber" : "",

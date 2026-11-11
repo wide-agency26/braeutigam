@@ -148,110 +148,43 @@
   z-index: 5;
 }
 
-.tl-y-xl,
-.tl-y-sm {
+.tl-board .decorative-primary,
+.tl-board .decorative-secondary {
   margin: 0;
-  font-family: var(--font-bootzy), sans-serif;
-  font-weight: 400;
   color: var(--tl-year);
-  text-transform: uppercase;
   white-space: nowrap;
   overflow: visible;
 }
 
-.tl-y-xl {
+.tl-board .decorative-primary {
   position: relative;
   z-index: 31;
-  font-size: 332px;
-  line-height: calc(232 / 332);
-  letter-spacing: 8px;
 }
 
-.tl-y-sm {
-  font-size: 72px;
-  line-height: 84px;
-  letter-spacing: 4px;
+.tl-board .decorative-secondary {
   text-align: right;
 }
 
-.tl-h-founded {
-  margin: 0;
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-weight: 700;
-  font-size: 100px;
-  line-height: 100px;
+.tl-board .heading-primary-bold,
+.tl-board .heading-secondary,
+.tl-board .heading-secondary-bold,
+.tl-board .heading-tertiary {
   color: var(--tl-ink);
 }
 
-.tl-h-light {
+.tl-board .copy-tiny {
   margin: 0;
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 76px;
-  line-height: 52px;
-  letter-spacing: -2px;
-  text-transform: uppercase;
-  color: var(--tl-ink);
-}
-
-.tl-h-bold {
-  margin: 0;
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-weight: 700;
-  font-size: 76px;
-  line-height: 76px;
-  letter-spacing: -2px;
-  text-transform: uppercase;
-  color: var(--tl-ink);
-}
-
-.tl-h-f1 {
-  margin: 0;
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 77.9px;
-  line-height: 0.84;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  color: var(--tl-ink);
-}
-
-.tl-h-f1 strong {
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-weight: 700;
-  display: block;
-  line-height: 1;
-}
-
-.tl-h-award {
-  margin: 0;
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 57px;
-  line-height: 57px;
-  text-transform: uppercase;
-  color: var(--tl-ink);
-}
-
-.tl-meta {
-  margin: 0;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
   color: var(--tl-meta);
 }
 
-.tl-body {
+.tl-board .copy-body {
   margin: 0;
   max-width: 550px;
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
   color: var(--tl-ink);
+}
+
+.tl-h-f1-unmapped strong.heading-secondary-bold {
+  display: block;
 }
 
 .tl-gap {
@@ -269,30 +202,17 @@
 }
 
 .tl-logo {
-  margin: 0;
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
   color: var(--tl-ink);
   opacity: 0.75;
 }
 
 .tl-logo--mark {
-  font-size: 57px;
-  line-height: 57px;
-  letter-spacing: 0;
   opacity: 1;
 }
 
-.tl-logo span {
+.tl-logo__tagline {
   display: block;
   margin-top: 2px;
-  font-size: 22.94px;
-  line-height: 0.84;
-  letter-spacing: -0.04em;
   text-transform: none;
   opacity: 0.5;
 }
@@ -303,11 +223,6 @@
   margin: 0;
   pointer-events: none;
   user-select: none;
-  font-family: var(--font-bootzy), sans-serif;
-  font-size: 332px;
-  line-height: calc(232 / 332);
-  letter-spacing: 8px;
-  text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 1px var(--tl-watermark);
 }
@@ -329,12 +244,6 @@
   border: 1px solid color-mix(in srgb, var(--tl-year) 55%, var(--tl-pill-border));
   border-radius: 50px;
   color: var(--tl-pill-ink);
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .tl-pill svg {
@@ -355,12 +264,6 @@
   background: #1f2020;
   box-shadow: 0 1px 10px -3px #1f2020, inset 0 1px 2px -1px #424343;
   color: #f3f3f3;
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 24px;
-  letter-spacing: 0;
-  text-transform: uppercase;
   text-decoration: none;
 }
 
@@ -384,13 +287,6 @@
 }
 
 .tl-ruler-label {
-  margin: 0;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
   text-align: center;
   color: var(--tl-dim);
 }
@@ -432,9 +328,3 @@
   background: #d4d4d8;
 }
 
-@media (max-width: 700px) {
-  .tl-h-founded {
-    font-size: 72px;
-    line-height: 72px;
-  }
-}

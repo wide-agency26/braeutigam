@@ -26,12 +26,6 @@
   align-items: center;
   column-gap: clamp(16px, 3vw, 48px);
   padding: 14px clamp(20px, 3.33vw, 64px);
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 10px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  line-height: 1.15;
   border-block: 1px solid var(--mg-line);
 }
 
@@ -76,8 +70,6 @@
 
 .mg-credit {
   margin-top: 8px;
-  font-size: 8px;
-  letter-spacing: 0.12em;
   color: var(--mg-dim);
 }
 
@@ -90,8 +82,6 @@
 
 .mg-core__label {
   color: var(--mg-dim);
-  letter-spacing: 0.08em;
-  font-size: 9px;
 }
 
 .mg-core__row {
@@ -115,10 +105,6 @@
   max-width: none;
 }
 
-.mg-icon span {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-}
 
 .mg-stat {
   display: flex;
@@ -134,11 +120,6 @@
   height: 50px;
 }
 
-.mg-stat span {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  line-height: 1.35;
-}
 
 /* ── Manifest stage: Figma Main Image 937:253, 1920×1890, 5-col grid ──
    The frame is the query container so padding does not shrink 100cqi. */
@@ -212,12 +193,6 @@
   z-index: 3;
   width: min(100%, calc(280 / 1920 * 100cqi));
   min-height: calc(211 / 1920 * 100cqi);
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: calc(10 / 1920 * 100cqi);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  line-height: 1;
 }
 
 .manifest-overview__title {
@@ -241,15 +216,11 @@
 
 .manifest-stage .manifest-figma__line {
   max-width: none;
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-size: calc(119.05 / 1920 * 100cqi);
   white-space: nowrap;
 }
 
 .manifest-stage .manifest-figma__neon {
   display: block;
-  margin: 0;
-  font-size: calc(127.053 / 1920 * 100cqi);
   text-align: center;
 }
 
@@ -327,12 +298,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: calc(10 / 1920 * 100cqi);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  line-height: 1;
   text-align: right;
   color: var(--mg-muted);
 }
@@ -382,26 +347,15 @@
   .manifest-mission {
     align-items: flex-start;
     text-align: left;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    line-height: 1.35;
   }
 
   .manifest-overview {
     width: 100%;
     min-height: 0;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    line-height: 1.35;
   }
 
   .manifest-stage .manifest-figma__line {
-    font-size: clamp(2.25rem, 8vw, 4.5rem);
     white-space: normal;
-  }
-
-  .manifest-stage .manifest-figma__neon {
-    font-size: clamp(2.25rem, 8.4vw, 4.75rem);
   }
 
   .manifest-photo--tl,

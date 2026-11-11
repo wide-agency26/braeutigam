@@ -1,0 +1,188 @@
+/**
+ * Figma typography tokens — scale: spec * (100vw / 1440), no max cap above 1440.
+ * Served from /public/typography-tokens.css (pnpm sync:typography). Margins live in layout CSS only.
+ */
+
+.heading-primary-bold {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: max(40px, calc(100 * 100vw / 1440));
+  line-height: max(40px, calc(100 * 100vw / 1440));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.heading-secondary {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: max(30.4px, calc(76 * 100vw / 1440));
+  line-height: max(20.8px, calc(52 * 100vw / 1440));
+  letter-spacing: calc(-2 * 100vw / 1440);
+  text-transform: uppercase;
+}
+
+.heading-secondary-bold {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: max(30.4px, calc(76 * 100vw / 1440));
+  line-height: max(30.4px, calc(76 * 100vw / 1440));
+  letter-spacing: calc(-2 * 100vw / 1440);
+  text-transform: uppercase;
+}
+
+.heading-tertiary {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: max(22.8px, calc(57 * 100vw / 1440));
+  line-height: max(22.8px, calc(57 * 100vw / 1440));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.decorative-primary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: max(132.8px, calc(332 * 100vw / 1440));
+  line-height: max(92.8px, calc(232 * 100vw / 1440));
+  letter-spacing: max(3.2px, calc(8 * 100vw / 1440));
+  text-transform: uppercase;
+}
+
+.decorative-secondary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: max(28.8px, calc(72 * 100vw / 1440));
+  line-height: max(33.6px, calc(84 * 100vw / 1440));
+  letter-spacing: max(1.6px, calc(4 * 100vw / 1440));
+  text-transform: uppercase;
+}
+
+.decorative-tertiary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: max(16.8px, calc(42 * 100vw / 1440));
+  line-height: max(19.2px, calc(48 * 100vw / 1440));
+  letter-spacing: max(0.8px, calc(2 * 100vw / 1440));
+  text-transform: uppercase;
+}
+
+.copy-body-lg {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 400;
+  font-size: max(14px, calc(28 * 100vw / 1440));
+  line-height: max(14px, calc(38 * 100vw / 1440));
+  letter-spacing: 0;
+}
+
+.copy-body {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 400;
+  font-size: max(14px, calc(20 * 100vw / 1440));
+  line-height: max(14px, calc(24 * 100vw / 1440));
+  letter-spacing: 0;
+}
+
+.copy-body-sm {
+  margin: 0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 400;
+  font-size: max(14px, calc(14 * 100vw / 1440));
+  line-height: max(14px, calc(18 * 100vw / 1440));
+  letter-spacing: 0;
+}
+
+.copy-caption {
+  margin: 0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 400;
+  font-size: calc(12 * 100vw / 1440);
+  line-height: max(14px, calc(18 * 100vw / 1440));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@media (max-width: 1439.98px) {
+  .copy-caption { font-size: max(14px, calc(12 * 100vw / 1440)); }
+}
+
+.copy-tiny {
+  margin: 0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 300;
+  font-size: max(10px, calc(10 * 100vw / 1440));
+  line-height: max(10px, calc(10 * 100vw / 1440));
+  letter-spacing: calc(2 * 100vw / 1440);
+  text-transform: uppercase;
+}
+
+.button-body-lg {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: max(14px, calc(24 * 100vw / 1440));
+  line-height: max(14px, calc(24 * 100vw / 1440));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.button-body-caption {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: calc(10 * 100vw / 1440);
+  line-height: max(10px, calc(10 * 100vw / 1440));
+  letter-spacing: 0;
+  text-transform: uppercase;
+  /* FLAG: Figma line-height 0 — scales from 10px @ 1440 */
+}
+@media (max-width: 1439.98px) {
+  .button-body-caption { font-size: max(14px, calc(10 * 100vw / 1440)); line-height: max(14px, calc(10 * 100vw / 1440)); }
+}
+
+.footer-headline-primary {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: max(28.8px, calc(72 * 100vw / 1440));
+  line-height: max(27.2px, calc(68 * 100vw / 1440));
+  letter-spacing: calc(-1 * 100vw / 1440);
+  text-transform: uppercase;
+}
+
+.footer-decorative-primary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: max(22.4px, calc(56 * 100vw / 1440));
+  line-height: max(19.2px, calc(48 * 100vw / 1440));
+  letter-spacing: max(0.8px, calc(2 * 100vw / 1440));
+  text-transform: uppercase;
+}
+
+.footer-decorative-secondary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: max(9.6px, calc(24 * 100vw / 1440));
+  line-height: max(12.8px, calc(32 * 100vw / 1440));
+  letter-spacing: max(0.8px, calc(2 * 100vw / 1440));
+  text-transform: uppercase;
+}
+
+.team-card-primary {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: max(12.8px, calc(32 * 100vw / 1440));
+  line-height: max(14.4px, calc(36 * 100vw / 1440));
+  letter-spacing: calc(-1 * 100vw / 1440);
+  text-transform: uppercase;
+}

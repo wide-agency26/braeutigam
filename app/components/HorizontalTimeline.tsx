@@ -134,44 +134,44 @@ function Board() {
         <Photo src="/images/timeline/figma/2016-thumb-2.png" alt="Hand sanding a carbon fiber surface" left={1654} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
         <Photo src="/images/timeline/figma/2016-thumb-3.png" alt="Gloved hands finishing a composite part" left={1654} top={820} width={345} height={345} dim />
         <div className="tl-copy" style={box(66, 307, 550, 586.5, { gap: 32, zIndex: 12 })}>
-          <p className="tl-y-xl">2016</p>
-          <h3 className="tl-h-founded">FOUNDED</h3>
+          <p className="decorative-primary">2016</p>
+          <h3 className="heading-primary-bold">FOUNDED</h3>
           <div className="tl-gap">
-            <p className="tl-meta">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
-            <p className="tl-body">
+            <p className="copy-tiny">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
+            <p className="copy-body">
               BRÄUTIGAM started with three specialists and one clear vision: engineering high-performance carbon components for clients with uncompromising ambitions.
             </p>
           </div>
         </div>
         <div className="tl-copy" style={box(66, 948, 205, 66, { gap: 12 })}>
-          <p className="tl-logo">
+          <p className="tl-logo button-body-lg">
             BRÄUTIGAM
-            <span>CARBON FIBER WORKS</span>
+            <span className="tl-logo__tagline copy-body-lg">CARBON FIBER WORKS</span>
           </p>
         </div>
-        <div className="tl-pill" style={box(773.5, 917.75, 250, 88)}>
+        <div className="tl-pill copy-body-sm" style={box(773.5, 917.75, 250, 88)}>
           <PillIcon kind="speed" />
           SPEED
         </div>
         <div className="tl-copy" style={box(2188.5, 186.5, 691.5, 466, { justifyContent: "space-between", gap: 20 })}>
-          <h3 className="tl-h-f1">
+          <h3 className="heading-secondary tl-h-f1-unmapped">
             ENTRY INTO
-            <strong>FORMULA 1</strong>
+            <strong className="heading-secondary-bold">FORMULA 1</strong>
           </h3>
           <div className="tl-gap" style={{ maxWidth: 500 }}>
-            <p className="tl-meta">
+            <p className="copy-tiny">
               {SHOW_F1_CLAIM ? "SUPPLYING THE F1" : "MOTORSPORT PROGRAMS"}
             </p>
-            <p className="tl-body">
+            <p className="copy-body">
               {SHOW_F1_CLAIM
                 ? "We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams."
                 : "Within the first years we moved from prototype work into demanding motorsport and performance programs — complex carbon parts, tight timelines."}
             </p>
           </div>
-          <p className="tl-y-sm" style={{ textAlign: "left" }}>2017</p>
+          <p className="decorative-secondary" style={{ textAlign: "left" }}>2017</p>
         </div>
         <div className="tl-ruler-wrap" style={box(2188.5, 940, 691.5, 74)}>
-          <p className="tl-ruler-label">
+          <p className="tl-ruler-label copy-tiny">
             **COMPOSITE COMPONENT DEVELOPMENT INSIGHT**
             <br />
             PROJECT: AERO_HYPERCAR_v2.2
@@ -182,17 +182,17 @@ function Board() {
 
       {/* 2019 — Figma 2500×1080; hall and autoclave sit apart, no overlap */}
       <section className="tl-panel tl-panel--2019">
-        <p className="tl-grow" style={box(566, 66, 1408, 464)} aria-hidden>
+        <p className="tl-grow decorative-primary" style={box(566, 66, 1408, 464)} aria-hidden>
           WE ARE
           <br />
           GROWING.
         </p>
         <Photo src="/images/timeline/figma/2019-hall.png" alt="Production hall with autoclaves" left={566} top={307} width={800} height={533} />
         <Photo src="/images/timeline/figma/2019-autoclave.png" alt="Open autoclave chamber" left={1570.5} top={427.5} width={900} height={700} />
-        <p className="tl-meta" style={box(566, 1004, 800, 10)}>
+        <p className="copy-tiny" style={box(566, 1004, 800, 10)}>
           THREE AUTOCLAVES
         </p>
-        <p className="tl-meta" style={box(566, 950, 174, 64, { zIndex: 12 })}>
+        <p className="copy-tiny" style={box(566, 950, 174, 64, { zIndex: 12 })}>
           AUTOCLAVE INFORMATION:
           <br />
           AMOUNT: 3
@@ -202,25 +202,25 @@ function Board() {
           MAX PRESSURE:
         </p>
         <div className="tl-copy" style={box(1210, 66, 205, 120, { gap: 2 })}>
-          <p className="tl-logo tl-logo--mark">
+          <p className="tl-logo tl-logo--mark heading-tertiary">
             BRÄUTIGAM
-            <span>CARBON FIBER WORKS</span>
+            <span className="tl-logo__tagline copy-body-lg">CARBON FIBER WORKS</span>
           </p>
         </div>
         <div className="tl-copy" style={box(0, 186.5, 550, 586.5, { gap: 32, zIndex: 12 })}>
-          <p className="tl-y-xl">2019</p>
+          <p className="decorative-primary">2019</p>
           <div className="tl-head-stack">
-            <h3 className="tl-h-light">WE NEED</h3>
-            <h3 className="tl-h-bold">MORE SPACE.</h3>
+            <h3 className="heading-secondary">WE NEED</h3>
+            <h3 className="heading-secondary-bold">MORE SPACE.</h3>
           </div>
           <div className="tl-gap">
-            <p className="tl-meta">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
-            <p className="tl-body">
+            <p className="copy-tiny">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
+            <p className="copy-body">
               Expanding space, advancing tech. We scaled our footprint and upgraded our facility with three high-capacity autoclaves to match the highest industry standards.
             </p>
           </div>
         </div>
-        <div className="tl-pill" style={box(1541, 74.25, 250, 88)}>
+        <div className="tl-pill copy-body-sm" style={box(1541, 74.25, 250, 88)}>
           <PillIcon kind="inhouse" />
           INHOUSE
         </div>
@@ -245,7 +245,7 @@ function Board() {
 
       {/* 2020–23 — Figma Year Container 3276×1080 (screenshot 1024×337) */}
       <section className="tl-panel tl-panel--2020">
-        <p className="tl-meta" style={box(132, 66, 174, 64, { zIndex: 12 })}>
+        <p className="copy-tiny" style={box(132, 66, 174, 64, { zIndex: 12 })}>
           AUTOCLAVE INFORMATION:
           <br />
           AMOUNT: 3
@@ -255,33 +255,33 @@ function Board() {
           MAX PRESSURE:
         </p>
         <div className="tl-copy" style={box(132, 217.43, 774, 661.14, { gap: 32 })}>
-          <p className="tl-y-xl">2020</p>
+          <p className="decorative-primary">2020</p>
           <div className="tl-head-stack">
-            <h3 className="tl-h-light">MONOCOCQUE</h3>
-            <h3 className="tl-h-bold">CONSTRUCTION</h3>
+            <h3 className="heading-secondary">MONOCOCQUE</h3>
+            <h3 className="heading-secondary-bold">CONSTRUCTION</h3>
           </div>
           <div className="tl-gap">
-            <p className="tl-meta">STRUCTURAL CARBON RESTORATION AT ITS HIGHEST LEVEL.</p>
-            <p className="tl-body">
+            <p className="copy-tiny">STRUCTURAL CARBON RESTORATION AT ITS HIGHEST LEVEL.</p>
+            <p className="copy-body">
               Complete structural monocoque repair and carbon restoration on a crashed Porsche Carrera GT. Just one saved legend and merely a fraction of what leaves our facility.
             </p>
           </div>
         </div>
-        <div className="tl-pill" style={box(173.25, 910.29, 250, 88)}>
+        <div className="tl-pill copy-body-sm" style={box(173.25, 910.29, 250, 88)}>
           <PillIcon kind="complexity" />
           COMPLEXITY
         </div>
         <div className="tl-copy" style={box(922, 66, 774, 406.29, { gap: 36, padding: "28px 0" })}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%", gap: 10 }}>
             <div className="tl-head-stack">
-              <h3 className="tl-h-light">DEVELOPMENT &amp;</h3>
-              <h3 className="tl-h-bold">MANUFACTURING</h3>
+              <h3 className="heading-secondary">DEVELOPMENT &amp;</h3>
+              <h3 className="heading-secondary-bold">MANUFACTURING</h3>
             </div>
-            <p className="tl-y-sm">2021</p>
+            <p className="decorative-secondary">2021</p>
           </div>
           <div className="tl-gap">
-            <p className="tl-meta">BUILT TO HANDLE RAW POWER.</p>
-            <p className="tl-body">
+            <p className="copy-tiny">BUILT TO HANDLE RAW POWER.</p>
+            <p className="copy-body">
               We engineered and manufactured a high-modulus carbon torque tube for an ultra-exclusive hypercar built for maximum torsional rigidity and absolute weight reduction under extreme loads.
             </p>
           </div>
@@ -292,14 +292,14 @@ function Board() {
         <Photo src="/images/timeline/figma/2016-thumb-3.png" alt="Hand finishing a composite part" left={1927} top={820} width={345} height={345} dim />
         <div className="tl-copy" style={box(2502, 217.43, 774, 254.86, { padding: "28px 0", gap: 36 })}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%", gap: 32 }}>
-            <h3 className="tl-h-award">
+            <h3 className="heading-tertiary">
               GROWTH CHAMPION
               <br />
               AWARD
             </h3>
             <div>
-              <p className="tl-y-sm">2022</p>
-              <p className="tl-y-sm">2023</p>
+              <p className="decorative-secondary">2022</p>
+              <p className="decorative-secondary">2023</p>
             </div>
           </div>
         </div>
@@ -309,18 +309,18 @@ function Board() {
 
       {/* 2024–26 — Figma Year Container 3096×1080 */}
       <section className="tl-panel tl-panel--2024">
-        <p className="tl-y-sm" style={box(1197, 66, 135, 84, { zIndex: 12, textAlign: "right" })}>
+        <p className="decorative-secondary" style={box(1197, 66, 135, 84, { zIndex: 12, textAlign: "right" })}>
           2024
         </p>
         <Photo src="/images/timeline/figma/2024-brabus.png" alt="Work on a Brabus grille" left={741} top={174} width={591} height={394} dim />
         <div className="tl-copy" style={box(132, 669, 774, 346, { gap: 32 })}>
           <div className="tl-head-stack" style={{ padding: "8px 0" }}>
-            <h3 className="tl-h-light">POWERED BY</h3>
-            <h3 className="tl-h-bold">BRABUS</h3>
+            <h3 className="heading-secondary">POWERED BY</h3>
+            <h3 className="heading-secondary-bold">BRABUS</h3>
           </div>
           <div className="tl-gap">
-            <p className="tl-meta">TWO POWERHOUSES, ONE VISION.</p>
-            <p className="tl-body">
+            <p className="copy-tiny">TWO POWERHOUSES, ONE VISION.</p>
+            <p className="copy-body">
               A strategic milestone in high-performance engineering: Bräutigam GmbH officially becomes part of the BRABUS Group—combining advanced composite expertise with the global pinnacle of luxury automotive performance.
             </p>
           </div>
@@ -328,27 +328,27 @@ function Board() {
         <div className="tl-copy" style={box(1514, 187, 962, 466, { gap: 36, padding: "8px 0" })}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%", gap: 20 }}>
             <div className="tl-head-stack" style={{ gap: 20, flex: "1 1 auto", minWidth: 0 }}>
-              <h3 className="tl-h-light">80+ EXPERTS</h3>
-              <h3 className="tl-h-bold" style={{ whiteSpace: "nowrap" }}>
+              <h3 className="heading-secondary">80+ EXPERTS</h3>
+              <h3 className="heading-secondary-bold" style={{ whiteSpace: "nowrap" }}>
                 1 UNSTOPPABLE VISION
               </h3>
             </div>
             <div>
-              <p className="tl-y-sm">2025</p>
-              <p className="tl-y-sm">2026</p>
+              <p className="decorative-secondary">2025</p>
+              <p className="decorative-secondary">2026</p>
             </div>
           </div>
           <div className="tl-gap">
-            <p className="tl-meta">BUILT TO HANDLE RAW POWER.</p>
-            <p className="tl-body">
+            <p className="copy-tiny">BUILT TO HANDLE RAW POWER.</p>
+            <p className="copy-body">
               From three visionaries to 80+ high-performance composite specialists. As our capabilities expand, our drive remains the same: pushing the limits of what’s engineered in carbon.
             </p>
           </div>
         </div>
         <div className="tl-copy" style={box(2003, 722, 481, 239, { gap: 12 })}>
           <div className="tl-head-stack" style={{ gap: 20 }}>
-            <h3 className="tl-h-light">JOIN OUR</h3>
-            <h3 className="tl-h-bold">TEAM</h3>
+            <h3 className="heading-secondary">JOIN OUR</h3>
+            <h3 className="heading-secondary-bold">TEAM</h3>
           </div>
           <SiteButton href="/karriere">SEE OPEN POSITIONS</SiteButton>
         </div>
@@ -462,17 +462,17 @@ export default function HorizontalTimeline() {
     <>
       <section className="journey-intro" aria-labelledby="journey-heading">
         <div className="journey-intro__copy">
-          <p className="journey-intro__kicker">{`/*= CORPORATE EVOLUTION =*/`}</p>
+          <p className="journey-intro__kicker copy-tiny">{`/*= CORPORATE EVOLUTION =*/`}</p>
           <dl className="journey-intro__hud">
-            <div className="journey-intro__row">
+            <div className="journey-intro__row copy-tiny">
               <dt>YEARS ACTIVE:</dt>
               <dd className="journey-intro__value">10</dd>
             </div>
-            <div className="journey-intro__row">
+            <div className="journey-intro__row copy-tiny">
               <dt>TEAM SIZE:</dt>
               <dd className="journey-intro__value">80+</dd>
             </div>
-            <div className="journey-intro__row">
+            <div className="journey-intro__row copy-tiny">
               <dt>SCROLL STATE:</dt>
               <dd
                 ref={(el) => {
@@ -484,15 +484,15 @@ export default function HorizontalTimeline() {
               </dd>
             </div>
           </dl>
-          <h2 id="journey-heading" className="journey-intro__title">
+          <h2 id="journey-heading" className="journey-intro__title heading-secondary">
             <span>OUR JOURNEY</span>
-            <span>&amp; HISTORY</span>
+            <span className="heading-secondary-bold">&amp; HISTORY</span>
           </h2>
         </div>
         <div className="journey-intro__watermark" aria-hidden>
-          <p>CARBON</p>
-          <p>FIBER</p>
-          <p>WORKS</p>
+          <p className="decorative-primary">CARBON</p>
+          <p className="decorative-primary">FIBER</p>
+          <p className="decorative-primary">WORKS</p>
         </div>
       </section>
 
@@ -563,7 +563,7 @@ export default function HorizontalTimeline() {
             className="absolute bottom-0 left-0 w-full z-20 border-t transition-colors duration-500 border-zinc-200/60 bg-brand-light dark:border-zinc-800/40 dark:bg-[var(--background)]"
             style={{ height: "90px" }}
           >
-            <div className="absolute top-0 left-0 w-full px-6 md:px-12 py-2 font-mono text-[10px] tracking-widest uppercase transition-colors duration-500 text-zinc-400 dark:text-zinc-600">
+            <div className="absolute top-0 left-0 w-full px-6 md:px-12 py-2 copy-tiny transition-colors duration-500 text-zinc-400 dark:text-zinc-600">
               <div className="flex items-center gap-2">
                 <span
                   ref={(el) => {
@@ -594,18 +594,18 @@ export default function HorizontalTimeline() {
             </div>
 
             <div className="absolute bottom-3 left-0 w-full px-6 md:px-12 flex justify-between items-center">
-              <div className="font-mono text-[9px] tracking-wider flex items-center gap-3 transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
+              <div className="copy-tiny flex items-center gap-3 transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="animate-pulse">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
                 <span className="hidden sm:inline">SCROLL TO EXPLORE</span>
               </div>
-              <div className="font-mono text-[9px] tracking-wider transition-colors duration-500 hidden md:block text-zinc-400 dark:text-zinc-600">
+              <div className="copy-tiny transition-colors duration-500 hidden md:block text-zinc-400 dark:text-zinc-600">
                 HISTORICAL ARCHIVE // 2016–2026
               </div>
               <button
                 onClick={handleSkip}
-                className="font-mono text-[10px] tracking-wider uppercase px-4 py-2 rounded-sm border transition-all duration-300 cursor-pointer flex items-center gap-2 group border-zinc-300 text-zinc-500 hover:border-brand-neon hover:text-brand-neon bg-white dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-brand-neon dark:hover:text-brand-neon dark:bg-zinc-900"
+                className="button-body-caption px-4 py-2 rounded-sm border transition-all duration-300 cursor-pointer flex items-center gap-2 group border-zinc-300 text-zinc-500 hover:border-brand-neon hover:text-brand-neon bg-white dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-brand-neon dark:hover:text-brand-neon dark:bg-zinc-900"
               >
                 Skip
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="transition-transform group-hover:translate-x-1">
