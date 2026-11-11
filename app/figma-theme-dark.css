@@ -110,7 +110,7 @@
 
 .dark .social-section__links,
 .dark .social-section__links a {
-  color: var(--social-link);
+  color: var(--icon-default-placeholder);
 }
 
 .dark .social-section__links a:hover {

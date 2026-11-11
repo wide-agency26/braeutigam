@@ -1,16 +1,16 @@
 /* ── Crew page (was Careers). Shared tokens also style /karriere/[slug]. ── */
 
 .career {
-  --career-line: rgba(0, 255, 0, 0.5);
-  --career-stroke: rgba(0, 255, 0, 0.5);
-  --career-fill: #131315;
-  --career-neon: #00ff00;
+  --career-line: color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
+  --career-stroke: color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
+  --career-fill: var(--neutral-black);
+  --career-neon: var(--colors-greeeen);
 }
 :root:not(.dark) .career {
-  --career-line: color-mix(in srgb, var(--border-primary-secondary)) 55%, transparent);
-  --career-stroke: color-mix(in srgb, var(--text-default-accent)) 70%, transparent);
-  --career-fill: var(--surface-pages-page));
-  --career-neon: var(--colors-greeeen));
+  --career-line: color-mix(in srgb, var(--border-primary-secondary) 55%, transparent);
+  --career-stroke: color-mix(in srgb, var(--text-default-accent) 70%, transparent);
+  --career-fill: var(--surface-pages-page);
+  --career-neon: var(--colors-greeeen);
 }
 
 .career-shell {
@@ -95,10 +95,10 @@
 .crew-lead {
   max-width: 38rem;
   margin: 1.35rem 0 0;
-  color: var(--text-default-body));
+  color: var(--text-default-body);
 }
 .dark .crew-lead {
-  color: #d4d4d8;
+  color: var(--text-default-body);
 }
 
 .crew-stats {
@@ -117,7 +117,7 @@
 }
 .crew-stats dt {
   margin-top: 0.7rem;
-  color: var(--text-default-body));
+  color: var(--text-default-body);
   font-family: var(--font-mono), monospace;
   font-size: 0.62rem;
   font-weight: 400;
@@ -125,7 +125,7 @@
   text-transform: uppercase;
 }
 .dark .crew-stats dt {
-  color: #c6c6cb;
+  color: var(--icon-default-placeholder);
 }
 .crew-stats dd {
   margin: 0;
@@ -158,13 +158,13 @@
 .crew-story p,
 .crew-film p {
   margin: 0.35rem 0 0;
-  color: var(--text-default-body));
+  color: var(--text-default-body);
   font-size: 0.84rem;
   line-height: 1.45;
 }
 .dark .crew-story p,
 .dark .crew-film p {
-  color: #d4d4d8;
+  color: var(--text-default-body);
 }
 .crew-film p {
   font-family: var(--font-mono), monospace;
@@ -178,7 +178,7 @@
   overflow: hidden;
   aspect-ratio: 16 / 10;
   border-radius: 2px;
-  background: #17171a;
+  background: var(--surface-pages-page-secondary);
 }
 .crew-shot--wide {
   aspect-ratio: 16 / 9;
@@ -206,7 +206,7 @@
   translate: -50% -50%;
   border: 1px solid var(--career-neon);
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.38);
+  background: color-mix(in srgb, var(--neutral-black) 38%, transparent);
   color: var(--career-neon);
   pointer-events: none;
 }
@@ -246,11 +246,11 @@
 }
 .crew-job__dept,
 .crew-job__meta {
-  color: var(--text-default-body));
+  color: var(--text-default-body);
 }
 .dark .crew-job__dept,
 .dark .crew-job__meta {
-  color: #c6c6cb;
+  color: var(--icon-default-placeholder);
 }
 .crew-job__dept {
   display: block;
@@ -294,12 +294,12 @@
 .crew-step p {
   max-width: 34rem;
   margin: 0.55rem 0 0;
-  color: var(--text-default-body));
+  color: var(--text-default-body);
   font-size: 0.92rem;
   line-height: 1.5;
 }
 .dark .crew-step p {
-  color: #d4d4d8;
+  color: var(--text-default-body);
 }
 
 .crew-join {
@@ -326,7 +326,7 @@
   text-transform: uppercase;
 }
 :root:not(.dark) .crew-cta {
-  color: var(--text-on-bright-heading));
+  color: var(--text-on-bright-heading);
 }
 .crew-cta:hover {
   filter: brightness(1.12);

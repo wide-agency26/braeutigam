@@ -19,6 +19,7 @@ import { EXPERTS } from "@/lib/data/experts";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -186,9 +187,9 @@ export default function HomePage({
               rootMargin="200px"
               className="absolute inset-0"
               componentProps={{
-                lowColor: "#003300",
-                midColor: "#008000",
-                highColor: "#33FF33",
+                lowColor: readCssVarColor("--text-default-accent-subtle", "#006600"),
+                midColor: readCssVarColor("--text-default-accent", "#009900"),
+                highColor: readCssVarColor("--colors-greeeen", "#00ff00"),
                 speed: 0.35,
                 morphAmount: 3,
                 morphSpeed: 0.02,
@@ -495,7 +496,7 @@ export default function HomePage({
             componentProps={{
               items: SOCIAL_GALLERY_ITEMS,
               bend: 3,
-              textColor: "#ffffff",
+              textColor: readCssVarColor("--neutral-white", "#f0f0f0"),
               borderRadius: 0.05,
               scrollEase: 0.05,
               itemAspect: 326 / 474,

@@ -1,6 +1,6 @@
 .contact-page {
-  background: #131414;
-  color: #f3f3f3;
+  background: var(--neutral-black);
+  color: var(--text-on-bright-heading);
 }
 
 .contact-hero {
@@ -22,7 +22,7 @@
 }
 
 .contact-hero__shade {
-  background: linear-gradient(to bottom, rgba(19, 20, 20, 0) 63.194%, #131414 100%);
+  background: linear-gradient(to bottom, rgba(19, 20, 20, 0) 63.194%, var(--neutral-black) 100%);
 }
 
 .contact-photo--hero {
@@ -46,7 +46,7 @@
 .contact-hero__portal,
 .contact-hero__build,
 .contact-hero__status span:first-child {
-  color: #a1a1a1;
+  color: var(--text-default-caption);
 }
 
 .contact-hero__portal,
@@ -84,11 +84,11 @@
 }
 
 .contact-hero__title h1 {
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
 }
 
 .contact-hero__title p {
-  color: #d0d0d0;
+  color: var(--text-default-body);
 }
 
 .contact-hero__status {
@@ -104,7 +104,7 @@
 }
 
 .contact-hero__status span:last-child {
-  color: #d0d0d0;
+  color: var(--text-default-body);
 }
 
 .contact-body {
@@ -113,7 +113,7 @@
   gap: 64px;
   width: min(100%, var(--site-max-width, 1440px));
   margin-inline: auto;
-  background: #131414;
+  background: var(--neutral-black);
 }
 
 .contact-split {
@@ -150,14 +150,14 @@
 .contact-faq__head > p,
 .contact-map header p:first-child {
   margin: 0;
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .contact-section-head h2,
 .contact-info__value,
 .contact-map h2 {
   margin: 0;
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -189,7 +189,7 @@
 }
 
 .contact-field label {
-  color: #d0d0d0;
+  color: var(--text-default-body);
 }
 
 .contact-field input,
@@ -198,10 +198,10 @@
   margin: 0;
   padding: 16px 0;
   border: 0;
-  border-bottom: 1px solid #5a5b5b;
+  border-bottom: 1px solid var(--icon-default-placeholder);
   border-radius: 0;
   background: transparent;
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
   outline: none;
 }
 
@@ -217,13 +217,13 @@
 
 .contact-field input::placeholder,
 .contact-field textarea::placeholder {
-  color: #898989;
+  color: var(--icon-default-placeholder);
   opacity: 1;
 }
 
 .contact-field input:focus-visible,
 .contact-field textarea:focus-visible {
-  border-bottom-color: #00ff00;
+  border-bottom-color: var(--colors-greeeen);
 }
 
 .contact-field input[aria-invalid="true"],
@@ -238,7 +238,7 @@
 }
 
 .contact-form__note {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .contact-info__blocks {
@@ -262,7 +262,7 @@
   display: flex;
   flex-direction: column;
   margin: 0;
-  color: #d0d0d0;
+  color: var(--text-default-body);
 }
 
 .contact-info__address span + span {
@@ -271,7 +271,7 @@
 
 .contact-info__hours {
   margin: 0;
-  color: #d0d0d0;
+  color: var(--text-default-body);
 }
 
 .contact-shield {
@@ -279,9 +279,9 @@
   flex-direction: column;
   gap: 12px;
   padding: 24px;
-  border-top: 1px solid #131414;
+  border-top: 1px solid var(--neutral-black);
   border-radius: 8px;
-  background: #1f2020;
+  background: var(--surface-pages-page-secondary);
 }
 
 .contact-shield p {
@@ -289,11 +289,11 @@
 }
 
 .contact-shield p:first-child {
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
 }
 
 .contact-shield p:last-child {
-  color: #d0d0d0;
+  color: var(--text-default-body);
 }
 
 .contact-faq {
@@ -311,11 +311,11 @@
 }
 
 .contact-faq__head h2 span:first-child {
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
 }
 
 .contact-faq__head h2 span:last-child {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .contact-faq ul {
@@ -337,18 +337,18 @@
   border: 0;
   background: transparent;
   text-align: left;
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
   cursor: pointer;
   transition: color 280ms ease;
 }
 
 .contact-faq__question:hover,
 .contact-faq li.is-open .contact-faq__question {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .contact-faq__question:focus-visible {
-  outline: 2px solid color-mix(in srgb, #00ff00 55%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--colors-greeeen) 55%, transparent);
   outline-offset: 2px;
 }
 
@@ -363,7 +363,7 @@
 .contact-faq__mark::after {
   content: "";
   position: absolute;
-  background: #00ff00;
+  background: var(--colors-greeeen);
   transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -454,7 +454,7 @@
 
 .contact-map header > p {
   margin: 0;
-  color: #a1a1a1;
+  color: var(--text-default-caption);
   white-space: nowrap;
 }
 
@@ -463,7 +463,7 @@
   height: 650px;
   overflow: hidden;
   border-radius: 12px;
-  border-top: 1px solid #131414;
+  border-top: 1px solid var(--neutral-black);
 }
 
 .contact-map__frame iframe {
@@ -494,7 +494,7 @@
   padding: 12px 14px 10px;
   border-radius: 10px;
   background: var(--surface-pages-page);
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
 
@@ -512,10 +512,10 @@
 .contact-map__pin-actions button {
   margin: 0;
   padding: 6px 10px;
-  border: 1px solid #00ff00;
+  border: 1px solid var(--colors-greeeen);
   border-radius: 6px;
   background: transparent;
-  color: #00ff00;
+  color: var(--colors-greeeen);
   text-decoration: none;
   cursor: pointer;
 }
@@ -524,7 +524,7 @@
 .contact-map__pin-actions button:hover,
 .contact-map__pin-actions a:focus-visible,
 .contact-map__pin-actions button:focus-visible {
-  background: #00ff00;
+  background: var(--colors-greeeen);
   color: var(--text-on-bright-heading);
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
@@ -598,23 +598,23 @@
 /* Keep the photographic hero legible while the content surface follows the
    selected theme. */
 :root:not(.dark) .contact-page {
-  background: var(--surface-pages-page));
-  color: var(--text-default-heading));
+  background: var(--surface-pages-page);
+  color: var(--text-default-heading);
 }
 
 :root:not(.dark) .contact-hero__shade {
-  background: linear-gradient(to bottom, transparent 63.194%, var(--surface-pages-page)) 100%);
+  background: linear-gradient(to bottom, transparent 63.194%, var(--surface-pages-page) 100%);
 }
 
 :root:not(.dark) .contact-body {
-  background: var(--surface-pages-page));
+  background: var(--surface-pages-page);
 }
 
 :root:not(.dark) .contact-section-head p,
 :root:not(.dark) .contact-faq__head > p,
 :root:not(.dark) .contact-map header p:first-child,
 :root:not(.dark) .contact-form__note {
-  color: var(--text-default-accent-subtle));
+  color: var(--text-default-accent-subtle);
 }
 
 :root:not(.dark) .contact-section-head h2,
@@ -622,40 +622,40 @@
 :root:not(.dark) .contact-map h2,
 :root:not(.dark) .contact-field input,
 :root:not(.dark) .contact-field textarea {
-  color: var(--text-default-heading));
+  color: var(--text-default-heading);
 }
 
 :root:not(.dark) .contact-field label,
 :root:not(.dark) .contact-info__address,
 :root:not(.dark) .contact-info__hours,
 :root:not(.dark) .contact-map header > p {
-  color: var(--icon-default-placeholder));
+  color: var(--icon-default-placeholder);
 }
 
 :root:not(.dark) .contact-field input,
 :root:not(.dark) .contact-field textarea {
-  border-bottom-color: var(--icon-default-placeholder));
+  border-bottom-color: var(--icon-default-placeholder);
 }
 
 :root:not(.dark) .contact-field input::placeholder,
 :root:not(.dark) .contact-field textarea::placeholder {
-  color: var(--icon-default-placeholder));
+  color: var(--icon-default-placeholder);
 }
 
 :root:not(.dark) .contact-field input:focus-visible,
 :root:not(.dark) .contact-field textarea:focus-visible {
-  border-bottom-color: var(--text-default-accent));
+  border-bottom-color: var(--text-default-accent);
 }
 
 :root:not(.dark) .contact-shield {
-  border-color: var(--icon-default-placeholder));
-  background: var(--surface-pages-page));
+  border-color: var(--icon-default-placeholder);
+  background: var(--surface-pages-page);
 }
 
 :root:not(.dark) .contact-shield p:first-child {
-  color: var(--text-default-heading));
+  color: var(--text-default-heading);
 }
 
 :root:not(.dark) .contact-shield p:last-child {
-  color: var(--icon-default-placeholder));
+  color: var(--icon-default-placeholder);
 }

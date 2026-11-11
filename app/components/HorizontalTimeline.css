@@ -341,6 +341,6 @@
 }
 
 :root:not(.dark) .tl-placeholder {
-  background: color-mix(in srgb, var(--icon-default-placeholder)) 40%, var(--surface-pages-page)));
+  background: color-mix(in srgb, var(--icon-default-placeholder) 40%, var(--surface-pages-page));
 }
 

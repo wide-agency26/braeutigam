@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Fail CI when app code uses raw hex/rgb colors outside allowlisted paths.
+ * Fail when app code uses raw hex/rgb outside figma-tokens.css and line allowlist in docs/color-exceptions.md
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -11,31 +11,24 @@ const APP = path.join(ROOT, "app");
 const ALLOW_FILES = new Set([path.join(APP, "figma-tokens.css")]);
 const EXCEPTIONS_DOC = path.join(ROOT, "docs/color-exceptions.md");
 
-/** @returns {string[]} */
-function loadAllowedPaths() {
-  if (!fs.existsSync(EXCEPTIONS_DOC)) return [];
-  const text = fs.readFileSync(EXCEPTIONS_DOC, "utf8");
-  const paths = [];
-  for (const line of text.split("\n")) {
-    const m = line.match(/^-\s+`(app\/[^`]+)`/);
+/** @returns {Map<string, Set<number>>} */
+function loadLineExceptions() {
+  const map = new Map();
+  if (!fs.existsSync(EXCEPTIONS_DOC)) return map;
+  for (const line of fs.readFileSync(EXCEPTIONS_DOC, "utf8").split("\n")) {
+    const m = line.match(/^-\s+`(app\/[^`]+):(\d+)`\s+[—-]\s+/);
     if (!m) continue;
-    const rel = m[1];
-    if (rel.endsWith("/**")) {
-      paths.push({
-        type: "prefix",
-        value: path.join(ROOT, rel.slice(0, -3)),
-      });
-    } else {
-      paths.push({ type: "file", value: path.join(ROOT, rel) });
-    }
+    const file = path.join(ROOT, m[1]);
+    const ln = Number(m[2]);
+    if (!map.has(file)) map.set(file, new Set());
+    map.get(file).add(ln);
   }
-  return paths;
+  return map;
 }
 
 const HEX = /#[0-9a-f]{3,8}\b/gi;
 const RGB = /\brgba?\s*\(/gi;
 
-/** @param {string} dir */
 function walk(dir, out = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, ent.name);
@@ -45,41 +38,34 @@ function walk(dir, out = []) {
   return out;
 }
 
-function isAllowed(file, allowed) {
-  if (ALLOW_FILES.has(file)) return true;
-  for (const rule of allowed) {
-    if (rule.type === "file" && file === rule.value) return true;
-    if (rule.type === "prefix" && file.startsWith(rule.value + path.sep)) return true;
-  }
-  return false;
-}
-
 function main() {
-  const allowed = loadAllowedPaths();
+  const lineEx = loadLineExceptions();
   const violations = [];
   for (const file of walk(APP)) {
-    if (isAllowed(file, allowed)) continue;
+    if (ALLOW_FILES.has(file)) continue;
+    if (file.includes(`${path.sep}cms${path.sep}`)) continue;
     const rel = path.relative(ROOT, file);
-    const text = fs.readFileSync(file, "utf8");
-    const lines = text.split("\n");
+    const allowedLines = lineEx.get(file) ?? new Set();
+    const lines = fs.readFileSync(file, "utf8").split("\n");
     lines.forEach((line, i) => {
-      if (line.includes("eslint-disable") && line.includes("color")) return;
+      const ln = i + 1;
+      if (allowedLines.has(ln)) return;
       if (line.includes("readCssVarColor(")) return;
       if (line.includes('memberId = "#000-000"')) return;
       if (HEX.test(line) || RGB.test(line)) {
         HEX.lastIndex = 0;
         RGB.lastIndex = 0;
-        violations.push(`${rel}:${i + 1}: ${line.trim().slice(0, 120)}`);
+        violations.push(`${rel}:${ln}: ${line.trim().slice(0, 120)}`);
       }
     });
   }
 
   if (violations.length) {
     console.error(
-      `Hardcoded color check failed (${violations.length} lines). Use figma-tokens.css vars or add docs/color-exceptions.md allowlist.\n`
+      `Hardcoded color check failed (${violations.length} lines). Add per-line allowlist in docs/color-exceptions.md or use tokens.\n`
     );
-    console.error(violations.slice(0, 40).join("\n"));
-    if (violations.length > 40) console.error(`… and ${violations.length - 40} more`);
+    console.error(violations.slice(0, 50).join("\n"));
+    if (violations.length > 50) console.error(`… and ${violations.length - 50} more`);
     process.exit(1);
   }
   console.log("check-hardcoded-colors: OK");

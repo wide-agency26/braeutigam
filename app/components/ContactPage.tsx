@@ -287,11 +287,11 @@ function ContactMapPin() {
         <svg width="28" height="36" viewBox="0 0 28 36" fill="none">
           <path
             d="M14 35C14 35 3 20.2 3 13.2C3 7.03 7.92 2 14 2C20.08 2 25 7.03 25 13.2C25 20.2 14 35 14 35Z"
-            fill="#131414"
-            stroke="#00ff00"
+            fill="var(--neutral-black)"
+            stroke="var(--colors-greeeen)"
             strokeWidth="1.6"
           />
-          <circle cx="14" cy="13" r="3.4" fill="#00ff00" />
+          <circle cx="14" cy="13" r="3.4" fill="var(--colors-greeeen)" />
         </svg>
       </span>
     </div>

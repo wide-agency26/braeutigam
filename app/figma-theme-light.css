@@ -115,17 +115,17 @@
   color: var(--text-default-accent);
 }
 
-/* Footer — Figma 2006:809: nav columns use heading ink; bottom bar on-bright */
+/* Footer — Figma 2006:809: nav/logo/social use --text-on-bright-heading; imprint/legal use --text-default-heading */
 :root:not(.dark) .footer-figma__nav a {
-  color: var(--text-default-heading);
+  color: var(--text-on-bright-heading);
 }
 
 :root:not(.dark) .footer-figma__logo {
-  color: var(--text-default-heading);
+  color: var(--text-on-bright-heading);
 }
 
 :root:not(.dark) .footer-figma__since span {
-  color: var(--text-default-accent);
+  color: var(--text-on-bright-accent);
 }
 
 :root:not(.dark) .footer-figma__imprint a,
@@ -133,7 +133,7 @@
 :root:not(.dark) .footer-figma__legal a,
 :root:not(.dark) .footer-figma__legal span,
 :root:not(.dark) .footer-figma__credit {
-  color: var(--text-on-bright-heading);
+  color: var(--text-default-heading);
 }
 
 :root:not(.dark) .footer-figma__nav a:hover,
@@ -158,7 +158,7 @@
 
 :root:not(.dark) .social-section__links,
 :root:not(.dark) .social-section__links a {
-  color: var(--social-link);
+  color: var(--icon-default-placeholder);
 }
 
 :root:not(.dark) .social-section__links a:hover {

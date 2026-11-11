@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "./figma-tokens.css";
 @import "./figma-theme-light.css";
-@import "./figma-theme-dark.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -67,8 +66,8 @@ body {
   z-index: 120;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background: #111111;
-  color: #ffffff;
+  background: var(--surface-pages-page-secondary);
+  color: var(--text-on-bright-heading);
   font: 600 0.75rem/1 var(--font-jetbrains-mono), monospace;
   text-transform: uppercase;
   transform: translate(-50%, -200%);
@@ -90,46 +89,46 @@ body {
 .technical-grid-theme {
   background-size: 60px 60px, 15px 15px;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px);
 }
 .dark .technical-grid-theme {
   background-image:
-    linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px);
 }
 
 /* Legacy aliases kept so any leftover class names still resolve */
 .technical-grid {
   background-size: 60px 60px;
   background-image:
-    linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px);
 }
 
 .technical-grid-fine {
   background-size: 15px 15px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px);
 }
 
 .technical-grid-light {
   background-size: 60px 60px;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px);
 }
 
 .technical-grid-fine-light {
   background-size: 15px 15px;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px);
 }
 
 /* Below-fold sections: skip layout/paint until near the viewport. */
@@ -142,8 +141,8 @@ body {
 .led-pillar {
   width: 4px;
   height: 120px;
-  background: #ffffff;
-  box-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+  background: var(--neutral-white);
+  box-shadow: 0 0 15px var(--neutral-white), 0 0 30px var(--neutral-white);
   border-radius: 2px;
 }
 
@@ -169,14 +168,14 @@ body {
 /* Technical Brackets */
 .bracket-left::before {
   content: "[";
-  color: #BFFF00;
+  color: var(--colors-greeeen);
   margin-right: 0.5rem;
   font-family: var(--font-jetbrains-mono), monospace;
 }
 
 .bracket-right::after {
   content: "]";
-  color: #BFFF00;
+  color: var(--colors-greeeen);
   margin-left: 0.5rem;
   font-family: var(--font-jetbrains-mono), monospace;
 }
@@ -188,16 +187,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #090909;
-  border-left: 1px solid rgba(191, 255, 0, 0.1);
+  background: var(--surface-pages-page-secondary);
+  border-left: 1px solid color-mix(in srgb, var(--colors-greeeen) 10%, transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #BFFF00;
+  background: var(--colors-greeeen);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4ff33;
+  background: var(--text-default-accent-subtle);
 }
 
 /* Custom clipping/angles for industrial tech vibe */
@@ -216,16 +215,16 @@ body {
 /* Text overlay blending — readable on solid bg, blends on images */
 .text-blend-overlay {
   text-shadow:
-    0 0 40px rgba(0, 0, 0, 0.7),
-    0 0 80px rgba(0, 0, 0, 0.4);
+    0 0 40px color-mix(in srgb, var(--neutral-black) 70%, transparent),
+    0 0 80px color-mix(in srgb, var(--neutral-black) 40%, transparent);
 }
 
 .dark .text-blend-overlay,
 .text-blend-overlay-dark {
   text-shadow:
-    0 0 40px rgba(0, 0, 0, 0.9),
-    0 0 80px rgba(0, 0, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.8);
+    0 0 40px color-mix(in srgb, var(--neutral-black) 90%, transparent),
+    0 0 80px color-mix(in srgb, var(--neutral-black) 60%, transparent),
+    0 2px 4px color-mix(in srgb, var(--neutral-black) 80%, transparent);
 }
 
 .cad-hud__meta {
@@ -238,10 +237,10 @@ body {
   margin: 0;
 }
 .cad-hud__ok {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 .cad-hud__warn {
-  color: #c9a227;
+  color: var(--text-default-accent-secondary);
 }
 /* ── Hero entrance animations ──
    These run in CSS rather than through framer-motion on purpose. The hero
@@ -316,7 +315,7 @@ body {
   max-width: min(42rem, 46vw);
 }
 .journey-intro__kicker {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   white-space: nowrap;
 }
 .journey-intro__kicker.copy-tiny {
@@ -335,7 +334,7 @@ body {
   justify-content: space-between;
   gap: 16px;
   margin: 0;
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
 }
 .journey-intro__row dt,
 .journey-intro__row dd {
@@ -352,14 +351,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   white-space: nowrap;
 }
 .journey-intro__title span:last-child {
   font-weight: 700;
 }
 .journey-intro__value {
-  color: #00ff00;
+  color: var(--colors-greeeen);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   text-align: right;
@@ -377,7 +376,7 @@ body {
 }
 .journey-intro__watermark p {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
   white-space: nowrap;
 }
 @media (max-width: 768px) {
@@ -402,16 +401,15 @@ body {
 .manifest-figma__line {
   max-width: 72rem;
   text-align: center;
-  color: #131414;
+  color: var(--text-default-heading);
 }
 .dark .manifest-figma__line {
-  /* Figma Gradient White base #FBFAFC */
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
 }
 .manifest-figma__neon {
   margin: 0;
-  color: #00ff00;
-  -webkit-text-fill-color: #00ff00;
+  color: var(--colors-greeeen);
+  -webkit-text-fill-color: var(--colors-greeeen);
   background: none;
   background-clip: unset;
   -webkit-background-clip: unset;
@@ -452,7 +450,7 @@ body {
 }
 .mission-figma__watermark p {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
   white-space: nowrap;
 }
 /* Logo Container 1334:1722 — x 64, y 686.67 on the 1920×1218.67 mission frame. */
@@ -476,7 +474,7 @@ body {
   width: calc(70 / 1920 * 100cqi);
   margin-left: calc(20 / 1920 * 100cqi);
   text-align: center;
-  color: #717272;
+  color: var(--icon-default-placeholder);
 }
 .mission-figma__chip img {
   width: calc(50 / 1920 * 100cqi);
@@ -679,25 +677,25 @@ body {
 }
 .experts-figma__meet {
   display: block;
-  color: #52525b;
+  color: var(--text-default-placeholder);
 }
 .experts-figma__experts {
   display: block;
-  color: #111111;
+  color: var(--text-default-heading);
 }
 .dark .experts-figma__experts {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
 }
 .dark .experts-figma__meet {
-  color: #8a8a8a;
+  color: var(--text-default-caption);
 }
 .experts-figma__hud {
   margin-top: clamp(20px, 2.4vw, 36px);
   width: min(100%, 242px);
-  color: #52525b;
+  color: var(--text-default-placeholder);
 }
 .dark .experts-figma__hud {
-  color: #8a8a8a;
+  color: var(--text-default-caption);
 }
 .experts-figma__hud p {
   margin: 0 0 4px;
@@ -715,7 +713,7 @@ body {
   font-variant-numeric: tabular-nums;
 }
 .dark .experts-figma__hud-val {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 .experts-figma__grid {
   display: flex;
@@ -1076,7 +1074,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 40px;
-  color: var(--social-link);
+  color: var(--icon-default-placeholder);
 }
 .social-section__links .copy-body-sm {
   color: inherit;
