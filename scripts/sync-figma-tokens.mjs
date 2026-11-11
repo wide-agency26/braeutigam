@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Generates app/figma-tokens.css + public/figma-tokens.css from scripts/data/figma-variables-source.json
- * Dark production mismatches come from scripts/data/dark-production-snapshot.json
+ * Dark values from Figma only (see scripts/data/figma-variables-source.json dark.nodeIds).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -9,7 +9,6 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE = path.join(ROOT, "scripts/data/figma-variables-source.json");
-const DARK_SNAP = path.join(ROOT, "scripts/data/dark-production-snapshot.json");
 const OUT_APP = path.join(ROOT, "app/figma-tokens.css");
 const OUT_PUBLIC = path.join(ROOT, "public/figma-tokens.css");
 const OUT_DOC = path.join(ROOT, "docs/figma-tokens.md");
@@ -71,8 +70,8 @@ function semanticAliases() {
     "  --background: var(--surface-pages-page);",
     "  --foreground: var(--text-default-heading);",
     "  --surface: var(--surface-pages-page);",
-    "  --surface-muted: var(--surface-pages-page);",
-    "  --focus-ring: var(--text-default-accent);",
+    "  --surface-muted: var(--surface-pages-page-secondary);",
+    "  --focus-ring: var(--colors-greeeen);",
     "  --color-brand-neon: var(--colors-greeeen);",
     "  --social-link: var(--text-social-link);",
   ];
@@ -80,26 +79,18 @@ function semanticAliases() {
 
 function main() {
   const source = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
-  const darkSnap = JSON.parse(fs.readFileSync(DARK_SNAP, "utf8"));
 
   const lightLines = buildBlock(source.light.variables);
-  const darkVars = { ...source.dark.variables };
-  for (const figmaKey of Object.keys(darkVars)) {
-    const cssName = figmaKeyToCssVar(figmaKey);
-    if (darkSnap.cssVarOverrides?.[cssName]) {
-      darkVars[figmaKey] = darkSnap.cssVarOverrides[cssName];
-    }
-  }
+  const darkLines = buildBlock(source.dark.variables);
 
-  const darkLines = buildBlock(darkVars);
-  const darkOverrideLines = Object.entries(darkSnap.cssVarOverrides || {})
-    .filter(([name]) => !darkLines.some((l) => l.startsWith(`  ${name}:`)))
-    .map(([name, value]) => `  ${name}: ${value};`);
+  const darkLabel = source.dark.nodeName
+    ? `${source.dark.nodeName} + ${source.dark.nodeIds.filter((id) => id !== "934:241").join(", ")}`
+    : source.dark.nodeIds.join(", ");
 
   const header = `/**
  * Figma design tokens — file ${source.fileKey}
  * Light: node ${source.light.nodeId} (${source.light.nodeName})
- * Dark: merged from nodes ${source.dark.nodeIds.join(", ")}
+ * Dark: node 934:241 (${darkLabel})
  * Regenerate: pnpm sync:figma-tokens
  */\n`;
 
@@ -112,12 +103,8 @@ function main() {
     "}\n",
     ".dark {",
     ...darkLines,
-    ...darkOverrideLines,
     "",
-    ...(darkSnap.semanticDark
-      ? Object.entries(darkSnap.semanticDark).map(([k, v]) => `  ${k}: ${v};`)
-      : []),
-    "  --color-brand-neon: var(--colors-greeeen);",
+    ...semanticAliases(),
     "}\n",
   ].join("\n");
 
@@ -131,9 +118,7 @@ function main() {
     if (!isColorValue(raw) && !isDimensionValue(raw)) continue;
     const cssName = figmaKeyToCssVar(key);
     const darkRaw = source.dark.variables[key];
-    let darkApplied = darkRaw && isColorValue(darkRaw) ? darkRaw : "—";
-    const override = darkSnap.cssVarOverrides?.[cssName];
-    if (override) darkApplied = `${override} (snapshot)`;
+    const darkApplied = darkRaw && (isColorValue(darkRaw) || isDimensionValue(darkRaw)) ? darkRaw : "—";
     tableRows.push(
       `| \`${key}\` | ${derivedCollection(key)} | \`${cssName}\` | ${raw} | ${darkApplied} | |`
     );
@@ -151,14 +136,9 @@ Regenerate CSS: \`pnpm sync:figma-tokens\`
 |----------------|------------|----------|-------|----------------|---------|
 ${tableRows.join("\n")}
 
-## Pending dark decisions
+## Dark mode policy
 
-${(darkSnap.pendingDarkDecisions || [])
-  .map(
-    (r) =>
-      `- **${r.figmaKey}** (\`${r.cssVar}\`): Figma \`${r.figmaValue}\` → applied \`${r.appliedValue}\` — ${r.usedIn}`
-  )
-  .join("\n")}
+Dark CSS follows Figma frame **934:241** and library dark contexts (no production overrides). Regenerate after MCP export updates \`dark.variables\` in the source JSON.
 
 ## Non-exportable (Figma)
 

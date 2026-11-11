@@ -493,7 +493,7 @@
   max-width: min(280px, calc(100vw - 96px));
   padding: 12px 14px 10px;
   border-radius: 10px;
-  background: #0b0b0c;
+  background: var(--surface-pages-page);
   color: #f3f3f3;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
@@ -525,7 +525,7 @@
 .contact-map__pin-actions a:focus-visible,
 .contact-map__pin-actions button:focus-visible {
   background: #00ff00;
-  color: #0b0b0c;
+  color: var(--text-on-bright-heading);
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }

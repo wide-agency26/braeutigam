@@ -287,7 +287,7 @@ function ContactMapPin() {
         <svg width="28" height="36" viewBox="0 0 28 36" fill="none">
           <path
             d="M14 35C14 35 3 20.2 3 13.2C3 7.03 7.92 2 14 2C20.08 2 25 7.03 25 13.2C25 20.2 14 35 14 35Z"
-            fill="#0b0b0c"
+            fill="#131414"
             stroke="#00ff00"
             strokeWidth="1.6"
           />

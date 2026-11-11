@@ -10,6 +10,7 @@ import {
   activeHeroSlides,
   type HeroSlide,
 } from "@/lib/hero-slides";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 const loadMagicRings = () => import("./MagicRings");
 
@@ -105,7 +106,7 @@ export default function SiteHero({
         </div>
 
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(249,249,251,0.12)_0%,rgba(249,249,251,0.45)_100%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(11,11,12,0.12)_0%,rgba(11,11,12,0.42)_100%)]" />
-        <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/50 to-transparent dark:from-[#0B0B0C] dark:via-[#0B0B0C]/45 dark:to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none bg-gradient-to-t from-brand-light via-brand-light/50 to-transparent dark:from-brand-dark dark:via-brand-dark/45 dark:to-transparent" />
       </div>
 
       <div className="magic-rings-stage absolute inset-0 z-10 opacity-30 pointer-events-none">
@@ -116,7 +117,7 @@ export default function SiteHero({
           rootMargin="0px"
           className="absolute inset-0"
           componentProps={{
-            color: isDark ? "#39FF14" : "#00ff00",
+            color: readCssVarColor("--colors-greeeen", "#00ff00"),
             colorTwo: isDark ? "#555555" : "#cbd5e1",
             ringCount: 6,
             speed: 0.4,

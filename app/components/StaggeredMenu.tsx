@@ -218,7 +218,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
 
           {/* Layer 3: Main Full Screen Content Panel */}
           <m.div
-            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-[#0B0B0C] overflow-y-auto"
+            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-brand-dark overflow-y-auto"
             variants={{
               closed: { x: "-100%" },
               open: { 

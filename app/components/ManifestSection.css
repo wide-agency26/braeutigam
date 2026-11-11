@@ -229,7 +229,7 @@
   z-index: 1;
   flex: none;
   overflow: hidden;
-  background: #0b0b0c;
+  background: var(--surface-pages-page);
 }
 
 .manifest-photo::after {

@@ -11,7 +11,7 @@
   --nbg-static-border: rgba(212, 212, 216, 0.8);
   --nbg-static-border-active: rgba(39, 39, 42, 0.5);
   --nbg-glow-stroke: #27272a;
-  --nbg-c0: #39FF14;
+  --nbg-c0: var(--colors-greeeen);
   --nbg-c1: #71717a;
   --nbg-c2: #27272a;
   --nbg-c0-off: #d4d4d8;
@@ -28,13 +28,13 @@
 }
 
 .dark .notched-glow-container {
-  --nbg-bg: #0B0B0C;
-  --nbg-static-border: rgba(255, 255, 255, 0.12);
-  --nbg-static-border-active: rgba(57, 255, 20, 0.45);
-  --nbg-glow-stroke: #39FF14;
-  --nbg-c0: #39FF14;
-  --nbg-c1: #22c55e;
-  --nbg-c2: #16a34a;
+  --nbg-bg: var(--surface-pages-page);
+  --nbg-static-border: color-mix(in srgb, var(--text-default-heading) 12%, transparent);
+  --nbg-static-border-active: color-mix(in srgb, var(--colors-greeeen) 45%, transparent);
+  --nbg-glow-stroke: var(--colors-greeeen);
+  --nbg-c0: var(--colors-greeeen);
+  --nbg-c1: var(--text-default-accent-subtle);
+  --nbg-c2: var(--text-default-accent);
   --nbg-c0-off: #4b5563;
   --nbg-c1-off: #374151;
   --nbg-c2-off: #1f2937;
@@ -45,7 +45,7 @@
 }
 
 .dark .notched-glow-container.nbg-frosted {
-  --nbg-bg: rgba(11, 11, 12, 0.9);
+  --nbg-bg: color-mix(in srgb, var(--surface-pages-page) 90%, transparent);
 }
 
 /* 1. Unclipped Edge-Light Layer (Dynamic SVG glow) */
@@ -118,7 +118,7 @@
     var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)),
     var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)),
     var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)),
-    var(--gradient-base, linear-gradient(#39FF14 0 100%));
+    var(--gradient-base, linear-gradient(var(--colors-greeeen) 0 100%));
 }
 
 @media (hover: hover) {
@@ -144,7 +144,7 @@
   inset: 1px; /* 1px gap reveals the border-layer or container background */
   z-index: 2;
   pointer-events: none;
-  background-color: var(--card-bg, #0B0B0C);
+  background-color: var(--card-bg, var(--surface-pages-page));
   transition: background-color 0.3s ease;
 }
 
@@ -172,7 +172,7 @@
       var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)),
       var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)),
       var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)),
-      var(--gradient-base, linear-gradient(#39FF14 0 100%));
+      var(--gradient-base, linear-gradient(var(--colors-greeeen) 0 100%));
 
     mask-image:
       linear-gradient(to bottom, black, black),

@@ -24,7 +24,7 @@ export default function SiteFooter() {
   const locale = useSiteLocale();
 
   const waveColors = useMemo(() => {
-    const neon = readCssVarColor("--colors-greeeen", "#39ff14");
+    const neon = readCssVarColor("--colors-greeeen", "#00ff00");
     const secondary = readCssVarColor("--surface-pages-page-secondary", "#1f2020");
     const ink = readCssVarColor("--neutral-black", "#131414");
     if (isDark) {
