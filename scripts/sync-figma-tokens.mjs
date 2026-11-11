@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Generates app/figma-tokens.css + public/figma-tokens.css from scripts/data/figma-variables-source.json
- * Dark *applied* values: Figma 934:241 merged with scripts/data/dark-production-snapshot.json until Ali approves flip.
+ * Light: Figma 2006:131. Dark: Figma 934:241 (exact).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -14,6 +14,34 @@ const OUT_APP = path.join(ROOT, "app/figma-tokens.css");
 const OUT_PUBLIC = path.join(ROOT, "public/figma-tokens.css");
 const OUT_DOC = path.join(ROOT, "docs/figma-tokens.md");
 const MISSING_DOC = path.join(ROOT, "docs/figma-missing-variables.md");
+
+const MODE_SPLIT_KEYS = [
+  "surface/pages/page",
+  "text/default/heading",
+  "text/default/body",
+  "text/on-bright/heading",
+];
+
+/** @param {Record<string, string>} light @param {Record<string, string>} dark */
+function assertLightDarkDiffer(light, dark) {
+  const failures = [];
+  for (const key of MODE_SPLIT_KEYS) {
+    const lv = light[key];
+    const dv = dark[key];
+    if (!lv || !dv) {
+      failures.push(`${key}: missing (light=${lv ?? "—"}, dark=${dv ?? "—"})`);
+      continue;
+    }
+    if (lv.toLowerCase() === dv.toLowerCase()) {
+      failures.push(`${key}: light and dark both ${lv} — modes may be cross-merged`);
+    }
+  }
+  if (failures.length) {
+    console.error("Figma token mode split check failed:\n" + failures.map((f) => `  - ${f}`).join("\n"));
+    console.error("Run: node scripts/fetch-figma-variables.mjs && pnpm sync:figma-tokens");
+    process.exit(1);
+  }
+}
 
 /** @param {string} key */
 function figmaKeyToCssVar(key) {
@@ -100,6 +128,8 @@ function main() {
   const source = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
   const darkSnap = JSON.parse(fs.readFileSync(DARK_SNAP, "utf8"));
 
+  assertLightDarkDiffer(source.light.variables, source.dark.variables);
+
   const lightLines = buildBlock(source.light.variables);
   const darkFigma = { ...source.dark.variables };
   const darkApplied = applyCssOverridesToFigma(darkFigma, darkSnap.cssVarOverrides || {});
@@ -107,9 +137,9 @@ function main() {
 
   const header = `/**
  * Figma design tokens — file ${source.fileKey}
- * Light: node ${source.light.nodeId} (${source.light.nodeName})
- * Dark (Figma source 934:241): applied values may differ — see docs/figma-tokens.md § Pending dark decisions
- * Regenerate: pnpm sync:figma-tokens
+ * Light: node ${source.light.nodeId} (${source.light.nodeName}) — Figma 2006:131
+ * Dark: Figma 934:241 (${source.dark.nodeName})
+ * Regenerate: node scripts/fetch-figma-variables.mjs && pnpm sync:figma-tokens
  */\n`;
 
   const css = [
@@ -122,7 +152,7 @@ function main() {
     ".dark {",
     ...darkLines,
     "",
-    ...(darkSnap.semanticDark
+    ...(darkSnap.semanticDark && Object.keys(darkSnap.semanticDark).length
       ? Object.entries(darkSnap.semanticDark).map(([k, v]) => `  ${k}: ${v};`)
       : []),
     ...semanticAliases(),
@@ -142,46 +172,30 @@ function main() {
     if (!raw || (!isColorValue(raw) && !isDimensionValue(raw))) continue;
     const cssName = figmaKeyToCssVar(key);
     const figmaDark = source.dark.variables[key] ?? "—";
-    let appliedDark = darkApplied[key] ?? "—";
-    const override = darkSnap.cssVarOverrides?.[cssName];
-    if (override && figmaDark !== "—" && isColorValue(figmaDark)) {
-      appliedDark = `${appliedDark} (snapshot)`;
-    }
+    const appliedDark = darkApplied[key] ?? "—";
     tableRows.push(
       `| \`${key}\` | ${derivedCollection(key)} | \`${cssName}\` | ${raw} | ${figmaDark} | ${appliedDark} |`
     );
   }
 
-  const pending = (darkSnap.pendingDarkDecisions || [])
-    .map(
-      (r) =>
-        `| \`${r.figmaKey}\` | \`${r.cssVar}\` | ${r.figmaValue} | ${r.appliedValue} | ${r.usedIn} |`
-    )
-    .join("\n");
-
   const doc = `# Figma tokens
 
+**Policy:** light follows Figma **2006:131** exactly; dark follows Figma **934:241** exactly (\`:root\` vs \`.dark\` in \`app/figma-tokens.css\`).
+
 Source: [\`scripts/data/figma-variables-source.json\`](../scripts/data/figma-variables-source.json)  
-MCP node dumps: [\`scripts/data/figma-variables-mcp/\`](../scripts/data/figma-variables-mcp/)  
+MCP node dumps (split by mode): [\`scripts/data/figma-variables-mcp/\`](../scripts/data/figma-variables-mcp/)  
+Refresh source from MCP: \`node scripts/fetch-figma-variables.mjs\`  
 Full library export: \`FIGMA_ACCESS_TOKEN=… node scripts/fetch-figma-variables.mjs --api\`
 
-Regenerate CSS: \`pnpm sync:figma-tokens\`
+Regenerate CSS: \`pnpm sync:figma-tokens\` (fails if light/dark share page, heading, body, or on-bright heading values)
 
-Color + dimension keys in source: light **${Object.keys(source.light.variables).length}**, dark Figma **${Object.keys(source.dark.variables).length}** (target: full file catalog ~199 via Variables API).
+Color + dimension keys: light **${Object.keys(source.light.variables).length}**, dark **${Object.keys(source.dark.variables).length}**.
 
 ## Variable map
 
-| Figma variable | Collection | CSS name | Light | Dark (Figma) | Dark (applied) |
-|----------------|------------|----------|-------|--------------|----------------|
+| Figma variable | Collection | CSS name | Light (2006:131) | Dark (934:241) | Dark (applied) |
+|----------------|------------|----------|------------------|----------------|----------------|
 ${tableRows.join("\n")}
-
-## Pending dark decisions
-
-Figma dark home **934:241** is documented below; **production dark unchanged** until explicitly approved.
-
-| Figma variable | CSS name | Figma (934:241) | Applied (now) | Used in |
-|----------------|----------|-----------------|---------------|---------|
-${pending}
 
 ## Missing Figma variables
 

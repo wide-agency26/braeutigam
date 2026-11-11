@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./figma-tokens.css";
 @import "./figma-theme-light.css";
+@import "./figma-theme-dark.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));

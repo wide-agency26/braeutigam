@@ -353,9 +353,9 @@
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--neutral-black) 25%, transparent) 0%,
-    transparent 42%,
-    color-mix(in srgb, var(--neutral-black) 88%, transparent) 100%
+    color-mix(in srgb, var(--neutral-black) 0%, transparent) 0%,
+    color-mix(in srgb, var(--neutral-black) 0%, transparent) 63.194%,
+    var(--neutral-black) 100%
   );
 }
 .crew-hero__photo {
@@ -372,31 +372,37 @@
   background: linear-gradient(to top, var(--neutral-black), transparent);
   pointer-events: none;
 }
-.crew-hero__title {
-  margin: 0;
-  color: var(--text-on-bright-heading);
-  line-height: 0.92;
-  font-size: clamp(3.5rem, 9vw, 6.5rem);
-}
-
 .crew-hero__mark {
   position: absolute;
   z-index: 3;
-  top: 46%;
-  right: clamp(1rem, 3.5vw, 3.5rem);
+  left: 50%;
+  bottom: clamp(6.5rem, 22vh, 11rem);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  transform: translateY(-42%);
+  align-items: center;
+  gap: var(--scale-500, 20px);
+  width: min(100%, calc(var(--site-max-width, 1440px) - 2 * clamp(1.5rem, 4vw, 4rem)));
+  padding-inline: clamp(1rem, 3vw, 2rem);
+  transform: translateX(-50%);
+  text-align: center;
   pointer-events: none;
 }
+
+.crew-hero__title {
+  margin: 0;
+  width: 100%;
+  color: var(--text-on-bright-heading);
+  text-transform: uppercase;
+}
+
 .crew-hiring {
-  margin: 0.65rem 0 0 0.12rem;
+  margin: 0;
+  max-width: 28rem;
   color: var(--text-on-bright-heading);
   font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  line-height: 1;
+  font-size: var(--typesize-copy-caption-text-size, 12px);
+  line-height: var(--typesize-copy-caption-line-height, 18px);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -433,17 +439,8 @@
     margin-inline: auto;
   }
   .crew-hero__mark {
-    top: auto;
-    bottom: 14%;
-    transform: none;
-    right: 1rem;
-  }
-  .crew-hero__title {
-    font-size: 4.4rem;
-  }
-  .crew-hiring {
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
+    bottom: clamp(5rem, 18vh, 8rem);
+    transform: translateX(-50%);
   }
   .crew-job {
     grid-template-columns: minmax(0, 1fr) auto;

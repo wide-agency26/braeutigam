@@ -181,10 +181,10 @@ export default function CareerPage({
             />
             <div className="crew-hero__fade" aria-hidden="true" />
             <div className="crew-hero__mark">
-              <p className="crew-hero__title heading-primary-bold">
-                {locale === "en" ? "CREW" : "CREW"}
+              <h1 className="crew-hero__title heading-primary-bold">CREW</h1>
+              <p className="crew-hiring copy-caption">
+                {locale === "en" ? "We are hiring" : "Wir suchen Verstärkung"}
               </p>
-              <p className="crew-hiring">Wir suchen Verstärkung</p>
             </div>
           </section>
 
