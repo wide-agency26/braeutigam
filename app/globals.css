@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./figma-light-scheme.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -8,7 +9,7 @@
   --color-brand-neon: #39FF14; /* Brighter neon green for badges */
   --color-brand-muted: #888888;
   --color-brand-dark: #0B0B0C; /* Rich deep black/gray */
-  --color-brand-light: #F9F9FB; /* Elegant light-gray canvas background */
+  --color-brand-light: #f0f0f0;
   --color-brand-border: rgba(57, 255, 20, 0.2);
   --font-sans: var(--font-univers), sans-serif;
   --font-heading: var(--font-dxburst), var(--font-univers), sans-serif;
@@ -21,13 +22,8 @@
 }
 
 :root {
-  --background: #F9F9FB;
-  --foreground: #111111;
-  --surface: #F9F9FB;
-  --surface-muted: #ffffff;
   --site-max-width: 1440px;
   --site-gutter: clamp(1.5rem, 4vw, 4rem);
-  --focus-ring: #087a08;
 }
 
 .dark {
@@ -95,14 +91,6 @@ body {
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
-}
-
-:root:not(.dark) .text-brand-neon {
-  color: #087a08;
-}
-
-:root:not(.dark) .border-brand-neon {
-  border-color: #087a08;
 }
 
 /* Custom Technical Background Grid — one class, theme via .dark */
@@ -262,13 +250,6 @@ body {
 .cad-hud__warn {
   color: #c9a227;
 }
-:root:not(.dark) .cad-hud__ok {
-  color: #087a08;
-}
-:root:not(.dark) .cad-hud__warn {
-  color: #8a6a10;
-}
-
 /* ── Hero entrance animations ──
    These run in CSS rather than through framer-motion on purpose. The hero
    headline is the LCP element, and a JS-driven `initial={{ opacity: 0 }}`
@@ -389,11 +370,6 @@ body {
 .journey-intro__title span:last-child {
   font-weight: 700;
 }
-:root:not(.dark) .journey-intro__title,
-:root:not(.dark) .journey-intro__kicker,
-:root:not(.dark) .journey-intro__row {
-  color: #131414;
-}
 .journey-intro__value {
   color: #00ff00;
   font-variant-numeric: tabular-nums;
@@ -423,12 +399,6 @@ body {
   color: transparent;
   -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
   white-space: nowrap;
-}
-:root:not(.dark) .journey-intro__value {
-  color: #087a08;
-}
-:root:not(.dark) .journey-intro__watermark p {
-  -webkit-text-stroke: 1px rgba(10, 158, 10, 0.4);
 }
 @media (max-width: 768px) {
   .journey-intro__copy {
@@ -495,11 +465,6 @@ body {
   margin: 0;
   text-align: center;
 }
-:root:not(.dark) .manifest-figma__neon {
-  color: #087a08;
-  -webkit-text-fill-color: #087a08;
-}
-
 /* ── Mission — outline watermark, then the solid headline, then the still ── */
 .mission-figma {
   display: block;
@@ -774,20 +739,6 @@ body {
     font-size: 16px;
   }
 }
-:root:not(.dark) .mission-figma__quality,
-:root:not(.dark) .mission-figma__copy {
-  color: #111111;
-}
-:root:not(.dark) .mission-figma__perf {
-  color: #087a08;
-}
-:root:not(.dark) .mission-figma__watermark p {
-  -webkit-text-stroke: 1px rgba(10, 158, 10, 0.55);
-}
-:root:not(.dark) .mission-figma__chip {
-  color: #717272;
-}
-
 /* ── Experts (Figma Meet the Experts) ── */
 .experts-figma__header {
   margin-bottom: clamp(40px, 5vw, 72px);
@@ -825,7 +776,7 @@ body {
   font-weight: 300;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #52525b;
+  color: var(--figma-icon-muted);
 }
 .dark .experts-figma__hud {
   color: #8a8a8a;
@@ -842,7 +793,7 @@ body {
   margin-bottom: 8px !important;
 }
 .experts-figma__hud-val {
-  color: #087a08;
+  color: var(--figma-accent);
   font-variant-numeric: tabular-nums;
 }
 .dark .experts-figma__hud-val {
