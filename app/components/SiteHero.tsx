@@ -116,7 +116,7 @@ export default function SiteHero({
           rootMargin="0px"
           className="absolute inset-0"
           componentProps={{
-            color: "#39FF14",
+            color: isDark ? "#39FF14" : "#00ff00",
             colorTwo: isDark ? "#555555" : "#cbd5e1",
             ringCount: 6,
             speed: 0.4,

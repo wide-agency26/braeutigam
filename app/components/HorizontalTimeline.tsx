@@ -585,11 +585,8 @@ export default function HorizontalTimeline() {
               style={{ top: "32px" }}
             >
               <m.div
-                className="h-full bg-brand-neon"
-                style={{
-                  width: progressWidth,
-                  boxShadow: "0 0 8px #39FF14, 0 0 16px rgba(57,255,20,0.3)",
-                }}
+                className="tl-scrub-progress h-full bg-brand-neon"
+                style={{ width: progressWidth }}
               />
             </div>
 

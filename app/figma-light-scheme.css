@@ -35,9 +35,14 @@
   --focus-ring: var(--figma-accent);
 }
 
+/* Tailwind @theme neon — light only; `.dark` keeps #39FF14 in globals @theme */
+:root:not(.dark) {
+  --color-brand-neon: var(--figma-green);
+}
+
 /* Tailwind brand utilities (light only; `.dark` keeps @theme neon) */
 :root:not(.dark) .text-brand-neon {
-  color: var(--figma-accent);
+  color: var(--figma-green);
 }
 
 :root:not(.dark) .border-brand-neon {
@@ -144,9 +149,64 @@
   color: var(--figma-accent);
 }
 
+:root:not(.dark) .footer-figma__nav a,
+:root:not(.dark) .footer-figma__logo,
+:root:not(.dark) .footer-figma__imprint a,
+:root:not(.dark) .footer-figma__imprint span,
+:root:not(.dark) .footer-figma__legal a,
+:root:not(.dark) .footer-figma__legal span,
+:root:not(.dark) .footer-figma__credit {
+  color: var(--figma-on-bright-heading);
+}
+
+:root:not(.dark) .footer-figma__nav a:hover,
+:root:not(.dark) .footer-figma__imprint a:hover,
+:root:not(.dark) .footer-figma__legal a:hover,
+:root:not(.dark) .footer-figma__credit:hover,
 :root:not(.dark) .footer-figma a:hover,
 :root:not(.dark) .footer-figma__wide:hover {
   color: var(--figma-accent-subtle);
+}
+
+:root:not(.dark) .social-section,
+:root:not(.dark) .social-gallery {
+  background: var(--figma-page-secondary);
+}
+
+:root:not(.dark) .social-section__links,
+:root:not(.dark) .social-section__links a {
+  color: var(--figma-on-bright-heading);
+}
+
+:root:not(.dark) .social-section__links a:hover {
+  color: var(--figma-accent-subtle);
+}
+
+:root:not(.dark) .notched-glow-container {
+  --nbg-c0: var(--figma-green);
+  --nbg-glow-stroke: var(--figma-green);
+}
+
+:root:not(.dark) .crew-hero,
+:root:not(.dark) .crew-shot {
+  background: var(--figma-page-secondary);
+}
+
+:root:not(.dark) .crew-hiring {
+  color: var(--figma-on-bright-heading);
+}
+
+:root:not(.dark) .contact-hero__title p,
+:root:not(.dark) .contact-hero__status span:last-child {
+  color: var(--figma-on-bright-heading);
+}
+
+:root:not(.dark) .contact-map__pin-card {
+  background: var(--figma-page-secondary);
+}
+
+:root:not(.dark) .tl-scrub-progress {
+  box-shadow: 0 0 8px var(--figma-green), 0 0 16px color-mix(in srgb, var(--figma-green) 30%, transparent);
 }
 
 /* Skip link */
