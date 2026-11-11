@@ -40,6 +40,11 @@ export async function countApplicationsByStatus() {
     SHORTLISTED: 0,
     REJECTED: 0,
     HIRED: 0,
+    REACHED_OUT: 0,
+    FIRST_INTERVIEW: 0,
+    INTERNAL_DECISION: 0,
+    ACCEPTED: 0,
+    DECLINED: 0,
   };
 
   for (const group of groups) {

@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import HomePage from "./components/HomePage";
+import { pageTitle } from "@/lib/site-nav";
+import { pickRandomHeroSlide } from "@/lib/hero-slides";
+
+export const metadata: Metadata = {
+  title: pageTitle("Start"),
+  description:
+    "Bräutigam GmbH — Premium-Carbon in Freiberg am Neckar für Motorsport und Serienfertigung.",
+  alternates: { languages: { de: "/", en: "/en" } },
+};
 
 /**
  * Server entry — keeps metadata/layout on the server and mounts a single
@@ -6,5 +16,6 @@ import HomePage from "./components/HomePage";
  * so static markup can still theme via CSS without prop drilling.
  */
 export default function Page() {
-  return <HomePage />;
+  const heroSlide = pickRandomHeroSlide();
+  return <HomePage heroSlide={heroSlide} />;
 }

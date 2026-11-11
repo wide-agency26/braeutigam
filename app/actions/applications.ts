@@ -24,6 +24,7 @@ import {
   fieldErrors,
   type FieldErrors,
 } from "@/lib/validations";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export type ApplyState = {
   ok?: boolean;
@@ -38,6 +39,15 @@ export async function applyToJob(
 ): Promise<ApplyState> {
   if (String(formData.get("companyWebsite") ?? "").trim()) {
     return { ok: true };
+  }
+
+  const turnstileToken = String(formData.get("cf-turnstile-response") ?? "");
+  const turnstileOk = await verifyTurnstile(turnstileToken);
+  if (!turnstileOk) {
+    return {
+      error:
+        "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    };
   }
 
   try {
@@ -98,6 +108,7 @@ export async function applyToJob(
     }
 
     const applicationId = randomUUID();
+    const retainUntil = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     const objectKey = resumeObjectKey(applicationId, randomUUID(), kind.ext);
     await uploadResumeObject(objectKey, new Uint8Array(bytes), kind.mime);
 
@@ -113,6 +124,7 @@ export async function applyToJob(
             resumeMime: kind.mime,
             resumeSize: bytes.length,
             resumeSha256: createHash("sha256").update(bytes).digest("hex"),
+            retainUntil,
           },
         }),
         prisma.applicationRateLimit.create({ data: { ipHash } }),

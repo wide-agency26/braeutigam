@@ -14,6 +14,7 @@ export interface ExpertCardProps {
   avatarUrl: string;
   memberId?: string;
   headingLevel?: 2 | 3;
+  showContact?: boolean;
 }
 
 function initialsOf(name: string) {
@@ -34,6 +35,7 @@ function ExpertCardComponent({
   avatarUrl,
   memberId = "#000-000",
   headingLevel = 3,
+  showContact = true,
 }: ExpertCardProps) {
   const initials = useMemo(() => initialsOf(name), [name]);
   const telHref = `tel:${phone.replace(/[^\d+]/g, "")}`;
@@ -97,16 +99,18 @@ function ExpertCardComponent({
             </div>
           </div>
 
-          <div className="expert-card__actions">
-            <div className="expert-card__action-group">
-              <SiteButton href={`mailto:${email}`} size="sm">
-                EMAIL
-              </SiteButton>
-              <SiteButton href={telHref} size="sm" variant="solid">
-                PHONE
-              </SiteButton>
+          {showContact ? (
+            <div className="expert-card__actions">
+              <div className="expert-card__action-group">
+                <SiteButton href={`mailto:${email}`} size="sm">
+                  EMAIL
+                </SiteButton>
+                <SiteButton href={telHref} size="sm" variant="solid">
+                  PHONE
+                </SiteButton>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         {/* Reflective glass layers sit above the content, like reactbits'

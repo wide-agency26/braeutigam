@@ -2,14 +2,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { updateApplicationStatus } from "@/app/actions/applications";
 import { getApplicationById } from "@/lib/data/applications";
-import { APPLICATION_STATUS_LABEL, formatDateTime } from "@/lib/format";
+import {
+  APPLICATION_PIPELINE_STATUSES,
+  APPLICATION_STATUS_LABEL,
+  formatDateTime,
+  retentionBadgeLabel,
+} from "@/lib/format";
 import type { ApplicationStatus } from "@prisma/client";
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-const STATUSES = Object.keys(APPLICATION_STATUS_LABEL) as ApplicationStatus[];
+const STATUSES: ApplicationStatus[] = APPLICATION_PIPELINE_STATUSES;
 
 export default async function ApplicationDetailPage({ params }: PageProps) {
   const { id } = await params;
@@ -46,6 +51,13 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
             <dd>{application.wasRecommended ? "Yes" : "No"}</dd>
             <dt>Recommended by</dt>
             <dd>{application.wasRecommended ? application.recommenderName || "Not given" : "—"}</dd>
+            <dt>CV retention</dt>
+            <dd>
+              {retentionBadgeLabel(application.retainUntil) ??
+                (application.retainUntil
+                  ? formatDateTime(application.retainUntil)
+                  : "—")}
+            </dd>
             <dt>Resume</dt>
             <dd>
               {application.resumePath ? (

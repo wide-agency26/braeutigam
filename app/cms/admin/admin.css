@@ -436,22 +436,27 @@
 }
 
 .desk-status-NEW,
+.desk-status-REACHED_OUT,
 .desk-status-PUBLISHED,
-.desk-status-HIRED {
+.desk-status-HIRED,
+.desk-status-ACCEPTED {
   color: var(--desk-live);
 }
 
 .desk-status-DRAFT,
-.desk-status-REVIEWING {
+.desk-status-REVIEWING,
+.desk-status-FIRST_INTERVIEW {
   color: var(--desk-draft);
 }
 
-.desk-status-SHORTLISTED {
+.desk-status-SHORTLISTED,
+.desk-status-INTERNAL_DECISION {
   color: var(--desk-hold);
 }
 
 .desk-status-CLOSED,
-.desk-status-REJECTED {
+.desk-status-REJECTED,
+.desk-status-DECLINED {
   color: var(--desk-stop);
 }
 

@@ -7,19 +7,11 @@ const loadLineWaves = () => import("./LineWaves");
 
 const WIDE_CREDIT_URL = "https://wide-communication.com";
 
-const PAGE_NAV = [
-  { label: "HOME", href: "/" },
-  { label: "WORK AT BRÄUTIGAM", href: "/karriere" },
-  { label: "TEAM", href: "/team" },
-  { label: "CRAFT", href: "/craft" },
-  { label: "CONTACT", href: "/kontakt" },
-] as const;
+import { SITE_NAV } from "@/lib/site-nav";
+import { localizedHref } from "@/lib/i18n";
+import { useSiteLocale } from "@/lib/i18n/use-locale";
 
-const SOCIAL_NAV = [
-  { label: "INSTAGRAM", href: "https://instagram.com" },
-  { label: "LINKEDIN", href: "https://linkedin.com" },
-  { label: "FACEBOOK", href: "https://facebook.com" },
-] as const;
+import { SOCIAL_LINKS } from "@/lib/site-links";
 
 /**
  * Shared Figma footer (Oswald + frame notches) with the LineWaves canvas.
@@ -27,6 +19,7 @@ const SOCIAL_NAV = [
  */
 export default function SiteFooter() {
   const { isDark } = useTheme();
+  const locale = useSiteLocale();
 
   return (
     <footer className="footer-figma-section cv-auto">
@@ -68,11 +61,23 @@ export default function SiteFooter() {
         <div className="footer-figma__inner">
           <div className="footer-figma__main">
             <nav className="footer-figma__nav" aria-label="Footer">
-              {PAGE_NAV.map((item) => (
-                <a key={item.label} href={item.href}>
-                  {item.label}
-                </a>
-              ))}
+              {SITE_NAV.map((item) => {
+                const label =
+                  locale === "en" ? item.labelEn : item.titleDe.toUpperCase();
+                return item.soon ? (
+                  <span key={item.labelEn} className="opacity-50" aria-disabled="true">
+                    {label}
+                    <span className="sr-only"> coming soon</span>
+                  </span>
+                ) : (
+                  <a
+                    key={item.labelEn}
+                    href={item.href ? localizedHref(item.href, locale) : undefined}
+                  >
+                    {label}
+                  </a>
+                );
+              })}
             </nav>
 
             <div className="footer-figma__brand">
@@ -90,10 +95,10 @@ export default function SiteFooter() {
             </div>
 
             <nav className="footer-figma__nav" aria-label="Social">
-              {SOCIAL_NAV.map((item) => (
+              {SOCIAL_LINKS.filter((item) => item.href).map((item) => (
                 <a
                   key={item.label}
-                  href={item.href}
+                  href={item.href!}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -105,8 +110,12 @@ export default function SiteFooter() {
 
           <div className="footer-figma__bottom">
             <div className="footer-figma__imprint">
-              <span>IMPRESSUM</span>
-              <span>DATENSCHUTZ</span>
+              <a href={localizedHref("/impressum", locale)}>
+                {locale === "en" ? "IMPRINT" : "IMPRESSUM"}
+              </a>
+              <a href={localizedHref("/datenschutz", locale)}>
+                {locale === "en" ? "PRIVACY" : "DATENSCHUTZ"}
+              </a>
             </div>
             <div className="footer-figma__legal">
               <span>Legal Notice</span>

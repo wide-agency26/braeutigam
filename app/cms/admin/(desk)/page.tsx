@@ -32,11 +32,11 @@ export default async function AdminHomePage() {
           <p>Drafts</p>
         </article>
         <article>
-          <strong>{appCounts.NEW}</strong>
+          <strong>{appCounts.REACHED_OUT}</strong>
           <p>New applications</p>
         </article>
         <article>
-          <strong>{appCounts.REVIEWING + appCounts.SHORTLISTED}</strong>
+          <strong>{appCounts.FIRST_INTERVIEW + appCounts.INTERNAL_DECISION}</strong>
           <p>In review</p>
         </article>
       </section>

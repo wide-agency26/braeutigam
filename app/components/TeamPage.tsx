@@ -6,12 +6,14 @@ import ExpertSlot from "./ExpertSlot";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 
-export default function TeamPage() {
+import type { Locale } from "@/lib/i18n";
+
+export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         <SiteChrome />
-        <main id="main-content" lang="en">
+        <main id="main-content" lang={locale}>
           <section className="experts-figma relative overflow-hidden pb-24 pt-40 md:pb-32 md:pt-48">
             <div className="site-container relative z-10">
               <div className="experts-figma__header">

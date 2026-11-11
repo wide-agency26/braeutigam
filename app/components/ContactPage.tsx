@@ -4,10 +4,15 @@ import { FormEvent, useId, useState } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
+import Link from "next/link";
 import SiteButton from "./SiteButton";
+import ConsentGate from "./ConsentGate";
+import type { Locale } from "@/lib/i18n";
+import { localizedHref } from "@/lib/i18n";
+import { SITE_CONTACT_EMAIL } from "@/lib/site-contact";
 import "./ContactPage.css";
 
-const SHOP_EMAIL = "info@braeutigam.de";
+const SHOP_EMAIL = SITE_CONTACT_EMAIL;
 const SHOP_PHONE_DISPLAY = "+49 (0) 7141/2996700";
 const SHOP_PHONE_TEL = "+4971412996700";
 const SHOW_CONTACT_FAQ = false;
@@ -82,7 +87,8 @@ function isEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-function ContactForm() {
+function ContactForm({ locale }: { locale: Locale }) {
+  const privacyHref = localizedHref("/datenschutz", locale);
   const formId = useId();
   const [errors, setErrors] = useState<FieldErrors>({});
   const [note, setNote] = useState<string | null>(null);
@@ -119,14 +125,20 @@ function ContactForm() {
     window.location.href = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent(
       subject || "Projektanfrage"
     )}&body=${encodeURIComponent(lines.join("\n"))}`;
-    setNote("Ihr E-Mail-Programm sollte sich öffnen. Falls nicht, schreiben Sie direkt an info@braeutigam.de.");
+    setNote(
+      locale === "en"
+        ? "Your mail app should open. If it does not, email us directly."
+        : "Ihr E-Mail-Programm sollte sich öffnen. Falls nicht, schreiben Sie uns direkt.",
+    );
   }
 
   return (
     <form className="contact-form" onSubmit={handleSubmit} noValidate>
       <div className="contact-form__row">
         <div className="contact-field">
-          <label htmlFor={`${formId}-name`}>NAME</label>
+          <label htmlFor={`${formId}-name`}>
+            NAME <span className="text-brand-neon" aria-hidden>*</span>
+          </label>
           <input
             id={`${formId}-name`}
             name="name"
@@ -144,7 +156,9 @@ function ContactForm() {
           ) : null}
         </div>
         <div className="contact-field">
-          <label htmlFor={`${formId}-email`}>E-MAIL</label>
+          <label htmlFor={`${formId}-email`}>
+            E-MAIL <span className="text-brand-neon" aria-hidden>*</span>
+          </label>
           <input
             id={`${formId}-email`}
             name="email"
@@ -186,7 +200,9 @@ function ContactForm() {
       </div>
 
       <div className="contact-field">
-        <label htmlFor={`${formId}-message`}>NACHRICHT</label>
+        <label htmlFor={`${formId}-message`}>
+          NACHRICHT <span className="text-brand-neon" aria-hidden>*</span>
+        </label>
         <textarea
           id={`${formId}-message`}
           name="message"
@@ -202,7 +218,19 @@ function ContactForm() {
         ) : null}
       </div>
 
-      <SiteButton type="submit">Anfrage senden</SiteButton>
+      <p className="contact-form__hint font-mono text-[9px] uppercase tracking-wide text-zinc-500">
+        {locale === "en" ? "Fields marked * are required." : "Mit * markierte Felder sind Pflichtfelder."}
+      </p>
+      <p className="contact-form__privacy mt-3 text-xs text-zinc-600 dark:text-zinc-400">
+        {locale === "en" ? "We process your data to handle your request. See our " : "Wir verarbeiten Ihre Angaben zur Bearbeitung der Anfrage. Details in der "}
+        <Link className="text-brand-neon underline-offset-2 hover:underline" href={privacyHref}>
+          {locale === "en" ? "privacy policy" : "Datenschutzerklärung"}
+        </Link>
+        .
+      </p>
+      <SiteButton type="submit">
+        {locale === "en" ? "Send inquiry" : "Anfrage senden"}
+      </SiteButton>
       {note ? <p className="contact-form__note" role="status" aria-live="polite">{note}</p> : null}
     </form>
   );
@@ -265,13 +293,13 @@ function ContactMapPin() {
   );
 }
 
-export default function ContactPage() {
+export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="contact-page">
         <SiteChrome />
 
-        <main id="main-content">
+        <main id="main-content" lang={locale}>
         <section className="contact-hero" aria-label="Kontakt">
           <div className="contact-hero__media" aria-hidden="true">
             <img className="contact-photo--hero" src="/images/contact/hero.png" alt="" />
@@ -306,7 +334,7 @@ export default function ContactPage() {
                 <p>{">> START_PROJECT_MANIFEST"}</p>
                 <h2>PROJEKTANFRAGE STARTEN</h2>
               </header>
-              <ContactForm />
+              <ContactForm locale={locale} />
             </div>
 
             <aside className="contact-info" aria-label="Direkter Kontakt">
@@ -371,12 +399,19 @@ export default function ContactPage() {
               <p>AXIS_X: +1.28 AXIS_Y: -0.49 AXIS_Z: +0.00</p>
             </header>
             <div className="contact-map__frame">
-              <iframe
-                title="Karte: Daimlerstraße 13, 71691 Freiberg am Neckar"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=9.1973%2C48.9276%2C9.2093%2C48.9316&layer=mapnik"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+              <ConsentGate
+                kind="map"
+                locale={locale}
+                loadLabelDe="Karte laden"
+                loadLabelEn="Load map"
+              >
+                <iframe
+                  title="Karte: Daimlerstraße 13, 71691 Freiberg am Neckar"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=9.1973%2C48.9276%2C9.2093%2C48.9316&layer=mapnik"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </ConsentGate>
               <ContactMapPin />
             </div>
           </section>

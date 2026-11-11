@@ -10,13 +10,16 @@ import SiteHero from "./SiteHero";
  * Placeholder for Figma Craft (Kohlefaser-Lösungen). Full craft site is not
  * built yet — keep chrome identical to the rest of the site.
  */
-export default function CraftPage() {
+import type { Locale } from "@/lib/i18n";
+import { localizedHref } from "@/lib/i18n";
+
+export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
         <div className="noise-overlay pointer-events-none" />
         <SiteChrome />
-        <main id="main-content" lang="en">
+        <main id="main-content" lang={locale}>
         <SiteHero scrollTarget="#craft-soon" isPageHeading={false} />
 
         <section
@@ -35,16 +38,16 @@ export default function CraftPage() {
           </p>
           <div className="flex flex-wrap gap-4 pt-2 font-mono text-[11px] uppercase tracking-wider">
             <Link
-              href="/karriere"
+              href={localizedHref("/karriere", locale)}
               className="text-zinc-800 underline-offset-4 hover:text-brand-neon hover:underline dark:text-zinc-200"
             >
-              Crew
+              {locale === "en" ? "Careers" : "Karriere"}
             </Link>
             <Link
-              href="/kontakt"
+              href={localizedHref("/kontakt", locale)}
               className="text-zinc-800 underline-offset-4 hover:text-brand-neon hover:underline dark:text-zinc-200"
             >
-              Contact
+              {locale === "en" ? "Contact" : "Kontakt"}
             </Link>
           </div>
         </section>

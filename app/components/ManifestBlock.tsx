@@ -8,6 +8,11 @@ import precision from "../../public/images/grundsatz/figma/bl.jpg";
 import autoclave from "../../public/images/grundsatz/figma/br.jpg";
 import "./ManifestSection.css";
 
+/** TODO(client): confirm F1 supply claim before enabling. */
+const SHOW_F1_CLAIM = false;
+/** TODO(client): confirm CLK GTR imagery rights. */
+const SHOW_CLK_GTR = false;
+
 function HudLine({
   text,
   className = "",
@@ -160,7 +165,18 @@ export default function ManifestBlock() {
             <p className="manifest-figma__neon">anforderungen.</p>
           </div>
 
-          <Photo src={clkGtr} alt="Mercedes-Benz CLK GTR body shell in the workshop" area="tr" />
+          {SHOW_CLK_GTR ? (
+            <Photo
+              src={clkGtr}
+              alt="Mercedes-Benz CLK GTR body shell in the workshop"
+              area="tr"
+            />
+          ) : (
+            <div
+              className="manifest-photo manifest-photo--tr manifest-photo--placeholder"
+              aria-hidden
+            />
+          )}
 
           <div className="manifest-principle">
             <p className="manifest-figma__line">Unser Grundsatz:</p>
@@ -204,9 +220,19 @@ export default function ManifestBlock() {
         <div className="mg-stat">
           <IconFlag />
           <span>
-            SUPPLYING MAJORITY
-            <br />
-            OF F1 TEAMS
+            {SHOW_F1_CLAIM ? (
+              <>
+                SUPPLYING MAJORITY
+                <br />
+                OF F1 TEAMS
+              </>
+            ) : (
+              <>
+                MOTORSPORT
+                <br />
+                & SERIES PARTNERS
+              </>
+            )}
           </span>
         </div>
         <div className="mg-stat">

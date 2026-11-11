@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { verifySession } from "@/lib/auth/dal";
 import { uniqueSlug } from "@/lib/slug";
 import { CMS_BASE, CMS_JOBS } from "@/lib/cms";
+import { z } from "zod";
 import { fieldErrors, jobSchema, type FieldErrors } from "@/lib/validations";
 
 export type JobState = {
@@ -22,14 +23,40 @@ function readJob(formData: FormData) {
     status: formData.get("status"),
     description: formData.get("description"),
     requirements: formData.get("requirements") ?? "",
+    titleEn: formData.get("titleEn") ?? "",
+    descriptionEn: formData.get("descriptionEn") ?? "",
+    requirementsEn: formData.get("requirementsEn") ?? "",
   });
+}
+
+function emptyToNull(value: string) {
+  return value.trim().length > 0 ? value.trim() : null;
+}
+
+function jobWriteData(parsed: z.infer<typeof jobSchema>) {
+  return {
+    title: parsed.title,
+    department: parsed.department,
+    location: parsed.location,
+    employmentType: parsed.employmentType,
+    status: parsed.status,
+    description: parsed.description,
+    requirements: parsed.requirements,
+    titleEn: emptyToNull(parsed.titleEn ?? ""),
+    descriptionEn: emptyToNull(parsed.descriptionEn ?? ""),
+    requirementsEn: emptyToNull(parsed.requirementsEn ?? ""),
+  };
 }
 
 function revalidateJobs(slug?: string) {
   revalidatePath("/karriere");
+  revalidatePath("/en/karriere");
   revalidatePath(CMS_BASE);
   revalidatePath(CMS_JOBS);
-  if (slug) revalidatePath(`/karriere/${slug}`);
+  if (slug) {
+    revalidatePath(`/karriere/${slug}`);
+    revalidatePath(`/en/karriere/${slug}`);
+  }
 }
 
 export async function createJob(
@@ -51,7 +78,7 @@ export async function createJob(
   });
 
   const job = await prisma.job.create({
-    data: { ...parsed.data, slug },
+    data: { ...jobWriteData(parsed.data), slug },
   });
 
   revalidateJobs(job.slug);
@@ -84,7 +111,7 @@ export async function updateJob(
 
   await prisma.job.update({
     where: { id },
-    data: { ...parsed.data, slug },
+    data: { ...jobWriteData(parsed.data), slug },
   });
 
   revalidateJobs(slug);

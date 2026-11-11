@@ -3,15 +3,14 @@ import type { ApplicationStatus } from "@prisma/client";
 import { StatusLabel } from "@/app/cms/admin/StatusLabel";
 import { listApplications } from "@/lib/data/applications";
 import { listJobs } from "@/lib/data/jobs";
-import { APPLICATION_STATUS_LABEL, formatDateTime } from "@/lib/format";
+import {
+  APPLICATION_PIPELINE_STATUSES,
+  APPLICATION_STATUS_LABEL,
+  formatDateTime,
+  retentionBadgeLabel,
+} from "@/lib/format";
 
-const STATUSES: ApplicationStatus[] = [
-  "NEW",
-  "REVIEWING",
-  "SHORTLISTED",
-  "REJECTED",
-  "HIRED",
-];
+const STATUSES: ApplicationStatus[] = APPLICATION_PIPELINE_STATUSES;
 
 type PageProps = {
   searchParams: Promise<{ job?: string; status?: string }>;
@@ -80,6 +79,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
                 <th>Job</th>
                 <th>Status</th>
                 <th>Received</th>
+                <th>Retention</th>
               </tr>
             </thead>
             <tbody>
@@ -97,6 +97,15 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
                     </StatusLabel>
                   </td>
                   <td>{formatDateTime(row.createdAt)}</td>
+                  <td>
+                    {retentionBadgeLabel(row.retainUntil) ? (
+                      <span className="desk-badge desk-badge-warn">
+                        {retentionBadgeLabel(row.retainUntil)}
+                      </span>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

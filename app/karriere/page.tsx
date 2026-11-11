@@ -4,10 +4,13 @@ import { listPublishedJobs } from "@/lib/data/jobs";
 
 export const dynamic = "force-dynamic";
 
+import { pageTitle } from "@/lib/site-nav";
+
 export const metadata: Metadata = {
-  title: "Karriere | Bräutigam GmbH",
+  title: pageTitle("Karriere"),
   description:
-    "Offene Stellen in der Carbonfaser-Verarbeitung bei Bräutigam GmbH — Lamination, CAD/CAM, Qualitätssicherung, CNC und Projektleitung.",
+    "Karriere bei Bräutigam in Freiberg am Neckar: offene Stellen in Laminieren, Zuschnitt, Konstruktion und Projektleitung.",
+  alternates: { languages: { de: "/karriere", en: "/en/karriere" } },
 };
 
 export default async function Page() {

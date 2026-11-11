@@ -3,6 +3,9 @@
 import React, { useEffect, useRef } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import TopoBackground from "./TopoBackground";
+import { SITE_NAV } from "@/lib/site-nav";
+import { localizedHref } from "@/lib/i18n";
+import { useSiteLocale } from "@/lib/i18n/use-locale";
 import "./StaggeredMenu.css";
 
 interface StaggeredMenuProps {
@@ -52,13 +55,12 @@ const SteppedTransitionLayer = ({ className }: { className: string }) => {
 
 export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const menuItems: { label: string; link: string; soon?: boolean }[] = [
-    { label: "HOME", link: "/" },
-    { label: "WORK AT BRÄUTIGAM", link: "/karriere" },
-    { label: "TEAM", link: "/team" },
-    { label: "CRAFT", link: "/craft", soon: true },
-    { label: "CONTACT", link: "/kontakt" },
-  ];
+  const locale = useSiteLocale();
+  const menuItems = SITE_NAV.map((item) => ({
+    label: locale === "en" ? item.labelEn : item.titleDe.toUpperCase(),
+    link: item.href ? localizedHref(item.href, locale) : "#",
+    soon: item.soon,
+  }));
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
     const [path, hash] = link.split("#");

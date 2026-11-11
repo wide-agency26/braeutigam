@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono, Oswald } from "next/font/google";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { siteIndexable } from "@/lib/site-config";
 import "./globals.css";
 
 /* ── Font 1: Univers LT Std — replaces Oswald (body/sans) ──
@@ -85,6 +86,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Bräutigam GmbH | Premium Motorsport Carbon Fiber",
   description: "State-of-the-art carbon fiber engineering and autoclave curing for peak motorsport performance. Precision CAD-to-Carbon execution.",
+  ...(siteIndexable()
+    ? {}
+    : { robots: { index: false, follow: false } }),
 };
 
 export default function RootLayout({

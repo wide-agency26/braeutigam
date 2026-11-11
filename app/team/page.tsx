@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import TeamPage from "../components/TeamPage";
 
+import { pageTitle } from "@/lib/site-nav";
+
 export const metadata: Metadata = {
-  title: "Team | Bräutigam GmbH",
+  title: pageTitle("Experten"),
   description:
     "Lernen Sie die Expertinnen und Experten hinter den Carbon-Komponenten von Bräutigam kennen.",
+  alternates: { languages: { de: "/team", en: "/en/team" } },
 };
 
 export default function Page() {

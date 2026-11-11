@@ -28,6 +28,11 @@ enum ApplicationStatus {
   SHORTLISTED
   REJECTED
   HIRED
+  REACHED_OUT
+  FIRST_INTERVIEW
+  INTERNAL_DECISION
+  ACCEPTED
+  DECLINED
 }
 
 model Admin {
@@ -47,6 +52,9 @@ model Job {
   employmentType EmploymentType @default(FULL_TIME)
   description    String
   requirements   String
+  titleEn        String?
+  descriptionEn  String?
+  requirementsEn String?
   status         JobStatus      @default(DRAFT)
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -71,7 +79,7 @@ model Application {
   resumeSha256    String?
   // Set when a retention period is chosen. Nothing deletes the row until then.
   retainUntil     DateTime?
-  status          ApplicationStatus @default(NEW)
+  status          ApplicationStatus @default(REACHED_OUT)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 
