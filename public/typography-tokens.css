@@ -144,7 +144,7 @@
   /* FLAG: Figma line-height 0 — scales from 10px @ 1440 */
 }
 @media (max-width: 1439.98px) {
-  .button-body-caption { font-size: max(14px, calc(10 * 100vw / 1440)); }
+  .button-body-caption { font-size: max(14px, calc(10 * 100vw / 1440)); line-height: max(14px, calc(10 * 100vw / 1440)); }
 }
 
 .footer-headline-primary {

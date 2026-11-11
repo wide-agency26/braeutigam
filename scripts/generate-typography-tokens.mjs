@@ -284,8 +284,16 @@ function block(token) {
   lines.push(`}`);
   const out = [lines.join("\n")];
   if (typeof fs === "object") {
+    const lhMobile =
+      props.below14 && props.lh <= 12
+        ? `line-height: max(14px, calc(${props.lh} * 100vw / 1440));`
+        : "";
     out.push(`@media (max-width: 1439.98px) {`);
-    out.push(`  .${id} { font-size: ${fs.below}; }`);
+    if (lhMobile) {
+      out.push(`  .${id} { font-size: ${fs.below}; ${lhMobile} }`);
+    } else {
+      out.push(`  .${id} { font-size: ${fs.below}; }`);
+    }
     out.push(`}`);
   }
   return out.join("\n");

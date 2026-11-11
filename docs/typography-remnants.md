@@ -9,22 +9,25 @@ Public copy should use token classes. What remains is layout-only, non-text, CMS
 | `ExpertCard.css` `.expert-card__initial` | `42cqi` display letter | Grid display initial, not body copy |
 | `HorizontalTimeline.tsx` `.tl-h-f1-unmapped` | nearest `heading-secondary` | Figma 77.9px — no exact token |
 | `HorizontalTimeline.tsx` `.tl-logo__tagline` | `copy-body-lg` (28/38) | Figma ~22.94px tagline |
-| `globals.css` `.journey-intro__watermark` | `min(17.2vw, 28vh)` | Stroked watermark, not vw token scale |
-| `CareerPage.css` | `clamp` hero/watermarks, `crew-job__title` `0.95rem` | Careers marketing display + job title row |
-| `CareerPage.css` `crew-stats` | `0.62rem` dt, clamp dd | Stats strip — partial token pass (job meta → `copy-tiny`) |
-| `SpecularButton.css` `.specular-button--sm/md/lg` | `0.875–1.125rem` | Non–`site-btn` glass buttons only; **`site-btn` unsets** so `button-body-*` wins |
-| Legal long-form (`impressum`, `datenschutz`, EN) | prose spacing via layout | Headings use `heading-tertiary`; body relies on Tailwind prose defaults |
+| `globals.css` `.journey-intro__watermark` | `min(17.2vw, 28vh)` | Stroked background watermark |
+| `globals.css` `.experts-figma__hud-val` | inherits **16px** Univers Roman on HUD numbers (`80+`, `9`) | No token on value spans; labels use `copy-tiny` |
+| `CareerPage.css` | `rem` / `clamp` throughout (see list below) | Careers marketing + job UI not fully token-mapped |
+| `SpecularButton.css` `.specular-button--sm/md/lg` | `0.875–1.125rem` on **`:not(.site-btn)`** glass buttons | Site CTAs use `SiteButton` + token classes; `font: inherit` scoped away from `.site-btn` |
+| Legal long-form (`impressum`, `datenschutz`, EN) | prose / layout | Headings use `heading-tertiary`; body not on vw tokens |
 
-## Audit limitation
+### `CareerPage.css` leftover `rem` / `clamp` font sizes
 
-Expert cards load via `LazyOnVisible`; headless audit may not hydrate them in dev. **EMAIL/PHONE** (`button-body-caption`) — check on Vercel preview or after scrolling `/team` in the browser.
+`crew-stats` dt `0.62rem`, dd clamp; `.crew-hero` / `.career-watermark` display clamps; `.crew-story` `0.82rem` / `0.84rem` / `0.62rem`; `.crew-job__title` `0.95rem`; `.crew-path` / quotes / labels `0.78rem`–`0.92rem` and heading clamps; mobile overrides `4.4rem`, `0.58rem`, etc.
 
-## Mapped in PR #10 follow-up (no longer remnants)
+## Expert EMAIL/PHONE CTAs
 
-- Expert **EMAIL/PHONE** CTAs → `button-body-caption` via `SiteButton` (`.site-btn` resets Specular `font-size`/`font-weight`)
-- Home **#story** scrolly headline → `heading-secondary` + `heading-secondary-bold`
-- Karriere job list meta → `copy-tiny`; apply submit → `copy-caption`
-- Home HUD / manifest bars → `copy-tiny` / `copy-caption`
+`SiteButton` + `button-body-caption` on expert cards. **Specular** must not set `font:` on `.site-btn` (loads after `/typography-tokens.css`). Audit scrolls the page to hydrate `LazyOnVisible`; confirm on preview after lazy cards load.
+
+## Partially mapped (PR #10)
+
+- Home **#story** scrolly → `heading-secondary` + `heading-secondary-bold`
+- Karriere job dept/meta → `copy-tiny`; apply submit → `copy-caption`
+- Home / manifest HUD **labels** → `copy-tiny` / `copy-caption` (values still 16px Roman — see above)
 
 ## Layout `clamp` (not font-size)
 

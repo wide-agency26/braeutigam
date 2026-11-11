@@ -75,17 +75,38 @@ const ROUTE_PROBES = [
   },
   {
     path: "/en/team",
-    probes: [{ selector: ".experts-figma__title.heading-secondary", token: "heading-secondary" }],
+    probes: [
+      { selector: ".experts-figma__title.heading-secondary", token: "heading-secondary" },
+      { selector: ".expert-card a.site-btn.button-body-caption", token: "button-body-caption" },
+    ],
   },
   {
     path: "/team",
-    probes: [{ selector: ".experts-figma__title.heading-secondary", token: "heading-secondary" }],
+    probes: [
+      { selector: ".experts-figma__title.heading-secondary", token: "heading-secondary" },
+      { selector: ".expert-card a.site-btn.button-body-caption", token: "button-body-caption" },
+    ],
   },
   { path: "/impressum", probes: [{ selector: ".heading-tertiary", token: "heading-tertiary" }] },
 ];
 
-function expectedPx(specPx, viewport) {
-  return (specPx * viewport) / 1440;
+const BELOW14_SIZE_FLOOR = new Set(["button-body-caption", "copy-caption"]);
+
+function expectedPx(specPx, viewport, tokenId = "", prop = "fontSize") {
+  const raw = (specPx * viewport) / 1440;
+  if (viewport < 1440 && BELOW14_SIZE_FLOOR.has(tokenId)) {
+    return Math.max(14, raw);
+  }
+  if (viewport < 1440 && tokenId === "copy-tiny" && prop === "fontSize") {
+    return Math.max(10, raw);
+  }
+  if (viewport < 1440 && tokenId === "copy-tiny" && prop === "lineHeight") {
+    return Math.max(10, raw);
+  }
+  if (viewport < 1440 && ["copy-body", "copy-body-sm", "copy-body-lg", "button-body-lg"].includes(tokenId)) {
+    return Math.max(14, raw);
+  }
+  return raw;
 }
 
 function parsePx(str) {
@@ -104,6 +125,23 @@ async function loadPuppeteer() {
   return import("puppeteer");
 }
 
+/** Step-scroll so IntersectionObserver + lazy chunks hydrate expert cards etc. */
+async function stepScrollHydrate(page) {
+  await page.evaluate(async () => {
+    const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+    const step = Math.max(360, Math.floor(window.innerHeight * 0.75));
+    const max = document.documentElement.scrollHeight;
+    for (let y = 0; y <= max; y += step) {
+      window.scrollTo(0, Math.min(y, max));
+      await delay(450);
+    }
+    window.scrollTo(0, max);
+    await delay(800);
+    window.scrollTo(0, 0);
+    await delay(400);
+  });
+}
+
 async function run() {
   const puppeteer = (await loadPuppeteer()).default;
   const browser = await puppeteer.launch({ headless: true });
@@ -115,7 +153,7 @@ async function run() {
     "",
     "Scale: at viewport W, expected px = spec × (W / 1440). No cap above 1440.",
     "",
-    "Note: expert card EMAIL/PHONE (`button-body-caption`) are lazy-hydrated; verify those on a warmed preview. Home probes `button-body-lg` on `#mission`.",
+    "After load, audit step-scrolls the page so lazy sections hydrate. Expert EMAIL/PHONE: `.expert-card a.site-btn.button-body-caption`.",
     "",
     "| Route | VP | Theme | Token | font-size | expected | lh | expected lh | match |",
     "|-------|-----|-------|-------|-----------|----------|-----|-------------|-------|",
@@ -140,6 +178,7 @@ async function run() {
         const url = `${BASE}${route.path}`;
         try {
           await page.goto(url, { waitUntil: "networkidle2", timeout: 120_000 });
+          await stepScrollHydrate(page);
         } catch {
           lines.push(`| ${route.path} | ${viewport} | ${theme} | — | — | — | — | — | navigation error |`);
           await page.close();
@@ -160,11 +199,11 @@ async function run() {
             }
           }, probe.selector);
           try {
-            await page.waitForSelector(probe.selector, { timeout: 12_000 });
+            await page.waitForSelector(probe.selector, { timeout: 15_000 });
           } catch {
             /* probe records missing */
           }
-          await new Promise((r) => setTimeout(r, 400));
+          await new Promise((r) => setTimeout(r, 500));
           const row = await page.evaluate((sel) => {
             const el = document.querySelector(sel);
             if (!el) return null;
@@ -177,8 +216,8 @@ async function run() {
             continue;
           }
 
-          const expFs = expectedPx(spec.fontSize, viewport);
-          const expLh = expectedPx(spec.lineHeight, viewport);
+          const expFs = expectedPx(spec.fontSize, viewport, probe.token, "fontSize");
+          const expLh = expectedPx(spec.lineHeight, viewport, probe.token, "lineHeight");
           const actFs = parsePx(row.fontSize);
           const actLh = parsePx(row.lineHeight);
           const match =
@@ -221,7 +260,7 @@ async function run() {
 
   lines.push("", "## Unmapped / remnants", "");
   lines.push("See `docs/typography-remnants.md` for fixed-px rules outside tokens (careers watermarks, expert initial `42cqi`, journey watermark vw, F1 headline 77.9px, WebGL labels, etc.).");
-  lines.push("HUD chrome now uses `copy-tiny`; mission mobile no longer overrides token sizes.");
+  lines.push("Remnants: HUD stat values (`80+`, `9`) still 16px Roman — see `docs/typography-remnants.md`.");
 
   await writeFile(OUT, `${lines.join("\n")}\n`);
   await browser.close();
