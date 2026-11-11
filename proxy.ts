@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decryptSession, SESSION_COOKIE } from "@/lib/auth/session";
 import { CMS_BASE, CMS_LOGIN } from "@/lib/cms";
+import { siteIndexable } from "@/lib/site-config";
+
+function withPrelaunchHeaders(response: NextResponse) {
+  if (!siteIndexable()) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
+}
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -14,7 +22,9 @@ export async function proxy(request: NextRequest) {
   const isLogin = pathname === CMS_LOGIN;
 
   if (!isCmsAdmin) {
-    return NextResponse.next({ request: { headers: requestHeaders } });
+    return withPrelaunchHeaders(
+      NextResponse.next({ request: { headers: requestHeaders } }),
+    );
   }
 
   const session = await decryptSession(
@@ -25,17 +35,23 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = CMS_LOGIN;
     url.search = "";
-    return NextResponse.redirect(url, { headers: requestHeaders });
+    return withPrelaunchHeaders(
+      NextResponse.redirect(url, { headers: requestHeaders }),
+    );
   }
 
   if (isLogin && session) {
     const url = request.nextUrl.clone();
     url.pathname = CMS_BASE;
     url.search = "";
-    return NextResponse.redirect(url, { headers: requestHeaders });
+    return withPrelaunchHeaders(
+      NextResponse.redirect(url, { headers: requestHeaders }),
+    );
   }
 
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  return withPrelaunchHeaders(
+    NextResponse.next({ request: { headers: requestHeaders } }),
+  );
 }
 
 export const config = {
