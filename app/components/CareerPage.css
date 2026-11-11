@@ -7,12 +7,10 @@
   --career-neon: #00ff00;
 }
 :root:not(.dark) .career {
-  --career-line: rgba(0, 170, 0, 0.55);
-  /* Hairline outlines wash out on the light canvas, so the watermark needs a
-     darker stroke than the card borders. */
-  --career-stroke: rgba(0, 130, 0, 0.7);
-  --career-fill: #ffffff;
-  --career-neon: #087a08;
+  --career-line: color-mix(in srgb, var(--figma-border-secondary) 55%, transparent);
+  --career-stroke: color-mix(in srgb, var(--figma-accent) 70%, transparent);
+  --career-fill: var(--figma-page);
+  --career-neon: var(--figma-green);
 }
 
 .career-shell {
@@ -97,7 +95,7 @@
 .crew-lead {
   max-width: 38rem;
   margin: 1.35rem 0 0;
-  color: #3a3a40;
+  color: var(--figma-text-body);
 }
 .dark .crew-lead {
   color: #d4d4d8;
@@ -119,7 +117,7 @@
 }
 .crew-stats dt {
   margin-top: 0.7rem;
-  color: #3a3a40;
+  color: var(--figma-text-body);
   font-family: var(--font-mono), monospace;
   font-size: 0.62rem;
   font-weight: 400;
@@ -160,7 +158,7 @@
 .crew-story p,
 .crew-film p {
   margin: 0.35rem 0 0;
-  color: #3a3a40;
+  color: var(--figma-text-body);
   font-size: 0.84rem;
   line-height: 1.45;
 }
@@ -248,7 +246,7 @@
 }
 .crew-job__dept,
 .crew-job__meta {
-  color: #3a3a40;
+  color: var(--figma-text-body);
 }
 .dark .crew-job__dept,
 .dark .crew-job__meta {
@@ -296,7 +294,7 @@
 .crew-step p {
   max-width: 34rem;
   margin: 0.55rem 0 0;
-  color: #3a3a40;
+  color: var(--figma-text-body);
   font-size: 0.92rem;
   line-height: 1.5;
 }
@@ -328,7 +326,7 @@
   text-transform: uppercase;
 }
 :root:not(.dark) .crew-cta {
-  color: #ffffff;
+  color: var(--figma-on-bright-heading);
 }
 .crew-cta:hover {
   filter: brightness(1.12);

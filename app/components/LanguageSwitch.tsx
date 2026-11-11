@@ -29,7 +29,7 @@ function LangLink({
     <Link
       href={href}
       hrefLang={target}
-      className={`min-w-[2rem] text-center ${active ? "text-brand-neon dark:text-emerald-700" : "opacity-70 hover:opacity-100"}`}
+      className={`min-w-[2rem] text-center ${active ? "text-brand-neon dark:text-brand-neon" : "opacity-70 hover:opacity-100"}`}
       aria-current={active ? "true" : undefined}
       onClick={() => persistLocaleCookie(target)}
     >

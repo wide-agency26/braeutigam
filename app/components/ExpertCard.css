@@ -25,18 +25,18 @@
 }
 
 :root:not(.dark) .expert-card-hit {
-  --ec-name: #131414;
-  --ec-meta: #3f3f46;
-  --ec-neon: #087a08;
-  --ec-btn-fg: #131414;
-  --ec-btn-bg: #e7e7ea;
-  --ec-btn-border: #c4c4c8;
-  --ec-tag-bg: #ffffff;
-  --ec-tag-fg: #087a08;
-  --ec-portrait-edge: #087a08;
-  --ec-glow: rgba(10, 158, 10, 0.28);
-  --ec-drop: drop-shadow(0 0 16px rgba(10, 158, 10, 0.16));
-  --ec-initial-stroke: rgba(19, 20, 20, 0.16);
+  --ec-name: var(--figma-text-heading);
+  --ec-meta: var(--figma-icon-muted);
+  --ec-neon: var(--figma-accent-subtle);
+  --ec-btn-fg: var(--figma-button-text);
+  --ec-btn-bg: var(--figma-button-bg);
+  --ec-btn-border: var(--figma-button-bg-hover);
+  --ec-tag-bg: var(--figma-page);
+  --ec-tag-fg: var(--figma-accent-subtle);
+  --ec-portrait-edge: var(--figma-border-secondary);
+  --ec-glow: color-mix(in srgb, var(--figma-accent) 28%, transparent);
+  --ec-drop: drop-shadow(0 0 16px color-mix(in srgb, var(--figma-accent) 16%, transparent));
+  --ec-initial-stroke: color-mix(in srgb, var(--figma-text-heading) 16%, transparent);
 }
 
 .expert-card-hit:hover {

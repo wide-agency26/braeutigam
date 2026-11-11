@@ -14,22 +14,30 @@
   --tl-board: transparent;
   --tl-cta: #1f2020;
   --tl-cta-ink: #f3f3f3;
+  --tl-cta-hover-bg: #424343;
+  --tl-cta-hover-fg: #00cc00;
+  --tl-cta-shadow: #1f2020;
+  --tl-cta-inset: #424343;
 }
 
 :root:not(.dark) .tl-strip {
-  --tl-year: #087a08;
-  --tl-ink: #131414;
-  --tl-muted: #3f3f46;
-  --tl-meta: #3f3f46;
-  --tl-dim: #087a08;
-  --tl-pill-bg: #ececec;
-  --tl-pill-border: #c4c4c4;
-  --tl-pill-ink: #131414;
-  --tl-watermark: rgba(10, 158, 10, 0.45);
+  --tl-year: var(--figma-accent);
+  --tl-ink: var(--figma-text-heading);
+  --tl-muted: var(--figma-icon-muted);
+  --tl-meta: var(--figma-icon-muted);
+  --tl-dim: var(--figma-accent-subtle);
+  --tl-pill-bg: var(--figma-page);
+  --tl-pill-border: var(--figma-icon-muted);
+  --tl-pill-ink: var(--figma-text-heading);
+  --tl-watermark: color-mix(in srgb, var(--figma-accent) 45%, transparent);
   --tl-photo-bg: transparent;
   --tl-board: transparent;
-  --tl-cta: #e7e7ea;
-  --tl-cta-ink: #131414;
+  --tl-cta: var(--figma-button-bg);
+  --tl-cta-ink: var(--figma-button-text);
+  --tl-cta-hover-bg: var(--figma-button-bg-hover);
+  --tl-cta-hover-fg: var(--figma-button-text-hover);
+  --tl-cta-shadow: var(--figma-page-secondary);
+  --tl-cta-inset: var(--figma-button-bg-hover);
 }
 
 .tl-scale-host {
@@ -261,17 +269,17 @@
   padding: 16px 40px;
   border: 0;
   border-radius: 12px;
-  background: #1f2020;
-  box-shadow: 0 1px 10px -3px #1f2020, inset 0 1px 2px -1px #424343;
-  color: #f3f3f3;
+  background: var(--tl-cta);
+  box-shadow: 0 1px 10px -3px var(--tl-cta-shadow), inset 0 1px 2px -1px var(--tl-cta-inset);
+  color: var(--tl-cta-ink);
   text-decoration: none;
 }
 
 .tl-cta:hover,
 .tl-cta:focus-visible {
-  border-color: #00cc00;
-  background: #424343;
-  color: #00cc00;
+  border-color: var(--tl-cta-hover-fg);
+  background: var(--tl-cta-hover-bg);
+  color: var(--tl-cta-hover-fg);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   outline: none;
 }
@@ -325,6 +333,6 @@
 }
 
 :root:not(.dark) .tl-placeholder {
-  background: #d4d4d8;
+  background: color-mix(in srgb, var(--figma-icon-muted) 40%, var(--figma-page));
 }
 

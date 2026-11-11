@@ -598,23 +598,23 @@
 /* Keep the photographic hero legible while the content surface follows the
    selected theme. */
 :root:not(.dark) .contact-page {
-  background: #f9f9fb;
-  color: #171717;
+  background: var(--figma-page);
+  color: var(--figma-text-heading);
 }
 
 :root:not(.dark) .contact-hero__shade {
-  background: linear-gradient(to bottom, rgba(19, 20, 20, 0) 63.194%, #f9f9fb 100%);
+  background: linear-gradient(to bottom, transparent 63.194%, var(--figma-page) 100%);
 }
 
 :root:not(.dark) .contact-body {
-  background: #f9f9fb;
+  background: var(--figma-page);
 }
 
 :root:not(.dark) .contact-section-head p,
 :root:not(.dark) .contact-faq__head > p,
 :root:not(.dark) .contact-map header p:first-child,
 :root:not(.dark) .contact-form__note {
-  color: #087a08;
+  color: var(--figma-accent-subtle);
 }
 
 :root:not(.dark) .contact-section-head h2,
@@ -622,40 +622,40 @@
 :root:not(.dark) .contact-map h2,
 :root:not(.dark) .contact-field input,
 :root:not(.dark) .contact-field textarea {
-  color: #171717;
+  color: var(--figma-text-heading);
 }
 
 :root:not(.dark) .contact-field label,
 :root:not(.dark) .contact-info__address,
 :root:not(.dark) .contact-info__hours,
 :root:not(.dark) .contact-map header > p {
-  color: #3f3f46;
+  color: var(--figma-icon-muted);
 }
 
 :root:not(.dark) .contact-field input,
 :root:not(.dark) .contact-field textarea {
-  border-bottom-color: #a1a1aa;
+  border-bottom-color: var(--figma-icon-muted);
 }
 
 :root:not(.dark) .contact-field input::placeholder,
 :root:not(.dark) .contact-field textarea::placeholder {
-  color: #62626b;
+  color: var(--figma-icon-muted);
 }
 
 :root:not(.dark) .contact-field input:focus-visible,
 :root:not(.dark) .contact-field textarea:focus-visible {
-  border-bottom-color: #087a08;
+  border-bottom-color: var(--figma-accent);
 }
 
 :root:not(.dark) .contact-shield {
-  border-color: #d4d4d8;
-  background: #ffffff;
+  border-color: var(--figma-icon-muted);
+  background: var(--figma-page);
 }
 
 :root:not(.dark) .contact-shield p:first-child {
-  color: #171717;
+  color: var(--figma-text-heading);
 }
 
 :root:not(.dark) .contact-shield p:last-child {
-  color: #3f3f46;
+  color: var(--figma-icon-muted);
 }
