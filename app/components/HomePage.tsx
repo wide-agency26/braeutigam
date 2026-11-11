@@ -48,10 +48,10 @@ function SpecCard({
 }) {
   return (
     <NotchedBorderGlow notchPosition="bottom-right" className="w-full max-w-sm shadow-sm pointer-events-auto">
-      <div className="font-mono text-[9px] leading-normal text-zinc-700 dark:text-zinc-300">
-        <div className="text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 uppercase tracking-wider text-[10px] pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
+      <div className="copy-tiny text-zinc-700 dark:text-zinc-300">
+        <div className="copy-tiny text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
           <span>{"// COMPOSITE_SPEC"}</span>
-          <span className="text-[8px] text-brand-neon font-bold">{badge}</span>
+          <span className="copy-tiny text-brand-neon font-bold">{badge}</span>
         </div>
         <div className="space-y-1.5 mt-2">
           <div className="flex justify-between gap-4">
@@ -212,7 +212,7 @@ export default function HomePage({
           </div>
 
           {/* Top HUD Telemetry — Figma CAD corners */}
-          <div className="absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
+          <div className="absolute top-20 left-0 w-full copy-tiny py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
@@ -231,7 +231,7 @@ export default function HomePage({
                     notchPosition="slanted"
                     active={true}
                     noPadding={true}
-                    className="font-mono text-[9px] font-bold tracking-widest uppercase select-none pointer-events-auto"
+                    className="copy-tiny font-bold select-none pointer-events-auto"
                   >
                     <div className="px-4 py-1.5 transition-colors duration-500 text-zinc-800 dark:text-brand-neon">
                       HIGH PERFORMANCE
@@ -341,7 +341,7 @@ export default function HomePage({
           </div>
 
           {/* Bottom scrollytelling coordinate HUD indicators */}
-          <div className="absolute bottom-4 left-8 md:left-16 z-40 hidden lg:flex items-center gap-8 font-mono text-[9px] transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
+          <div className="absolute bottom-4 left-8 md:left-16 z-40 hidden lg:flex items-center gap-8 copy-tiny transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
             <span>AXIS_X: +1.28</span>
             <span>AXIS_Y: -0.49</span>
             <span>AXIS_Z: +0.00</span>
@@ -425,7 +425,7 @@ export default function HomePage({
           <div className="experts-figma__header">
             <h2 className="experts-figma__title heading-secondary">
               <span className="experts-figma__meet">MEET</span>
-              <span className="experts-figma__experts">THE EXPERTS</span>
+              <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
             </h2>
             <div className="experts-figma__hud">
               <p className="experts-figma__hud-kicker copy-tiny">** END 2 END EXPERTS **</p>

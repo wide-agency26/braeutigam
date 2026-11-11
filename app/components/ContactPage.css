@@ -104,10 +104,6 @@
 }
 
 .contact-hero__status span:last-child {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 14px;
-  line-height: 18px;
-  text-transform: uppercase;
   color: #d0d0d0;
 }
 
@@ -154,11 +150,6 @@
 .contact-faq__head > p,
 .contact-map header p:first-child {
   margin: 0;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
-  letter-spacing: 2px;
   color: #00ff00;
 }
 
@@ -166,11 +157,6 @@
 .contact-info__value,
 .contact-map h2 {
   margin: 0;
-  font-family: var(--font-univers-cn), sans-serif;
-  font-weight: 400;
-  font-size: clamp(32px, 3vw, 57px);
-  line-height: 1;
-  text-transform: uppercase;
   color: #f3f3f3;
   text-decoration: none;
   white-space: nowrap;
@@ -203,10 +189,6 @@
 }
 
 .contact-field label {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 12px;
-  line-height: 18px;
-  text-transform: uppercase;
   color: #d0d0d0;
 }
 
@@ -220,10 +202,12 @@
   border-radius: 0;
   background: transparent;
   color: #f3f3f3;
-  font-family: var(--font-univers), sans-serif;
-  font-size: 20px;
-  line-height: 24px;
   outline: none;
+}
+
+.contact-field input.copy-body,
+.contact-field textarea.copy-body {
+  font-family: var(--font-univers), sans-serif;
 }
 
 .contact-field textarea {
@@ -250,9 +234,6 @@
 .contact-field__error,
 .contact-form__note {
   margin: 0;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 12px;
-  line-height: 18px;
   color: #ff5a5a;
 }
 
@@ -274,10 +255,6 @@
 
 .contact-info__kicker {
   margin: 0 0 12px;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 12px;
-  line-height: 18px;
-  text-transform: uppercase;
   color: #cc9900;
 }
 
@@ -285,9 +262,6 @@
   display: flex;
   flex-direction: column;
   margin: 0;
-  font-family: var(--font-univers), sans-serif;
-  font-size: 20px;
-  line-height: 24px;
   color: #d0d0d0;
 }
 
@@ -297,9 +271,6 @@
 
 .contact-info__hours {
   margin: 0;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 14px;
-  line-height: 18px;
   color: #d0d0d0;
 }
 
@@ -318,19 +289,10 @@
 }
 
 .contact-shield p:first-child {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
   color: #f3f3f3;
 }
 
 .contact-shield p:last-child {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 14px;
-  line-height: 18px;
   color: #d0d0d0;
 }
 
@@ -349,18 +311,10 @@
 }
 
 .contact-faq__head h2 span:first-child {
-  font-family: var(--font-univers-cn), sans-serif;
-  font-size: clamp(42px, 4vw, 76px);
-  line-height: 84px;
-  letter-spacing: -2px;
   color: #f3f3f3;
 }
 
 .contact-faq__head h2 span:last-child {
-  font-family: var(--font-bootzy), sans-serif;
-  font-size: clamp(40px, 3.75vw, 72px);
-  line-height: 84px;
-  letter-spacing: 4px;
   color: #00ff00;
 }
 
@@ -382,9 +336,6 @@
   padding: 24px;
   border: 0;
   background: transparent;
-  font-family: var(--font-univers), sans-serif;
-  font-size: 28px;
-  line-height: 38px;
   text-align: left;
   color: #f3f3f3;
   cursor: pointer;
@@ -452,9 +403,6 @@
   margin: 0;
   padding: 0 24px 24px 24px;
   max-width: 68ch;
-  font-family: var(--font-univers), sans-serif;
-  font-size: 18px;
-  line-height: 28px;
   color: #b2b1b2;
   opacity: 0;
   transform: translateY(-8px);
@@ -504,17 +452,8 @@
   gap: 32px;
 }
 
-.contact-map h2 {
-  font-size: clamp(42px, 4vw, 76px);
-  line-height: 84px;
-  letter-spacing: -2px;
-}
-
 .contact-map header > p {
   margin: 0;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 12px;
-  line-height: 18px;
   color: #a1a1a1;
   white-space: nowrap;
 }
@@ -561,10 +500,6 @@
 
 .contact-map__pin-card p {
   margin: 0;
-  font-family: var(--font-univers), sans-serif;
-  font-size: 14px;
-  line-height: 18px;
-  letter-spacing: 0.01em;
 }
 
 .contact-map__pin-actions {
@@ -581,11 +516,6 @@
   border-radius: 6px;
   background: transparent;
   color: #00ff00;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 11px;
-  line-height: 14px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
 }
@@ -622,11 +552,6 @@
     display: none;
   }
 
-  .contact-hero__title h1 {
-    font-size: 64px;
-    line-height: 64px;
-  }
-
   .contact-hero__status span:first-child {
     white-space: normal;
   }
@@ -654,14 +579,10 @@
 
   .contact-faq__question {
     padding-inline: 0;
-    font-size: 22px;
-    line-height: 30px;
   }
 
   .contact-faq__panel-inner p {
     padding-inline: 0;
-    font-size: 16px;
-    line-height: 24px;
   }
 
   .contact-map header {

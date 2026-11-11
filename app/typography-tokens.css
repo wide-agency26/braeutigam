@@ -138,10 +138,10 @@
   font-family: var(--font-univers-cn), sans-serif;
   font-weight: 400;
   font-size: calc(10 * 100vw / 1440);
-  line-height: max(14px, calc(10 * 100vw / 1440));
+  line-height: max(10px, calc(10 * 100vw / 1440));
   letter-spacing: 0;
   text-transform: uppercase;
-  /* FLAG: Figma line-height 0 — use 10px */
+  /* FLAG: Figma line-height 0 — scales from 10px @ 1440 */
 }
 @media (max-width: 1439.98px) {
   .button-body-caption { font-size: max(14px, calc(10 * 100vw / 1440)); }

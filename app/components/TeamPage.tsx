@@ -22,7 +22,7 @@ export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
                 </p>
                 <h1 className="experts-figma__title heading-secondary">
                   <span className="experts-figma__meet">MEET</span>
-                  <span className="experts-figma__experts">THE EXPERTS</span>
+                  <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
                 </h1>
                 <div className="experts-figma__hud">
                   <p className="experts-figma__hud-kicker copy-tiny">** END 2 END EXPERTS **</p>

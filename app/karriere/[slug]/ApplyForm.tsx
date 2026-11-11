@@ -48,7 +48,7 @@ export function ApplyForm({
         <h2 className="mt-4 font-sans text-sm font-bold uppercase tracking-tight">
           {t.successTitle}
         </h2>
-        <p className="mt-2 font-sans text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <p className="copy-caption mt-2 text-zinc-600 dark:text-zinc-400">
           {t.successBody(jobTitle)}
         </p>
       </div>

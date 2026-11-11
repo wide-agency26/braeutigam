@@ -378,11 +378,6 @@ body {
   color: #fbfafc;
   white-space: nowrap;
 }
-.journey-intro__title span:last-child {
-  font-family: var(--font-univers-bold-cn), sans-serif;
-  font-weight: 700;
-  line-height: clamp(30.4px, calc(76px * 100vw / 1440), 76px);
-}
 :root:not(.dark) .journey-intro__title,
 :root:not(.dark) .journey-intro__kicker,
 :root:not(.dark) .journey-intro__row {
@@ -605,12 +600,9 @@ body {
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 .site-btn--sm {
-  height: 30px;
   min-width: 67px;
   padding: 2px 4px;
   border-radius: 8px;
-  font-size: 10px;
-  line-height: 10px;
 }
 .site-btn:hover,
 .site-btn--solid {
@@ -667,15 +659,11 @@ body {
     flex-direction: column;
     gap: 24px;
   }
-  .mission-figma__watermark p {
-    font-size: clamp(4.5rem, 22vw, 180px);
-  }
   .mission-figma__headline {
     margin: 24px 0 32px;
   }
   .mission-figma__quality,
   .mission-figma__perf {
-    font-size: clamp(1.75rem, 8vw, 3rem);
     white-space: normal;
   }
   .mission-figma__sidebar {
@@ -688,9 +676,6 @@ body {
     gap: 24px;
     width: 70px;
     margin-left: 0;
-    font-size: 10px;
-    line-height: 10px;
-    letter-spacing: 2px;
   }
   .mission-figma__chip img {
     width: 50px;
@@ -702,9 +687,6 @@ body {
     aspect-ratio: 16 / 10;
     min-height: 180px;
     margin: 16px 0;
-  }
-  .mission-figma__copy {
-    font-size: 16px;
   }
 }
 :root:not(.dark) .mission-figma__quality,
@@ -735,9 +717,6 @@ body {
 }
 .experts-figma__experts {
   display: block;
-  font-family: var(--font-univers-bold-cn), sans-serif;
-  font-weight: 700;
-  line-height: clamp(30.4px, calc(76px * 100vw / 1440), 76px);
   color: #111111;
 }
 .dark .experts-figma__experts {

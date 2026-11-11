@@ -179,12 +179,6 @@
 }
 
 .expert-card__sys {
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
   color: var(--ec-neon);
   white-space: nowrap;
 }
@@ -217,12 +211,6 @@
   position: absolute;
   left: 12px;
   bottom: 12px;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
   color: var(--ec-tag-fg);
   background: var(--ec-tag-bg);
   padding: 4px 6px;

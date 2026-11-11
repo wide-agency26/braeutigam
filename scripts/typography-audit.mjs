@@ -175,12 +175,9 @@ async function run() {
     await page.close();
   }
 
-  lines.push("", "## Unmapped (no Figma token applied)", "");
-  lines.push("- `.career-watermark` — outlined display stroke (careers)");
-  lines.push("- Home datasheet HUD chrome (`HomePage` top badges) — no named token");
-  lines.push("- Horizontal timeline scrolly chrome (`text-sm` year labels)");
-  lines.push("- Circular gallery canvas label font (WebGL string)");
-  lines.push("- Mission absolute frame: legacy proportional layout vs 1440 vw tokens");
+  lines.push("", "## Unmapped / remnants", "");
+  lines.push("See `docs/typography-remnants.md` for fixed-px rules outside tokens (careers watermarks, expert initial `42cqi`, journey watermark vw, F1 headline 77.9px, WebGL labels, etc.).");
+  lines.push("HUD chrome now uses `copy-tiny`; mission mobile no longer overrides token sizes.");
 
   await writeFile(OUT, `${lines.join("\n")}\n`);
   await browser.close();

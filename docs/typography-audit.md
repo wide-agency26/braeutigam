@@ -1,7 +1,7 @@
 # Typography audit
 
 Base: http://127.0.0.1:3000
-Generated: 2026-11-11T15:51:55.461Z
+Generated: 2026-11-11T16:09:01.385Z
 
 Scale: at viewport W, expected px = spec × (W / 1440). No cap above 1440.
 
@@ -49,8 +49,8 @@ Scale: at viewport W, expected px = spec × (W / 1440). No cap above 1440.
 | /en | 1440 | light | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
 | /en | 1920 | dark | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
 | /en | 1920 | light | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
-| /kontakt | 390 | dark | heading-primary-bold | 64px | 27.08px | 64px | 27.08px | no |
-| /kontakt | 390 | light | heading-primary-bold | 64px | 27.08px | 64px | 27.08px | no |
+| /kontakt | 390 | dark | heading-primary-bold | 40px | 27.08px | 40px | 27.08px | no |
+| /kontakt | 390 | light | heading-primary-bold | 40px | 27.08px | 40px | 27.08px | no |
 | /kontakt | 1440 | dark | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
 | /kontakt | 1440 | light | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
 | /kontakt | 1920 | dark | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
@@ -74,10 +74,7 @@ Scale: at viewport W, expected px = spec × (W / 1440). No cap above 1440.
 | /impressum | 1920 | dark | heading-tertiary | 76px | 76.00px | 76px | 76.00px | yes |
 | /impressum | 1920 | light | heading-tertiary | 76px | 76.00px | 76px | 76.00px | yes |
 
-## Unmapped (no Figma token applied)
+## Unmapped / remnants
 
-- `.career-watermark` — outlined display stroke (careers)
-- Home datasheet HUD chrome (`HomePage` top badges) — no named token
-- Horizontal timeline scrolly chrome (`text-sm` year labels)
-- Circular gallery canvas label font (WebGL string)
-- Mission absolute frame: legacy proportional layout vs 1440 vw tokens
+See `docs/typography-remnants.md` for fixed-px rules outside tokens (careers watermarks, expert initial `42cqi`, journey watermark vw, F1 headline 77.9px, WebGL labels, etc.).
+HUD chrome now uses `copy-tiny`; mission mobile no longer overrides token sizes.

@@ -267,7 +267,9 @@ function block(token) {
     `  font-weight: ${props.fw};`,
   ];
   const fs = scalePx(props.size, kind);
-  const lh = scalePx(props.lh, kind === "below14" ? "copy" : kind);
+  const lhKind =
+    props.below14 && props.lh <= 12 ? "tiny" : kind === "below14" ? "copy" : kind;
+  const lh = scalePx(props.lh, lhKind);
   if (typeof fs === "object") {
     lines.push(`  font-size: ${fs.base};`);
   } else {
@@ -276,7 +278,9 @@ function block(token) {
   lines.push(`  line-height: ${lh};`);
   lines.push(`  letter-spacing: ${scaleLs(props.ls, props.deco ? "deco" : "copy")};`);
   if (props.caps) lines.push(`  text-transform: uppercase;`);
-  if (props.lhFlag) lines.push(`  /* FLAG: Figma line-height 0 — use 10px */`);
+  if (props.lhFlag) {
+    lines.push(`  /* FLAG: Figma line-height 0 — scales from 10px @ 1440 */`);
+  }
   lines.push(`}`);
   const out = [lines.join("\n")];
   if (typeof fs === "object") {
