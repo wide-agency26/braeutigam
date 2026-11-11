@@ -25,6 +25,8 @@ const ROUTES = [
   "/en/kontakt",
   "/impressum",
   "/en/imprint",
+  "/datenschutz",
+  "/en/privacy",
 ];
 
 async function stepScroll(page) {
