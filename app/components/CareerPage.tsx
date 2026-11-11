@@ -175,7 +175,7 @@ export default function CareerPage({
             />
             <div className="crew-hero__fade" aria-hidden="true" />
             <div className="crew-hero__mark">
-              <p className="career-watermark">Crew</p>
+              <p className="career-watermark">{locale === "en" ? "Careers" : "Karriere"}</p>
               <p className="crew-hiring">Wir suchen Verstärkung</p>
             </div>
           </section>
@@ -188,7 +188,7 @@ export default function CareerPage({
                   <span className="crew-display">Einzigartig</span>
                 </h1>
                 <p className="career-watermark crew-head__mark" aria-hidden="true">
-                  Crew
+                  Team
                 </p>
               </div>
               <p className="crew-lead">

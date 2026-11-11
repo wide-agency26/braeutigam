@@ -42,12 +42,8 @@ export const applicationSchema = z
     recommenderName: data.wasRecommended ? data.recommenderName : "",
   }));
 
+/** CMS writes — pipeline only (legacy enum values remain in Postgres for compatibility). */
 export const applicationStatusSchema = z.enum([
-  "NEW",
-  "REVIEWING",
-  "SHORTLISTED",
-  "REJECTED",
-  "HIRED",
   "REACHED_OUT",
   "FIRST_INTERVIEW",
   "INTERNAL_DECISION",

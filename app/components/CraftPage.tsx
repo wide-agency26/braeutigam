@@ -41,13 +41,13 @@ export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
               href={localizedHref("/karriere", locale)}
               className="text-zinc-800 underline-offset-4 hover:text-brand-neon hover:underline dark:text-zinc-200"
             >
-              Crew
+              {locale === "en" ? "Careers" : "Karriere"}
             </Link>
             <Link
               href={localizedHref("/kontakt", locale)}
               className="text-zinc-800 underline-offset-4 hover:text-brand-neon hover:underline dark:text-zinc-200"
             >
-              Contact
+              {locale === "en" ? "Contact" : "Kontakt"}
             </Link>
           </div>
         </section>
