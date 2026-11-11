@@ -1,0 +1,279 @@
+/**
+ * Light-mode component/theme bridges — token vars only (no hex).
+ * Dark appearance stays in `.dark` rules elsewhere.
+ */
+
+:root:not(.dark) {
+  --color-brand-neon: var(--colors-greeeen);
+}
+
+:root:not(.dark) .text-brand-neon {
+  color: var(--colors-greeeen);
+}
+
+:root:not(.dark) .border-brand-neon {
+  border-color: var(--border-primary-secondary);
+}
+
+:root:not(.dark) .text-accent-subtle {
+  color: var(--text-default-accent-subtle);
+}
+
+:root:not(.dark) .site-btn,
+:root:not(.dark) .specular-button.site-btn {
+  background: var(--button-background-default);
+  color: var(--button-text-default);
+  box-shadow:
+    0 1px 10px -3px var(--surface-pages-page-secondary),
+    inset 0 1px 2px -1px var(--button-background-default-hover);
+}
+
+:root:not(.dark) .site-btn {
+  --sb-tint: var(--button-background-default);
+  --sb-text-color: var(--button-text-default);
+}
+
+:root:not(.dark) .site-btn:hover,
+:root:not(.dark) .site-btn--solid,
+:root:not(.dark) .specular-button.site-btn:hover {
+  background: var(--button-background-default-hover);
+  color: var(--button-text-default-hover);
+}
+
+:root:not(.dark) .site-btn.site-btn--amber:hover {
+  color: var(--text-default-accent-secondary);
+}
+
+:root:not(.dark) .site-btn--fill {
+  background: var(--text-default-accent-subtle);
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .site-btn--fill:hover {
+  background: var(--colors-greeeen);
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .cad-hud__ok {
+  color: var(--text-default-accent);
+}
+
+:root:not(.dark) .cad-hud__warn {
+  color: var(--text-default-accent-subtle-secondary);
+}
+
+:root:not(.dark) .journey-intro__title,
+:root:not(.dark) .journey-intro__kicker,
+:root:not(.dark) .journey-intro__row {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .journey-intro__value {
+  color: var(--text-default-accent);
+}
+
+:root:not(.dark) .journey-intro__watermark p {
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--text-default-accent) 50%, transparent);
+}
+
+:root:not(.dark) .manifest-figma__line {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .manifest-figma__neon {
+  color: var(--text-default-accent);
+  -webkit-text-fill-color: var(--text-default-accent);
+}
+
+:root:not(.dark) .mission-figma__quality,
+:root:not(.dark) .mission-figma__copy {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .mission-figma__perf {
+  color: var(--text-default-accent);
+}
+
+:root:not(.dark) .mission-figma__watermark p {
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--text-default-accent) 55%, transparent);
+}
+
+:root:not(.dark) .mission-figma__chip {
+  color: var(--icon-default-placeholder);
+}
+
+:root:not(.dark) .experts-figma__meet,
+:root:not(.dark) .experts-figma__hud {
+  color: var(--icon-default-placeholder);
+}
+
+:root:not(.dark) .experts-figma__experts {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .experts-figma__hud-val {
+  color: var(--text-default-accent);
+}
+
+/* Footer — Figma 2006:809: nav columns use heading ink; bottom bar on-bright */
+:root:not(.dark) .footer-figma__nav a {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .footer-figma__logo {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .footer-figma__since span {
+  color: var(--text-default-accent);
+}
+
+:root:not(.dark) .footer-figma__imprint a,
+:root:not(.dark) .footer-figma__imprint span,
+:root:not(.dark) .footer-figma__legal a,
+:root:not(.dark) .footer-figma__legal span,
+:root:not(.dark) .footer-figma__credit {
+  color: var(--text-on-bright-heading);
+}
+
+:root:not(.dark) .footer-figma__nav a:hover,
+:root:not(.dark) .footer-figma__imprint a:hover,
+:root:not(.dark) .footer-figma__legal a:hover,
+:root:not(.dark) .footer-figma__credit:hover,
+:root:not(.dark) .footer-figma a:hover,
+:root:not(.dark) .footer-figma__wide:hover {
+  color: var(--color-accent-600);
+}
+
+/* Social — Figma 2006:790 */
+:root:not(.dark) .social-section,
+:root:not(.dark) .social-gallery {
+  background: var(--surface-pages-page);
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .social-section__title {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .social-section__links,
+:root:not(.dark) .social-section__links a {
+  color: var(--social-link);
+}
+
+:root:not(.dark) .social-section__links a:hover {
+  color: var(--color-accent-600);
+}
+
+:root:not(.dark) .notched-glow-container {
+  --nbg-c0: var(--colors-greeeen);
+  --nbg-glow-stroke: var(--colors-greeeen);
+}
+
+:root:not(.dark) .crew-hero__fade {
+  background: linear-gradient(to top, var(--neutral-black), transparent);
+}
+
+:root:not(.dark) .crew-hiring {
+  color: var(--text-on-bright-heading);
+}
+
+:root:not(.dark) .contact-hero__title p,
+:root:not(.dark) .contact-hero__status span:last-child {
+  color: var(--text-on-bright-heading);
+}
+
+:root:not(.dark) .contact-map__pin-card {
+  background: var(--surface-pages-page-secondary);
+}
+
+:root:not(.dark) .tl-scrub-progress {
+  box-shadow:
+    0 0 8px var(--colors-greeeen),
+    0 0 16px color-mix(in srgb, var(--colors-greeeen) 30%, transparent);
+}
+
+:root:not(.dark) .skip-link {
+  background: var(--surface-pages-page-secondary);
+  color: var(--text-on-bright-heading);
+}
+
+:root:not(.dark) .skip-link:focus {
+  outline-color: var(--text-default-accent);
+}
+
+:root:not(.dark) .bg-zinc-900\/90 {
+  background-color: color-mix(in srgb, var(--surface-pages-page-secondary) 92%, transparent);
+}
+
+:root:not(.dark) .hover\:bg-zinc-800:hover {
+  background-color: var(--button-background-default-hover);
+}
+
+:root:not(.dark) .text-zinc-100 {
+  color: var(--text-on-bright-heading);
+}
+
+:root:not(.dark) .site-chrome-lines.bg-zinc-100 {
+  background-color: var(--text-on-bright-heading);
+}
+
+:root:not(.dark) #site-menu .bg-white {
+  background-color: var(--surface-pages-page);
+}
+
+:root:not(.dark) #site-menu .fill-zinc-200 {
+  fill: var(--icon-default-placeholder);
+}
+
+:root:not(.dark) #site-menu .text-zinc-950,
+:root:not(.dark) #site-menu .hover\:text-zinc-950:hover {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) #site-menu .text-zinc-600,
+:root:not(.dark) #site-menu .text-zinc-500,
+:root:not(.dark) #site-menu .text-zinc-400 {
+  color: var(--icon-default-placeholder);
+}
+
+:root:not(.dark) #site-menu .border-zinc-200\/10 {
+  border-color: color-mix(in srgb, var(--icon-default-placeholder) 35%, transparent);
+}
+
+:root:not(.dark) .text-zinc-950,
+:root:not(.dark) .text-zinc-900 {
+  color: var(--text-default-heading);
+}
+
+:root:not(.dark) .text-zinc-800,
+:root:not(.dark) .text-zinc-700 {
+  color: var(--text-default-body);
+}
+
+:root:not(.dark) .text-zinc-600,
+:root:not(.dark) .text-zinc-500,
+:root:not(.dark) .text-zinc-400,
+:root:not(.dark) .text-zinc-300 {
+  color: var(--icon-default-placeholder);
+}
+
+:root:not(.dark) .hover\:text-zinc-950:hover {
+  color: var(--text-default-accent);
+}
+
+:root:not(.dark) .border-zinc-300 {
+  border-color: var(--icon-default-placeholder);
+}
+
+:root:not(.dark) .border-zinc-200\/60 {
+  border-color: color-mix(in srgb, var(--icon-default-placeholder) 45%, transparent);
+}
+
+:root:not(.dark) .bg-brand-light {
+  background-color: var(--surface-pages-page);
+}
+
+:root:not(.dark) main a.text-zinc-500:hover {
+  color: var(--text-default-accent);
+}

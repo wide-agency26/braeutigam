@@ -10,33 +10,33 @@
   /* Tilt happens in the hit box's perspective, not the card's own */
   perspective: 1100px;
   touch-action: pan-y;
-  --ec-name: #fbfafc;
-  --ec-meta: #b2b1b3;
-  --ec-neon: #00ff00;
-  --ec-btn-fg: #fbfafc;
-  --ec-btn-bg: #2a2a2a;
-  --ec-btn-border: #3a3a3a;
-  --ec-tag-bg: #131414;
-  --ec-tag-fg: #00ff00;
-  --ec-portrait-edge: #00ff00;
-  --ec-glow: rgba(0, 255, 0, 0.5);
-  --ec-drop: drop-shadow(0 0 24px rgba(0, 255, 0, 0.14902));
-  --ec-initial-stroke: rgba(178, 177, 178, 0.28);
+  --ec-name: var(--text-on-bright-heading);
+  --ec-meta: var(--icon-default-placeholder);
+  --ec-neon: var(--colors-greeeen);
+  --ec-btn-fg: var(--text-on-bright-heading);
+  --ec-btn-bg: var(--button-background-default);
+  --ec-btn-border: var(--button-background-default-hover);
+  --ec-tag-bg: var(--neutral-black);
+  --ec-tag-fg: var(--colors-greeeen);
+  --ec-portrait-edge: var(--colors-greeeen);
+  --ec-glow: color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
+  --ec-drop: drop-shadow(0 0 24px color-mix(in srgb, var(--colors-greeeen) 15%, transparent));
+  --ec-initial-stroke: color-mix(in srgb, var(--icon-default-placeholder) 28%, transparent);
 }
 
 :root:not(.dark) .expert-card-hit {
-  --ec-name: var(--figma-text-heading);
-  --ec-meta: var(--figma-icon-muted);
-  --ec-neon: var(--figma-accent-subtle);
-  --ec-btn-fg: var(--figma-button-text);
-  --ec-btn-bg: var(--figma-button-bg);
-  --ec-btn-border: var(--figma-button-bg-hover);
-  --ec-tag-bg: var(--figma-page);
-  --ec-tag-fg: var(--figma-accent-subtle);
-  --ec-portrait-edge: var(--figma-border-secondary);
-  --ec-glow: color-mix(in srgb, var(--figma-accent) 28%, transparent);
-  --ec-drop: drop-shadow(0 0 16px color-mix(in srgb, var(--figma-accent) 16%, transparent));
-  --ec-initial-stroke: color-mix(in srgb, var(--figma-text-heading) 16%, transparent);
+  --ec-name: var(--text-default-heading);
+  --ec-meta: var(--icon-default-placeholder);
+  --ec-neon: var(--text-default-accent-subtle);
+  --ec-btn-fg: var(--button-text-default);
+  --ec-btn-bg: var(--button-background-default);
+  --ec-btn-border: var(--button-background-default-hover);
+  --ec-tag-bg: var(--surface-pages-page);
+  --ec-tag-fg: var(--text-default-accent-subtle);
+  --ec-portrait-edge: var(--border-primary-secondary);
+  --ec-glow: color-mix(in srgb, var(--text-default-accent) 28%, transparent);
+  --ec-drop: drop-shadow(0 0 16px color-mix(in srgb, var(--text-default-accent) 16%, transparent));
+  --ec-initial-stroke: color-mix(in srgb, var(--text-default-heading) 16%, transparent);
 }
 
 .expert-card-hit:hover {

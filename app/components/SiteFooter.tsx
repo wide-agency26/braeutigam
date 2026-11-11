@@ -1,7 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 const loadLineWaves = () => import("./LineWaves");
 
@@ -21,9 +23,19 @@ export default function SiteFooter() {
   const { isDark } = useTheme();
   const locale = useSiteLocale();
 
+  const waveColors = useMemo(() => {
+    const neon = readCssVarColor("--colors-greeeen", "#39ff14");
+    const secondary = readCssVarColor("--surface-pages-page-secondary", "#1f2020");
+    const ink = readCssVarColor("--neutral-black", "#131414");
+    if (isDark) {
+      return { color1: neon, color2: secondary, color3: ink, brightness: 0.3 };
+    }
+    return { color1: neon, color2: secondary, color3: ink, brightness: 1.0 };
+  }, [isDark]);
+
   return (
     <footer className="footer-figma-section cv-auto">
-      <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-[#0B0B0C] dark:to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-brand-dark dark:to-transparent" />
 
       <div className="absolute inset-0 z-0">
         <LazyOnVisible
@@ -38,10 +50,10 @@ export default function SiteFooter() {
             rotation: 59,
             edgeFadeWidth: 0.05,
             colorCycleSpeed: 1.0,
-            brightness: isDark ? 0.3 : 1.0,
-            color1: isDark ? "#39ff14" : "#000000",
-            color2: isDark ? "#222222" : "#000000",
-            color3: isDark ? "#111111" : "#000000",
+            brightness: waveColors.brightness,
+            color1: waveColors.color1,
+            color2: waveColors.color2,
+            color3: waveColors.color3,
             enableMouseInteraction: true,
             mouseInfluence: 3.0,
           }}

@@ -1,0 +1,78 @@
+# Figma tokens
+
+Source: [`scripts/data/figma-variables-source.json`](../scripts/data/figma-variables-source.json)
+
+Regenerate CSS: `pnpm sync:figma-tokens`
+
+## Variable map
+
+| Figma variable | Collection | CSS name | Light | Dark (applied) | Used in |
+|----------------|------------|----------|-------|----------------|---------|
+| `Border Sizes/Radius/L` | Border Sizes | `--border-sizes-radius-l` | 12 | — | |
+| `Border Sizes/Radius/M` | Border Sizes | `--border-sizes-radius-m` | 8 | — | |
+| `Border Sizes/Radius/XL` | Border Sizes | `--border-sizes-radius-xl` | 20 | — | |
+| `Border Sizes/Width/S` | Border Sizes | `--border-sizes-width-s` | 2 | — | |
+| `Border Sizes/Width/XS` | Border Sizes | `--border-sizes-width-xs` | 1 | — | |
+| `Brand Colors/Greys Transparent/500,30` | Brand Colors | `--brand-colors-greys-transparent-500-30` | #1314144d | — | |
+| `Color/Accent/500` | Colors | `--color-accent-500` | #00ff00 | #39FF14 (snapshot) | |
+| `Color/Accent/600` | Colors | `--color-accent-600` | #00cc00 | #00cc00 | |
+| `Colors/GREEEEN` | Colors | `--colors-greeeen` | #00ff00 | #39FF14 (snapshot) | |
+| `Neutral/Black` | Neutral | `--neutral-black` | #131414 | — | |
+| `Neutral/Image-overlay/Black 30` | Neutral | `--neutral-image-overlay-black-30` | #1314144d | — | |
+| `Neutral/White` | Neutral | `--neutral-white` | #f0f0f0 | #f0f0f0 | |
+| `Scale/0` | Scale | `--scale-0` | 0 | — | |
+| `Scale/100` | Scale | `--scale-100` | 4 | — | |
+| `Scale/1000` | Scale | `--scale-1000` | 40 | — | |
+| `Scale/1050` | Scale | `--scale-1050` | 52 | — | |
+| `Scale/1100` | Scale | `--scale-1100` | 64 | — | |
+| `Scale/1200` | Scale | `--scale-1200` | 72 | — | |
+| `Scale/1400` | Scale | `--scale-1400` | 132 | — | |
+| `Scale/200` | Scale | `--scale-200` | 8 | — | |
+| `Scale/300` | Scale | `--scale-300` | 12 | — | |
+| `Scale/400` | Scale | `--scale-400` | 16 | — | |
+| `Scale/50` | Scale | `--scale-50` | 2 | — | |
+| `Scale/500` | Scale | `--scale-500` | 20 | — | |
+| `Scale/600` | Scale | `--scale-600` | 24 | — | |
+| `Scale/700` | Scale | `--scale-700` | 28 | — | |
+| `Scale/800` | Scale | `--scale-800` | 32 | — | |
+| `Scale/900` | Scale | `--scale-900` | 36 | — | |
+| `border/primary/default-hover` | border | `--border-primary-default-hover` | #424343 | — | |
+| `border/primary/secondary` | border | `--border-primary-secondary` | #00ff00 | #39FF14 (snapshot) | |
+| `border/primary/secondary-hover` | border | `--border-primary-secondary-hover` | #00cc00 | #00cc00 (snapshot) | |
+| `border/primary/tertiary` | border | `--border-primary-tertiary` | #ff8800 | — | |
+| `button/background/default` | button | `--button-background-default` | #a1a1a1 | #1f2020 | |
+| `button/background/default-hover` | button | `--button-background-default-hover` | #424343 | #424343 | |
+| `button/background/secondary` | button | `--button-background-secondary` | #a1a1a1 | #1f2020 | |
+| `button/background/secondary-hover` | button | `--button-background-secondary-hover` | #424343 | #424343 | |
+| `button/text/default` | button | `--button-text-default` | #f0f0f0 | #f0f0f0 | |
+| `button/text/default-hover` | button | `--button-text-default-hover` | #00cc00 | #00cc00 | |
+| `icon/default/caption` | icon | `--icon-default-caption` | #1f2020 | — | |
+| `icon/default/placeholder` | icon | `--icon-default-placeholder` | #717272 | — | |
+| `surface/pages/page` | surface | `--surface-pages-page` | #f0f0f0 | — | |
+| `surface/pages/page-secondary` | surface | `--surface-pages-page-secondary` | #1f2020 | #1f2020 | |
+| `text/default/accent` | text | `--text-default-accent` | #009900 | #39FF14 (snapshot) | |
+| `text/default/accent secondary` | text | `--text-default-accent-secondary` | #ff8800 | — | |
+| `text/default/accent subtle` | text | `--text-default-accent-subtle` | #00cc00 | — | |
+| `text/default/accent subtle secondary` | text | `--text-default-accent-subtle-secondary` | #cc6d00 | — | |
+| `text/default/body` | text | `--text-default-body` | #1f2020 | — | |
+| `text/default/caption` | text | `--text-default-caption` | #131414 | — | |
+| `text/default/heading` | text | `--text-default-heading` | #131414 | #f0f0f0 | |
+| `text/default/placeholder` | text | `--text-default-placeholder` | #1f2020 | — | |
+| `text/on-bright/accent` | text | `--text-on-bright-accent` | #00cc00 | #00cc00 | |
+| `text/on-bright/heading` | text | `--text-on-bright-heading` | #f0f0f0 | #f0f0f0 | |
+| `text/social/link` | text | `--text-social-link` | #b2b1b2 | — | |
+
+## Pending dark decisions
+
+- **Colors/GREEEEN** (`--colors-greeeen`): Figma `#00ff00` → applied `#39FF14` — Tailwind brand-neon, LineWaves, badges
+- **text/default/accent** (`--text-default-accent`): Figma `#00ff00` → applied `#39FF14` — Dark accent text (footer hovers use neon)
+
+## Non-exportable (Figma)
+
+- `border/gradients/green to grey`
+- `Button/Border Gradient Primary`
+- `Text/gradient/Grey Overlay`
+
+## Non-color variables
+
+Scale and Border Sizes tokens are emitted as `--scale-*` and `--border-sizes-*` with `px` units.

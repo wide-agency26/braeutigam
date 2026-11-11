@@ -598,23 +598,23 @@
 /* Keep the photographic hero legible while the content surface follows the
    selected theme. */
 :root:not(.dark) .contact-page {
-  background: var(--figma-page);
-  color: var(--figma-text-heading);
+  background: var(--surface-pages-page));
+  color: var(--text-default-heading));
 }
 
 :root:not(.dark) .contact-hero__shade {
-  background: linear-gradient(to bottom, transparent 63.194%, var(--figma-page) 100%);
+  background: linear-gradient(to bottom, transparent 63.194%, var(--surface-pages-page)) 100%);
 }
 
 :root:not(.dark) .contact-body {
-  background: var(--figma-page);
+  background: var(--surface-pages-page));
 }
 
 :root:not(.dark) .contact-section-head p,
 :root:not(.dark) .contact-faq__head > p,
 :root:not(.dark) .contact-map header p:first-child,
 :root:not(.dark) .contact-form__note {
-  color: var(--figma-accent-subtle);
+  color: var(--text-default-accent-subtle));
 }
 
 :root:not(.dark) .contact-section-head h2,
@@ -622,40 +622,40 @@
 :root:not(.dark) .contact-map h2,
 :root:not(.dark) .contact-field input,
 :root:not(.dark) .contact-field textarea {
-  color: var(--figma-text-heading);
+  color: var(--text-default-heading));
 }
 
 :root:not(.dark) .contact-field label,
 :root:not(.dark) .contact-info__address,
 :root:not(.dark) .contact-info__hours,
 :root:not(.dark) .contact-map header > p {
-  color: var(--figma-icon-muted);
+  color: var(--icon-default-placeholder));
 }
 
 :root:not(.dark) .contact-field input,
 :root:not(.dark) .contact-field textarea {
-  border-bottom-color: var(--figma-icon-muted);
+  border-bottom-color: var(--icon-default-placeholder));
 }
 
 :root:not(.dark) .contact-field input::placeholder,
 :root:not(.dark) .contact-field textarea::placeholder {
-  color: var(--figma-icon-muted);
+  color: var(--icon-default-placeholder));
 }
 
 :root:not(.dark) .contact-field input:focus-visible,
 :root:not(.dark) .contact-field textarea:focus-visible {
-  border-bottom-color: var(--figma-accent);
+  border-bottom-color: var(--text-default-accent));
 }
 
 :root:not(.dark) .contact-shield {
-  border-color: var(--figma-icon-muted);
-  background: var(--figma-page);
+  border-color: var(--icon-default-placeholder));
+  background: var(--surface-pages-page));
 }
 
 :root:not(.dark) .contact-shield p:first-child {
-  color: var(--figma-text-heading);
+  color: var(--text-default-heading));
 }
 
 :root:not(.dark) .contact-shield p:last-child {
-  color: var(--figma-icon-muted);
+  color: var(--icon-default-placeholder));
 }

@@ -7,10 +7,10 @@
   --career-neon: #00ff00;
 }
 :root:not(.dark) .career {
-  --career-line: color-mix(in srgb, var(--figma-border-secondary) 55%, transparent);
-  --career-stroke: color-mix(in srgb, var(--figma-accent) 70%, transparent);
-  --career-fill: var(--figma-page);
-  --career-neon: var(--figma-green);
+  --career-line: color-mix(in srgb, var(--border-primary-secondary)) 55%, transparent);
+  --career-stroke: color-mix(in srgb, var(--text-default-accent)) 70%, transparent);
+  --career-fill: var(--surface-pages-page));
+  --career-neon: var(--colors-greeeen));
 }
 
 .career-shell {
@@ -95,7 +95,7 @@
 .crew-lead {
   max-width: 38rem;
   margin: 1.35rem 0 0;
-  color: var(--figma-text-body);
+  color: var(--text-default-body));
 }
 .dark .crew-lead {
   color: #d4d4d8;
@@ -117,7 +117,7 @@
 }
 .crew-stats dt {
   margin-top: 0.7rem;
-  color: var(--figma-text-body);
+  color: var(--text-default-body));
   font-family: var(--font-mono), monospace;
   font-size: 0.62rem;
   font-weight: 400;
@@ -158,7 +158,7 @@
 .crew-story p,
 .crew-film p {
   margin: 0.35rem 0 0;
-  color: var(--figma-text-body);
+  color: var(--text-default-body));
   font-size: 0.84rem;
   line-height: 1.45;
 }
@@ -246,7 +246,7 @@
 }
 .crew-job__dept,
 .crew-job__meta {
-  color: var(--figma-text-body);
+  color: var(--text-default-body));
 }
 .dark .crew-job__dept,
 .dark .crew-job__meta {
@@ -294,7 +294,7 @@
 .crew-step p {
   max-width: 34rem;
   margin: 0.55rem 0 0;
-  color: var(--figma-text-body);
+  color: var(--text-default-body));
   font-size: 0.92rem;
   line-height: 1.5;
 }
@@ -326,7 +326,7 @@
   text-transform: uppercase;
 }
 :root:not(.dark) .crew-cta {
-  color: var(--figma-on-bright-heading);
+  color: var(--text-on-bright-heading));
 }
 .crew-cta:hover {
   filter: brightness(1.12);
@@ -342,7 +342,21 @@
   height: 100svh;
   min-height: 560px;
   overflow: hidden;
-  background: #0b0b0c;
+  background: var(--neutral-black);
+}
+
+.crew-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--neutral-black) 25%, transparent) 0%,
+    transparent 42%,
+    color-mix(in srgb, var(--neutral-black) 88%, transparent) 100%
+  );
 }
 .crew-hero__photo {
   object-fit: cover;
@@ -350,17 +364,24 @@
 }
 .crew-hero__fade {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   right: 0;
   bottom: 0;
   left: 0;
   height: 14%;
-  background: linear-gradient(to top, var(--background), transparent);
+  background: linear-gradient(to top, var(--neutral-black), transparent);
   pointer-events: none;
 }
+.crew-hero__title {
+  margin: 0;
+  color: var(--text-on-bright-heading);
+  line-height: 0.92;
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+}
+
 .crew-hero__mark {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   top: 46%;
   right: clamp(1rem, 3.5vw, 3.5rem);
   display: flex;
@@ -369,13 +390,9 @@
   transform: translateY(-42%);
   pointer-events: none;
 }
-.crew-hero__mark .career-watermark {
-  font-size: clamp(4rem, 11vw, 9.75rem);
-  line-height: 0.92;
-}
 .crew-hiring {
   margin: 0.65rem 0 0 0.12rem;
-  color: #fff;
+  color: var(--text-on-bright-heading);
   font-family: var(--font-mono), monospace;
   font-size: 0.68rem;
   letter-spacing: 0.22em;
@@ -421,7 +438,7 @@
     transform: none;
     right: 1rem;
   }
-  .crew-hero__mark .career-watermark {
+  .crew-hero__title {
     font-size: 4.4rem;
   }
   .crew-hiring {

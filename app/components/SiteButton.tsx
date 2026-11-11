@@ -1,16 +1,31 @@
 "use client";
 
+import { useMemo } from "react";
 import type { MouseEventHandler, ReactNode } from "react";
 import SpecularButton from "./SpecularButton";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 type Variant = "default" | "solid" | "amber" | "fill";
 
-const LOOK: Record<Variant, { tint: string; textColor: string; lineColor: string; baseColor: string }> = {
-  default: { tint: "#1f2020", textColor: "#f3f3f3", lineColor: "#00ff00", baseColor: "#525252" },
-  solid: { tint: "#424343", textColor: "#00cc00", lineColor: "#00cc00", baseColor: "#00cc00" },
-  amber: { tint: "#1f2020", textColor: "#f3f3f3", lineColor: "#ffbf00", baseColor: "#ffbf00" },
-  fill: { tint: "#00cc00", textColor: "#131414", lineColor: "#00ff00", baseColor: "#00cc00" },
-};
+function useSpecularLook(variant: Variant) {
+  return useMemo(() => {
+    const ink = readCssVarColor("--surface-pages-page-secondary", "#1f2020");
+    const hover = readCssVarColor("--button-background-default-hover", "#424343");
+    const btnText = readCssVarColor("--button-text-default", "#f3f3f3");
+    const btnHoverText = readCssVarColor("--button-text-default-hover", "#00cc00");
+    const neon = readCssVarColor("--colors-greeeen", "#00ff00");
+    const subtle = readCssVarColor("--text-default-accent-subtle", "#00cc00");
+    const heading = readCssVarColor("--text-default-heading", "#131414");
+    const amber = readCssVarColor("--text-default-accent-secondary", "#ff8800");
+    const map: Record<Variant, { tint: string; textColor: string; lineColor: string; baseColor: string }> = {
+      default: { tint: ink, textColor: btnText, lineColor: neon, baseColor: hover },
+      solid: { tint: hover, textColor: btnHoverText, lineColor: btnHoverText, baseColor: btnHoverText },
+      amber: { tint: ink, textColor: btnText, lineColor: amber, baseColor: amber },
+      fill: { tint: subtle, textColor: heading, lineColor: neon, baseColor: subtle },
+    };
+    return map[variant];
+  }, [variant]);
+}
 
 type SiteButtonProps = {
   href?: string;
@@ -33,7 +48,7 @@ export default function SiteButton({
   children,
   ...rest
 }: SiteButtonProps) {
-  const look = LOOK[variant];
+  const look = useSpecularLook(variant);
   const typeClass = size === "sm" ? "button-body-caption" : "button-body-lg";
   const classes = [
     "site-btn",

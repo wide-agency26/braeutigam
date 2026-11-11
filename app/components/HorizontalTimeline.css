@@ -1,43 +1,43 @@
 /* Timeline board — 11456 × 1080, scaled to the sticky strip height. */
 
 .tl-strip {
-  --tl-year: #00ff00;
-  --tl-ink: #f3f3f3;
-  --tl-muted: #ececec;
-  --tl-meta: #d0d0d0;
-  --tl-dim: #006600;
-  --tl-pill-bg: #1f2020;
-  --tl-pill-border: #424343;
-  --tl-pill-ink: #fffaee;
-  --tl-watermark: rgba(0, 255, 0, 0.5);
+  --tl-year: var(--colors-greeeen);
+  --tl-ink: var(--text-on-bright-heading);
+  --tl-muted: var(--icon-default-placeholder);
+  --tl-meta: var(--icon-default-placeholder);
+  --tl-dim: var(--text-default-accent);
+  --tl-pill-bg: var(--button-background-default);
+  --tl-pill-border: var(--button-background-default-hover);
+  --tl-pill-ink: var(--text-on-bright-heading);
+  --tl-watermark: color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
   --tl-photo-bg: transparent;
   --tl-board: transparent;
-  --tl-cta: #1f2020;
-  --tl-cta-ink: #f3f3f3;
-  --tl-cta-hover-bg: #424343;
-  --tl-cta-hover-fg: #00cc00;
-  --tl-cta-shadow: #1f2020;
-  --tl-cta-inset: #424343;
+  --tl-cta: var(--button-background-default);
+  --tl-cta-ink: var(--button-text-default);
+  --tl-cta-hover-bg: var(--button-background-default-hover);
+  --tl-cta-hover-fg: var(--button-text-default-hover);
+  --tl-cta-shadow: var(--surface-pages-page-secondary);
+  --tl-cta-inset: var(--button-background-default-hover);
 }
 
 :root:not(.dark) .tl-strip {
-  --tl-year: var(--figma-accent);
-  --tl-ink: var(--figma-text-heading);
-  --tl-muted: var(--figma-icon-muted);
-  --tl-meta: var(--figma-icon-muted);
-  --tl-dim: var(--figma-accent-subtle);
-  --tl-pill-bg: var(--figma-page);
-  --tl-pill-border: var(--figma-icon-muted);
-  --tl-pill-ink: var(--figma-text-heading);
-  --tl-watermark: color-mix(in srgb, var(--figma-accent) 45%, transparent);
+  --tl-year: var(--text-default-accent);
+  --tl-ink: var(--text-default-heading);
+  --tl-muted: var(--icon-default-placeholder);
+  --tl-meta: var(--icon-default-placeholder);
+  --tl-dim: var(--text-default-accent-subtle);
+  --tl-pill-bg: var(--surface-pages-page);
+  --tl-pill-border: var(--icon-default-placeholder);
+  --tl-pill-ink: var(--text-default-heading);
+  --tl-watermark: color-mix(in srgb, var(--text-default-accent) 45%, transparent);
   --tl-photo-bg: transparent;
   --tl-board: transparent;
-  --tl-cta: var(--figma-button-bg);
-  --tl-cta-ink: var(--figma-button-text);
-  --tl-cta-hover-bg: var(--figma-button-bg-hover);
-  --tl-cta-hover-fg: var(--figma-button-text-hover);
-  --tl-cta-shadow: var(--figma-page-secondary);
-  --tl-cta-inset: var(--figma-button-bg-hover);
+  --tl-cta: var(--button-background-default);
+  --tl-cta-ink: var(--button-text-default);
+  --tl-cta-hover-bg: var(--button-background-default-hover);
+  --tl-cta-hover-fg: var(--button-text-default-hover);
+  --tl-cta-shadow: var(--surface-pages-page-secondary);
+  --tl-cta-inset: var(--button-background-default-hover);
 }
 
 .tl-scale-host {
@@ -132,7 +132,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: color-mix(in srgb, var(--neutral-black) 20%, transparent);
   z-index: 1;
   pointer-events: none;
 }
@@ -276,7 +276,9 @@
 }
 
 .tl-scrub-progress {
-  box-shadow: 0 0 8px #39ff14, 0 0 16px rgba(57, 255, 20, 0.3);
+  box-shadow:
+    0 0 8px var(--colors-greeeen),
+    0 0 16px color-mix(in srgb, var(--colors-greeeen) 30%, transparent);
 }
 
 .tl-cta:hover,
@@ -284,7 +286,9 @@
   border-color: var(--tl-cta-hover-fg);
   background: var(--tl-cta-hover-bg);
   color: var(--tl-cta-hover-fg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow:
+    0 8px 24px color-mix(in srgb, var(--neutral-black) 25%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--neutral-white) 4%, transparent);
   outline: none;
 }
 
@@ -333,10 +337,10 @@
 }
 
 .tl-placeholder {
-  background: #717272;
+  background: var(--icon-default-placeholder);
 }
 
 :root:not(.dark) .tl-placeholder {
-  background: color-mix(in srgb, var(--figma-icon-muted) 40%, var(--figma-page));
+  background: color-mix(in srgb, var(--icon-default-placeholder)) 40%, var(--surface-pages-page)));
 }
 

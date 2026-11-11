@@ -1,16 +1,17 @@
 @import "tailwindcss";
-@import "./figma-light-scheme.css";
+@import "./figma-tokens.css";
+@import "./figma-theme-light.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-bg: #111111;
-  --color-brand-neon: #39FF14; /* Brighter neon green for badges */
-  --color-brand-muted: #888888;
-  --color-brand-dark: #0B0B0C; /* Rich deep black/gray */
-  --color-brand-light: #f0f0f0;
-  --color-brand-border: rgba(57, 255, 20, 0.2);
+  --color-brand-bg: var(--surface-pages-page-secondary);
+  --color-brand-neon: var(--colors-greeeen);
+  --color-brand-muted: var(--icon-default-placeholder);
+  --color-brand-dark: var(--neutral-black);
+  --color-brand-light: var(--neutral-white);
+  --color-brand-border: color-mix(in srgb, var(--colors-greeeen) 20%, transparent);
   --font-sans: var(--font-univers), sans-serif;
   --font-accent: var(--font-bootzy), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
@@ -23,13 +24,7 @@
   --site-gutter: clamp(1.5rem, 4vw, 4rem);
 }
 
-.dark {
-  --background: #0B0B0C;
-  --foreground: #f4f4f5;
-  --surface: #0B0B0C;
-  --surface-muted: #18181b;
-  --focus-ring: #39ff14;
-}
+/* Semantic dark colors live in figma-tokens.css `.dark` */
 
 html {
   background: var(--background);
@@ -506,13 +501,25 @@ body {
 }
 .mission-figma__quality {
   display: block;
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   white-space: nowrap;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6.2vw, 119.05px);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 .mission-figma__perf {
   display: block;
-  color: #00ff00;
+  color: var(--colors-greeeen);
   white-space: nowrap;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.75rem, 6.62vw, 127.053px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 /* Image starts with OUR CRAFT; copy sits on the right. Same top + bottom as the still. */
 .mission-figma__split {
@@ -548,7 +555,7 @@ body {
   gap: 1.719cqw; /* 16.5 */
 }
 .mission-figma__copy {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
 }
 /* Button-primary — Figma 1214:19 / 1273:503. Small caption is 1275:691. */
 .site-btn {
@@ -558,10 +565,12 @@ body {
   justify-content: center;
   padding: 16px 40px;
   border: 0;
-  border-radius: 12px;
-  background: #1f2020;
-  color: #f3f3f3;
-  box-shadow: 0 1px 10px -3px #1f2020, inset 0 1px 2px -1px #424343;
+  border-radius: var(--border-sizes-radius-l);
+  background: var(--button-background-default);
+  color: var(--button-text-default);
+  box-shadow:
+    0 1px 10px -3px var(--surface-pages-page-secondary),
+    inset 0 1px 2px -1px var(--button-background-default-hover);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -574,22 +583,24 @@ body {
 }
 .site-btn:hover,
 .site-btn--solid {
-  background: #424343;
-  color: #00cc00;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: var(--button-background-default-hover);
+  color: var(--button-text-default-hover);
+  box-shadow:
+    0 8px 24px color-mix(in srgb, var(--neutral-black) 25%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--neutral-white) 4%, transparent);
 }
 .site-btn.site-btn--amber:hover {
-  background: #424343;
-  color: #ffbf00;
+  background: var(--button-background-default-hover);
+  color: var(--text-default-accent-secondary);
 }
 .site-btn--fill {
-  background: #00cc00;
-  color: #131414;
+  background: var(--text-default-accent-subtle);
+  color: var(--text-default-heading);
   box-shadow: none;
 }
 .site-btn.site-btn--fill:hover {
-  background: #00ff00;
-  color: #131414;
+  background: var(--colors-greeeen);
+  color: var(--text-default-heading);
   box-shadow: none;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -699,7 +710,7 @@ body {
   margin-bottom: 8px !important;
 }
 .experts-figma__hud-val {
-  color: var(--figma-accent);
+  color: var(--text-default-accent);
   font-variant-numeric: tabular-nums;
 }
 .dark .experts-figma__hud-val {
@@ -839,14 +850,14 @@ body {
 
 .footer-figma__nav a {
   margin: 0;
-  color: #ece1e1;
+  color: var(--text-on-bright-heading);
   text-decoration: none;
   white-space: nowrap;
   transition: color 160ms ease;
 }
 
 .footer-figma__nav a:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .footer-figma__brand {
@@ -860,7 +871,7 @@ body {
 }
 
 .footer-figma__logo {
-  color: #e9ece8;
+  color: var(--text-on-bright-heading);
   white-space: nowrap;
 }
 
@@ -880,7 +891,7 @@ body {
 .footer-figma__since span {
   grid-area: 1 / 1;
   margin: 0;
-  color: #00ff00;
+  color: var(--colors-greeeen);
   text-align: center;
   transform: translateY(0.17cqi);
 }
@@ -908,13 +919,13 @@ body {
 
 .footer-figma__imprint a,
 .footer-figma__imprint span {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   text-decoration: none;
   transition: color 160ms ease;
 }
 
 .footer-figma__imprint a:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .footer-figma__legal {
@@ -928,19 +939,19 @@ body {
 
 .footer-figma__legal a,
 .footer-figma__legal span {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   text-decoration: none;
   white-space: nowrap;
   transition: color 160ms ease;
 }
 
 .footer-figma__legal a:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .footer-figma__credit {
   margin: 0;
-  color: #ece1e1;
+  color: var(--text-on-bright-heading);
   text-decoration: underline;
   text-underline-offset: 0.2em;
   white-space: nowrap;
@@ -948,7 +959,7 @@ body {
 }
 
 .footer-figma__credit:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 @media (max-width: 900px) {
@@ -998,14 +1009,14 @@ body {
 
 .social-section {
   padding: 52px 0;
-  background: #0b0b0c;
-  color: #f3f3f3;
+  background: var(--surface-pages-page-secondary);
+  color: var(--text-on-bright-heading);
 }
 
 .social-gallery {
   width: 100%;
   height: 600px;
-  background: #0b0b0c;
+  background: var(--surface-pages-page-secondary);
 }
 
 .social-gallery-fallback {
@@ -1050,7 +1061,7 @@ body {
   gap: 12px;
   text-align: center;
   text-transform: uppercase;
-  color: #f3f3f3;
+  color: var(--text-on-bright-heading);
 }
 
 .social-section__title .heading-secondary,
@@ -1064,7 +1075,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 40px;
-  color: #b2b1b2;
+  color: var(--social-link);
 }
 .social-section__links .copy-body-sm {
   color: inherit;

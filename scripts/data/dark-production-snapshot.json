@@ -1,0 +1,35 @@
+{
+  "cssVarOverrides": {
+    "--colors-greeeen": "#39FF14",
+    "--color-accent-500": "#39FF14",
+    "--border-primary-secondary": "#39FF14",
+    "--border-primary-secondary-hover": "#00cc00",
+    "--text-default-accent": "#39FF14"
+  },
+  "semanticDark": {
+    "--background": "#0B0B0C",
+    "--foreground": "#f4f4f5",
+    "--surface": "#0B0B0C",
+    "--surface-muted": "#18181b",
+    "--focus-ring": "#39ff14"
+  },
+  "themeDark": {
+    "--color-brand-neon": "#39FF14"
+  },
+  "pendingDarkDecisions": [
+    {
+      "figmaKey": "Colors/GREEEEN",
+      "cssVar": "--colors-greeeen",
+      "figmaValue": "#00ff00",
+      "appliedValue": "#39FF14",
+      "usedIn": "Tailwind brand-neon, LineWaves, badges"
+    },
+    {
+      "figmaKey": "text/default/accent",
+      "cssVar": "--text-default-accent",
+      "figmaValue": "#00ff00",
+      "appliedValue": "#39FF14",
+      "usedIn": "Dark accent text (footer hovers use neon)"
+    }
+  ]
+}

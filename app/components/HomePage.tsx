@@ -175,8 +175,8 @@ export default function HomePage({
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
           
           {/* Top and bottom blends into the page color, same falloff */}
-          <div className="absolute top-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-b from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-b dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
-          <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-t dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-b from-brand-light via-brand-light/60 to-transparent dark:bg-gradient-to-b dark:from-brand-dark dark:via-brand-dark/60 dark:to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-brand-light via-brand-light/60 to-transparent dark:bg-gradient-to-t dark:from-brand-dark dark:via-brand-dark/60 dark:to-transparent" />
 
           {/* CAD Topography — Figma field behind all three story steps */}
           <div className="cad-topo-stage absolute inset-0" aria-hidden>
@@ -387,7 +387,7 @@ export default function HomePage({
 
           <h2 className="mission-figma__headline">
             <span className="mission-figma__quality heading-primary-bold">FLAWLESS QUALITY &amp;</span>
-            <span className="mission-figma__perf decorative-primary">HIGH PERFORMANCE.</span>
+            <span className="mission-figma__perf">HIGH PERFORMANCE.</span>
           </h2>
 
           <div className="mission-figma__split">
