@@ -17,7 +17,7 @@ export default function ImpressumPage() {
       <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         <SiteChrome />
         <main id="main-content" lang="de" className="mx-auto max-w-3xl px-6 py-32">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-brand-neon">
+          <p className="copy-tiny text-brand-neon">
             TODO — Volltext folgt
           </p>
           <h1 className="mt-4 font-sans text-3xl font-light uppercase tracking-tight">Impressum</h1>

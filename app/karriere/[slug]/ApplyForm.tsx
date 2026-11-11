@@ -44,7 +44,7 @@ export function ApplyForm({
   if (state.ok) {
     return (
       <div className="career-card px-5 py-6" role="status" aria-live="polite">
-        <p className="career-eyebrow text-[var(--career-neon)]">{t.received}</p>
+        <p className="career-eyebrow copy-tiny text-[var(--career-neon)]">{t.received}</p>
         <h2 className="mt-4 font-sans text-sm font-bold uppercase tracking-tight">
           {t.successTitle}
         </h2>
@@ -62,7 +62,7 @@ export function ApplyForm({
       aria-labelledby={`${formId}-title`}
       onSubmit={onSubmit}
     >
-      <p className="career-eyebrow text-[var(--career-neon)]">{t.eyebrow}</p>
+      <p className="career-eyebrow copy-tiny text-[var(--career-neon)]">{t.eyebrow}</p>
       <h2
         id={`${formId}-title`}
         className="mt-4 font-sans text-sm font-bold uppercase tracking-tight"
@@ -76,7 +76,7 @@ export function ApplyForm({
       ) : null}
 
       <label className="mt-5 block">
-        <span className="career-eyebrow text-zinc-500">{t.firstName}</span>
+        <span className="career-eyebrow copy-tiny text-zinc-500">{t.firstName}</span>
         <input
           className={inputClass}
           name="firstName"
@@ -92,7 +92,7 @@ export function ApplyForm({
         ) : null}
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">{t.lastName}</span>
+        <span className="career-eyebrow copy-tiny text-zinc-500">{t.lastName}</span>
         <input
           className={inputClass}
           name="lastName"
@@ -108,7 +108,7 @@ export function ApplyForm({
         ) : null}
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">{t.email}</span>
+        <span className="career-eyebrow copy-tiny text-zinc-500">{t.email}</span>
         <input
           className={inputClass}
           type="email"
@@ -125,11 +125,11 @@ export function ApplyForm({
         ) : null}
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">{t.phone}</span>
+        <span className="career-eyebrow copy-tiny text-zinc-500">{t.phone}</span>
         <input className={inputClass} type="tel" name="phone" autoComplete="tel" />
       </label>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">{t.coverLetter}</span>
+        <span className="career-eyebrow copy-tiny text-zinc-500">{t.coverLetter}</span>
         <textarea className={inputClass} name="coverLetter" rows={5} />
       </label>
       <div className="mt-5">
@@ -147,7 +147,7 @@ export function ApplyForm({
         </label>
         {wasRecommended ? (
           <label id={`${formId}-recommender`} className="mt-3 block">
-            <span className="career-eyebrow text-zinc-500">{t.recommender}</span>
+            <span className="career-eyebrow copy-tiny text-zinc-500">{t.recommender}</span>
             <input
               className={inputClass}
               name="recommenderName"
@@ -167,7 +167,7 @@ export function ApplyForm({
         ) : null}
       </div>
       <label className="mt-4 block">
-        <span className="career-eyebrow text-zinc-500">{t.resume}</span>
+        <span className="career-eyebrow copy-tiny text-zinc-500">{t.resume}</span>
         <input
           className="mt-2 w-full font-sans text-xs file:mr-3 file:border-0 file:bg-[var(--career-neon)] file:px-3 file:py-2 file:font-sans file:text-xs file:font-bold file:uppercase file:text-black"
           type="file"

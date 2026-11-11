@@ -160,9 +160,9 @@ export default function ManifestBlock() {
           </div>
 
           <div className="manifest-lead">
-            <h2 className="manifest-figma__line">unsere kunden:</h2>
-            <p className="manifest-figma__neon">höchste</p>
-            <p className="manifest-figma__neon">anforderungen.</p>
+            <h2 className="manifest-figma__line heading-primary-bold">unsere kunden:</h2>
+            <p className="manifest-figma__neon decorative-primary">höchste</p>
+            <p className="manifest-figma__neon decorative-primary">anforderungen.</p>
           </div>
 
           {SHOW_CLK_GTR ? (
@@ -179,9 +179,9 @@ export default function ManifestBlock() {
           )}
 
           <div className="manifest-principle">
-            <p className="manifest-figma__line">Unser Grundsatz:</p>
-            <p className="manifest-figma__neon">KOMPLEX, SCHNELL,</p>
-            <p className="manifest-figma__neon">INHOUSE</p>
+            <p className="manifest-figma__line heading-primary-bold">Unser Grundsatz:</p>
+            <p className="manifest-figma__neon decorative-primary">KOMPLEX, SCHNELL,</p>
+            <p className="manifest-figma__neon decorative-primary">INHOUSE</p>
           </div>
 
           <div className="manifest-mission">

@@ -14,7 +14,7 @@ import { useSiteLocale } from "@/lib/i18n/use-locale";
 import { SOCIAL_LINKS } from "@/lib/site-links";
 
 /**
- * Shared Figma footer (Oswald + frame notches) with the LineWaves canvas.
+ * Shared Figma footer (frame notches) with the LineWaves canvas.
  * Used on the homepage and inner routes so chrome stays identical.
  */
 export default function SiteFooter() {
@@ -72,6 +72,7 @@ export default function SiteFooter() {
                 ) : (
                   <a
                     key={item.labelEn}
+                    className="heading-tertiary"
                     href={item.href ? localizedHref(item.href, locale) : undefined}
                   >
                     {label}
@@ -81,7 +82,7 @@ export default function SiteFooter() {
             </nav>
 
             <div className="footer-figma__brand">
-              <span className="footer-figma__logo">BRÄUTIGAM</span>
+              <span className="footer-figma__logo footer-headline-primary">BRÄUTIGAM</span>
               <div className="footer-figma__since">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -90,7 +91,7 @@ export default function SiteFooter() {
                   aria-hidden
                   draggable={false}
                 />
-                <span>SINCE 2016</span>
+                <span className="footer-decorative-primary">SINCE 2016</span>
               </div>
             </div>
 
@@ -98,6 +99,7 @@ export default function SiteFooter() {
               {SOCIAL_LINKS.filter((item) => item.href).map((item) => (
                 <a
                   key={item.label}
+                  className="heading-tertiary"
                   href={item.href!}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -109,7 +111,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="footer-figma__bottom">
-            <div className="footer-figma__imprint">
+            <div className="footer-figma__imprint footer-decorative-secondary">
               <a href={localizedHref("/impressum", locale)}>
                 {locale === "en" ? "IMPRINT" : "IMPRESSUM"}
               </a>
@@ -117,7 +119,7 @@ export default function SiteFooter() {
                 {locale === "en" ? "PRIVACY" : "DATENSCHUTZ"}
               </a>
             </div>
-            <div className="footer-figma__legal">
+            <div className="footer-figma__legal copy-caption">
               <span>Legal Notice</span>
               <span>Privacy Policy</span>
               <span>Change Privacy Settings</span>
@@ -128,7 +130,7 @@ export default function SiteFooter() {
               href={WIDE_CREDIT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="footer-figma__credit"
+              className="footer-figma__credit footer-decorative-secondary"
             >
               BUILT WITH &lt;3 BY WIDE
             </a>

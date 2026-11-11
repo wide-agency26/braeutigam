@@ -306,22 +306,22 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
           </div>
           <div className="contact-hero__shade" aria-hidden="true" />
 
-          <p className="contact-hero__portal">
+          <p className="contact-hero__portal copy-caption">
             <span>PORTAL [48.9298° N, 9.2070° E]</span>
             <span>STATUS: ONLINE // READY FOR UPLOAD</span>
             <span>INCOMING INQUIRIES ROUTED VIA SSL</span>
           </p>
-          <p className="contact-hero__build">
+          <p className="contact-hero__build copy-caption">
             <span>CONTACT INTERFACE v2.4</span>
             <span>UPDATE 2026 // CERTIFIED CFRP</span>
           </p>
 
           <div className="contact-hero__title">
-            <h1>Kontakt</h1>
-            <p>Haben Sie ein Projekt? Ob Formula 1 Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.</p>
+            <h1 className="heading-primary-bold">Kontakt</h1>
+            <p className="copy-body">Haben Sie ein Projekt? Ob Formula 1 Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.</p>
           </div>
 
-          <a className="contact-hero__status" href="#anfrage">
+          <a className="contact-hero__status copy-tiny" href="#anfrage">
             <span>PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</span>
             <span>SCROLL TO EXPLORE</span>
           </a>

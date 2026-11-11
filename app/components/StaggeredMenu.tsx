@@ -237,7 +237,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
             {/* Subtle Topo curves */}
             <TopoBackground opacityClass="opacity-[0.04] dark:opacity-[0.02]" />
 
-            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 font-mono text-xs">
+            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
               
               {/* Left Column: Branding, Telemetry, and Links */}
               <m.div 
@@ -245,17 +245,17 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                 variants={metaVariants}
               >
                 <div>
-                  <span className="font-bold text-lg px-3 py-1 uppercase tracking-tight text-zinc-100 bg-zinc-900 dark:text-zinc-950 dark:bg-zinc-100">
+                  <span className="heading-tertiary px-3 py-1 text-zinc-100 bg-zinc-900 dark:text-zinc-950 dark:bg-zinc-100">
                     BRÄUTIGAM
                   </span>
-                  <div className="text-[10px] tracking-wider mt-4 leading-relaxed text-zinc-400 dark:text-zinc-500">
+                  <div className="copy-tiny mt-4 text-zinc-400 dark:text-zinc-500">
                     <div>DIVISION // COMPOSITE ENGINEERING</div>
                     <div>PROJECT // AERO_HYPERCAR_v2.2</div>
                     <div>STATUS // SYSTEM_ACTIVE</div>
                   </div>
                 </div>
 
-                <div className="text-[10px] tracking-widest leading-loose text-zinc-600 dark:text-zinc-400">
+                <div className="copy-body-sm leading-loose text-zinc-600 dark:text-zinc-400">
                   <div>Daimlerstraße 13</div>
                   <div>D-71691 Freiberg am Neckar</div>
                   <div className="mt-4">
@@ -285,13 +285,13 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     {item.soon ? (
                       <span
                         aria-disabled="true"
-                        className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight flex items-start gap-4 sm:gap-5 text-zinc-400 dark:text-zinc-500 cursor-default"
+                        className="heading-tertiary flex items-start gap-4 sm:gap-5 text-zinc-400 dark:text-zinc-500 cursor-default"
                       >
-                        <span className="text-zinc-400 dark:text-zinc-500 font-mono text-base font-semibold">
+                        <span className="copy-caption text-zinc-400 dark:text-zinc-500">
                           {String(idx + 1).padStart(2, "0")}
                         </span>
                         <span>{item.label}</span>
-                        <span className="normal-case font-mono text-[10px] sm:text-xs font-semibold tracking-[0.16em] text-zinc-400 dark:text-zinc-600">
+                        <span className="normal-case copy-tiny text-zinc-400 dark:text-zinc-600">
                           coming soon
                         </span>
                       </span>
@@ -299,9 +299,9 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                       <a
                         href={item.link}
                         onClick={(e) => handleLinkClick(e, item.link)}
-                        className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight leading-[0.95] flex items-start gap-4 sm:gap-5 transition-all duration-300 hover:translate-x-3 sm:hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100 focus-visible:rounded-sm"
+                        className="heading-tertiary flex items-start gap-4 sm:gap-5 transition-all duration-300 hover:translate-x-3 sm:hover:translate-x-6 text-zinc-950 hover:text-brand-neon dark:text-zinc-100 focus-visible:rounded-sm"
                       >
-                        <span className="text-brand-neon font-mono text-base font-semibold">
+                        <span className="copy-caption text-brand-neon">
                           {String(idx + 1).padStart(2, "0")}
                         </span>
                         <span>{item.label}</span>

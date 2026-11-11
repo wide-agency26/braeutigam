@@ -42,7 +42,7 @@ export default function ConsentGate({
       </p>
       <button
         type="button"
-        className="font-mono text-[11px] uppercase tracking-wider text-brand-neon underline-offset-4 hover:underline"
+        className="copy-body-sm text-brand-neon underline-offset-4 hover:underline"
         onClick={() => setAllowed(true)}
       >
         {label}

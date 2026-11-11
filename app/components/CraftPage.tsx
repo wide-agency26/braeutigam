@@ -26,7 +26,7 @@ export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
           id="craft-soon"
           className="cv-auto relative mx-auto flex min-h-[50vh] max-w-3xl flex-col items-start justify-center gap-6 px-6 py-24 md:px-12"
         >
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-neon">
+          <p className="copy-tiny text-brand-neon">
             CRAFT // KOHLEFASER-LÖSUNGEN
           </p>
           <h1 className="font-sans text-4xl font-light uppercase tracking-tight text-zinc-950 dark:text-zinc-100 sm:text-5xl">

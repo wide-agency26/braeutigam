@@ -241,15 +241,11 @@
 
 .manifest-stage .manifest-figma__line {
   max-width: none;
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-size: calc(119.05 / 1920 * 100cqi);
   white-space: nowrap;
 }
 
 .manifest-stage .manifest-figma__neon {
   display: block;
-  margin: 0;
-  font-size: calc(127.053 / 1920 * 100cqi);
   text-align: center;
 }
 

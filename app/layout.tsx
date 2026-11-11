@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { JetBrains_Mono, Oswald } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { siteIndexable } from "@/lib/site-config";
 import "./globals.css";
 
-/* ── Font 1: Univers LT Std — replaces Oswald (body/sans) ──
-   Only the weights the design actually requests (100/300/400/700) are
-   declared; 200 and 900 could never be selected by the CSS weight-matching
-   algorithm given these faces. */
+/* Univers LT Std 55 Roman */
 const universLTStd = localFont({
   src: [
-    { path: "./fonts/UniversLTStd-ThinUltraCn.woff2", weight: "100", style: "normal" },
     { path: "./fonts/UniversLTStd-Light.woff2", weight: "300", style: "normal" },
     { path: "./fonts/UniversLTStd.woff2", weight: "400", style: "normal" },
     { path: "./fonts/UniversLTStd-Bold.woff2", weight: "700", style: "normal" },
@@ -20,7 +16,7 @@ const universLTStd = localFont({
   display: "swap",
 });
 
-/* Figma Main Image headlines use Univers LT Std 67 Bold Condensed, not 65 Bold. */
+/* Univers LT Std 67 Bold Condensed (OTF — no web license file in repo; flagged in PR) */
 const universBoldCn = localFont({
   src: "./fonts/UniversLTStd-BoldCn.otf",
   weight: "700",
@@ -28,7 +24,7 @@ const universBoldCn = localFont({
   display: "swap",
 });
 
-/* Timeline headlines use Univers LT Std 57 Condensed. */
+/* Univers LT Std 57 Condensed (OTF — flagged) */
 const universCn = localFont({
   src: "./fonts/UniversLTStd-Cn.otf",
   weight: "400",
@@ -36,29 +32,6 @@ const universCn = localFont({
   display: "swap",
 });
 
-/* ── Font 2: DxBurst-Smooth — display/heading font ──
-   Below the fold only, so it must not compete with the LCP image for
-   bandwidth. */
-const dxBurstSmooth = localFont({
-  src: "./fonts/DxBurst-Smooth.woff2",
-  weight: "400",
-  variable: "--font-dxburst",
-  display: "swap",
-  preload: false,
-});
-
-/* ── Font 2.5: DxBurst-Regular — bold display font (menu overlay only) ── */
-const dxBurstRegular = localFont({
-  src: "./fonts/DxBurst-Regular.woff2",
-  weight: "400",
-  variable: "--font-dxburst-bold",
-  display: "swap",
-  preload: false,
-});
-
-/* ── Font 3: Bootzy TM — neon display accents (Final Home, no cursive) ──
-   Used for SINCE 2016, highlight words, and footer credit. Below-fold
-   accents can wait; hero badge is small so swap is fine. */
 const bootzy = localFont({
   src: "./fonts/BootzyTM.woff2",
   weight: "400",
@@ -66,18 +39,8 @@ const bootzy = localFont({
   display: "swap",
 });
 
-/* ── Font 4: Oswald Medium — Figma footer nav/brand (condensed) ── */
-const oswald = Oswald({
-  weight: ["500"],
-  variable: "--font-oswald",
-  subsets: ["latin"],
-  preload: false,
-});
-
-/* ── Font 5: JetBrains Mono — mono/tech labels ──
-   Only the weights the UI requests (regular labels + bold/semibold HUD). */
 const jetbrainsMono = JetBrains_Mono({
-  weight: ["300", "400", "600", "700"],
+  weight: ["300", "400"],
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   preload: false,
@@ -85,10 +48,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Bräutigam GmbH | Premium Motorsport Carbon Fiber",
-  description: "State-of-the-art carbon fiber engineering and autoclave curing for peak motorsport performance. Precision CAD-to-Carbon execution.",
-  ...(siteIndexable()
-    ? {}
-    : { robots: { index: false, follow: false } }),
+  description:
+    "State-of-the-art carbon fiber engineering and autoclave curing for peak motorsport performance. Precision CAD-to-Carbon execution.",
+  ...(siteIndexable() ? {} : { robots: { index: false, follow: false } }),
 };
 
 export default function RootLayout({
@@ -97,14 +59,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // `dark` is the default theme — set on <html> so first paint matches and
-    // Tailwind `dark:` utilities work before the client ThemeProvider hydrates.
     <html
       lang="de"
       suppressHydrationWarning
-      className={`dark ${universLTStd.variable} ${universBoldCn.variable} ${universCn.variable} ${dxBurstSmooth.variable} ${dxBurstRegular.variable} ${bootzy.variable} ${oswald.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`dark ${universLTStd.variable} ${universBoldCn.variable} ${universCn.variable} ${bootzy.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <head>
+        <link rel="stylesheet" href="/typography-tokens.css" />
         <script
           dangerouslySetInnerHTML={{
             __html:
@@ -113,7 +74,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
-        {/* Lives in the root layout so the toggle persists across routes. */}
         <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>
       </body>
     </html>

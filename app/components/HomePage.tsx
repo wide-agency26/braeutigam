@@ -423,12 +423,12 @@ export default function HomePage({
       <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
         <div className="site-container relative z-10">
           <div className="experts-figma__header">
-            <h2 className="experts-figma__title">
+            <h2 className="experts-figma__title heading-secondary">
               <span className="experts-figma__meet">MEET</span>
               <span className="experts-figma__experts">THE EXPERTS</span>
             </h2>
             <div className="experts-figma__hud">
-              <p className="experts-figma__hud-kicker">** END 2 END EXPERTS **</p>
+              <p className="experts-figma__hud-kicker copy-tiny">** END 2 END EXPERTS **</p>
               <p>
                 <span>HEADCOUNT:</span>
                 <span className="experts-figma__hud-val">80+</span>
@@ -523,7 +523,7 @@ export default function HomePage({
       </section>
       </main>
 
-      {/* FOOTER — Figma 1154:1356 (Oswald + frame notches) + LineWaves */}
+      {/* FOOTER — Figma 1154:1356 (frame notches) + LineWaves */}
       <SiteFooter />
     </div>
     </LazyMotion>

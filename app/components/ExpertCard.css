@@ -241,14 +241,7 @@
 }
 
 .expert-card__name {
-  margin: 0;
   width: 100%;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: clamp(1.1rem, 6cqi, 24.0832px);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
   color: var(--ec-name);
 }
 

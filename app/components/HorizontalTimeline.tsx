@@ -462,7 +462,7 @@ export default function HorizontalTimeline() {
     <>
       <section className="journey-intro" aria-labelledby="journey-heading">
         <div className="journey-intro__copy">
-          <p className="journey-intro__kicker">{`/*= CORPORATE EVOLUTION =*/`}</p>
+          <p className="journey-intro__kicker copy-tiny">{`/*= CORPORATE EVOLUTION =*/`}</p>
           <dl className="journey-intro__hud">
             <div className="journey-intro__row">
               <dt>YEARS ACTIVE:</dt>
@@ -484,15 +484,15 @@ export default function HorizontalTimeline() {
               </dd>
             </div>
           </dl>
-          <h2 id="journey-heading" className="journey-intro__title">
+          <h2 id="journey-heading" className="journey-intro__title heading-secondary">
             <span>OUR JOURNEY</span>
             <span>&amp; HISTORY</span>
           </h2>
         </div>
         <div className="journey-intro__watermark" aria-hidden>
-          <p>CARBON</p>
-          <p>FIBER</p>
-          <p>WORKS</p>
+          <p className="decorative-primary">CARBON</p>
+          <p className="decorative-primary">FIBER</p>
+          <p className="decorative-primary">WORKS</p>
         </div>
       </section>
 
