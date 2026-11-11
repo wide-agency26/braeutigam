@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           <p className="copy-tiny text-brand-neon">
             TODO — full text pending
           </p>
-          <h1 className="mt-4 font-sans text-3xl font-light uppercase tracking-tight">
+          <h1 className="mt-4 heading-tertiary">
             Privacy policy
           </h1>
           <ul className="mt-6 list-disc space-y-2 pl-6 text-sm text-zinc-700 dark:text-zinc-300">

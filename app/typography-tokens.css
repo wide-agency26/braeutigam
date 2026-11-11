@@ -1,214 +1,188 @@
 /**
- * Figma typography tokens — desktop values at max clamp; floors below 1440 per spec.
- * Served from /public/typography-tokens.css (sync via pnpm sync:typography). Clamp prefers vw
- * (not calc(px * 100vw / 1440)) so Chromium keeps font-size/line-height on parse.
+ * Figma typography tokens — scale: spec * (100vw / 1440), no max cap above 1440.
+ * Served from /public/typography-tokens.css (pnpm sync:typography). Margins live in layout CSS only.
  */
 
-/* ── Headings — Univers condensed, uppercase ── */
-
 .heading-primary-bold {
-  margin: 0 0 80px;
+  margin: 0;
   font-family: var(--font-univers-bold-cn), sans-serif;
   font-weight: 700;
-  font-size: clamp(40px, 6.944vw, 100px);
-  line-height: clamp(40px, 6.944vw, 100px);
+  font-size: max(40px, calc(100 * 100vw / 1440));
+  line-height: max(40px, calc(100 * 100vw / 1440));
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .heading-secondary {
-  margin: 0 0 clamp(20.8px, 3.611111vw, 52px);
+  margin: 0;
   font-family: var(--font-univers-cn), sans-serif;
   font-weight: 400;
-  font-size: clamp(30.4px, 5.277778vw, 76px);
-  line-height: clamp(20.8px, 3.611111vw, 52px);
-  letter-spacing: -2px;
+  font-size: max(30.4px, calc(76 * 100vw / 1440));
+  line-height: max(20.8px, calc(52 * 100vw / 1440));
+  letter-spacing: calc(-2 * 100vw / 1440);
   text-transform: uppercase;
 }
 
 .heading-secondary-bold {
-  margin: 0 0 clamp(20.8px, 3.611111vw, 52px);
+  margin: 0;
   font-family: var(--font-univers-bold-cn), sans-serif;
   font-weight: 700;
-  font-size: clamp(30.4px, 5.277778vw, 76px);
-  line-height: clamp(30.4px, 5.277778vw, 76px);
-  letter-spacing: -2px;
+  font-size: max(30.4px, calc(76 * 100vw / 1440));
+  line-height: max(30.4px, calc(76 * 100vw / 1440));
+  letter-spacing: calc(-2 * 100vw / 1440);
   text-transform: uppercase;
 }
 
 .heading-tertiary {
-  margin: 0 0 clamp(8px, 1.388889vw, 20px);
+  margin: 0;
   font-family: var(--font-univers-cn), sans-serif;
   font-weight: 400;
-  font-size: clamp(22.8px, 3.958333vw, 57px);
-  line-height: clamp(22.8px, 3.958333vw, 57px);
+  font-size: max(22.8px, calc(57 * 100vw / 1440));
+  line-height: max(22.8px, calc(57 * 100vw / 1440));
   letter-spacing: 0;
   text-transform: uppercase;
 }
-
-/* ── Decorative — Bootzy TM ── */
 
 .decorative-primary {
   margin: 0;
   font-family: var(--font-bootzy), sans-serif;
   font-weight: 400;
-  font-size: clamp(132.8px, 23.055556vw, 332px);
-  line-height: clamp(92.8px, 16.111111vw, 232px);
-  letter-spacing: clamp(3.2px, 0.555556vw, 8px);
+  font-size: max(132.8px, calc(332 * 100vw / 1440));
+  line-height: max(92.8px, calc(232 * 100vw / 1440));
+  letter-spacing: max(3.2px, calc(8 * 100vw / 1440));
   text-transform: uppercase;
 }
 
 .decorative-secondary {
-  margin: 0 0 clamp(20.8px, 3.611111vw, 52px);
+  margin: 0;
   font-family: var(--font-bootzy), sans-serif;
   font-weight: 400;
-  font-size: clamp(28.8px, 5vw, 72px);
-  line-height: clamp(33.6px, 5.833333vw, 84px);
-  letter-spacing: clamp(1.6px, 0.277778vw, 4px);
+  font-size: max(28.8px, calc(72 * 100vw / 1440));
+  line-height: max(33.6px, calc(84 * 100vw / 1440));
+  letter-spacing: max(1.6px, calc(4 * 100vw / 1440));
   text-transform: uppercase;
 }
 
 .decorative-tertiary {
-  margin: 0 0 clamp(12px, 2.083333vw, 30px);
+  margin: 0;
   font-family: var(--font-bootzy), sans-serif;
   font-weight: 400;
-  font-size: clamp(16.8px, 2.916667vw, 42px);
-  line-height: clamp(19.2px, 3.333333vw, 48px);
-  letter-spacing: clamp(0.8px, 0.138889vw, 2px);
+  font-size: max(16.8px, calc(42 * 100vw / 1440));
+  line-height: max(19.2px, calc(48 * 100vw / 1440));
+  letter-spacing: max(0.8px, calc(2 * 100vw / 1440));
   text-transform: uppercase;
 }
 
-/* ── Copy ── */
-
 .copy-body-lg {
-  margin: 0 0 clamp(15.2px, 2.638889vw, 38px);
+  margin: 0;
   font-family: var(--font-univers), sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1.944444vw, 28px);
-  line-height: clamp(14px, 2.638889vw, 38px);
+  font-size: max(14px, calc(28 * 100vw / 1440));
+  line-height: max(14px, calc(38 * 100vw / 1440));
   letter-spacing: 0;
 }
 
 .copy-body {
-  margin: 0 0 clamp(12px, 0.833333vw, 12px);
+  margin: 0;
   font-family: var(--font-univers), sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1.388889vw, 20px);
-  line-height: clamp(14px, 1.666667vw, 24px);
+  font-size: max(14px, calc(20 * 100vw / 1440));
+  line-height: max(14px, calc(24 * 100vw / 1440));
   letter-spacing: 0;
 }
 
 .copy-body-sm {
-  margin: 0 0 clamp(14px, 1.25vw, 18px);
+  margin: 0;
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 400;
-  font-size: clamp(14px, 0.972222vw, 14px);
-  line-height: clamp(14px, 1.25vw, 18px);
+  font-size: max(14px, calc(14 * 100vw / 1440));
+  line-height: max(14px, calc(18 * 100vw / 1440));
   letter-spacing: 0;
 }
 
 .copy-caption {
-  margin: 0 0 clamp(14px, 0.416667vw, 6px);
+  margin: 0;
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 400;
-  font-size: clamp(14px, 0.833333vw, 12px);
-  line-height: clamp(14px, 1.25vw, 18px);
+  font-size: calc(12 * 100vw / 1440);
+  line-height: max(14px, calc(18 * 100vw / 1440));
   letter-spacing: 0;
   text-transform: uppercase;
+}
+@media (max-width: 1439.98px) {
+  .copy-caption { font-size: max(14px, calc(12 * 100vw / 1440)); }
 }
 
 .copy-tiny {
-  margin: 0 0 clamp(10px, 0.555556vw, 8px);
+  margin: 0;
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 300;
-  font-size: clamp(10px, 0.694444vw, 10px);
-  line-height: clamp(10px, 0.694444vw, 10px);
-  letter-spacing: clamp(1.4px, 0.138889vw, 2px);
+  font-size: max(10px, calc(10 * 100vw / 1440));
+  line-height: max(10px, calc(10 * 100vw / 1440));
+  letter-spacing: calc(2 * 100vw / 1440);
   text-transform: uppercase;
 }
-
-/* ── Buttons ── */
 
 .button-body-lg {
+  margin: 0;
   font-family: var(--font-univers-cn), sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1.666667vw, 24px);
-  line-height: clamp(14px, 1.666667vw, 24px);
+  font-size: max(14px, calc(24 * 100vw / 1440));
+  line-height: max(14px, calc(24 * 100vw / 1440));
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
-/* FLAG: Figma line-height 0 — use 10px */
 .button-body-caption {
+  margin: 0;
   font-family: var(--font-univers-cn), sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 0.694444vw, 10px);
-  line-height: 10px;
+  font-size: calc(10 * 100vw / 1440);
+  line-height: max(14px, calc(10 * 100vw / 1440));
   letter-spacing: 0;
   text-transform: uppercase;
+  /* FLAG: Figma line-height 0 — use 10px */
 }
-
-/* ── Footer ── */
+@media (max-width: 1439.98px) {
+  .button-body-caption { font-size: max(14px, calc(10 * 100vw / 1440)); }
+}
 
 .footer-headline-primary {
-  margin: 0 0 clamp(8.8px, 1.527778vw, 22px);
+  margin: 0;
   font-family: var(--font-univers-bold-cn), sans-serif;
   font-weight: 700;
-  font-size: clamp(28.8px, 5vw, 72px);
-  line-height: clamp(27.2px, 4.722222vw, 68px);
-  letter-spacing: -1px;
+  font-size: max(28.8px, calc(72 * 100vw / 1440));
+  line-height: max(27.2px, calc(68 * 100vw / 1440));
+  letter-spacing: calc(-1 * 100vw / 1440);
   text-transform: uppercase;
 }
 
 .footer-decorative-primary {
+  margin: 0;
   font-family: var(--font-bootzy), sans-serif;
   font-weight: 400;
-  font-size: clamp(22.4px, 3.888889vw, 56px);
-  line-height: clamp(19.2px, 3.333333vw, 48px);
-  letter-spacing: clamp(0.8px, 0.138889vw, 2px);
+  font-size: max(22.4px, calc(56 * 100vw / 1440));
+  line-height: max(19.2px, calc(48 * 100vw / 1440));
+  letter-spacing: max(0.8px, calc(2 * 100vw / 1440));
   text-transform: uppercase;
 }
 
 .footer-decorative-secondary {
+  margin: 0;
   font-family: var(--font-bootzy), sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1.666667vw, 24px);
-  line-height: clamp(14px, 2.222222vw, 32px);
-  letter-spacing: clamp(0.8px, 0.138889vw, 2px);
+  font-size: max(9.6px, calc(24 * 100vw / 1440));
+  line-height: max(12.8px, calc(32 * 100vw / 1440));
+  letter-spacing: max(0.8px, calc(2 * 100vw / 1440));
   text-transform: uppercase;
 }
-
-/* ── Team card ── */
 
 .team-card-primary {
-  margin: 0 0 clamp(8.8px, 1.527778vw, 22px);
+  margin: 0;
   font-family: var(--font-univers-bold-cn), sans-serif;
   font-weight: 700;
-  font-size: clamp(12.8px, 2.222222vw, 32px);
-  line-height: clamp(14.4px, 2.5vw, 36px);
-  letter-spacing: -1px;
+  font-size: max(12.8px, calc(32 * 100vw / 1440));
+  line-height: max(14.4px, calc(36 * 100vw / 1440));
+  letter-spacing: calc(-1 * 100vw / 1440);
   text-transform: uppercase;
-}
-
-/* Desktop-exact values where clamp min would exceed Figma px */
-@media (min-width: 1440px) {
-  .copy-caption {
-    font-size: 12px;
-    line-height: 18px;
-    margin-bottom: 6px;
-  }
-
-  .button-body-caption {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 1439.98px) {
-  .copy-caption {
-    font-size: max(14px, 0.833333vw);
-  }
-
-  .button-body-caption {
-    font-size: max(14px, 0.694444vw);
-  }
 }

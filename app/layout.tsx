@@ -7,11 +7,8 @@ import "./globals.css";
 
 /* Univers LT Std 55 Roman */
 const universLTStd = localFont({
-  src: [
-    { path: "./fonts/UniversLTStd-Light.woff2", weight: "300", style: "normal" },
-    { path: "./fonts/UniversLTStd.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/UniversLTStd-Bold.woff2", weight: "700", style: "normal" },
-  ],
+  src: "./fonts/UniversLTStd.woff2",
+  weight: "400",
   variable: "--font-univers",
   display: "swap",
 });

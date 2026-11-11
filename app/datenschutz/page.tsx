@@ -29,7 +29,7 @@ export default function DatenschutzPage() {
           <p className="copy-tiny text-brand-neon">
             TODO — Volltext folgt
           </p>
-          <h1 className="mt-4 font-sans text-3xl font-light uppercase tracking-tight">
+          <h1 className="mt-4 heading-tertiary">
             Datenschutz
           </h1>
           <p className="mt-6 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">

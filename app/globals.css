@@ -279,6 +279,14 @@ body {
   animation: hero-rise 400ms cubic-bezier(0, 0, 0.58, 1) both;
 }
 
+/* Figma home hero stack gaps @ 1440: 80px primary→secondary, 52px secondary→decorative */
+.site-hero__stack > .heading-primary-bold {
+  margin-bottom: calc(80 * 100vw / 1440);
+}
+.site-hero__stack > .heading-secondary {
+  margin-bottom: calc(52 * 100vw / 1440);
+}
+
 @keyframes hero-rise {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -334,6 +342,9 @@ body {
   color: #fbfafc;
   white-space: nowrap;
 }
+.journey-intro__kicker.copy-tiny {
+  margin-bottom: calc(8 * 100vw / 1440);
+}
 .journey-intro__hud {
   margin: 0;
   width: min(220px, 100%);
@@ -352,14 +363,6 @@ body {
 .journey-intro__row dt,
 .journey-intro__row dd {
   font-family: inherit;
-}
-.journey-intro__hud .journey-intro__row {
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-weight: 300;
-  font-size: clamp(10px, calc(10px * 100vw / 1440), 10px);
-  line-height: clamp(10px, calc(10px * 100vw / 1440), 10px);
-  letter-spacing: clamp(1.4px, calc(2px * 100vw / 1440), 2px);
-  text-transform: uppercase;
 }
 .journey-intro__row dt {
   margin: 0;
@@ -403,14 +406,6 @@ body {
   font-size: min(17.2vw, 28vh);
 }
 .journey-intro__watermark p {
-  margin: 0;
-  font-family: var(--font-bootzy), sans-serif;
-  font-weight: 400;
-  font-size: 1em;
-  /* Same Decorative/Primary spacing as OUR / CRAFT: 232px line, 8px tracking at 332px */
-  line-height: calc(232 / 332);
-  letter-spacing: calc(8 / 332 * 1em);
-  text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
   white-space: nowrap;
@@ -497,13 +492,6 @@ body {
   user-select: none;
 }
 .mission-figma__watermark p {
-  margin: 0;
-  font-family: var(--font-bootzy), sans-serif;
-  /* Figma Decorative/Primary: 332px type, 232px line, 8px tracking */
-  font-size: calc(332 / 1920 * 100cqi);
-  line-height: calc(232 / 332);
-  letter-spacing: calc(8 / 332 * 1em);
-  text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
   white-space: nowrap;
@@ -529,12 +517,6 @@ body {
   width: calc(70 / 1920 * 100cqi);
   margin-left: calc(20 / 1920 * 100cqi);
   text-align: center;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-weight: 300;
-  font-size: calc(10 / 1920 * 100cqi);
-  line-height: calc(10 / 1920 * 100cqi);
-  letter-spacing: calc(2 / 1920 * 100cqi);
-  text-transform: uppercase;
   color: #717272;
 }
 .mission-figma__chip img {
@@ -561,25 +543,11 @@ body {
 }
 .mission-figma__quality {
   display: block;
-  margin: 0;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 6.201cqw; /* 119.05 */
-  line-height: 0.85;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
   color: #fbfafc;
   white-space: nowrap;
 }
 .mission-figma__perf {
   display: block;
-  margin: 0;
-  font-family: var(--font-bootzy), sans-serif;
-  font-weight: 400;
-  font-size: 6.617cqw; /* 127.053 */
-  line-height: 0.85;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
   color: #00ff00;
   white-space: nowrap;
 }
@@ -617,11 +585,6 @@ body {
   gap: 1.719cqw; /* 16.5 */
 }
 .mission-figma__copy {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 1.042cqw; /* 20 */
-  line-height: 1.2;
-  letter-spacing: -0.04em;
   color: #fbfafc;
 }
 /* Button-primary — Figma 1214:19 / 1273:503. Small caption is 1275:691. */
@@ -636,12 +599,6 @@ body {
   background: #1f2020;
   color: #f3f3f3;
   box-shadow: 0 1px 10px -3px #1f2020, inset 0 1px 2px -1px #424343;
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 24px;
-  letter-spacing: 0;
-  text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -1099,12 +1056,7 @@ body {
   .footer-figma__legal {
     flex-wrap: wrap;
     white-space: normal;
-    font-size: 11px;
     gap: 6px 14px;
-  }
-  .footer-figma__imprint,
-  .footer-figma__credit {
-    font-size: 15px;
   }
   .footer-figma__imprint {
     gap: 16px;
@@ -1168,20 +1120,9 @@ body {
   color: #f3f3f3;
 }
 
-.social-section__title span:first-child {
-  font-family: var(--font-univers-cn), var(--font-sans);
-  font-weight: 400;
-  font-size: 76px;
-  line-height: 52px;
-  letter-spacing: -2px;
-}
-
-.social-section__title span:last-child {
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-weight: 700;
-  font-size: 76px;
-  line-height: 76px;
-  letter-spacing: -2px;
+.social-section__title .heading-secondary,
+.social-section__title .heading-secondary-bold {
+  color: inherit;
 }
 
 .social-section__links {
@@ -1190,12 +1131,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 40px;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: 0;
-  text-transform: uppercase;
   color: #b2b1b2;
+}
+.social-section__links .copy-body-sm {
+  color: inherit;
 }
 
 .social-section__links a:hover {
@@ -1205,10 +1144,4 @@ body {
 @media (max-width: 800px) {
   .social-gallery { height: 420px; }
   .social-section__copy { padding: 0 20px; }
-  .social-section__title span:first-child,
-  .social-section__title span:last-child {
-    font-size: clamp(28px, 8vw, 48px);
-    line-height: 1;
-    letter-spacing: -0.5px;
-  }
 }

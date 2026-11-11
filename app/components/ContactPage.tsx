@@ -331,16 +331,16 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
           <section id="anfrage" className="contact-split">
             <div className="contact-form-side">
               <header className="contact-section-head">
-                <p>{">> START_PROJECT_MANIFEST"}</p>
-                <h2>PROJEKTANFRAGE STARTEN</h2>
+                <p className="copy-caption">{">> START_PROJECT_MANIFEST"}</p>
+                <h2 className="heading-tertiary">PROJEKTANFRAGE STARTEN</h2>
               </header>
               <ContactForm locale={locale} />
             </div>
 
             <aside className="contact-info" aria-label="Direkter Kontakt">
               <header className="contact-section-head">
-                <p>{"// DIRECT_CONTACT_DETAILS"}</p>
-                <h2>DIREKTER KONTAKT</h2>
+                <p className="copy-caption">{"// DIRECT_CONTACT_DETAILS"}</p>
+                <h2 className="heading-tertiary">DIREKTER KONTAKT</h2>
               </header>
               <div className="contact-info__blocks">
                 <div>

@@ -153,7 +153,7 @@ export default function SiteHero({
       </div>
 
       <div className="relative z-20 w-full max-w-5xl flex flex-col items-center text-center px-6 pointer-events-none">
-        <div className="hero-rise flex flex-col items-center relative gap-1">
+        <div className="hero-rise site-hero__stack flex flex-col items-center relative">
           <p className="heading-primary-bold select-none text-zinc-950 dark:text-zinc-100">
             BRÄUTIGAM
           </p>
@@ -162,7 +162,7 @@ export default function SiteHero({
             CARBON FIBER WORKS
           </Title>
 
-          <div className="hero-since mt-4 pointer-events-auto">
+          <div className="hero-since pointer-events-auto">
             <NotchedBorderGlow
               notchPosition="slanted"
               active={true}

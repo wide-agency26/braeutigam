@@ -93,7 +93,7 @@ function ExpertCardComponent({
 
           <div className="expert-card__info">
             <NameHeading className="expert-card__name team-card-primary">{name}</NameHeading>
-            <div className="expert-card__row">
+            <div className="expert-card__row copy-tiny">
               <p className="expert-card__role">{title}</p>
               <p className="expert-card__id">ID: {memberId}</p>
             </div>

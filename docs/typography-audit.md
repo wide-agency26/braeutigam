@@ -1,140 +1,83 @@
-# Typography audit (1440px)
+# Typography audit
 
-Base URL: http://127.0.0.1:3000
-Generated: 2026-11-11T15:26:48.663Z
+Base: http://127.0.0.1:3000
+Generated: 2026-11-11T15:51:55.461Z
 
-| Route | Token | Selector | font-size | line-height | match |
-|-------|-------|----------|-----------|-------------|-------|
-| / | heading-primary-bold | .heading-primary-bold | 99.9936px | 99.9936px | no |
-| / | heading-secondary | .heading-secondary | 76px | 52px | yes |
-| / | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| / | copy-body | .copy-body | — | — | missing |
-| / | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| / | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| / | team-card-primary | .team-card-primary | — | — | missing |
-| /en | heading-primary-bold | .heading-primary-bold | 99.9936px | 99.9936px | no |
-| /en | heading-secondary | .heading-secondary | 76px | 52px | yes |
-| /en | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en | copy-body | .copy-body | — | — | missing |
-| /en | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /en | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en | team-card-primary | .team-card-primary | — | — | missing |
-| /karriere | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /karriere | heading-secondary | .heading-secondary | — | — | missing |
-| /karriere | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /karriere | copy-body | .copy-body | 20px | 24px | yes |
-| /karriere | copy-tiny | .copy-tiny | — | — | missing |
-| /karriere | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /karriere | team-card-primary | .team-card-primary | — | — | missing |
-| /en/karriere | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /en/karriere | heading-secondary | .heading-secondary | — | — | missing |
-| /en/karriere | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en/karriere | copy-body | .copy-body | 20px | 24px | yes |
-| /en/karriere | copy-tiny | .copy-tiny | — | — | missing |
-| /en/karriere | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en/karriere | team-card-primary | .team-card-primary | — | — | missing |
-| /kontakt | heading-primary-bold | .heading-primary-bold | 99.9936px | 99.9936px | no |
-| /kontakt | heading-secondary | .heading-secondary | — | — | missing |
-| /kontakt | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /kontakt | copy-body | .copy-body | 20px | 24px | yes |
-| /kontakt | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /kontakt | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /kontakt | team-card-primary | .team-card-primary | — | — | missing |
-| /en/kontakt | heading-primary-bold | .heading-primary-bold | 99.9936px | 99.9936px | no |
-| /en/kontakt | heading-secondary | .heading-secondary | — | — | missing |
-| /en/kontakt | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en/kontakt | copy-body | .copy-body | 20px | 24px | yes |
-| /en/kontakt | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /en/kontakt | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en/kontakt | team-card-primary | .team-card-primary | — | — | missing |
-| /craft | heading-primary-bold | .heading-primary-bold | 99.9936px | 99.9936px | no |
-| /craft | heading-secondary | .heading-secondary | 76px | 52px | yes |
-| /craft | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /craft | copy-body | .copy-body | — | — | missing |
-| /craft | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /craft | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /craft | team-card-primary | .team-card-primary | — | — | missing |
-| /en/craft | heading-primary-bold | .heading-primary-bold | 99.9936px | 99.9936px | no |
-| /en/craft | heading-secondary | .heading-secondary | 76px | 52px | yes |
-| /en/craft | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en/craft | copy-body | .copy-body | — | — | missing |
-| /en/craft | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /en/craft | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en/craft | team-card-primary | .team-card-primary | — | — | missing |
-| /en/team | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /en/team | heading-secondary | .heading-secondary | 76px | 52px | yes |
-| /en/team | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en/team | copy-body | .copy-body | — | — | missing |
-| /en/team | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /en/team | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en/team | team-card-primary | .team-card-primary | — | — | missing |
-| /impressum | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /impressum | heading-secondary | .heading-secondary | — | — | missing |
-| /impressum | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /impressum | copy-body | .copy-body | — | — | missing |
-| /impressum | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /impressum | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /impressum | team-card-primary | .team-card-primary | — | — | missing |
-| /datenschutz | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /datenschutz | heading-secondary | .heading-secondary | — | — | missing |
-| /datenschutz | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /datenschutz | copy-body | .copy-body | — | — | missing |
-| /datenschutz | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /datenschutz | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /datenschutz | team-card-primary | .team-card-primary | — | — | missing |
-| /en/imprint | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /en/imprint | heading-secondary | .heading-secondary | — | — | missing |
-| /en/imprint | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en/imprint | copy-body | .copy-body | — | — | missing |
-| /en/imprint | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /en/imprint | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en/imprint | team-card-primary | .team-card-primary | — | — | missing |
-| /en/privacy | heading-primary-bold | .heading-primary-bold | — | — | missing |
-| /en/privacy | heading-secondary | .heading-secondary | — | — | missing |
-| /en/privacy | heading-tertiary | .heading-tertiary | 57px | 57px | yes |
-| /en/privacy | copy-body | .copy-body | — | — | missing |
-| /en/privacy | copy-tiny | .copy-tiny | 10px | 10px | yes |
-| /en/privacy | footer-headline-primary | .footer-headline-primary | 72px | 68px | yes |
-| /en/privacy | team-card-primary | .team-card-primary | — | — | missing |
+Scale: at viewport W, expected px = spec × (W / 1440). No cap above 1440.
 
-## Missing selectors
+| Route | VP | Theme | Token | font-size | expected | lh | expected lh | match |
+|-------|-----|-------|-------|-----------|----------|-----|-------------|-------|
+| / | 390 | dark | heading-primary-bold | 40px | 27.08px | 40px | 27.08px | no |
+| / | 390 | dark | heading-secondary | 30.4px | 20.58px | 20.8px | 14.08px | no |
+| / | 390 | dark | decorative-tertiary | 16.8px | 11.38px | 19.2px | 13.00px | no |
+| / | 390 | dark | copy-tiny | 10px | 2.71px | 10px | 2.71px | no |
+| / | 390 | dark | copy-body | 14px | 5.42px | 14px | 6.50px | no |
+| / | 390 | dark | footer-headline-primary | 28.8px | 19.50px | 27.2px | 18.42px | no |
+| / | 390 | light | heading-primary-bold | 40px | 27.08px | 40px | 27.08px | no |
+| / | 390 | light | heading-secondary | 30.4px | 20.58px | 20.8px | 14.08px | no |
+| / | 390 | light | decorative-tertiary | 16.8px | 11.38px | 19.2px | 13.00px | no |
+| / | 390 | light | copy-tiny | 10px | 2.71px | 10px | 2.71px | no |
+| / | 390 | light | copy-body | 14px | 5.42px | 14px | 6.50px | no |
+| / | 390 | light | footer-headline-primary | 28.8px | 19.50px | 27.2px | 18.42px | no |
+| / | 1440 | dark | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
+| / | 1440 | dark | heading-secondary | 76px | 76.00px | 52px | 52.00px | yes |
+| / | 1440 | dark | decorative-tertiary | 42px | 42.00px | 48px | 48.00px | yes |
+| / | 1440 | dark | copy-tiny | 10px | 10.00px | 10px | 10.00px | yes |
+| / | 1440 | dark | copy-body | 20px | 20.00px | 24px | 24.00px | yes |
+| / | 1440 | dark | footer-headline-primary | 72px | 72.00px | 68px | 68.00px | yes |
+| / | 1440 | light | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
+| / | 1440 | light | heading-secondary | 76px | 76.00px | 52px | 52.00px | yes |
+| / | 1440 | light | decorative-tertiary | 42px | 42.00px | 48px | 48.00px | yes |
+| / | 1440 | light | copy-tiny | 10px | 10.00px | 10px | 10.00px | yes |
+| / | 1440 | light | copy-body | 20px | 20.00px | 24px | 24.00px | yes |
+| / | 1440 | light | footer-headline-primary | 72px | 72.00px | 68px | 68.00px | yes |
+| / | 1920 | dark | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
+| / | 1920 | dark | heading-secondary | 101.333px | 101.33px | 69.3333px | 69.33px | yes |
+| / | 1920 | dark | decorative-tertiary | 56px | 56.00px | 64px | 64.00px | yes |
+| / | 1920 | dark | copy-tiny | 13.3333px | 13.33px | 13.3333px | 13.33px | yes |
+| / | 1920 | dark | copy-body | 26.6667px | 26.67px | 32px | 32.00px | yes |
+| / | 1920 | dark | footer-headline-primary | 96px | 96.00px | 90.6667px | 90.67px | yes |
+| / | 1920 | light | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
+| / | 1920 | light | heading-secondary | 101.333px | 101.33px | 69.3333px | 69.33px | yes |
+| / | 1920 | light | decorative-tertiary | 56px | 56.00px | 64px | 64.00px | yes |
+| / | 1920 | light | copy-tiny | 13.3333px | 13.33px | 13.3333px | 13.33px | yes |
+| / | 1920 | light | copy-body | 26.6667px | 26.67px | 32px | 32.00px | yes |
+| / | 1920 | light | footer-headline-primary | 96px | 96.00px | 90.6667px | 90.67px | yes |
+| /en | 390 | dark | heading-primary-bold | 40px | 27.08px | 40px | 27.08px | no |
+| /en | 390 | light | heading-primary-bold | 40px | 27.08px | 40px | 27.08px | no |
+| /en | 1440 | dark | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
+| /en | 1440 | light | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
+| /en | 1920 | dark | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
+| /en | 1920 | light | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
+| /kontakt | 390 | dark | heading-primary-bold | 64px | 27.08px | 64px | 27.08px | no |
+| /kontakt | 390 | light | heading-primary-bold | 64px | 27.08px | 64px | 27.08px | no |
+| /kontakt | 1440 | dark | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
+| /kontakt | 1440 | light | heading-primary-bold | 100px | 100.00px | 100px | 100.00px | yes |
+| /kontakt | 1920 | dark | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
+| /kontakt | 1920 | light | heading-primary-bold | 133.333px | 133.33px | 133.333px | 133.33px | yes |
+| /karriere | 390 | dark | heading-secondary-bold | 30.4px | 20.58px | 30.4px | 20.58px | no |
+| /karriere | 390 | light | heading-secondary-bold | 30.4px | 20.58px | 30.4px | 20.58px | no |
+| /karriere | 1440 | dark | heading-secondary-bold | 76px | 76.00px | 76px | 76.00px | yes |
+| /karriere | 1440 | light | heading-secondary-bold | 76px | 76.00px | 76px | 76.00px | yes |
+| /karriere | 1920 | dark | heading-secondary-bold | 101.333px | 101.33px | 101.333px | 101.33px | yes |
+| /karriere | 1920 | light | heading-secondary-bold | 101.333px | 101.33px | 101.333px | 101.33px | yes |
+| /en/team | 390 | dark | heading-secondary | 30.4px | 20.58px | 20.8px | 14.08px | no |
+| /en/team | 390 | light | heading-secondary | 30.4px | 20.58px | 20.8px | 14.08px | no |
+| /en/team | 1440 | dark | heading-secondary | 76px | 76.00px | 52px | 52.00px | yes |
+| /en/team | 1440 | light | heading-secondary | 76px | 76.00px | 52px | 52.00px | yes |
+| /en/team | 1920 | dark | heading-secondary | 101.333px | 101.33px | 69.3333px | 69.33px | yes |
+| /en/team | 1920 | light | heading-secondary | 101.333px | 101.33px | 69.3333px | 69.33px | yes |
+| /impressum | 390 | dark | heading-tertiary | 22.8px | 15.44px | 22.8px | 15.44px | no |
+| /impressum | 390 | light | heading-tertiary | 22.8px | 15.44px | 22.8px | 15.44px | no |
+| /impressum | 1440 | dark | heading-tertiary | 57px | 57.00px | 57px | 57.00px | yes |
+| /impressum | 1440 | light | heading-tertiary | 57px | 57.00px | 57px | 57.00px | yes |
+| /impressum | 1920 | dark | heading-tertiary | 76px | 76.00px | 76px | 76.00px | yes |
+| /impressum | 1920 | light | heading-tertiary | 76px | 76.00px | 76px | 76.00px | yes |
 
-- /: `.copy-body`
-- /: `.team-card-primary`
-- /en: `.copy-body`
-- /en: `.team-card-primary`
-- /karriere: `.heading-primary-bold`
-- /karriere: `.heading-secondary`
-- /karriere: `.copy-tiny`
-- /karriere: `.team-card-primary`
-- /en/karriere: `.heading-primary-bold`
-- /en/karriere: `.heading-secondary`
-- /en/karriere: `.copy-tiny`
-- /en/karriere: `.team-card-primary`
-- /kontakt: `.heading-secondary`
-- /kontakt: `.team-card-primary`
-- /en/kontakt: `.heading-secondary`
-- /en/kontakt: `.team-card-primary`
-- /craft: `.copy-body`
-- /craft: `.team-card-primary`
-- /en/craft: `.copy-body`
-- /en/craft: `.team-card-primary`
-- /en/team: `.heading-primary-bold`
-- /en/team: `.copy-body`
-- /en/team: `.team-card-primary`
-- /impressum: `.heading-primary-bold`
-- /impressum: `.heading-secondary`
-- /impressum: `.copy-body`
-- /impressum: `.team-card-primary`
-- /datenschutz: `.heading-primary-bold`
-- /datenschutz: `.heading-secondary`
-- /datenschutz: `.copy-body`
-- /datenschutz: `.team-card-primary`
-- /en/imprint: `.heading-primary-bold`
-- /en/imprint: `.heading-secondary`
-- /en/imprint: `.copy-body`
-- /en/imprint: `.team-card-primary`
-- /en/privacy: `.heading-primary-bold`
-- /en/privacy: `.heading-secondary`
-- /en/privacy: `.copy-body`
-- /en/privacy: `.team-card-primary`
+## Unmapped (no Figma token applied)
+
+- `.career-watermark` — outlined display stroke (careers)
+- Home datasheet HUD chrome (`HomePage` top badges) — no named token
+- Horizontal timeline scrolly chrome (`text-sm` year labels)
+- Circular gallery canvas label font (WebGL string)
+- Mission absolute frame: legacy proportional layout vs 1440 vw tokens

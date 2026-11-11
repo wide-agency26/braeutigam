@@ -36,6 +36,7 @@ export default function SiteButton({
   const look = LOOK[variant];
   const classes = [
     "site-btn",
+    "button-body-lg",
     size === "sm" ? "site-btn--sm" : "",
     variant === "solid" ? "site-btn--solid" : "",
     variant === "amber" ? "site-btn--amber" : "",

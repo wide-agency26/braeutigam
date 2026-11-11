@@ -464,15 +464,15 @@ export default function HorizontalTimeline() {
         <div className="journey-intro__copy">
           <p className="journey-intro__kicker copy-tiny">{`/*= CORPORATE EVOLUTION =*/`}</p>
           <dl className="journey-intro__hud">
-            <div className="journey-intro__row">
+            <div className="journey-intro__row copy-tiny">
               <dt>YEARS ACTIVE:</dt>
               <dd className="journey-intro__value">10</dd>
             </div>
-            <div className="journey-intro__row">
+            <div className="journey-intro__row copy-tiny">
               <dt>TEAM SIZE:</dt>
               <dd className="journey-intro__value">80+</dd>
             </div>
-            <div className="journey-intro__row">
+            <div className="journey-intro__row copy-tiny">
               <dt>SCROLL STATE:</dt>
               <dd
                 ref={(el) => {

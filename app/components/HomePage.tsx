@@ -354,7 +354,7 @@ export default function HomePage({
       <section id="mission" className="mission-figma cv-auto relative overflow-hidden transition-colors duration-500">
         <div className="mission-figma__stage">
           <div className="mission-figma__watermark" aria-hidden>
-            <p>
+            <p className="decorative-primary">
               OUR
               <br />
               CRAFT
@@ -365,29 +365,29 @@ export default function HomePage({
             <div className="mission-figma__chip">
               <img src="/images/mission/chip-experts.svg" alt="" width={50} height={47} />
               <span className="mission-figma__chip-label">
-                <span>End 2 end</span>
-                <span>Experts</span>
+                <span className="copy-tiny">End 2 end</span>
+                <span className="copy-tiny">Experts</span>
               </span>
             </div>
             <div className="mission-figma__chip">
               <img src="/images/mission/chip-craft.svg" alt="" width={50} height={50} />
               <span className="mission-figma__chip-label">
-                <span>Precision</span>
-                <span>Craft</span>
+                <span className="copy-tiny">Precision</span>
+                <span className="copy-tiny">Craft</span>
               </span>
             </div>
             <div className="mission-figma__chip">
               <img src="/images/mission/chip-execution.svg" alt="" width={50} height={50} />
               <span className="mission-figma__chip-label">
-                <span>Flawless</span>
-                <span>Execution</span>
+                <span className="copy-tiny">Flawless</span>
+                <span className="copy-tiny">Execution</span>
               </span>
             </div>
           </aside>
 
           <h2 className="mission-figma__headline">
-            <span className="mission-figma__quality">FLAWLESS QUALITY &amp;</span>
-            <span className="mission-figma__perf">HIGH PERFORMANCE.</span>
+            <span className="mission-figma__quality heading-primary-bold">FLAWLESS QUALITY &amp;</span>
+            <span className="mission-figma__perf decorative-primary">HIGH PERFORMANCE.</span>
           </h2>
 
           <div className="mission-figma__split">
@@ -401,7 +401,7 @@ export default function HomePage({
               />
             </div>
             <div className="mission-figma__aside">
-              <p className="mission-figma__copy">
+              <p className="mission-figma__copy copy-body">
                 Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
               </p>
               <SiteButton href="#story">MANUFACTURING</SiteButton>
@@ -477,7 +477,7 @@ export default function HomePage({
             </SiteButton>
             <Link
               href={localizedHref("/team", locale)}
-              className="mt-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-brand-neon underline-offset-4 hover:underline"
+              className="mt-4 block copy-tiny text-brand-neon underline-offset-4 hover:underline"
             >
               {locale === "en" ? "ALL EXPERTS" : "ALLE EXPERTEN"}
             </Link>
@@ -511,13 +511,13 @@ export default function HomePage({
         </SocialGalleryBoundary>
         <div className="social-section__copy site-container">
           <h2 className="social-section__title">
-            <span>Follow the daily</span>
-            <span>Bräutigam Experience</span>
+            <span className="heading-secondary">Follow the daily</span>
+            <span className="heading-secondary-bold">Bräutigam Experience</span>
           </h2>
           <nav className="social-section__links" aria-label="Social">
-            <a href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Linkedin</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a className="copy-body-sm" href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a className="copy-body-sm" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Linkedin</a>
+            <a className="copy-body-sm" href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
           </nav>
         </div>
       </section>
