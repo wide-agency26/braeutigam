@@ -256,12 +256,57 @@ body {
   animation: hero-rise 400ms cubic-bezier(0, 0, 0.58, 1) both;
 }
 
-/* Figma home hero stack gaps @ 1440: 80px primary→secondary, 52px secondary→decorative */
-.site-hero__stack > .heading-primary-bold {
-  margin-bottom: calc(80 * 100vw / 1440);
+/* Heading gradient overlay — Figma hero/story/experts/social (nodes 2006:132, 2006:158) */
+.heading-figma-overlay {
+  color: transparent;
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--neutral-black) 20%, transparent) 0%,
+      color-mix(in srgb, var(--neutral-white) 20%, transparent) 100%
+    ),
+  url("/images/figma/heading-secondary-overlay.png"),
+  linear-gradient(var(--text-default-heading), var(--text-default-heading));
+  background-size: auto, cover, auto;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Figma home hero stack gaps @ 1440: 20px logo→secondary, 8px secondary→since */
+.site-hero__wordmark {
+  display: block;
+  width: min(342.784px, 78vw);
+  height: auto;
+  margin-bottom: calc(20 * 100vw / 1440);
 }
 .site-hero__stack > .heading-secondary {
-  margin-bottom: calc(52 * 100vw / 1440);
+  margin-bottom: calc(8 * 100vw / 1440);
+  color: var(--text-default-heading);
+}
+.site-hero__since {
+  margin-top: calc(8 * 100vw / 1440);
+  color: var(--text-default-accent);
+}
+.site-hero__hud {
+  color: var(--text-default-caption);
+}
+.site-hero__status {
+  color: var(--text-default-caption);
+}
+.site-hero__scroll {
+  color: var(--text-default-body);
+}
+.site-hero__scroll:hover {
+  color: var(--text-default-heading);
+}
+.site-hero__hud--right {
+  text-align: right;
+}
+.site-hero__status-wrap {
+  bottom: max(6rem, calc(64px + 24px));
 }
 
 @keyframes hero-rise {
@@ -678,17 +723,9 @@ body {
 }
 .experts-figma__meet {
   display: block;
-  color: var(--text-default-placeholder);
 }
 .experts-figma__experts {
   display: block;
-  color: var(--text-default-heading);
-}
-.dark .experts-figma__experts {
-  color: var(--text-on-bright-heading);
-}
-.dark .experts-figma__meet {
-  color: var(--text-default-caption);
 }
 .experts-figma__hud {
   margin-top: clamp(20px, 2.4vw, 36px);
@@ -871,29 +908,15 @@ body {
 }
 
 .footer-figma__logo {
-  color: var(--text-default-heading);
-  white-space: nowrap;
+  display: block;
+  width: min(18cqi, 343px);
+  height: auto;
+  margin-inline: auto;
 }
 
 .footer-figma__since {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  line-height: 0;
-}
-
-.footer-figma__since img {
-  grid-area: 1 / 1;
-  width: 12.62cqi; /* 234 / 1854 */
-  height: auto;
-}
-
-.footer-figma__since span {
-  grid-area: 1 / 1;
-  margin: 0;
-  color: var(--colors-greeeen);
+  margin: calc(8 * 100vw / 1440) 0 0;
   text-align: center;
-  transform: translateY(0.17cqi);
 }
 
 /* Bottom Bar — spans the full frame width, sits in the bottom notches */
@@ -988,8 +1011,8 @@ body {
     flex-direction: column;
     gap: 28px;
   }
-  .footer-figma__since img {
-    width: clamp(150px, 34vw, 234px);
+  .footer-figma__logo {
+    width: clamp(150px, 34vw, 280px);
   }
   .footer-figma__bottom {
     flex-direction: column;

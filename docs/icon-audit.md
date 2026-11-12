@@ -10,9 +10,26 @@
 
 Exports sourced via Figma MCP `get_design_context` on nodes `1424:108` and `1417:36` (section `1383:240`).
 
-## Other routes
+## Thomas styling pass (PR #12)
 
-Mission chips / footer / chrome continue to use existing `public/images/**` SVGs from prior export (`chip-*.svg`, `footer-frame.svg`, `since-badge.svg`).
+| File | Figma node | Used for |
+|------|------------|----------|
+| `public/icons/figma/client-wordmark.svg` | `1256:232` / `2006:145` | Hero + footer + menu client logo |
+| `public/icons/figma/stat-motorsport.svg` | `1330:1166` | Manifest bottom stats row |
+| `public/icons/figma/stat-worldwide.svg` | `1330:1158` | Manifest bottom stats row |
+| `public/icons/figma/stat-machinery.png` | `1330:1150` (raster export) | Manifest bottom stats row |
+| `public/icons/figma/pill-speed.svg` | `1351:225` | Timeline + manifest core value |
+| `public/icons/figma/pill-inhouse.svg` | `1353:267` | Timeline + manifest core value |
+| `public/icons/figma/pill-complexity.svg` | `1353:344` | Timeline + manifest core value |
+
+## Photos (same pass)
+
+| File | Figma node | Used for |
+|------|------------|----------|
+| `public/images/figma/mission-craft-1334-1880.png` | `1334:1880` | Home mission / OUR CRAFT image |
+| `public/images/timeline/figma/join-team-1360-444.png` | `1360:444` | Timeline JOIN OUR TEAM |
+| `public/images/manifest/client-939-301.png` | `939:301` | Manifest client column |
+| `public/images/figma/heading-secondary-overlay.png` | `2006:158` overlay asset | `.heading-figma-overlay` CSS |
 
 ## Color
 

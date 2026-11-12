@@ -101,17 +101,19 @@ export default function SiteFooter() {
             </nav>
 
             <div className="footer-figma__brand">
-              <span className="footer-figma__logo footer-headline-primary">BRÄUTIGAM</span>
-              <div className="footer-figma__since">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/ui/since-badge.svg"
-                  alt=""
-                  aria-hidden
-                  draggable={false}
-                />
-                <span className="footer-decorative-primary">SINCE 2016</span>
-              </div>
+              {/* Figma Client Logo 1256:232 */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="footer-figma__logo"
+                src="/icons/figma/client-wordmark.svg"
+                alt="Bräutigam"
+                width={343}
+                height={72}
+                draggable={false}
+              />
+              <p className="decorative-tertiary footer-figma__since text-[var(--text-on-bright-accent)]">
+                SINCE 2016
+              </p>
             </div>
 
             <nav className="footer-figma__nav" aria-label="Social">

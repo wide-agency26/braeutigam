@@ -368,7 +368,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
                 <div>
                   <p className="contact-info__kicker copy-caption">E-Mail</p>
                   <a className="contact-info__value heading-tertiary" href={`mailto:${SHOP_EMAIL}`}>
-                    INFO@BRAEUTIGAM.DE
+                    {SHOP_EMAIL.toUpperCase()}
                   </a>
                 </div>
               </div>

@@ -49,7 +49,7 @@
   font-weight: 400;
   font-size: max(132.8px, calc(332 * 100vw / 1440));
   line-height: max(92.8px, calc(232 * 100vw / 1440));
-  letter-spacing: max(3.2px, calc(8 * 100vw / 1440));
+  letter-spacing: max(5.6px, calc(14 * 100vw / 1440));
   text-transform: uppercase;
 }
 
@@ -118,7 +118,7 @@
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 300;
   font-size: max(10px, calc(10 * 100vw / 1440));
-  line-height: max(10px, calc(10 * 100vw / 1440));
+  line-height: max(10px, calc(12 * 100vw / 1440));
   letter-spacing: calc(2 * 100vw / 1440);
   text-transform: uppercase;
 }
