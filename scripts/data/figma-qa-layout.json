@@ -30,7 +30,7 @@
           "label": "SINCE 2016",
           "figmaNodeId": "2006:161",
           "selector": "[data-figma-node=\"2006:161\"]",
-          "figma": { "x": 864, "y": 615, "w": 192, "h": 38 }
+          "figma": { "x": 864, "y": 615, "w": 192, "h": 48 }
         },
         {
           "label": "Location HUD",

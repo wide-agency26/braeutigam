@@ -30,10 +30,10 @@ function renderToken(t) {
   if (t.lh.kind === "ratio") {
     lhCss = scaleLineHeight(t.size, t.lh);
   } else if (t.floor === "body" || t.floor === "tiny") {
-    lhCss =
-      t.lh.value <= 12 && t.floor === "tiny"
-        ? scalePx(t.lh.value, { floorPx: 10, capPx: t.lh.value })
-        : scalePx(t.lh.value, { floorPx: 14, capPx: t.lh.value });
+    lhCss = scalePx(t.lh.value, {
+      floorPx: t.floor === "tiny" ? 10 : 14,
+      capPx: t.lh.value,
+    });
   } else {
     lhCss = scalePx(t.lh.value, { capPx: t.lh.value });
   }

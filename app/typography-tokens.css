@@ -121,7 +121,7 @@
   font-family: var(--font-mono), monospace;
   font-weight: 300;
   font-size: min(10px, max(10px, calc(10 * min(100vw, 1920px) / 1920)));
-  line-height: min(12px, max(10px, calc(12 * min(100vw, 1920px) / 1920)));
+  line-height: min(14px, max(10px, calc(14 * min(100vw, 1920px) / 1920)));
   letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
   text-transform: uppercase;
 }

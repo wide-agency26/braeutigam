@@ -106,7 +106,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
-  margin-top: calc(10 * min(100vw, 1920px) / 1920);
+  transform: translateY(calc(10 * min(100vw, 1920px) / 1920));
 }
 
 .hero-figma__lockup {
@@ -135,9 +135,10 @@
 }
 
 .hero-figma__title.heading-figma-overlay {
-  padding-block: 0.3em;
-  margin-block: -0.3em;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  line-height: calc(52 * min(100vw, 1920px) / 1920);
+  min-height: calc(52 * min(100vw, 1920px) / 1920);
+  max-height: calc(52 * min(100vw, 1920px) / 1920);
 }
 
 .heading-figma-overlay {
@@ -161,8 +162,6 @@
   margin: 0;
   text-align: center;
   color: var(--text-default-accent);
-  line-height: calc(38 * min(100vw, 1920px) / 1920);
-  height: calc(38 * min(100vw, 1920px) / 1920);
 }
 
 .hero-figma__status {

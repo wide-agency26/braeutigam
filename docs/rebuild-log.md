@@ -9,7 +9,7 @@ Light home: `2006:131` · Dark home: `934:241`
 - Single scale: `calc(N * min(100vw, 1920px) / 1920)`, cap at design px.
 - Typography from `scripts/data/figma-type-styles.json` (Figma variables + documented one-offs).
 - QA: `pnpm figma:qa` → `scripts/figma-qa.mjs` + `scripts/data/figma-qa-layout.json`.
-- **Deliberate deviation:** `copy-tiny` line-height **12px** (not Figma Typesize `14px`) — approved override; size stays 10px.
+- **Type:** `copy-tiny` **10/14** from Figma Typesize (mono HUD labels).
 - Layout dimensions: **only** `app/figma-scale.css` (Scale/25–1600, Border Sizes width/radius incl. none/XS–XL). `figma-tokens.css` is **colors + semantic aliases only** (no unscaled Scale/Border duplicates).
 - **Type:** `heading-primary-bold` letter-spacing **0**; **−4%** only on `manifest-title-univers` (119.05). `decorative-primary` **8px** ls; `decorative-primary--wide` **14px** (Thomas wider tracking).
 - **Case:** uppercase on `copy-caption`, `copy-tiny`, headings/buttons; **no** forced uppercase on footer decorative + team-card tokens.
@@ -20,7 +20,7 @@ Light home: `2006:131` · Dark home: `934:241`
 
 | Section | Figma node | Commit | QA | Notes |
 |---------|------------|--------|-----|-------|
-| Hero | `2006:132` / `934:242` | `cc837ed` + fix-ups | all PASS ±4px @1920 | `/` + `/en`: `pickRandomHeroSlide` (gwagon/hypercar/motorbike JPEGs; F1 off). Figma grid/HUD unchanged; **MagicRings** kept (see interactive layers). **SINCE 2016:** `38px` @1920 lh/height for QA. Nav in `SiteChrome` only. |
+| Hero | `2006:132` / `934:242` | `cc837ed` + fix-ups | all PASS ±4px @1920 | `/` + `/en`: `pickRandomHeroSlide` (gwagon/hypercar/motorbike JPEGs; F1 off). **2006:158** title box **52px** lh; **2006:161** SINCE **`decorative-tertiary` (48px)**. Nav in `SiteChrome` only. |
 | Main Image | `2006:220` / `937:253` | `dfdb62c` + fix-up | all PASS ±4px @1920 | Headlines **316px** h; client HUD **140+140** cols @ x204; mission **280×168** @ y861; BL slot **450×450**; micro **`2006:162`** (78px) / **`2006:287`** (118px); **`LineWaves`** `data-rebuild-layer`. MCP image fills re-exported. |
 | CAD / story | `2006:304`+ | — | — | pending |
 | Mission | `989:2` | — | — | pending |

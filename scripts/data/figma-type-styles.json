@@ -116,7 +116,7 @@
       "ff": "var(--font-mono), monospace",
       "fw": 300,
       "size": 10,
-      "lh": { "kind": "px", "value": 12 },
+      "lh": { "kind": "px", "value": 14 },
       "ls": { "kind": "px", "value": 2 },
       "caps": true,
       "floor": "tiny"
