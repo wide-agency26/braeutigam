@@ -57,6 +57,54 @@
           "figma": { "x": 612, "y": 998, "w": 696, "h": 18 }
         }
       ]
+    },
+    "manifest": {
+      "scrollY": 1080,
+      "anchor": "[data-figma-node=\"2006:220\"]",
+      "targets": [
+        {
+          "label": "Main Image frame",
+          "figmaNodeId": "2006:220",
+          "selector": "[data-figma-node=\"2006:220\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1890 }
+        },
+        {
+          "label": "Customer headline",
+          "figmaNodeId": "2006:235",
+          "selector": "[data-figma-node=\"2006:235\"]",
+          "figma": { "x": 426, "y": 200, "w": 1069, "h": 341 }
+        },
+        {
+          "label": "Principle headline",
+          "figmaNodeId": "2006:238",
+          "selector": "[data-figma-node=\"2006:238\"]",
+          "figma": { "x": 426, "y": 787, "w": 1069, "h": 341 }
+        },
+        {
+          "label": "TL carbon",
+          "figmaNodeId": "2006:233",
+          "selector": "[data-figma-node=\"2006:233\"]",
+          "figma": { "x": 64, "y": 293, "w": 346, "h": 350 }
+        },
+        {
+          "label": "TR CLK GTR",
+          "figmaNodeId": "2006:236",
+          "selector": "[data-figma-node=\"2006:236\"]",
+          "figma": { "x": 1510, "y": 72, "w": 500, "h": 500 }
+        },
+        {
+          "label": "BL precision",
+          "figmaNodeId": "2006:249",
+          "selector": "[data-figma-node=\"2006:249\"]",
+          "figma": { "x": 64, "y": 1247, "w": 447, "h": 448 }
+        },
+        {
+          "label": "BR autoclave",
+          "figmaNodeId": "2006:286",
+          "selector": "[data-figma-node=\"2006:286\"]",
+          "figma": { "x": 1156, "y": 1247, "w": 707, "h": 715 }
+        }
+      ]
     }
   }
 }

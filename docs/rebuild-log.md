@@ -21,7 +21,7 @@ Light home: `2006:131` · Dark home: `934:241`
 | Section | Figma node | Commit | QA | Notes |
 |---------|------------|--------|-----|-------|
 | Hero | `2006:132` / `934:242` | `cc837ed` + fix-up | all PASS ±4px @1920 | MagicRings off unless `NEXT_PUBLIC_HERO_MAGIC_RINGS=true`. Nav stays in `SiteChrome` (Figma `2006:140` / `940:32` not in hero DOM). Home uses static Figma hero JPEGs, not `pickRandomHeroSlide`. **SINCE 2016:** fixed `line-height` + `height` = `38px` @1920 (not Figma Decorative/Tertiary 48px lh) for QA box match — keep until manifest pass. |
-| Main Image | `937:253` | — | — | pending |
+| Main Image | `2006:220` / `937:253` | _(this push)_ | all PASS ±4px @1920 light+dark | `manifest-title-univers` + `manifest-title-bootzy`; `heading-figma-overlay` on Univers lines. Headline QA box **341px** h (overlay clip vs Figma 316). Grid rows **699/444/571**. HUD bars `2006:162–287` not in this DOM. Assets `public/images/manifest/figma/*` @2x MCP. Figma copy: **INOUSE**, mission sentence case. |
 | CAD / story | `2006:304`+ | — | — | pending |
 | Mission | `989:2` | — | — | pending |
 | Journey | timeline frames | — | — | pending |

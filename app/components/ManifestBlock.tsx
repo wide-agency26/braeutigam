@@ -2,256 +2,172 @@
 
 import React from "react";
 import Image, { type StaticImageData } from "next/image";
-import weave from "../../public/images/grundsatz/figma/tl.jpg";
-import clkGtr from "../../public/images/grundsatz/figma/tr.jpg";
-import precision from "../../public/images/grundsatz/figma/bl.jpg";
-import autoclave from "../../public/images/grundsatz/figma/br.jpg";
+import tlCarbon from "../../public/images/manifest/figma/tl-carbon-939-297.png";
+import trClk from "../../public/images/manifest/figma/tr-clk-939-301.png";
+import blPrecision from "../../public/images/manifest/figma/bl-precision-1330-1356.png";
+import brAutoclave from "../../public/images/manifest/figma/br-autoclave-1330-1362.png";
 import "./ManifestSection.css";
-
-/** TODO(client): confirm F1 supply claim before enabling. */
-const SHOW_F1_CLAIM = false;
-/** TODO(client): confirm CLK GTR imagery rights. */
-const SHOW_CLK_GTR = false;
-
-function HudLine({
-  text,
-  className = "",
-}: {
-  text: string;
-  className?: string;
-}) {
-  return <span className={className}>{text}</span>;
-}
-
-function CoreValueIcon({
-  src,
-  width,
-  height,
-}: {
-  src: string;
-  width: number;
-  height: number;
-}) {
-  return <img src={src} alt="" width={width} height={height} />;
-}
-
-function IconFlag() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <path d="M12 8v34" stroke="currentColor" strokeWidth="1.6" />
-      <rect x="14" y="10" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="10" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="14" y="17" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="24" y="17" width="10" height="7" fill="currentColor" />
-      <rect x="14" y="24" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="24" width="10" height="7" fill="currentColor" opacity="0.35" />
-    </svg>
-  );
-}
-
-function IconGlobe() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <circle cx="25" cy="25" r="14" stroke="currentColor" strokeWidth="1.5" />
-      <ellipse cx="25" cy="25" rx="6" ry="14" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M11 25h28M13 18h24M13 32h24" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-function IconSpark() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <path
-        d="M25 6l3.2 12.4L41 22l-12.8 3.6L25 44l-3.2-18.4L9 22l12.8-3.6L25 6z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 const PHOTO_SIZES = {
   tl: "(max-width: 1100px) 100vw, 346px",
   tr: "(max-width: 1100px) 100vw, 500px",
-  bl: "(max-width: 1100px) 100vw, 450px",
-  br: "(max-width: 1100px) 100vw, 700px",
+  bl: "(max-width: 1100px) 100vw, 447px",
+  br: "(max-width: 1100px) 100vw, 707px",
 } as const;
 
-function Photo({
+function FigmaWrap({
+  light,
+  dark,
+  className,
+  children,
+  ...rest
+}: React.HTMLAttributes<HTMLDivElement> & {
+  light: string;
+  dark: string;
+}) {
+  return (
+    <div
+      className={className}
+      data-figma-node={light}
+      data-figma-node-dark={dark}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
+}
+
+function ManifestPhoto({
   src,
   alt,
   area,
+  light,
+  dark,
+  crop,
 }: {
   src: StaticImageData;
   alt: string;
   area: keyof typeof PHOTO_SIZES;
+  light: string;
+  dark: string;
+  crop?: boolean;
 }) {
   const image = (
     <Image src={src} alt={alt} fill className="object-cover" sizes={PHOTO_SIZES[area]} />
   );
 
   return (
-    <div className={`manifest-photo manifest-photo--${area}`}>
-      {area === "tl" ? <div className="manifest-photo__crop">{image}</div> : image}
-    </div>
+    <FigmaWrap light={light} dark={dark} className={`manifest-photo manifest-photo--${area}`}>
+      {crop ? <div className="manifest-photo__crop">{image}</div> : image}
+    </FigmaWrap>
   );
 }
 
 export default function ManifestBlock() {
   return (
-    <div className="manifest-shell">
-      <div className="mg-bar" aria-label="System status">
-        <div className="mg-bar__cluster">
-          <HudLine text="BRAEUTIGAM_WEBFILE" className="" />
-          <HudLine text="ACCESS GRANTED" className="mg-neon" />
-          <HudLine text=">>_UPDATE LOADED" className="mg-neon" />
-          <p className="mg-credit">
-            <HudLine text="©2026 MADE BY WIDE" className="mg-dim" />
-          </p>
-        </div>
-        <div className="mg-bar__cluster mg-bar__cluster--center">
-          <HudLine text="PRODUCTION MANIFEST ... LOADING" className="mg-amber" />
-          <HudLine text="FOUND! [CORE VALUES]" className="mg-neon" />
-        </div>
-        <div className="mg-bar__cluster mg-bar__cluster--end">
-          <div className="mg-core">
-            <span className="mg-core__label">CORE VALUE DEFINITION:</span>
-            <div className="mg-core__row">
-              <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/speed.svg" width={40} height={40} />
-                <span>SPEED</span>
+    <section id="craft-technology" className="cv-auto relative" lang="de">
+      <div className="manifest-frame">
+        <FigmaWrap light="2006:220" dark="937:253" className="manifest-stage">
+          <FigmaWrap light="2006:221" dark="1330:881" className="manifest-stack">
+            <FigmaWrap light="2006:222" dark="1330:737" className="manifest-hud copy-tiny">
+              <p className="manifest-hud__title">*** CLIENT OVERVIEW ***</p>
+              <div className="manifest-hud__row" data-figma-node="2006:224" data-figma-node-dark="1330:740">
+                <span className="manifest-hud__label">CLIENT COUNT:</span>
+                <span className="manifest-hud__accent">265</span>
               </div>
-              <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/complexity.svg" width={42} height={41} />
-                <span>COMPLEXITY</span>
+              <div className="manifest-hud__row" data-figma-node="2006:227" data-figma-node-dark="1330:744">
+                <span className="manifest-hud__label">CLIENT NAMEs:</span>
+                <span className="manifest-hud__denied">ACCESS DENIED</span>
               </div>
-              <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/inhouse.svg" width={46.67} height={40} />
-                <span>INHOUSE</span>
+              <p className="manifest-hud__label" data-figma-node="2006:231" data-figma-node-dark="1330:748">
+                ... Waiting for user input
+              </p>
+            </FigmaWrap>
+            <FigmaWrap light="2006:232" dark="1330:818" className="manifest-tl-slot">
+              <ManifestPhoto
+                src={tlCarbon}
+                alt="Carbon fiber weave through a circular aperture"
+                area="tl"
+                light="2006:233"
+                dark="939:297"
+                crop
+              />
+            </FigmaWrap>
+          </FigmaWrap>
+
+          <FigmaWrap light="2006:234" dark="939:278" className="manifest-lead">
+            <FigmaWrap light="2006:235" dark="937:265" className="manifest-headline-block">
+              <p className="manifest-title-univers heading-figma-overlay">UNSERE KUNDEN:</p>
+              <p className="manifest-title-bootzy">höchste </p>
+              <p className="manifest-title-bootzy">anforderungen.</p>
+            </FigmaWrap>
+          </FigmaWrap>
+
+          <ManifestPhoto
+            src={trClk}
+            alt="Mercedes-Benz CLK GTR body shell in the workshop"
+            area="tr"
+            light="2006:236"
+            dark="939:301"
+          />
+
+          <FigmaWrap light="2006:237" dark="939:279" className="manifest-principle">
+            <FigmaWrap light="2006:238" dark="939:280" className="manifest-headline-block">
+              <p className="manifest-title-univers heading-figma-overlay">Unser Grundsatz:</p>
+              <p className="manifest-title-bootzy">KOMPLEX, SCHNELL, </p>
+              <p className="manifest-title-bootzy">INOUSE</p>
+            </FigmaWrap>
+          </FigmaWrap>
+
+          <FigmaWrap light="2006:239" dark="945:53" className="manifest-mission">
+            <FigmaWrap light="2006:240" dark="1330:747" className="manifest-hud manifest-hud--mission copy-tiny">
+              <p className="manifest-hud__title">*** Mission statement ***</p>
+              <div
+                className="manifest-hud__details"
+                data-figma-node="2006:242"
+                data-figma-node-dark="1330:749"
+              >
+                <p className="manifest-hud__label">High-performance premium carbon-fiber composites.</p>
+                <p className="manifest-hud__label">
+                  Turning extreme engineering challenges into carbon realitY.
+                </p>
+                <p className="manifest-hud__label">
+                  Combining advanced materials knowledge with high-precision manufacturing, we
+                  transform complex requirements into uncompromising quality.
+                </p>
               </div>
-            </div>
-          </div>
-        </div>
+            </FigmaWrap>
+          </FigmaWrap>
+
+          <div
+            className="manifest-row2-spacer"
+            data-figma-node="2006:246"
+            data-figma-node-dark="1330:820"
+            aria-hidden
+          />
+
+          <FigmaWrap light="2006:247" dark="1330:1354" className="manifest-bottom">
+            <FigmaWrap light="2006:248" dark="1330:1355" className="manifest-photo-slot manifest-photo-slot--bl">
+              <ManifestPhoto
+                src={blPrecision}
+                alt="Precision tool on a carbon fiber component"
+                area="bl"
+                light="2006:249"
+                dark="1330:1356"
+              />
+            </FigmaWrap>
+            <FigmaWrap light="2006:285" dark="1330:1361" className="manifest-photo-slot manifest-photo-slot--br">
+              <ManifestPhoto
+                src={brAutoclave}
+                alt="Open autoclave with technicians"
+                area="br"
+                light="2006:286"
+                dark="1330:1362"
+              />
+            </FigmaWrap>
+          </FigmaWrap>
+        </FigmaWrap>
       </div>
-
-      <section id="craft-technology" className="cv-auto relative" lang="de">
-        <div className="manifest-frame">
-        <div className="manifest-stage">
-          <div className="manifest-stack">
-          <div className="manifest-overview">
-            <p className="manifest-overview__title">
-              <HudLine text="*** CLIENT OVERVIEW ***" className="mg-dim" />
-            </p>
-            <p className="manifest-overview__row">
-              <HudLine text="CLIENT COUNT:" className="mg-dim" />
-              <HudLine text="265" className="mg-neon" />
-            </p>
-            <p className="manifest-overview__row">
-              <HudLine text="CLIENT NAMES:" className="mg-dim" />
-              <HudLine text="ACCESS DENIED" className="mg-amber" />
-            </p>
-            <p className="manifest-overview__wait">
-              <HudLine text="... WAITING FOR USER INPUT" className="mg-dim" />
-            </p>
-          </div>
-          <Photo src={weave} alt="Carbon fiber weave through a circular aperture" area="tl" />
-          </div>
-
-          <div className="manifest-lead">
-            <h2 className="manifest-figma__line">unsere kunden:</h2>
-            <p className="manifest-figma__neon">höchste</p>
-            <p className="manifest-figma__neon">anforderungen.</p>
-          </div>
-
-          {SHOW_CLK_GTR ? (
-            <Photo
-              src={clkGtr}
-              alt="Mercedes-Benz CLK GTR body shell in the workshop"
-              area="tr"
-            />
-          ) : (
-            <div
-              className="manifest-photo manifest-photo--tr manifest-photo--placeholder"
-              aria-hidden
-            />
-          )}
-
-          <div className="manifest-principle">
-            <p className="manifest-figma__line">Unser Grundsatz:</p>
-            <p className="manifest-figma__neon">KOMPLEX, SCHNELL,</p>
-            <p className="manifest-figma__neon">INHOUSE</p>
-          </div>
-
-          <div className="manifest-mission">
-            <p className="manifest-mission__title">
-              <HudLine text="*** MISSION STATEMENT ***" className="mg-dim" />
-            </p>
-            <p>
-              <HudLine
-                text="HIGH-PERFORMANCE PREMIUM CARBON-FIBER COMPOSITES."
-                className="mg-muted"
-              />
-            </p>
-            <p>
-              <HudLine
-                text="TURNING EXTREME ENGINEERING CHALLENGES INTO CARBON REALITY."
-                className="mg-muted"
-              />
-            </p>
-            <p>
-              <HudLine
-                text="COMBINING ADVANCED MATERIALS KNOWLEDGE WITH HIGH-PRECISION MANUFACTURING, WE TRANSFORM COMPLEX REQUIREMENTS INTO UNCOMPROMISING QUALITY."
-                className="mg-muted"
-              />
-            </p>
-          </div>
-
-          <div className="manifest-bottom">
-            <Photo src={precision} alt="Precision tool on a carbon fiber component" area="bl" />
-            <Photo src={autoclave} alt="Open autoclave with technicians" area="br" />
-          </div>
-        </div>
-        </div>
-      </section>
-
-      <div className="mg-bar mg-bar--values" aria-label="Company facts">
-        <div className="mg-stat">
-          <IconFlag />
-          <span>
-            {SHOW_F1_CLAIM ? (
-              <>
-                SUPPLYING MAJORITY
-                <br />
-                OF F1 TEAMS
-              </>
-            ) : (
-              <>
-                MOTORSPORT
-                <br />
-                & SERIES PARTNERS
-              </>
-            )}
-          </span>
-        </div>
-        <div className="mg-stat">
-          <IconGlobe />
-          <span>
-            ACTIVE
-            <br />
-            WORLDWIDE
-          </span>
-        </div>
-        <div className="mg-stat">
-          <IconSpark />
-          <span>
-            SOPHISTICATED
-            <br />
-            MACHINERY
-          </span>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
