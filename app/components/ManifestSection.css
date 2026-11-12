@@ -2,22 +2,22 @@
    Tokens invert in light mode; neon stays the single accent. */
 
 .manifest-shell {
-  --mg-fg: #fbfafc;
-  --mg-dim: #8a8a8a;
-  --mg-muted: #b2b1b2;
-  --mg-neon: #00ff00;
-  --mg-amber: #c9a227;
-  --mg-line: rgba(251, 250, 252, 0.18);
+  --mg-fg: var(--text-on-bright-heading);
+  --mg-dim: var(--icon-default-placeholder);
+  --mg-muted: var(--text-default-body);
+  --mg-neon: var(--colors-greeeen);
+  --mg-amber: var(--text-default-accent-secondary);
+  --mg-line: color-mix(in srgb, var(--text-on-bright-heading) 18%, transparent);
   color: var(--mg-fg);
 }
 
 :root:not(.dark) .manifest-shell {
-  --mg-fg: #131414;
-  --mg-dim: #5c5c5c;
-  --mg-muted: #4a4a4a;
-  --mg-neon: #087a08;
-  --mg-amber: #8a6a10;
-  --mg-line: rgba(19, 20, 20, 0.14);
+  --mg-fg: var(--text-default-heading);
+  --mg-dim: var(--icon-default-placeholder);
+  --mg-muted: var(--text-default-body);
+  --mg-neon: var(--text-default-accent-subtle);
+  --mg-amber: var(--text-default-accent-subtle-secondary);
+  --mg-line: color-mix(in srgb, var(--surface-pages-page-secondary) 14%, transparent);
 }
 
 .mg-bar {
@@ -229,7 +229,7 @@
   z-index: 1;
   flex: none;
   overflow: hidden;
-  background: #0b0b0c;
+  background: var(--surface-pages-page);
 }
 
 .manifest-photo::after {

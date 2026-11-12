@@ -7,38 +7,41 @@ export type HeroSlide = {
   enabled: boolean;
 };
 
-/** Static slide registry — flip `enabled` when both webp files are in the repo. */
+/**
+ * Static slide registry. Flip `enabled` to true when both files are in
+ * public/images/hero (see README). JPEG pairs await Drive drop from Ali.
+ */
 export const HERO_SLIDES: HeroSlide[] = [
+  {
+    id: "offroad",
+    light: "/images/hero/gwagon_light.jpeg",
+    dark: "/images/hero/gwagon_dark.jpeg",
+    altDe: "G-Wagon Carbon als Silhouette",
+    altEn: "G-Wagon carbon silhouette",
+    enabled: true,
+  },
+  {
+    id: "hypercar",
+    light: "/images/hero/hypercar_light.jpeg",
+    dark: "/images/hero/hypercar_dark.jpeg",
+    altDe: "Hypercar-Chassis als Silhouette",
+    altEn: "Hypercar chassis silhouette",
+    enabled: true,
+  },
+  {
+    id: "superbike",
+    light: "/images/hero/motorbike_light.jpeg",
+    dark: "/images/hero/motorbike_dark.jpeg",
+    altDe: "Motorbike-Carbon als Silhouette",
+    altEn: "Motorbike carbon silhouette",
+    enabled: true,
+  },
   {
     id: "f1",
     light: "/images/hero/f1-light.webp",
     dark: "/images/hero/f1-dark.webp",
     altDe: "Formel-1-Fahrzeug als Silhouette in der Bräutigam-Werkstatt",
     altEn: "Formula car silhouette in the Bräutigam workshop",
-    enabled: true,
-  },
-  {
-    id: "superbike",
-    light: "/images/hero/superbike-light.webp",
-    dark: "/images/hero/superbike-dark.webp",
-    altDe: "Superbike-Carbon als Silhouette",
-    altEn: "Superbike carbon silhouette",
-    enabled: false,
-  },
-  {
-    id: "hypercar",
-    light: "/images/hero/hypercar-light.webp",
-    dark: "/images/hero/hypercar-dark.webp",
-    altDe: "Hypercar-Chassis als Silhouette",
-    altEn: "Hypercar chassis silhouette",
-    enabled: false,
-  },
-  {
-    id: "offroad",
-    light: "/images/hero/offroad-light.webp",
-    dark: "/images/hero/offroad-dark.webp",
-    altDe: "Offroad-Fahrzeug als Silhouette",
-    altEn: "Off-road vehicle silhouette",
     enabled: false,
   },
 ];
@@ -51,7 +54,7 @@ export function activeHeroSlides(): HeroSlide[] {
 export function pickRandomHeroSlide(): HeroSlide {
   const active = activeHeroSlides();
   if (active.length === 0) {
-    return HERO_SLIDES[0];
+    return HERO_SLIDES[0]!;
   }
   const index = Math.floor(Math.random() * active.length);
   return active[index]!;

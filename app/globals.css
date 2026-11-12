@@ -1,15 +1,18 @@
 @import "tailwindcss";
+@import "./figma-tokens.css";
+@import "./figma-theme-light.css";
+@import "./figma-theme-dark.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-bg: #111111;
-  --color-brand-neon: #39FF14; /* Brighter neon green for badges */
-  --color-brand-muted: #888888;
-  --color-brand-dark: #0B0B0C; /* Rich deep black/gray */
-  --color-brand-light: #F9F9FB; /* Elegant light-gray canvas background */
-  --color-brand-border: rgba(57, 255, 20, 0.2);
+  --color-brand-bg: var(--surface-pages-page-secondary);
+  --color-brand-neon: var(--colors-greeeen);
+  --color-brand-muted: var(--icon-default-placeholder);
+  --color-brand-dark: var(--surface-pages-page);
+  --color-brand-light: var(--neutral-white);
+  --color-brand-border: color-mix(in srgb, var(--colors-greeeen) 20%, transparent);
   --font-sans: var(--font-univers), sans-serif;
   --font-accent: var(--font-bootzy), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
@@ -18,22 +21,11 @@
 }
 
 :root {
-  --background: #F9F9FB;
-  --foreground: #111111;
-  --surface: #F9F9FB;
-  --surface-muted: #ffffff;
   --site-max-width: 1440px;
   --site-gutter: clamp(1.5rem, 4vw, 4rem);
-  --focus-ring: #087a08;
 }
 
-.dark {
-  --background: #0B0B0C;
-  --foreground: #f4f4f5;
-  --surface: #0B0B0C;
-  --surface-muted: #18181b;
-  --focus-ring: #39ff14;
-}
+/* Semantic dark colors live in figma-tokens.css `.dark` */
 
 html {
   background: var(--background);
@@ -75,8 +67,8 @@ body {
   z-index: 120;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background: #111111;
-  color: #ffffff;
+  background: var(--surface-pages-page-secondary);
+  color: var(--text-on-bright-heading);
   font: 600 0.75rem/1 var(--font-jetbrains-mono), monospace;
   text-transform: uppercase;
   transform: translate(-50%, -200%);
@@ -85,7 +77,7 @@ body {
 
 .skip-link:focus {
   transform: translate(-50%, 0);
-  outline: 3px solid #39ff14;
+  outline: 3px solid var(--colors-greeeen);
   outline-offset: 3px;
 }
 
@@ -94,58 +86,50 @@ body {
   outline-offset: 3px;
 }
 
-:root:not(.dark) .text-brand-neon {
-  color: #087a08;
-}
-
-:root:not(.dark) .border-brand-neon {
-  border-color: #087a08;
-}
-
 /* Custom Technical Background Grid — one class, theme via .dark */
 .technical-grid-theme {
   background-size: 60px 60px, 15px 15px;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px);
 }
 .dark .technical-grid-theme {
   background-image:
-    linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px);
 }
 
 /* Legacy aliases kept so any leftover class names still resolve */
 .technical-grid {
   background-size: 60px 60px;
   background-image:
-    linear-gradient(to right, rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--colors-greeeen) 4%, transparent) 1px, transparent 1px);
 }
 
 .technical-grid-fine {
   background-size: 15px 15px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-white) 1.5%, transparent) 1px, transparent 1px);
 }
 
 .technical-grid-light {
   background-size: 60px 60px;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 2.5%, transparent) 1px, transparent 1px);
 }
 
 .technical-grid-fine-light {
   background-size: 15px 15px;
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.012) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.012) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--neutral-black) 1.2%, transparent) 1px, transparent 1px);
 }
 
 /* Below-fold sections: skip layout/paint until near the viewport. */
@@ -158,8 +142,8 @@ body {
 .led-pillar {
   width: 4px;
   height: 120px;
-  background: #ffffff;
-  box-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+  background: var(--neutral-white);
+  box-shadow: 0 0 15px var(--neutral-white), 0 0 30px var(--neutral-white);
   border-radius: 2px;
 }
 
@@ -185,14 +169,14 @@ body {
 /* Technical Brackets */
 .bracket-left::before {
   content: "[";
-  color: #BFFF00;
+  color: var(--colors-greeeen);
   margin-right: 0.5rem;
   font-family: var(--font-jetbrains-mono), monospace;
 }
 
 .bracket-right::after {
   content: "]";
-  color: #BFFF00;
+  color: var(--colors-greeeen);
   margin-left: 0.5rem;
   font-family: var(--font-jetbrains-mono), monospace;
 }
@@ -204,16 +188,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #090909;
-  border-left: 1px solid rgba(191, 255, 0, 0.1);
+  background: var(--surface-pages-page-secondary);
+  border-left: 1px solid color-mix(in srgb, var(--colors-greeeen) 10%, transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #BFFF00;
+  background: var(--colors-greeeen);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4ff33;
+  background: var(--text-default-accent-subtle);
 }
 
 /* Custom clipping/angles for industrial tech vibe */
@@ -232,16 +216,16 @@ body {
 /* Text overlay blending — readable on solid bg, blends on images */
 .text-blend-overlay {
   text-shadow:
-    0 0 40px rgba(0, 0, 0, 0.7),
-    0 0 80px rgba(0, 0, 0, 0.4);
+    0 0 40px color-mix(in srgb, var(--neutral-black) 70%, transparent),
+    0 0 80px color-mix(in srgb, var(--neutral-black) 40%, transparent);
 }
 
 .dark .text-blend-overlay,
 .text-blend-overlay-dark {
   text-shadow:
-    0 0 40px rgba(0, 0, 0, 0.9),
-    0 0 80px rgba(0, 0, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.8);
+    0 0 40px color-mix(in srgb, var(--neutral-black) 90%, transparent),
+    0 0 80px color-mix(in srgb, var(--neutral-black) 60%, transparent),
+    0 2px 4px color-mix(in srgb, var(--neutral-black) 80%, transparent);
 }
 
 .cad-hud__meta {
@@ -254,18 +238,11 @@ body {
   margin: 0;
 }
 .cad-hud__ok {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 .cad-hud__warn {
-  color: #c9a227;
+  color: var(--text-default-accent-secondary);
 }
-:root:not(.dark) .cad-hud__ok {
-  color: #087a08;
-}
-:root:not(.dark) .cad-hud__warn {
-  color: #8a6a10;
-}
-
 /* ── Hero entrance animations ──
    These run in CSS rather than through framer-motion on purpose. The hero
    headline is the LCP element, and a JS-driven `initial={{ opacity: 0 }}`
@@ -279,12 +256,53 @@ body {
   animation: hero-rise 400ms cubic-bezier(0, 0, 0.58, 1) both;
 }
 
-/* Figma home hero stack gaps @ 1440: 80px primary→secondary, 52px secondary→decorative */
-.site-hero__stack > .heading-primary-bold {
-  margin-bottom: calc(80 * 100vw / 1440);
+/* Heading gradient overlay — Figma hero/story/experts/social (nodes 2006:132, 2006:158) */
+.heading-figma-overlay {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--neutral-black) 20%, transparent) 0%,
+      color-mix(in srgb, var(--neutral-white) 20%, transparent) 100%
+    ),
+    linear-gradient(var(--text-default-heading), var(--text-default-heading));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* Figma home hero stack gaps @ 1440: 20px logo→secondary, 8px secondary→since */
+.site-hero__wordmark {
+  display: block;
+  width: min(342.784px, 78vw);
+  height: auto;
+  margin-bottom: calc(20 * 100vw / 1440);
 }
 .site-hero__stack > .heading-secondary {
-  margin-bottom: calc(52 * 100vw / 1440);
+  margin-bottom: calc(8 * 100vw / 1440);
+  color: var(--text-default-heading);
+}
+.site-hero__since {
+  margin-top: calc(8 * 100vw / 1440);
+  color: var(--text-default-accent);
+}
+.site-hero__hud {
+  color: var(--text-default-caption);
+}
+.site-hero__status {
+  color: var(--text-default-caption);
+}
+.site-hero__scroll {
+  color: var(--text-default-body);
+}
+.site-hero__scroll:hover {
+  color: var(--text-default-heading);
+}
+.site-hero__hud--right {
+  text-align: right;
+}
+.site-hero__status-wrap {
+  bottom: max(6rem, calc(64px + 24px));
 }
 
 @keyframes hero-rise {
@@ -339,7 +357,7 @@ body {
   max-width: min(42rem, 46vw);
 }
 .journey-intro__kicker {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   white-space: nowrap;
 }
 .journey-intro__kicker.copy-tiny {
@@ -358,7 +376,7 @@ body {
   justify-content: space-between;
   gap: 16px;
   margin: 0;
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
 }
 .journey-intro__row dt,
 .journey-intro__row dd {
@@ -375,16 +393,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   white-space: nowrap;
 }
-:root:not(.dark) .journey-intro__title,
-:root:not(.dark) .journey-intro__kicker,
-:root:not(.dark) .journey-intro__row {
-  color: #131414;
+.journey-intro__title span:last-child {
+  font-weight: 700;
 }
 .journey-intro__value {
-  color: #00ff00;
+  color: var(--colors-greeeen);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   text-align: right;
@@ -402,14 +418,8 @@ body {
 }
 .journey-intro__watermark p {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
   white-space: nowrap;
-}
-:root:not(.dark) .journey-intro__value {
-  color: #087a08;
-}
-:root:not(.dark) .journey-intro__watermark p {
-  -webkit-text-stroke: 1px rgba(10, 158, 10, 0.4);
 }
 @media (max-width: 768px) {
   .journey-intro__copy {
@@ -433,16 +443,15 @@ body {
 .manifest-figma__line {
   max-width: 72rem;
   text-align: center;
-  color: #131414;
+  color: var(--text-default-heading);
 }
 .dark .manifest-figma__line {
-  /* Figma Gradient White base #FBFAFC */
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
 }
 .manifest-figma__neon {
   margin: 0;
-  color: #00ff00;
-  -webkit-text-fill-color: #00ff00;
+  color: var(--colors-greeeen);
+  -webkit-text-fill-color: var(--colors-greeeen);
   background: none;
   background-clip: unset;
   -webkit-background-clip: unset;
@@ -461,11 +470,6 @@ body {
   margin: 0;
   text-align: center;
 }
-:root:not(.dark) .manifest-figma__neon {
-  color: #087a08;
-  -webkit-text-fill-color: #087a08;
-}
-
 /* ── Mission — outline watermark, then the solid headline, then the still ── */
 .mission-figma {
   display: block;
@@ -488,7 +492,7 @@ body {
 }
 .mission-figma__watermark p {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0, 255, 0, 0.5);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
   white-space: nowrap;
 }
 /* Logo Container 1334:1722 — x 64, y 686.67 on the 1920×1218.67 mission frame. */
@@ -512,7 +516,7 @@ body {
   width: calc(70 / 1920 * 100cqi);
   margin-left: calc(20 / 1920 * 100cqi);
   text-align: center;
-  color: #717272;
+  color: var(--icon-default-placeholder);
 }
 .mission-figma__chip img {
   width: calc(50 / 1920 * 100cqi);
@@ -538,13 +542,25 @@ body {
 }
 .mission-figma__quality {
   display: block;
-  color: #fbfafc;
+  color: var(--text-default-heading);
   white-space: nowrap;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6.2vw, 119.05px);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 .mission-figma__perf {
   display: block;
-  color: #00ff00;
+  color: var(--colors-greeeen);
   white-space: nowrap;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.75rem, 6.62vw, 127.053px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 /* Image starts with OUR CRAFT; copy sits on the right. Same top + bottom as the still. */
 .mission-figma__split {
@@ -580,7 +596,7 @@ body {
   gap: 1.719cqw; /* 16.5 */
 }
 .mission-figma__copy {
-  color: #fbfafc;
+  color: var(--text-default-body);
 }
 /* Button-primary — Figma 1214:19 / 1273:503. Small caption is 1275:691. */
 .site-btn {
@@ -590,10 +606,12 @@ body {
   justify-content: center;
   padding: 16px 40px;
   border: 0;
-  border-radius: 12px;
-  background: #1f2020;
-  color: #f3f3f3;
-  box-shadow: 0 1px 10px -3px #1f2020, inset 0 1px 2px -1px #424343;
+  border-radius: var(--border-sizes-radius-l);
+  background: var(--button-background-default);
+  color: var(--button-text-default);
+  box-shadow:
+    0 1px 10px -3px var(--surface-pages-page-secondary),
+    inset 0 1px 2px -1px var(--button-background-default-hover);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -606,22 +624,24 @@ body {
 }
 .site-btn:hover,
 .site-btn--solid {
-  background: #424343;
-  color: #00cc00;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: var(--button-background-default-hover);
+  color: var(--button-text-default-hover);
+  box-shadow:
+    0 8px 24px color-mix(in srgb, var(--neutral-black) 25%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--neutral-white) 4%, transparent);
 }
 .site-btn.site-btn--amber:hover {
-  background: #424343;
-  color: #ffbf00;
+  background: var(--button-background-default-hover);
+  color: var(--text-default-accent-secondary);
 }
 .site-btn--fill {
-  background: #00cc00;
-  color: #131414;
+  background: var(--text-default-accent-subtle);
+  color: var(--text-default-heading);
   box-shadow: none;
 }
 .site-btn.site-btn--fill:hover {
-  background: #00ff00;
-  color: #131414;
+  background: var(--colors-greeeen);
+  color: var(--text-default-heading);
   box-shadow: none;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -689,20 +709,6 @@ body {
     margin: 16px 0;
   }
 }
-:root:not(.dark) .mission-figma__quality,
-:root:not(.dark) .mission-figma__copy {
-  color: #111111;
-}
-:root:not(.dark) .mission-figma__perf {
-  color: #087a08;
-}
-:root:not(.dark) .mission-figma__watermark p {
-  -webkit-text-stroke: 1px rgba(10, 158, 10, 0.55);
-}
-:root:not(.dark) .mission-figma__chip {
-  color: #717272;
-}
-
 /* ── Experts (Figma Meet the Experts) ── */
 .experts-figma__header {
   margin-bottom: clamp(40px, 5vw, 72px);
@@ -713,25 +719,17 @@ body {
 }
 .experts-figma__meet {
   display: block;
-  color: #52525b;
 }
 .experts-figma__experts {
   display: block;
-  color: #111111;
-}
-.dark .experts-figma__experts {
-  color: #fbfafc;
-}
-.dark .experts-figma__meet {
-  color: #8a8a8a;
 }
 .experts-figma__hud {
   margin-top: clamp(20px, 2.4vw, 36px);
   width: min(100%, 242px);
-  color: #52525b;
+  color: var(--text-default-placeholder);
 }
 .dark .experts-figma__hud {
-  color: #8a8a8a;
+  color: var(--text-default-caption);
 }
 .experts-figma__hud p {
   margin: 0 0 4px;
@@ -745,11 +743,11 @@ body {
   margin-bottom: 8px !important;
 }
 .experts-figma__hud-val {
-  color: #087a08;
+  color: var(--text-default-accent);
   font-variant-numeric: tabular-nums;
 }
 .dark .experts-figma__hud-val {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 .experts-figma__grid {
   display: flex;
@@ -885,14 +883,14 @@ body {
 
 .footer-figma__nav a {
   margin: 0;
-  color: #ece1e1;
+  color: var(--text-default-heading);
   text-decoration: none;
   white-space: nowrap;
   transition: color 160ms ease;
 }
 
 .footer-figma__nav a:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .footer-figma__brand {
@@ -906,29 +904,37 @@ body {
 }
 
 .footer-figma__logo {
-  color: #e9ece8;
-  white-space: nowrap;
+  display: block;
+  width: min(18cqi, 343px);
+  height: auto;
+  margin-inline: auto;
 }
 
 .footer-figma__since {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  line-height: 0;
-}
-
-.footer-figma__since img {
-  grid-area: 1 / 1;
-  width: 12.62cqi; /* 234 / 1854 */
-  height: auto;
-}
-
-.footer-figma__since span {
-  grid-area: 1 / 1;
-  margin: 0;
-  color: #00ff00;
+  margin: calc(8 * 100vw / 1440) 0 0;
   text-align: center;
-  transform: translateY(0.17cqi);
+}
+
+.footer-figma__address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+  margin-top: calc(20 * 100vw / 1440);
+  line-height: max(12px, calc(12 * 100vw / 1440));
+  text-align: center;
+  color: #a1a1a1;
+}
+
+.footer-figma__address-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-figma__address-link:hover {
+  color: var(--text-on-bright-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* Bottom Bar — spans the full frame width, sits in the bottom notches */
@@ -954,13 +960,13 @@ body {
 
 .footer-figma__imprint a,
 .footer-figma__imprint span {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   text-decoration: none;
   transition: color 160ms ease;
 }
 
 .footer-figma__imprint a:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .footer-figma__legal {
@@ -974,19 +980,19 @@ body {
 
 .footer-figma__legal a,
 .footer-figma__legal span {
-  color: #fbfafc;
+  color: var(--text-on-bright-heading);
   text-decoration: none;
   white-space: nowrap;
   transition: color 160ms ease;
 }
 
 .footer-figma__legal a:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 .footer-figma__credit {
   margin: 0;
-  color: #ece1e1;
+  color: var(--text-on-bright-heading);
   text-decoration: underline;
   text-underline-offset: 0.2em;
   white-space: nowrap;
@@ -994,7 +1000,7 @@ body {
 }
 
 .footer-figma__credit:hover {
-  color: #00ff00;
+  color: var(--colors-greeeen);
 }
 
 @media (max-width: 900px) {
@@ -1023,8 +1029,8 @@ body {
     flex-direction: column;
     gap: 28px;
   }
-  .footer-figma__since img {
-    width: clamp(150px, 34vw, 234px);
+  .footer-figma__logo {
+    width: clamp(150px, 34vw, 280px);
   }
   .footer-figma__bottom {
     flex-direction: column;
@@ -1044,14 +1050,14 @@ body {
 
 .social-section {
   padding: 52px 0;
-  background: #0b0b0c;
-  color: #f3f3f3;
+  background: var(--surface-pages-page);
+  color: var(--text-default-heading);
 }
 
 .social-gallery {
   width: 100%;
   height: 600px;
-  background: #0b0b0c;
+  background: var(--surface-pages-page);
 }
 
 .social-gallery-fallback {
@@ -1096,7 +1102,7 @@ body {
   gap: 12px;
   text-align: center;
   text-transform: uppercase;
-  color: #f3f3f3;
+  color: var(--text-default-heading);
 }
 
 .social-section__title .heading-secondary,
@@ -1110,7 +1116,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 40px;
-  color: #b2b1b2;
+  color: var(--icon-default-placeholder);
 }
 .social-section__links .copy-body-sm {
   color: inherit;

@@ -11,7 +11,7 @@ import {
 import { useSiteLocale } from "@/lib/i18n/use-locale";
 
 const shellClass =
-  "h-12 rounded-xl flex items-center justify-center gap-2 px-3 copy-caption transition-all duration-300 border-none backdrop-blur-sm bg-zinc-900/90 text-zinc-100 dark:bg-zinc-100/90 dark:text-zinc-900";
+  "h-12 rounded-xl flex items-center justify-center gap-2 px-3 copy-body-sm transition-all duration-300 border-none backdrop-blur-sm bg-zinc-900/90 text-zinc-100 dark:bg-zinc-100/90 dark:text-zinc-900";
 
 function LangLink({
   label,
@@ -29,7 +29,7 @@ function LangLink({
     <Link
       href={href}
       hrefLang={target}
-      className={`min-w-[2rem] text-center ${active ? "text-brand-neon dark:text-emerald-700" : "opacity-70 hover:opacity-100"}`}
+      className={`min-w-[2rem] text-center ${active ? "text-brand-neon dark:text-brand-neon" : "opacity-70 hover:opacity-100"}`}
       aria-current={active ? "true" : undefined}
       onClick={() => persistLocaleCookie(target)}
     >

@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from "framer-motion";
 import NotchedBorderGlow from "./NotchedBorderGlow";
 import TrackScrollMap from "./TrackScrollMap";
@@ -19,6 +18,7 @@ import { EXPERTS } from "@/lib/data/experts";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -29,7 +29,7 @@ import story01Dark from "../../public/images/Part_01_darkmode.webp";
 import story01Light from "../../public/images/Part_01.webp";
 import story02 from "../../public/images/Part_02.webp";
 import story03 from "../../public/images/Part_03.webp";
-import laserTech from "../../public/images/laser_technology.webp";
+import missionCraft from "../../public/images/figma/mission-craft-1334-1880.png";
 import "./CadTopographyPoster.css";
 
 const STORY_COPY =
@@ -118,8 +118,6 @@ export default function HomePage({
   heroSlide: HeroSlide;
   locale?: Locale;
 }) {
-  const [showAllExperts, setShowAllExperts] = useState(false);
-
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -175,8 +173,8 @@ export default function HomePage({
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
           
           {/* Top and bottom blends into the page color, same falloff */}
-          <div className="absolute top-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-b from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-b dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
-          <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-t dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-b from-brand-light via-brand-light/60 to-transparent dark:bg-gradient-to-b dark:from-brand-dark dark:via-brand-dark/60 dark:to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-brand-light via-brand-light/60 to-transparent dark:bg-gradient-to-t dark:from-brand-dark dark:via-brand-dark/60 dark:to-transparent" />
 
           {/* CAD Topography — Figma field behind all three story steps */}
           <div className="cad-topo-stage absolute inset-0" aria-hidden>
@@ -186,9 +184,9 @@ export default function HomePage({
               rootMargin="200px"
               className="absolute inset-0"
               componentProps={{
-                lowColor: "#003300",
-                midColor: "#008000",
-                highColor: "#33FF33",
+                lowColor: readCssVarColor("--text-default-accent-subtle", "#006600"),
+                midColor: readCssVarColor("--text-default-accent", "#009900"),
+                highColor: readCssVarColor("--colors-greeeen", "#00ff00"),
                 speed: 0.35,
                 morphAmount: 3,
                 morphSpeed: 0.02,
@@ -238,9 +236,9 @@ export default function HomePage({
                     </div>
                   </NotchedBorderGlow>
                 </div>
-                <h2 className="heading-secondary text-zinc-950 dark:text-white">
-                  To the finished
-                  <strong className="heading-secondary-bold block">component.</strong>
+                <h2 className="text-[var(--text-default-heading)]">
+                  <span className="heading-secondary heading-figma-overlay block">To the finished</span>
+                  <strong className="heading-secondary-bold heading-figma-overlay block">component.</strong>
                 </h2>
               </div>
             </div>
@@ -387,13 +385,13 @@ export default function HomePage({
 
           <h2 className="mission-figma__headline">
             <span className="mission-figma__quality heading-primary-bold">FLAWLESS QUALITY &amp;</span>
-            <span className="mission-figma__perf decorative-primary">HIGH PERFORMANCE.</span>
+            <span className="mission-figma__perf">HIGH PERFORMANCE.</span>
           </h2>
 
           <div className="mission-figma__split">
             <div className="mission-figma__image">
               <Image
-                src={laserTech}
+                src={missionCraft}
                 alt="Precision finishing on a carbon fiber component"
                 fill
                 className="object-cover"
@@ -423,9 +421,9 @@ export default function HomePage({
       <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
         <div className="site-container relative z-10">
           <div className="experts-figma__header">
-            <h2 className="experts-figma__title heading-secondary">
-              <span className="experts-figma__meet">MEET</span>
-              <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
+            <h2 className="experts-figma__title">
+              <span className="experts-figma__meet heading-secondary heading-figma-overlay">MEET</span>
+              <span className="experts-figma__experts heading-secondary-bold heading-figma-overlay">THE EXPERTS</span>
             </h2>
             <div className="experts-figma__hud">
               <p className="experts-figma__hud-kicker copy-tiny">** END 2 END EXPERTS **</p>
@@ -446,41 +444,10 @@ export default function HomePage({
             ))}
           </div>
 
-          <div
-            className={`experts-figma__more${showAllExperts ? " is-open" : ""}`}
-            id="experts-rest"
-            aria-hidden={!showAllExperts}
-            inert={!showAllExperts}
-          >
-            <div className="experts-figma__more-inner">
-              <div className="experts-figma__grid">
-                {EXPERTS.slice(EXPERT_PREVIEW).map((expert, index) => (
-                  <ExpertSlot
-                    key={expert.email}
-                    expert={expert}
-                    delay={showAllExperts ? `${Math.floor(index / 3) * 80 + (index % 3) * 45}ms` : "0ms"}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className={`experts-figma__cta-wrap${showAllExperts ? " is-hidden" : ""}`}>
-            <SiteButton
-              type="button"
-              aria-expanded={showAllExperts}
-              aria-controls="experts-rest"
-              disabled={showAllExperts}
-              onClick={() => setShowAllExperts(true)}
-            >
-              {locale === "en" ? "MORE ON PAGE" : "MEHR HIER"}
-            </SiteButton>
-            <Link
-              href={localizedHref("/team", locale)}
-              className="mt-4 block copy-tiny text-brand-neon underline-offset-4 hover:underline"
-            >
+          <div className="experts-figma__cta-wrap">
+            <SiteButton href={localizedHref("/team", locale)}>
               {locale === "en" ? "ALL EXPERTS" : "ALLE EXPERTEN"}
-            </Link>
+            </SiteButton>
           </div>
         </div>
       </section>
@@ -495,7 +462,7 @@ export default function HomePage({
             componentProps={{
               items: SOCIAL_GALLERY_ITEMS,
               bend: 3,
-              textColor: "#ffffff",
+              textColor: readCssVarColor("--neutral-white", "#f0f0f0"),
               borderRadius: 0.05,
               scrollEase: 0.05,
               itemAspect: 326 / 474,
@@ -511,8 +478,8 @@ export default function HomePage({
         </SocialGalleryBoundary>
         <div className="social-section__copy site-container">
           <h2 className="social-section__title">
-            <span className="heading-secondary">Follow the daily</span>
-            <span className="heading-secondary-bold">Bräutigam Experience</span>
+            <span className="heading-secondary heading-figma-overlay">Follow the daily</span>
+            <span className="heading-secondary-bold heading-figma-overlay">Bräutigam Experience</span>
           </h2>
           <nav className="social-section__links" aria-label="Social">
             <a className="copy-body-sm" href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>

@@ -84,7 +84,7 @@ export default function TrackScrollMap({ progress }: TrackScrollMapProps) {
             cx="40"
             cy="100"
             r="10"
-            className="fill-black dark:fill-brand-neon transition-colors duration-500 dark:[filter:drop-shadow(0px_0px_8px_#39FF14)]"
+            className="fill-black dark:fill-brand-neon transition-colors duration-500 dark:[filter:drop-shadow(0px_0px_8px_var(--colors-greeeen))]"
           />
         </svg>
       </div>

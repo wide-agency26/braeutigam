@@ -1,12 +1,12 @@
 # Hero slide images
 
-Drop paired light/dark WebP files here. File names must match `lib/hero-slides.ts`.
+Drop paired light/dark files here. File names must match `lib/hero-slides.ts`.
 
-| Slide id   | Files |
-|------------|-------|
-| `f1`       | `f1-light.webp`, `f1-dark.webp` (shipped) |
-| `superbike`| `superbike-light.webp`, `superbike-dark.webp` |
-| `hypercar` | `hypercar-light.webp`, `hypercar-dark.webp` |
-| `offroad`  | `offroad-light.webp`, `offroad-dark.webp` |
+| Slide id   | Files (JPEG from Drive) |
+|------------|-------------------------|
+| `offroad`  | `gwagon_light.jpeg`, `gwagon_dark.jpeg` |
+| `hypercar` | `hypercar_light.jpeg`, `hypercar_dark.jpeg` |
+| `superbike`| `motorbike_light.jpeg`, `motorbike_dark.jpeg` |
+| `f1`       | `f1-light.webp`, `f1-dark.webp` (legacy; disable when JPEG set is complete) |
 
-After adding a pair, set `enabled: true` on that slide in `lib/hero-slides.ts` and redeploy. No runtime file checks.
+Set `enabled: true` on each slide in `lib/hero-slides.ts` after both files exist. Active rotation: `offroad`, `hypercar`, `superbike` (F1 webp disabled — not in Figma `2006:132` Drive set).

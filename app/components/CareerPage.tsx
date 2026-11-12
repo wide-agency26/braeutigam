@@ -2,7 +2,6 @@
 
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { ChevronRight, Play } from "lucide-react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
@@ -135,7 +134,14 @@ function Film({ image, role, wide }: (typeof CREW)[number]) {
           sizes={wide ? "(min-width: 800px) 46vw, 100vw" : "(min-width: 800px) 30vw, 100vw"}
         />
         <span className="crew-play" aria-hidden="true">
-          <Play className="h-4 w-4 translate-x-px" fill="currentColor" strokeWidth={0} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={wide ? "/icons/figma/play-fill.svg" : "/icons/figma/play-fill-small.svg"}
+            alt=""
+            width={wide ? 80 : 64}
+            height={wide ? 80 : 64}
+            className={`crew-play__asset${wide ? "" : " crew-play__asset--small"}`}
+          />
         </span>
       </div>
       <figcaption>
@@ -175,8 +181,10 @@ export default function CareerPage({
             />
             <div className="crew-hero__fade" aria-hidden="true" />
             <div className="crew-hero__mark">
-              <p className="career-watermark">{locale === "en" ? "Careers" : "Karriere"}</p>
-              <p className="crew-hiring">Wir suchen Verstärkung</p>
+              <h1 className="crew-hero__title heading-primary-bold">CREW</h1>
+              <p className="crew-hiring copy-caption">
+                {locale === "en" ? "We are hiring" : "Wir suchen Verstärkung"}
+              </p>
             </div>
           </section>
 
@@ -266,7 +274,15 @@ export default function CareerPage({
                       <span className="crew-job__meta copy-tiny">
                         {job.location} <span aria-hidden="true">·</span> {EMPLOYMENT_DE[job.employmentType]}
                       </span>
-                      <ChevronRight className="crew-job__icon" aria-hidden="true" strokeWidth={1.6} />
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/icons/figma/traffic-light-default.svg"
+                        alt=""
+                        width={11}
+                        height={11}
+                        className="crew-job__icon"
+                        aria-hidden
+                      />
                     </Link>
                   ))
                 )}

@@ -1,7 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 const loadLineWaves = () => import("./LineWaves");
 
@@ -21,11 +23,28 @@ export default function SiteFooter() {
   const { isDark } = useTheme();
   const locale = useSiteLocale();
 
+  /** Figma 2006:809 / 2006:810 — dark green wave plate + 20% black overlay (light home too). */
+  const waveColors = useMemo(() => {
+    const neon = readCssVarColor("--colors-greeeen", "#00ff00");
+    const secondary = readCssVarColor("--surface-pages-page-secondary", "#1f2020");
+    const ink = readCssVarColor("--neutral-black", "#131414");
+    return { color1: neon, color2: secondary, color3: ink, brightness: 0.3 };
+  }, []);
+
   return (
     <footer className="footer-figma-section cv-auto">
-      <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-[#0B0B0C] dark:to-transparent" />
+      <div
+        className={
+          isDark
+            ? "absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-dark to-transparent"
+            : "absolute inset-0 z-[5] pointer-events-none bg-[color-mix(in_srgb,var(--neutral-black)_20%,transparent)]"
+        }
+        aria-hidden
+      />
 
-      <div className="absolute inset-0 z-0">
+      <div
+        className={`absolute inset-0 z-0 ${isDark ? "" : "bg-[var(--neutral-black)]"}`}
+      >
         <LazyOnVisible
           loader={loadLineWaves}
           rootMargin="100px"
@@ -38,10 +57,10 @@ export default function SiteFooter() {
             rotation: 59,
             edgeFadeWidth: 0.05,
             colorCycleSpeed: 1.0,
-            brightness: isDark ? 0.3 : 1.0,
-            color1: isDark ? "#39ff14" : "#000000",
-            color2: isDark ? "#222222" : "#000000",
-            color3: isDark ? "#111111" : "#000000",
+            brightness: waveColors.brightness,
+            color1: waveColors.color1,
+            color2: waveColors.color2,
+            color3: waveColors.color3,
             enableMouseInteraction: true,
             mouseInfluence: 3.0,
           }}
@@ -82,17 +101,30 @@ export default function SiteFooter() {
             </nav>
 
             <div className="footer-figma__brand">
-              <span className="footer-figma__logo footer-headline-primary">BRÄUTIGAM</span>
-              <div className="footer-figma__since">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/ui/since-badge.svg"
-                  alt=""
-                  aria-hidden
-                  draggable={false}
-                />
-                <span className="footer-decorative-primary">SINCE 2016</span>
-              </div>
+              {/* Figma Client Logo 1256:232 */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="footer-figma__logo"
+                src="/icons/figma/client-wordmark.svg"
+                alt="Bräutigam"
+                width={343}
+                height={72}
+                draggable={false}
+              />
+              <p className="decorative-tertiary footer-figma__since text-[var(--text-on-bright-accent)]">
+                SINCE 2016
+              </p>
+              <address className="footer-figma__address copy-tiny not-italic">
+                <span>Daimlerstraße 13</span>
+                <span>D-71691 Freiberg am Neckar</span>
+                <span>
+                  E:{" "}
+                  <a href="mailto:info@braeutigam-gmbh.eu" className="footer-figma__address-link">
+                    info@braeutigam-gmbh.eu
+                  </a>
+                </span>
+                <span>P: +49 (0)7141/2996700</span>
+              </address>
             </div>
 
             <nav className="footer-figma__nav" aria-label="Social">

@@ -218,7 +218,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
 
           {/* Layer 3: Main Full Screen Content Panel */}
           <m.div
-            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-[#0B0B0C] overflow-y-auto"
+            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-brand-dark overflow-y-auto"
             variants={{
               closed: { x: "-100%" },
               open: { 
@@ -245,32 +245,31 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                 variants={metaVariants}
               >
                 <div>
-                  <span className="heading-tertiary px-3 py-1 text-zinc-100 bg-zinc-900 dark:text-zinc-950 dark:bg-zinc-100">
-                    BRÄUTIGAM
-                  </span>
-                  <div className="copy-tiny mt-4 text-zinc-400 dark:text-zinc-500">
-                    <div>DIVISION // COMPOSITE ENGINEERING</div>
-                    <div>PROJECT // AERO_HYPERCAR_v2.2</div>
-                    <div>STATUS // SYSTEM_ACTIVE</div>
-                  </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/icons/figma/client-wordmark.svg"
+                    alt="Bräutigam"
+                    width={220}
+                    height={46}
+                    className="max-w-[min(220px,70vw)] h-auto"
+                    draggable={false}
+                  />
                 </div>
 
-                <div className="copy-body-sm leading-loose text-zinc-600 dark:text-zinc-400">
+                <address className="copy-tiny not-italic leading-relaxed text-[var(--text-default-caption)]">
                   <div>Daimlerstraße 13</div>
                   <div>D-71691 Freiberg am Neckar</div>
                   <div className="mt-4">
                     E:{" "}
-                    <a 
-                      href="mailto:info@braeutigam-gmbh.eu" 
-                      className="text-brand-neon hover:underline decoration-brand-neon/40 underline-offset-4"
+                    <a
+                      href="mailto:info@braeutigam-gmbh.eu"
+                      className="text-[var(--text-default-accent)] hover:underline underline-offset-4"
                     >
                       info@braeutigam-gmbh.eu
                     </a>
                   </div>
-                  <div>
-                    P: +49 (0)7141/2996700
-                  </div>
-                </div>
+                  <div>P: +49 (0)7141/2996700</div>
+                </address>
               </m.div>
 
               {/* Right Column: Dynamic Menu Items */}

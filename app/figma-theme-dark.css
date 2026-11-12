@@ -1,0 +1,160 @@
+/**
+ * Dark-mode component bridges — Figma 934:241 + library (token vars only).
+ */
+
+.dark {
+  --color-brand-neon: var(--colors-greeeen);
+}
+
+.dark .text-brand-neon {
+  color: var(--colors-greeeen);
+}
+
+.dark .border-brand-neon {
+  border-color: var(--border-primary-secondary);
+}
+
+.dark .text-accent-subtle {
+  color: var(--text-default-accent-subtle);
+}
+
+.dark .cad-hud__ok {
+  color: var(--text-default-accent);
+}
+
+.dark .cad-hud__warn {
+  color: var(--text-default-accent-subtle-secondary);
+}
+
+.dark .journey-intro__title,
+.dark .journey-intro__kicker,
+.dark .journey-intro__row {
+  color: var(--text-default-heading);
+}
+
+.dark .journey-intro__value {
+  color: var(--text-default-accent);
+}
+
+.dark .manifest-figma__line {
+  color: var(--text-default-heading);
+}
+
+.dark .manifest-figma__neon {
+  color: var(--text-default-accent);
+  -webkit-text-fill-color: var(--text-default-accent);
+}
+
+.dark .mission-figma__quality {
+  color: var(--text-default-heading);
+}
+
+.dark .mission-figma__copy {
+  color: var(--text-default-body);
+}
+
+.dark .mission-figma__perf {
+  color: var(--colors-greeeen);
+}
+
+.dark .mission-figma__chip {
+  color: var(--icon-default-placeholder);
+}
+
+.dark .experts-figma__meet,
+.dark .experts-figma__hud {
+  color: var(--icon-default-placeholder);
+}
+
+.dark .experts-figma__experts {
+  color: var(--text-default-heading);
+}
+
+.dark .experts-figma__hud-val {
+  color: var(--text-default-accent);
+}
+
+.dark .footer-figma__nav a,
+.dark .footer-figma__logo {
+  color: var(--text-default-heading);
+}
+
+.dark .footer-figma__since span {
+  color: var(--text-default-accent);
+}
+
+.dark .footer-figma__imprint a,
+.dark .footer-figma__imprint span,
+.dark .footer-figma__legal a,
+.dark .footer-figma__legal span,
+.dark .footer-figma__credit {
+  color: var(--text-on-bright-heading);
+}
+
+.dark .footer-figma__nav a:hover,
+.dark .footer-figma__imprint a:hover,
+.dark .footer-figma__legal a:hover,
+.dark .footer-figma__credit:hover {
+  color: var(--color-accent-600);
+}
+
+.dark .social-section,
+.dark .social-gallery {
+  background: var(--surface-pages-page);
+  color: var(--text-default-heading);
+}
+
+.dark .social-section__title {
+  color: var(--text-default-heading);
+}
+
+.dark .social-section__links,
+.dark .social-section__links a {
+  color: var(--icon-default-placeholder);
+}
+
+.dark .social-section__links a:hover {
+  color: var(--color-accent-600);
+}
+
+.dark .notched-glow-container {
+  --nbg-c0: var(--colors-greeeen);
+  --nbg-glow-stroke: var(--colors-greeeen);
+}
+
+.dark .skip-link {
+  background: var(--surface-pages-page-secondary);
+  color: var(--text-default-heading);
+}
+
+.dark .skip-link:focus {
+  outline-color: var(--colors-greeeen);
+}
+
+.dark .text-zinc-950,
+.dark .text-zinc-900,
+.dark .text-zinc-800,
+.dark .text-zinc-700 {
+  color: var(--text-default-heading);
+}
+
+.dark .text-zinc-600,
+.dark .text-zinc-500,
+.dark .text-zinc-400,
+.dark .text-zinc-300 {
+  color: var(--icon-default-placeholder);
+}
+
+.dark .text-zinc-100 {
+  color: var(--text-default-heading);
+}
+
+.dark .bg-zinc-900\/90 {
+  background-color: color-mix(in srgb, var(--surface-pages-page-secondary) 92%, transparent);
+}
+
+.dark #site-menu .text-zinc-950,
+.dark #site-menu .text-zinc-600,
+.dark #site-menu .text-zinc-500 {
+  color: var(--text-default-heading);
+}

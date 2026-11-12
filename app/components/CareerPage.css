@@ -1,18 +1,16 @@
 /* ── Crew page (was Careers). Shared tokens also style /karriere/[slug]. ── */
 
 .career {
-  --career-line: rgba(0, 255, 0, 0.5);
-  --career-stroke: rgba(0, 255, 0, 0.5);
-  --career-fill: #131315;
-  --career-neon: #00ff00;
+  --career-line: color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
+  --career-stroke: color-mix(in srgb, var(--colors-greeeen) 50%, transparent);
+  --career-fill: var(--neutral-black);
+  --career-neon: var(--colors-greeeen);
 }
 :root:not(.dark) .career {
-  --career-line: rgba(0, 170, 0, 0.55);
-  /* Hairline outlines wash out on the light canvas, so the watermark needs a
-     darker stroke than the card borders. */
-  --career-stroke: rgba(0, 130, 0, 0.7);
-  --career-fill: #ffffff;
-  --career-neon: #087a08;
+  --career-line: color-mix(in srgb, var(--border-primary-secondary) 55%, transparent);
+  --career-stroke: color-mix(in srgb, var(--text-default-accent) 70%, transparent);
+  --career-fill: var(--surface-pages-page);
+  --career-neon: var(--colors-greeeen);
 }
 
 .career-shell {
@@ -97,10 +95,10 @@
 .crew-lead {
   max-width: 38rem;
   margin: 1.35rem 0 0;
-  color: #3a3a40;
+  color: var(--text-default-body);
 }
 .dark .crew-lead {
-  color: #d4d4d8;
+  color: var(--text-default-body);
 }
 
 .crew-stats {
@@ -119,7 +117,7 @@
 }
 .crew-stats dt {
   margin-top: 0.7rem;
-  color: #3a3a40;
+  color: var(--text-default-body);
   font-family: var(--font-mono), monospace;
   font-size: 0.62rem;
   font-weight: 400;
@@ -127,7 +125,7 @@
   text-transform: uppercase;
 }
 .dark .crew-stats dt {
-  color: #c6c6cb;
+  color: var(--icon-default-placeholder);
 }
 .crew-stats dd {
   margin: 0;
@@ -160,13 +158,13 @@
 .crew-story p,
 .crew-film p {
   margin: 0.35rem 0 0;
-  color: #3a3a40;
+  color: var(--text-default-body);
   font-size: 0.84rem;
   line-height: 1.45;
 }
 .dark .crew-story p,
 .dark .crew-film p {
-  color: #d4d4d8;
+  color: var(--text-default-body);
 }
 .crew-film p {
   font-family: var(--font-mono), monospace;
@@ -180,7 +178,7 @@
   overflow: hidden;
   aspect-ratio: 16 / 10;
   border-radius: 2px;
-  background: #17171a;
+  background: var(--surface-pages-page-secondary);
 }
 .crew-shot--wide {
   aspect-ratio: 16 / 9;
@@ -201,16 +199,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  display: grid;
-  width: 46px;
-  height: 46px;
-  place-items: center;
+  display: block;
   translate: -50% -50%;
-  border: 1px solid var(--career-neon);
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.38);
-  color: var(--career-neon);
   pointer-events: none;
+  line-height: 0;
+}
+.crew-play__asset {
+  display: block;
+  width: 80px;
+  height: 80px;
+}
+.crew-play__asset--small {
+  width: 64px;
+  height: 64px;
 }
 
 .crew-jobs {
@@ -248,20 +249,20 @@
 }
 .crew-job__dept,
 .crew-job__meta {
-  color: #3a3a40;
+  color: var(--text-default-body);
 }
 .dark .crew-job__dept,
 .dark .crew-job__meta {
-  color: #c6c6cb;
+  color: var(--icon-default-placeholder);
 }
 .crew-job__dept {
   display: block;
   margin-top: 0.3rem;
 }
 .crew-job__icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  color: var(--career-neon);
+  width: 11px;
+  height: 11px;
+  flex: none;
 }
 
 .crew-steps {
@@ -296,12 +297,12 @@
 .crew-step p {
   max-width: 34rem;
   margin: 0.55rem 0 0;
-  color: #3a3a40;
+  color: var(--text-default-body);
   font-size: 0.92rem;
   line-height: 1.5;
 }
 .dark .crew-step p {
-  color: #d4d4d8;
+  color: var(--text-default-body);
 }
 
 .crew-join {
@@ -319,7 +320,7 @@
   padding: 0.7rem 1.35rem;
   border-radius: 6px;
   background: var(--career-neon);
-  color: #0b0b0c;
+  color: var(--text-on-bright-heading);
   font-family: var(--font-univers), sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
@@ -328,7 +329,7 @@
   text-transform: uppercase;
 }
 :root:not(.dark) .crew-cta {
-  color: #ffffff;
+  color: var(--text-on-bright-heading);
 }
 .crew-cta:hover {
   filter: brightness(1.12);
@@ -344,7 +345,21 @@
   height: 100svh;
   min-height: 560px;
   overflow: hidden;
-  background: #0b0b0c;
+  background: var(--neutral-black);
+}
+
+.crew-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--neutral-black) 0%, transparent) 0%,
+    color-mix(in srgb, var(--neutral-black) 0%, transparent) 63.194%,
+    var(--neutral-black) 100%
+  );
 }
 .crew-hero__photo {
   object-fit: cover;
@@ -352,36 +367,45 @@
 }
 .crew-hero__fade {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   right: 0;
   bottom: 0;
   left: 0;
   height: 14%;
-  background: linear-gradient(to top, var(--background), transparent);
+  background: linear-gradient(to top, var(--neutral-black), transparent);
   pointer-events: none;
 }
 .crew-hero__mark {
   position: absolute;
-  z-index: 2;
-  top: 46%;
-  right: clamp(1rem, 3.5vw, 3.5rem);
+  z-index: 3;
+  left: 50%;
+  bottom: clamp(8.5rem, 38vh, 26rem);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  transform: translateY(-42%);
+  align-items: center;
+  gap: var(--scale-500, 20px);
+  width: min(100%, calc(var(--site-max-width, 1440px) - 2 * clamp(1.5rem, 4vw, 4rem)));
+  padding-inline: clamp(1rem, 3vw, 2rem);
+  transform: translateX(-50%);
+  text-align: center;
   pointer-events: none;
 }
-.crew-hero__mark .career-watermark {
-  font-size: clamp(4rem, 11vw, 9.75rem);
-  line-height: 0.92;
+
+.crew-hero__title {
+  margin: 0;
+  width: 100%;
+  color: var(--neutral-white);
+  text-transform: uppercase;
 }
+
 .crew-hiring {
-  margin: 0.65rem 0 0 0.12rem;
-  color: #fff;
+  margin: 0;
+  max-width: 28rem;
+  color: var(--neutral-white);
   font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  line-height: 1;
+  font-size: var(--typesize-copy-caption-text-size, 12px);
+  line-height: var(--typesize-copy-caption-line-height, 18px);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -418,17 +442,8 @@
     margin-inline: auto;
   }
   .crew-hero__mark {
-    top: auto;
-    bottom: 14%;
-    transform: none;
-    right: 1rem;
-  }
-  .crew-hero__mark .career-watermark {
-    font-size: 4.4rem;
-  }
-  .crew-hiring {
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
+    bottom: max(7rem, 38vh);
+    transform: translateX(-50%);
   }
   .crew-job {
     grid-template-columns: minmax(0, 1fr) auto;

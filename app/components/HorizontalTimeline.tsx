@@ -72,55 +72,16 @@ function Photo({
   );
 }
 
-function PillIcon({ kind }: { kind: "speed" | "inhouse" | "complexity" }) {
-  if (kind === "inhouse") {
-    return (
-      <svg viewBox="0 0 47 40" fill="currentColor" aria-hidden="true">
-        {[[15, 5], [22, 5], [8, 12], [15, 12], [22, 12], [29, 12], [1, 18], [8, 18], [15, 18], [22, 18], [29, 18], [36, 18], [42, 18], [8, 25], [15, 25], [22, 25], [29, 25], [36, 25], [15, 32], [22, 32], [29, 32], [15, 38], [22, 38]].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r="2.2" opacity={i % 3 === 0 ? 1 : 0.55} />
-        ))}
-      </svg>
-    );
-  }
-  if (kind === "complexity") {
-    return (
-      <svg viewBox="0 0 49 48" fill="none" aria-hidden="true">
-        <circle cx="24.5" cy="24" r="6" fill="currentColor" />
-        {Array.from({ length: 8 }, (_, i) => {
-          const a = (i * Math.PI) / 4;
-          return (
-            <line
-              key={i}
-              x1={24.5 + Math.cos(a) * 10}
-              y1={24 + Math.sin(a) * 10}
-              x2={24.5 + Math.cos(a) * 20}
-              y2={24 + Math.sin(a) * 20}
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-          );
-        })}
-      </svg>
-    );
-  }
+const PILL_ICONS = {
+  speed: "/icons/figma/pill-speed.svg",
+  inhouse: "/icons/figma/pill-inhouse.svg",
+  complexity: "/icons/figma/pill-complexity.svg",
+} as const;
+
+function PillIcon({ kind }: { kind: keyof typeof PILL_ICONS }) {
   return (
-    <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
-      <circle cx="26" cy="26" r="4" fill="currentColor" />
-      {Array.from({ length: 12 }, (_, i) => {
-        const a = (i * Math.PI) / 6;
-        return (
-          <line
-            key={i}
-            x1={26 + Math.cos(a) * 8}
-            y1={26 + Math.sin(a) * 8}
-            x2={26 + Math.cos(a) * 22}
-            y2={26 + Math.sin(a) * 22}
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-        );
-      })}
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={PILL_ICONS[kind]} alt="" width={28} height={28} aria-hidden className="shrink-0" />
   );
 }
 
@@ -142,12 +103,6 @@ function Board() {
               BRÄUTIGAM started with three specialists and one clear vision: engineering high-performance carbon components for clients with uncompromising ambitions.
             </p>
           </div>
-        </div>
-        <div className="tl-copy" style={box(66, 948, 205, 66, { gap: 12 })}>
-          <p className="tl-logo button-body-lg">
-            BRÄUTIGAM
-            <span className="tl-logo__tagline copy-body-lg">CARBON FIBER WORKS</span>
-          </p>
         </div>
         <div className="tl-pill copy-body-sm" style={box(773.5, 917.75, 250, 88)}>
           <PillIcon kind="speed" />
@@ -201,12 +156,6 @@ function Board() {
           <br />
           MAX PRESSURE:
         </p>
-        <div className="tl-copy" style={box(1210, 66, 205, 120, { gap: 2 })}>
-          <p className="tl-logo tl-logo--mark heading-tertiary">
-            BRÄUTIGAM
-            <span className="tl-logo__tagline copy-body-lg">CARBON FIBER WORKS</span>
-          </p>
-        </div>
         <div className="tl-copy" style={box(0, 186.5, 550, 586.5, { gap: 32, zIndex: 12 })}>
           <p className="decorative-primary">2019</p>
           <div className="tl-head-stack">
@@ -352,7 +301,15 @@ function Board() {
           </div>
           <SiteButton href="/karriere">SEE OPEN POSITIONS</SiteButton>
         </div>
-        <div className="tl-photo tl-placeholder" style={box(2484, 666, 481, 350)} aria-hidden />
+        <Photo
+          src="/images/timeline/figma/join-team-1360-444.png"
+          alt="Team at the Bräutigam facility entrance"
+          left={2484}
+          top={666}
+          width={481}
+          height={350}
+          dim
+        />
       </section>
     </div>
   );
@@ -510,30 +467,6 @@ export default function HorizontalTimeline() {
       ) : (
       <section ref={sectionRef} className="relative" style={{ height: "1100vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <div
-            className="absolute right-6 md:right-12 z-20 pointer-events-none font-mono"
-            style={{ top: "88px" }}
-          >
-            <div className="flex items-center gap-4 text-xs tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
-              <span
-                ref={(el) => {
-                  yearRefs.current[0] = el;
-                }}
-                className="text-brand-neon font-bold text-lg"
-              >
-                2016
-              </span>
-              <span
-                ref={(el) => {
-                  pctRefs.current[1] = el;
-                }}
-                className="journey-intro__value hidden sm:inline"
-              >
-                0%
-              </span>
-            </div>
-          </div>
-
           <m.div
             className="tl-strip absolute left-0"
             style={{ x, top: "56px", bottom: "90px" }}
@@ -563,18 +496,18 @@ export default function HorizontalTimeline() {
             className="absolute bottom-0 left-0 w-full z-20 border-t transition-colors duration-500 border-zinc-200/60 bg-brand-light dark:border-zinc-800/40 dark:bg-[var(--background)]"
             style={{ height: "90px" }}
           >
-            <div className="absolute top-0 left-0 w-full px-6 md:px-12 py-2 copy-tiny transition-colors duration-500 text-zinc-400 dark:text-zinc-600">
+            <div className="absolute top-0 left-0 w-full px-6 md:px-12 py-2 copy-caption transition-colors duration-500 text-[var(--text-default-caption)]">
               <div className="flex items-center gap-2">
                 <span
                   ref={(el) => {
                     yearRefs.current[1] = el;
                   }}
-                  className="text-brand-neon font-bold"
+                  className="text-[var(--text-default-accent)] font-bold"
                 >
                   2016
                 </span>
-                <span ref={segRef}>{"// SEG_01"}</span>
-                <span className="ml-4 hidden sm:inline transition-colors duration-500 text-zinc-300 dark:text-zinc-700">
+                <span ref={segRef} className="text-[var(--text-default-body)]">{"// SEG_01"}</span>
+                <span className="ml-4 hidden sm:inline text-[var(--text-default-caption)]">
                   2016 ————— 2026
                 </span>
               </div>
@@ -585,22 +518,19 @@ export default function HorizontalTimeline() {
               style={{ top: "32px" }}
             >
               <m.div
-                className="h-full bg-brand-neon"
-                style={{
-                  width: progressWidth,
-                  boxShadow: "0 0 8px #39FF14, 0 0 16px rgba(57,255,20,0.3)",
-                }}
+                className="tl-scrub-progress h-full bg-brand-neon"
+                style={{ width: progressWidth }}
               />
             </div>
 
             <div className="absolute bottom-3 left-0 w-full px-6 md:px-12 flex justify-between items-center">
-              <div className="copy-tiny flex items-center gap-3 transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
+              <div className="copy-body-sm flex items-center gap-3 text-[var(--text-default-body)]">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="animate-pulse">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
                 <span className="hidden sm:inline">SCROLL TO EXPLORE</span>
               </div>
-              <div className="copy-tiny transition-colors duration-500 hidden md:block text-zinc-400 dark:text-zinc-600">
+              <div className="copy-caption hidden md:block text-[var(--text-default-caption)]">
                 HISTORICAL ARCHIVE // 2016–2026
               </div>
               <button

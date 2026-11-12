@@ -4,6 +4,7 @@ import React from "react";
 import Image, { type StaticImageData } from "next/image";
 import weave from "../../public/images/grundsatz/figma/tl.jpg";
 import clkGtr from "../../public/images/grundsatz/figma/tr.jpg";
+import clientStill from "../../public/images/manifest/client-939-301.png";
 import precision from "../../public/images/grundsatz/figma/bl.jpg";
 import autoclave from "../../public/images/grundsatz/figma/br.jpg";
 import "./ManifestSection.css";
@@ -35,40 +36,10 @@ function CoreValueIcon({
   return <img src={src} alt="" width={width} height={height} />;
 }
 
-function IconFlag() {
+function FigmaStatIcon({ src, width = 50, height = 50 }: { src: string; width?: number; height?: number }) {
   return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <path d="M12 8v34" stroke="currentColor" strokeWidth="1.6" />
-      <rect x="14" y="10" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="10" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="14" y="17" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="24" y="17" width="10" height="7" fill="currentColor" />
-      <rect x="14" y="24" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="24" width="10" height="7" fill="currentColor" opacity="0.35" />
-    </svg>
-  );
-}
-
-function IconGlobe() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <circle cx="25" cy="25" r="14" stroke="currentColor" strokeWidth="1.5" />
-      <ellipse cx="25" cy="25" rx="6" ry="14" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M11 25h28M13 18h24M13 32h24" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-function IconSpark() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <path
-        d="M25 6l3.2 12.4L41 22l-12.8 3.6L25 44l-3.2-18.4L9 22l12.8-3.6L25 6z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" width={width} height={height} aria-hidden className="block" />
   );
 }
 
@@ -120,15 +91,15 @@ export default function ManifestBlock() {
             <span className="mg-core__label copy-tiny">CORE VALUE DEFINITION:</span>
             <div className="mg-core__row">
               <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/speed.svg" width={40} height={40} />
+                <CoreValueIcon src="/icons/figma/pill-speed.svg" width={50} height={50} />
                 <span className="copy-tiny">SPEED</span>
               </div>
               <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/complexity.svg" width={42} height={41} />
+                <CoreValueIcon src="/icons/figma/pill-complexity.svg" width={50} height={50} />
                 <span className="copy-tiny">COMPLEXITY</span>
               </div>
               <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/inhouse.svg" width={46.67} height={40} />
+                <CoreValueIcon src="/icons/figma/pill-inhouse.svg" width={50} height={50} />
                 <span className="copy-tiny">INHOUSE</span>
               </div>
             </div>
@@ -150,7 +121,6 @@ export default function ManifestBlock() {
             </p>
             <p className="manifest-overview__row">
               <HudLine text="CLIENT NAMES:" className="mg-dim" />
-              <HudLine text="ACCESS DENIED" className="mg-amber" />
             </p>
             <p className="manifest-overview__wait">
               <HudLine text="... WAITING FOR USER INPUT" className="mg-dim" />
@@ -172,9 +142,10 @@ export default function ManifestBlock() {
               area="tr"
             />
           ) : (
-            <div
-              className="manifest-photo manifest-photo--tr manifest-photo--placeholder"
-              aria-hidden
+            <Photo
+              src={clientStill}
+              alt="Mercedes-Benz CLK GTR chassis in the workshop"
+              area="tr"
             />
           )}
 
@@ -218,7 +189,7 @@ export default function ManifestBlock() {
 
       <div className="mg-bar mg-bar--values copy-tiny" aria-label="Company facts">
         <div className="mg-stat">
-          <IconFlag />
+          <FigmaStatIcon src="/icons/figma/stat-motorsport.svg" />
           <span className="copy-caption">
             {SHOW_F1_CLAIM ? (
               <>
@@ -236,7 +207,7 @@ export default function ManifestBlock() {
           </span>
         </div>
         <div className="mg-stat">
-          <IconGlobe />
+          <FigmaStatIcon src="/icons/figma/stat-worldwide.svg" />
           <span className="copy-caption">
             ACTIVE
             <br />
@@ -244,7 +215,7 @@ export default function ManifestBlock() {
           </span>
         </div>
         <div className="mg-stat">
-          <IconSpark />
+          <FigmaStatIcon src="/icons/figma/stat-machinery.png" height={48} />
           <span className="copy-caption">
             SOPHISTICATED
             <br />
