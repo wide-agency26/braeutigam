@@ -15,9 +15,9 @@ Exports sourced via Figma MCP `get_design_context` on nodes `1424:108` and `1417
 | File | Figma node | Used for |
 |------|------------|----------|
 | `public/icons/figma/client-wordmark.svg` | `1256:232` / `2006:145` | Hero + footer + menu client logo |
-| `public/icons/figma/stat-motorsport.svg` | `1330:1166` | SOPHISTICATED MACHINERY label (asset star) |
+| `public/icons/figma/stat-motorsport.svg` | `1330:1166` | MOTORSPORT & SERIES PARTNERS |
 | `public/icons/figma/stat-worldwide.svg` | `1330:1158` | ACTIVE WORLDWIDE |
-| `public/icons/figma/stat-machinery.png` | `1330:1150` (raster export) | MOTORSPORT & SERIES PARTNERS (asset bars) |
+| `public/icons/figma/stat-machinery.png` | `1330:1150` (raster export) | SOPHISTICATED MACHINERY |
 | `public/icons/figma/pill-speed.svg` | `1351:225` | Timeline + manifest core value |
 | `public/icons/figma/pill-inhouse.svg` | `1353:267` | Timeline + manifest core value |
 | `public/icons/figma/pill-complexity.svg` | `1353:344` | Timeline + manifest core value |
