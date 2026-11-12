@@ -157,8 +157,7 @@
       "fw": 400,
       "size": 56,
       "lh": { "kind": "px", "value": 48 },
-      "ls": { "kind": "px", "value": 2 },
-      "floor": "deco"
+      "ls": { "kind": "px", "value": 2 }
     },
     {
       "id": "footer-decorative-secondary",
@@ -166,8 +165,7 @@
       "fw": 400,
       "size": 24,
       "lh": { "kind": "px", "value": 32 },
-      "ls": { "kind": "px", "value": 2 },
-      "floor": "deco"
+      "ls": { "kind": "px", "value": 2 }
     },
     {
       "id": "team-card-primary",
@@ -175,8 +173,7 @@
       "fw": 700,
       "size": 32,
       "lh": { "kind": "px", "value": 36 },
-      "ls": { "kind": "px", "value": -1 },
-      "floor": "heading"
+      "ls": { "kind": "px", "value": -1 }
     }
   ],
   "oneOff": [

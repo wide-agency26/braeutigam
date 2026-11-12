@@ -5,6 +5,7 @@
   "scripts": {
     "sync:typography": "node scripts/generate-typography-tokens.mjs",
     "sync:figma-tokens": "node scripts/sync-figma-tokens.mjs",
+    "sync:figma-tokens:docs": "node scripts/sync-figma-tokens.mjs --write-docs",
     "sync:figma-scale": "node scripts/generate-figma-scale-css.mjs",
     "sync:figma-foundation": "pnpm run sync:figma-tokens && pnpm run sync:figma-scale && pnpm run sync:typography",
     "figma:qa": "node scripts/figma-qa.mjs",
