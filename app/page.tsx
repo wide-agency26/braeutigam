@@ -1,3 +1,5 @@
+import { publicTeam, publicReels, publicVideos } from "@/lib/content/public";
+export const revalidate = 60;
 import type { Metadata } from "next";
 import HomePage from "./components/HomePage";
 import { pageTitle } from "@/lib/site-nav";
@@ -15,7 +17,8 @@ export const metadata: Metadata = {
  * client island for the interactive page. Theme lives on <html class="dark">
  * so static markup can still theme via CSS without prop drilling.
  */
-export default function Page() {
+export default async function Page() {
   const heroSlide = pickRandomHeroSlide();
-  return <HomePage heroSlide={heroSlide} />;
+  const [experts, reels, videos] = await Promise.all([publicTeam("de"), publicReels("de"), publicVideos("home", "de")]);
+  return <HomePage heroSlide={heroSlide} experts={experts} reels={reels} video={videos[0]} />;
 }

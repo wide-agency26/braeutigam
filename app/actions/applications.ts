@@ -24,6 +24,7 @@ import {
   fieldErrors,
   type FieldErrors,
 } from "@/lib/validations";
+import { cvExpiry } from "@/lib/cv-retention";
 import { verifyTurnstile } from "@/lib/turnstile";
 
 export type ApplyState = {
@@ -108,7 +109,7 @@ export async function applyToJob(
     }
 
     const applicationId = randomUUID();
-    const retainUntil = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    const retainUntil = cvExpiry();
     const objectKey = resumeObjectKey(applicationId, randomUUID(), kind.ext);
     await uploadResumeObject(objectKey, new Uint8Array(bytes), kind.mime);
 

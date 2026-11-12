@@ -1,3 +1,5 @@
+import { publicTeam, publicReels, publicVideos } from "@/lib/content/public";
+export const revalidate = 60;
 import type { Metadata } from "next";
 import HomePage from "../components/HomePage";
 import { pageTitleForLocale } from "@/lib/site-nav";
@@ -10,7 +12,8 @@ export const metadata: Metadata = {
   alternates: { languages: { de: "/", en: "/en" } },
 };
 
-export default function Page() {
+export default async function Page() {
   const heroSlide = pickRandomHeroSlide();
-  return <HomePage heroSlide={heroSlide} locale="en" />;
+  const [experts, reels, videos] = await Promise.all([publicTeam("en"), publicReels("en"), publicVideos("home", "en")]);
+  return <HomePage heroSlide={heroSlide} experts={experts} reels={reels} video={videos[0]} locale="en" />;
 }

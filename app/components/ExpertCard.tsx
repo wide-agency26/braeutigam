@@ -99,15 +99,15 @@ function ExpertCardComponent({
             </div>
           </div>
 
-          {showContact ? (
+          {showContact && (email || phone) ? (
             <div className="expert-card__actions">
               <div className="expert-card__action-group">
-                <SiteButton href={`mailto:${email}`} size="sm">
+                {email ? <SiteButton href={`mailto:${email}`} size="sm">
                   EMAIL
-                </SiteButton>
-                <SiteButton href={telHref} size="sm" variant="solid">
+                </SiteButton> : null}
+                {phone ? <SiteButton href={telHref} size="sm" variant="solid">
                   PHONE
-                </SiteButton>
+                </SiteButton> : null}
               </div>
             </div>
           ) : null}

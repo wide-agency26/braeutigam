@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    remotePatterns: process.env.SUPABASE_URL ? [{
+      protocol: new URL(process.env.SUPABASE_URL).protocol === "https:" ? "https" : "http",
+      hostname: new URL(process.env.SUPABASE_URL).hostname,
+      port: new URL(process.env.SUPABASE_URL).port,
+      pathname: "/storage/v1/object/public/site-media/**",
+      search: "",
+    }] : [],
     // Default is ['image/webp']. AVIF is roughly 20% smaller and is preferred
     // when the browser advertises support, with WebP as the fallback.
     formats: ["image/avif", "image/webp"],

@@ -9,6 +9,10 @@ const NAV = [
   { href: CMS_BASE, label: "Overview" },
   { href: CMS_JOBS, label: "Jobs" },
   { href: CMS_APPLICATIONS, label: "Applicants" },
+  { href: "/cms/admin/retention", label: "CV retention" },
+  { href: "/cms/admin/content/team", label: "Team members" },
+  { href: "/cms/admin/content/videos", label: "Page videos" },
+  { href: "/cms/admin/content/reels", label: "Instagram reels" },
 ];
 
 export function AdminShell({
@@ -25,9 +29,9 @@ export function AdminShell({
       <aside className="desk-rail">
         <Link className="desk-brand" href={CMS_BASE}>
           <strong>Bräutigam</strong>
-          <span>Job desk</span>
+          <span>Website CMS</span>
         </Link>
-        <nav className="desk-nav" aria-label="Job desk">
+        <nav className="desk-nav" aria-label="Website CMS">
           {NAV.map((item) => {
             const current =
               item.href === CMS_BASE

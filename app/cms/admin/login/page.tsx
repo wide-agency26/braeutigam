@@ -5,10 +5,10 @@ export default function LoginPage() {
   return (
     <div className="desk-login">
       <p className="desk-meta">Bräutigam</p>
-      <h1>Job desk</h1>
+      <h1>Website CMS</h1>
       <p className="desk-lede">
-        Sign in to post jobs and read applications. This area is not part of the
-        public website.
+        Sign in to manage jobs, applications, team members, page videos, and
+        Instagram reels.
       </p>
       <LoginForm />
       <p className="desk-meta">

@@ -52,8 +52,8 @@ export const APPLICATION_PIPELINE_STATUSES: ApplicationStatus[] = [
 export function retentionBadgeLabel(retainUntil: Date | null | undefined, now = new Date()) {
   if (!retainUntil) return null;
   const ms = retainUntil.getTime() - now.getTime();
-  if (ms <= 0) return null;
+  if (ms <= 0) return "CV expiry reached — pending scheduled removal";
   const days = Math.ceil(ms / (24 * 60 * 60 * 1000));
   if (days > 7) return null;
-  return `Wird in ${days} Tag${days === 1 ? "" : "en"} gelöscht`;
+  return `CV removed in ${days} day${days === 1 ? "" : "s"}`;
 }

@@ -2,6 +2,8 @@
 
 import { FormEvent, useId, useState } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
+import PageVideo from "./PageVideo";
+import type { PublicVideo } from "@/lib/content/public-types";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import Link from "next/link";
@@ -293,7 +295,7 @@ function ContactMapPin() {
   );
 }
 
-export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
+export default function ContactPage({ locale = "de", video }: { locale?: Locale; video?: PublicVideo }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="contact-page">
@@ -416,6 +418,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
             </div>
           </section>
         </div>
+        {video ? <PageVideo video={video} locale={locale} /> : null}
         </main>
 
         <SiteFooter />

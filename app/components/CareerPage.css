@@ -471,3 +471,10 @@
     letter-spacing: 0.08em;
   }
 }
+
+@media (max-width: 360px) {
+  /* Keep the outline heading and hiring line inside narrow phone screens. */
+  .crew-hero__mark .career-watermark {
+    font-size: 18vw;
+  }
+}

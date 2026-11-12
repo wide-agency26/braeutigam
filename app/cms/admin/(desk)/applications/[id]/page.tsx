@@ -53,7 +53,7 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
             <dd>{application.wasRecommended ? application.recommenderName || "Not given" : "—"}</dd>
             <dt>CV retention</dt>
             <dd>
-              {retentionBadgeLabel(application.retainUntil) ??
+              {application.resumeDeletedAt ? `CV removed on ${formatDateTime(application.resumeDeletedAt)}` : retentionBadgeLabel(application.retainUntil) ??
                 (application.retainUntil
                   ? formatDateTime(application.retainUntil)
                   : "—")}
@@ -65,7 +65,7 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
                   {application.resumeName ?? "Download resume"}
                 </a>
               ) : (
-                "None on file"
+                application.resumeDeletedAt ? "Automatically removed after the retention period" : "None on file"
               )}
             </dd>
           </dl>

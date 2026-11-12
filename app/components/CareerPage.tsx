@@ -4,6 +4,8 @@ import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { ChevronRight, Play } from "lucide-react";
 import { LazyMotion, domAnimation } from "framer-motion";
+import PageVideo from "./PageVideo";
+import type { PublicVideo } from "@/lib/content/public-types";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import "./CareerPage.css";
@@ -94,6 +96,7 @@ const STEPS = [
 export type CareerOpening = {
   slug: string;
   title: string;
+  titleEn?: string | null;
   department: string;
   location: string;
   employmentType: "FULL_TIME" | "PART_TIME" | "APPRENTICESHIP";
@@ -147,9 +150,11 @@ function Film({ image, role, wide }: (typeof CREW)[number]) {
 
 export default function CareerPage({
   openings,
+  videos = [],
   locale = "de",
 }: {
   openings: CareerOpening[];
+  videos?: PublicVideo[];
   locale?: Locale;
 }) {
   const applyHref =
@@ -237,9 +242,12 @@ export default function CareerPage({
                 </p>
               </div>
               <div className="crew-films">
-                {CREW.map((person) => (
-                  <Film key={person.role + String(person.wide)} {...person} />
-                ))}
+                {CREW.map((person, index) => {
+                  const video = videos.find(item => item.placement === `careers-${index + 1}`);
+                  return <div key={index} className={person.wide ? "crew-film--wide" : "crew-film--third"}>
+                    {video ? <PageVideo video={video} locale={locale} compact /> : <Film {...person} />}
+                  </div>;
+                })}
               </div>
             </div>
           </section>
@@ -260,7 +268,7 @@ export default function CareerPage({
                       href={localizedHref(`/karriere/${job.slug}`, locale)}
                     >
                       <span>
-                        <span className="crew-job__title">{job.title}</span>
+                        <span className="crew-job__title">{locale === "en" && job.titleEn ? job.titleEn : job.title}</span>
                         <span className="crew-job__dept">{job.department}</span>
                       </span>
                       <span className="crew-job__meta">

@@ -62,29 +62,92 @@ model Job {
 }
 
 model Application {
-  id              String            @id @default(cuid())
-  jobId           String
-  job             Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  firstName       String
-  lastName        String
-  email           String
-  phone           String            @default("")
-  coverLetter     String            @default("")
-  wasRecommended  Boolean           @default(false)
-  recommenderName String            @default("")
-  resumePath      String?
-  resumeName      String?
-  resumeMime      String?
-  resumeSize      Int?
-  resumeSha256    String?
-  // Set when a retention period is chosen. Nothing deletes the row until then.
-  retainUntil     DateTime?
-  status          ApplicationStatus @default(REACHED_OUT)
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  id                     String            @id @default(cuid())
+  jobId                  String
+  job                    Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  firstName              String
+  lastName               String
+  email                  String
+  phone                  String            @default("")
+  coverLetter            String            @default("")
+  wasRecommended         Boolean           @default(false)
+  recommenderName        String            @default("")
+  resumePath             String?
+  resumeName             String?
+  resumeMime             String?
+  resumeSize             Int?
+  resumeSha256           String?
+  // CV files expire after 30 days; the application and pipeline remain available.
+  retainUntil            DateTime?
+  resumeDeletionNoticeAt DateTime?
+  resumeDeletedAt        DateTime?
+  resumeDeletionFailedAt DateTime?
+  status                 ApplicationStatus @default(REACHED_OUT)
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
 
   @@index([jobId])
   @@index([status])
+  @@index([retainUntil])
+}
+
+// Public-site content is written only by authenticated CMS server actions.
+model MediaAsset {
+  id         String    @id @default(cuid())
+  objectKey  String    @unique
+  filename   String
+  mime       String
+  bytes      Int
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+}
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  title       String
+  titleEn     String   @default("")
+  email       String   @default("")
+  phone       String   @default("")
+  memberId    String
+  avatarUrl   String
+  showContact Boolean  @default(true)
+  published   Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, sortOrder])
+}
+
+model SiteVideo {
+  id            String   @id @default(cuid())
+  placement     String   @unique
+  title         String
+  titleEn       String   @default("")
+  description   String   @default("")
+  descriptionEn String   @default("")
+  videoUrl      String
+  posterUrl     String
+  transcript    String   @default("")
+  transcriptEn  String   @default("")
+  published     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SocialReel {
+  id        String   @id @default(cuid())
+  title     String
+  titleEn   String   @default("")
+  permalink String   @unique
+  imageUrl  String
+  published Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, sortOrder])
 }
 
 // Hashed client address and time of a stored application. Closed to the Data API.
