@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from "framer-motion";
@@ -19,6 +19,8 @@ import { EXPERTS } from "@/lib/data/experts";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
+import { readCssVarColor } from "@/lib/css-var-color";
+import { useTheme } from "./ThemeProvider";
 
 /* Heavier below-fold widgets load only when LazyOnVisible says they are near
    the viewport. */
@@ -118,7 +120,17 @@ export default function HomePage({
   heroSlide?: HeroSlide;
   locale?: Locale;
 }) {
+  const { isDark } = useTheme();
   const [showAllExperts, setShowAllExperts] = useState(false);
+
+  const topographyColors = useMemo(
+    () => ({
+      lowColor: readCssVarColor("--text-default-accent-subtle", isDark ? "#006600" : "#009900"),
+      midColor: readCssVarColor("--text-default-accent", isDark ? "#00ff00" : "#009900"),
+      highColor: readCssVarColor("--colors-greeeen", "#00ff00"),
+    }),
+    [isDark],
+  );
 
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
@@ -186,9 +198,9 @@ export default function HomePage({
               rootMargin="200px"
               className="absolute inset-0"
               componentProps={{
-                lowColor: "#003300",
-                midColor: "#008000",
-                highColor: "#33FF33",
+                lowColor: topographyColors.lowColor,
+                midColor: topographyColors.midColor,
+                highColor: topographyColors.highColor,
                 speed: 0.35,
                 morphAmount: 3,
                 morphSpeed: 0.02,

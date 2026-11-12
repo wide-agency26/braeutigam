@@ -1,6 +1,24 @@
 /* Figma Main Image — 2006:220 / 937:253 @ 1920 */
 
+.manifest-section {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  isolation: isolate;
+}
+
+.manifest-section__waves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .manifest-frame {
+  position: relative;
+  z-index: 1;
   container-type: inline-size;
   width: min(100%, 1920px);
   margin-inline: auto;

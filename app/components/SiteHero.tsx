@@ -1,22 +1,15 @@
 "use client";
 
-import React, { useSyncExternalStore } from "react";
+import React, { useMemo, useSyncExternalStore } from "react";
 import Image from "next/image";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
 import "./SiteHero.css";
 import "./MagicRingsPoster.css";
-import type { HeroSlide } from "@/lib/hero-slides";
+import { activeHeroSlides, type HeroSlide } from "@/lib/hero-slides";
+import { readCssVarColor } from "@/lib/css-var-color";
 
 const loadMagicRings = () => import("./MagicRings");
-
-const FIGMA_HERO = {
-  light: "/images/hero/figma/hero-light-2x.png",
-  dark: "/images/hero/figma/hero-dark-2x.png",
-} as const;
-
-const ENABLE_MAGIC_RINGS =
-  process.env.NEXT_PUBLIC_HERO_MAGIC_RINGS === "true";
 
 function subscribeReducedMotion(cb: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -45,18 +38,36 @@ export default function SiteHero({
   priority = true,
   isPageHeading = true,
   slide,
+  locale = "de",
 }: SiteHeroProps) {
   const { isDark } = useTheme();
   const Title = isPageHeading ? "h1" : "p";
   useSyncExternalStore(subscribeReducedMotion, getReducedMotion, serverReducedMotion);
 
-  const photoSrc = slide
-    ? isDark
-      ? slide.dark
-      : slide.light
-    : isDark
-      ? FIGMA_HERO.dark
-      : FIGMA_HERO.light;
+  const resolved =
+    slide ??
+    activeHeroSlides()[0] ?? {
+      id: "fallback",
+      light: "/images/hero/gwagon_light.jpeg",
+      dark: "/images/hero/gwagon_dark.jpeg",
+      altDe: "Fahrzeug als Silhouette in der Werkstatt",
+      altEn: "Vehicle silhouette in the workshop",
+      enabled: true,
+    };
+
+  const photoSrc = isDark ? resolved.dark : resolved.light;
+  const photoAlt = locale === "en" ? resolved.altEn : resolved.altDe;
+
+  const ringColors = useMemo(
+    () => ({
+      color: readCssVarColor("--colors-greeeen", "#00ff00"),
+      colorTwo: readCssVarColor(
+        isDark ? "--icon-default-placeholder" : "--text-default-placeholder",
+        isDark ? "#717272" : "#1f2020",
+      ),
+    }),
+    [isDark],
+  );
 
   const heroNode = isDark ? "934:242" : "2006:132";
 
@@ -84,7 +95,7 @@ export default function SiteHero({
             <Image
               key={photoSrc}
               src={photoSrc}
-              alt=""
+              alt={photoAlt}
               fill
               className="hero-figma__photo-img"
               sizes="(max-width: 1920px) 120vw, 2304px"
@@ -95,29 +106,38 @@ export default function SiteHero({
         <div className="hero-figma__scrim" />
       </div>
 
-      {ENABLE_MAGIC_RINGS ? (
-        <div
-          className={`hero-figma__rings magic-rings-stage ${ENABLE_MAGIC_RINGS ? "hero-figma__rings--on" : ""}`}
-          data-figma-node="hero-magic-rings"
-          data-figma-node-dark="hero-magic-rings"
-          data-rebuild-flag="NEXT_PUBLIC_HERO_MAGIC_RINGS"
-          aria-hidden
-        >
-          <div className="magic-rings-poster" />
-          <LazyOnVisible
-            loader={loadMagicRings}
-            delayMs={400}
-            rootMargin="0px"
-            className="absolute inset-0"
-            componentProps={{
-              color: "var(--colors-greeeen)",
-              colorTwo: "var(--icon-default-placeholder)",
-              ringCount: 6,
-              speed: 0.4,
-            }}
-          />
-        </div>
-      ) : null}
+      <div
+        className="hero-figma__rings magic-rings-stage hero-figma__rings--on"
+        data-figma-node="hero-magic-rings"
+        data-figma-node-dark="hero-magic-rings"
+        aria-hidden
+      >
+        <div className="magic-rings-poster" />
+        <LazyOnVisible
+          loader={loadMagicRings}
+          delayMs={400}
+          rootMargin="0px"
+          className="absolute inset-0"
+          componentProps={{
+            color: ringColors.color,
+            colorTwo: ringColors.colorTwo,
+            ringCount: 6,
+            speed: 0.4,
+            attenuation: 14,
+            lineThickness: 1.6,
+            baseRadius: 0.28,
+            radiusStep: 0.11,
+            scaleRate: 0.05,
+            opacity: 0.5,
+            blur: 0,
+            noiseAmount: 0.06,
+            rotation: 20,
+            ringGap: 1.35,
+            fadeIn: 0.8,
+            fadeOut: 0.4,
+          }}
+        />
+      </div>
 
       <div className="hero-figma__grid">
         <div

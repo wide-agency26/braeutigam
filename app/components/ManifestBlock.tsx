@@ -1,12 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Image, { type StaticImageData } from "next/image";
+import LazyOnVisible from "./LazyOnVisible";
+import { useTheme } from "./ThemeProvider";
+import { readCssVarColor } from "@/lib/css-var-color";
 import tlCarbon from "../../public/images/manifest/figma/tl-carbon-939-297.png";
 import trClk from "../../public/images/manifest/figma/tr-clk-939-301.png";
 import blPrecision from "../../public/images/manifest/figma/bl-precision-1330-1356.png";
 import brAutoclave from "../../public/images/manifest/figma/br-autoclave-1330-1362.png";
 import "./ManifestSection.css";
+
+const loadLineWaves = () => import("./LineWaves");
 
 const PHOTO_SIZES = {
   tl: "(max-width: 1100px) 100vw, 346px",
@@ -64,8 +69,46 @@ function ManifestPhoto({
 }
 
 export default function ManifestBlock() {
+  const { isDark } = useTheme();
+  const waveColors = useMemo(
+    () => ({
+      color1: readCssVarColor("--colors-greeeen", "#00ff00"),
+      color2: readCssVarColor("--neutral-black", "#131414"),
+      color3: readCssVarColor("--text-default-placeholder", "#717272"),
+      brightness: isDark ? 0.28 : 0.85,
+    }),
+    [isDark],
+  );
+
   return (
-    <section id="craft-technology" className="cv-auto relative" lang="de">
+    <section id="craft-technology" className="manifest-section cv-auto relative" lang="de">
+      <div
+        className="manifest-section__waves"
+        data-figma-node="manifest-line-waves"
+        data-figma-node-dark="manifest-line-waves"
+        aria-hidden
+      >
+        <LazyOnVisible
+          loader={loadLineWaves}
+          rootMargin="120px"
+          className="absolute inset-0"
+          componentProps={{
+            speed: 0.1,
+            innerLineCount: 35,
+            outerLineCount: 20,
+            warpIntensity: 1.0,
+            rotation: 59,
+            edgeFadeWidth: 0.05,
+            colorCycleSpeed: 1.0,
+            brightness: waveColors.brightness,
+            color1: waveColors.color1,
+            color2: waveColors.color2,
+            color3: waveColors.color3,
+            enableMouseInteraction: false,
+            mouseInfluence: 0,
+          }}
+        />
+      </div>
       <div className="manifest-frame">
         <FigmaWrap light="2006:220" dark="937:253" className="manifest-stage">
           <FigmaWrap light="2006:221" dark="1330:881" className="manifest-stack">
