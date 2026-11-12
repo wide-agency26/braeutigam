@@ -2,6 +2,8 @@
 
 import { LazyMotion, domAnimation } from "framer-motion";
 import Link from "next/link";
+import PageVideo from "./PageVideo";
+import type { PublicVideo } from "@/lib/content/public-types";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
@@ -13,7 +15,7 @@ import SiteHero from "./SiteHero";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
 
-export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
+export default function CraftPage({ locale = "de", video }: { locale?: Locale; video?: PublicVideo }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
@@ -51,6 +53,7 @@ export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
             </Link>
           </div>
         </section>
+        {video ? <PageVideo video={video} locale={locale} /> : null}
         </main>
 
         <SiteFooter />

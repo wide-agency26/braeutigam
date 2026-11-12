@@ -567,3 +567,12 @@
     padding: 1.25rem 1rem 2.5rem;
   }
 }
+
+.desk-notice { margin: 0 0 1.5rem; padding: 1rem 1.2rem; border: 1px solid #8eae95; background: #eaf3ec; color: #163c23; }
+.desk-notice p { margin: 0.5rem 0; }
+.desk-check { display: flex; align-items: flex-start; gap: 0.65rem; min-height: 44px; }
+.desk-check input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; flex: none; }
+.desk-field input[type="file"] { max-width: 100%; min-height: 44px; }
+.desk-delete-form { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--desk-line); }
+.desk-break { overflow-wrap: anywhere; }
+.desk-main, .desk-form, .desk-field, .desk-detail dd { min-width: 0; overflow-wrap: anywhere; }

@@ -1,14 +1,16 @@
 "use client";
 
 import { LazyMotion, domAnimation } from "framer-motion";
-import { EXPERTS } from "@/lib/data/experts";
+import type { Expert } from "@/lib/data/experts";
+import PageVideo from "./PageVideo";
+import type { PublicVideo } from "@/lib/content/public-types";
 import ExpertSlot from "./ExpertSlot";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 
 import type { Locale } from "@/lib/i18n";
 
-export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
+export default function TeamPage({ locale = "de", experts, video }: { locale?: Locale; experts: readonly Expert[]; video?: PublicVideo }) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
@@ -38,12 +40,13 @@ export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
               </div>
 
               <div className="experts-figma__grid" aria-label="Bräutigam Team">
-                {EXPERTS.map((expert) => (
-                  <ExpertSlot key={expert.email} expert={expert} headingLevel={2} />
+                {experts.map((expert) => (
+                  <ExpertSlot key={expert.id ?? expert.memberId} expert={expert} headingLevel={2} />
                 ))}
               </div>
             </div>
           </section>
+          {video ? <PageVideo video={video} locale={locale} /> : null}
         </main>
         <SiteFooter />
       </div>

@@ -30,6 +30,7 @@ export function JobForm({
   submitLabel: string;
 }) {
   const [state, formAction, pending] = useActionState(action, INITIAL);
+  const values = state.values ?? job;
   const errors = state.fieldErrors;
 
   return (
@@ -41,7 +42,7 @@ export function JobForm({
         <input
           className="desk-input"
           name="title"
-          defaultValue={job?.title}
+          defaultValue={values?.title}
           required
         />
         {errors?.title ? <p className="desk-error">{errors.title[0]}</p> : null}
@@ -53,7 +54,7 @@ export function JobForm({
           <input
             className="desk-input"
             name="department"
-            defaultValue={job?.department}
+            defaultValue={values?.department}
             required
           />
           {errors?.department ? (
@@ -65,7 +66,7 @@ export function JobForm({
           <input
             className="desk-input"
             name="location"
-            defaultValue={job?.location ?? "Germany"}
+            defaultValue={values?.location ?? "Germany"}
             required
           />
           {errors?.location ? (
@@ -80,7 +81,7 @@ export function JobForm({
           <select
             className="desk-input"
             name="employmentType"
-            defaultValue={job?.employmentType ?? "FULL_TIME"}
+            defaultValue={values?.employmentType ?? "FULL_TIME"}
           >
             {(Object.keys(EMPLOYMENT_LABEL) as EmploymentType[]).map((key) => (
               <option key={key} value={key}>
@@ -94,7 +95,7 @@ export function JobForm({
           <select
             className="desk-input"
             name="status"
-            defaultValue={job?.status ?? "DRAFT"}
+            defaultValue={values?.status ?? "DRAFT"}
           >
             {(Object.keys(JOB_STATUS_LABEL) as JobStatus[]).map((key) => (
               <option key={key} value={key}>
@@ -109,7 +110,7 @@ export function JobForm({
       <p className="desk-hint">Optional English copy for /en/karriere (falls back to German when empty).</p>
       <label className="desk-field">
         <span>Title (EN)</span>
-        <input className="desk-input" name="titleEn" defaultValue={job?.titleEn ?? ""} />
+        <input className="desk-input" name="titleEn" defaultValue={values?.titleEn ?? ""} />
       </label>
 
       <label className="desk-field">
@@ -118,7 +119,7 @@ export function JobForm({
           className="desk-textarea"
           name="description"
           rows={8}
-          defaultValue={job?.description}
+          defaultValue={values?.description}
           required
         />
         {errors?.description ? (
@@ -132,7 +133,7 @@ export function JobForm({
           className="desk-textarea"
           name="requirements"
           rows={6}
-          defaultValue={job?.requirements}
+          defaultValue={values?.requirements}
         />
       </label>
 
@@ -142,7 +143,7 @@ export function JobForm({
           className="desk-textarea"
           name="descriptionEn"
           rows={6}
-          defaultValue={job?.descriptionEn ?? ""}
+          defaultValue={values?.descriptionEn ?? ""}
         />
       </label>
 
@@ -152,7 +153,7 @@ export function JobForm({
           className="desk-textarea"
           name="requirementsEn"
           rows={4}
-          defaultValue={job?.requirementsEn ?? ""}
+          defaultValue={values?.requirementsEn ?? ""}
         />
       </label>
 

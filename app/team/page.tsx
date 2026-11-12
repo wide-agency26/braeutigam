@@ -1,3 +1,5 @@
+import { publicTeam, publicVideos } from "@/lib/content/public";
+export const revalidate = 60;
 import type { Metadata } from "next";
 import TeamPage from "../components/TeamPage";
 
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
   alternates: { languages: { de: "/team", en: "/en/team" } },
 };
 
-export default function Page() {
-  return <TeamPage />;
+export default async function Page() {
+  const [experts, videos] = await Promise.all([publicTeam("de"), publicVideos("team", "de")]);
+  return <TeamPage experts={experts} video={videos[0]} />;
 }

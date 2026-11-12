@@ -12,7 +12,12 @@ import { fieldErrors, jobSchema, type FieldErrors } from "@/lib/validations";
 export type JobState = {
   error?: string;
   fieldErrors?: FieldErrors;
+  values?: Record<string, string>;
 };
+
+function jobFormValues(formData: FormData) {
+  return Object.fromEntries(Object.keys(jobSchema.shape).map(key => [key, String(formData.get(key) ?? "")]));
+}
 
 function readJob(formData: FormData) {
   return jobSchema.safeParse({
@@ -66,7 +71,7 @@ export async function createJob(
   await verifySession();
   const parsed = readJob(formData);
   if (!parsed.success) {
-    return { fieldErrors: fieldErrors(parsed.error) };
+    return { fieldErrors: fieldErrors(parsed.error), values: jobFormValues(formData) };
   }
 
   const slug = await uniqueSlug(parsed.data.title, async (candidate) => {
@@ -98,16 +103,11 @@ export async function updateJob(
 
   const parsed = readJob(formData);
   if (!parsed.success) {
-    return { fieldErrors: fieldErrors(parsed.error) };
+    return { fieldErrors: fieldErrors(parsed.error), values: jobFormValues(formData) };
   }
 
-  const slug = await uniqueSlug(parsed.data.title, async (candidate) => {
-    const found = await prisma.job.findFirst({
-      where: { slug: candidate, NOT: { id } },
-      select: { id: true },
-    });
-    return Boolean(found);
-  });
+  // Titles can change without breaking already-shared application links.
+  const slug = existing.slug;
 
   await prisma.job.update({
     where: { id },
@@ -123,13 +123,22 @@ export async function deleteJob(formData: FormData) {
   const id = String(formData.get("id") ?? "");
   const job = await prisma.job.findUnique({
     where: { id },
-    select: { slug: true },
+    select: { slug: true, _count: { select: { applications: true } } },
   });
   if (!job) {
     redirect(CMS_JOBS);
   }
 
-  await prisma.job.delete({ where: { id } });
+  await prisma.$transaction(async tx => {
+    // Lock the parent so a concurrent application cannot race an empty-job deletion.
+    await tx.$queryRaw`SELECT id FROM "Job" WHERE id = ${id} FOR UPDATE`;
+    const applicants = await tx.application.count({ where: { jobId: id } });
+    if (applicants > 0) {
+      await tx.job.update({ where: { id }, data: { status: "CLOSED" } });
+    } else {
+      await tx.job.deleteMany({ where: { id } });
+    }
+  });
   revalidateJobs(job.slug);
   redirect(CMS_JOBS);
 }

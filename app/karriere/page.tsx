@@ -1,3 +1,4 @@
+import { publicVideos } from "@/lib/content/public";
 import type { Metadata } from "next";
 import CareerPage, { type CareerOpening } from "../components/CareerPage";
 import { listPublishedJobs } from "@/lib/data/jobs";
@@ -14,6 +15,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const openings: CareerOpening[] = await listPublishedJobs();
-  return <CareerPage openings={openings} />;
+  const [openings, videos]: [CareerOpening[], Awaited<ReturnType<typeof publicVideos>>] = await Promise.all([listPublishedJobs(), publicVideos("careers", "de")]);
+  return <CareerPage openings={openings} videos={videos} />;
 }

@@ -26,13 +26,14 @@ export default async function EditJobPage({ params }: PageProps) {
           </p>
         </div>
         <div className="desk-actions">
-          <Link className="desk-link" href={`/karriere/${job.slug}`}>
-            View on website
-          </Link>
+          {job.status === "PUBLISHED" ? <>
+            <Link className="desk-link" href={`/karriere/${job.slug}`}>View German listing</Link>
+            <Link className="desk-link" href={`/en/karriere/${job.slug}`}>View English listing</Link>
+          </> : <span className="desk-hint">{job.status === "DRAFT" ? "Draft — publish to make this listing visible." : "Closed — this listing is hidden from the website."}</span>}
           <Link className="desk-link" href={`/cms/admin/applications?job=${job.id}`}>
             Applicants ({job._count.applications})
           </Link>
-          <DeleteJobButton jobId={job.id} title={job.title} />
+          <DeleteJobButton jobId={job.id} title={job.title} hasApplicants={job._count.applications > 0} />
         </div>
       </header>
       <JobForm action={action} job={job} submitLabel="Save job" />

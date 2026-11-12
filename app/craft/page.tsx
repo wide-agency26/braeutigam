@@ -1,3 +1,5 @@
+import { publicVideos } from "@/lib/content/public";
+export const revalidate = 60;
 import type { Metadata } from "next";
 import CraftPage from "../components/CraftPage";
 
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
   alternates: { languages: { de: "/craft", en: "/en/craft" } },
 };
 
-export default function Page() {
-  return <CraftPage />;
+export default async function Page() {
+  const videos = await publicVideos("craft", "de");
+  return <CraftPage video={videos[0]} />;
 }

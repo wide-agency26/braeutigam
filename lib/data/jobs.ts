@@ -15,6 +15,7 @@ export async function listPublishedJobs() {
     select: {
       slug: true,
       title: true,
+      titleEn: true,
       department: true,
       location: true,
       employmentType: true,

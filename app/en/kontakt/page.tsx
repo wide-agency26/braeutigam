@@ -1,3 +1,5 @@
+import { publicVideos } from "@/lib/content/public";
+export const revalidate = 60;
 import type { Metadata } from "next";
 import ContactPage from "../../components/ContactPage";
 import { pageTitleForLocale } from "@/lib/site-nav";
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
   alternates: { languages: { de: "/kontakt", en: "/en/kontakt" } },
 };
 
-export default function Page() {
-  return <ContactPage locale="en" />;
+export default async function Page() {
+  const videos = await publicVideos("contact", "en");
+  return <ContactPage video={videos[0]} locale="en" />;
 }

@@ -15,7 +15,9 @@ import ManifestBlock from "./ManifestBlock";
 import SiteButton from "./SiteButton";
 import SocialGalleryBoundary from "./SocialGalleryBoundary";
 import ExpertSlot from "./ExpertSlot";
-import { EXPERTS } from "@/lib/data/experts";
+import type { Expert } from "@/lib/data/experts";
+import type { PublicVideo, PublicReel } from "@/lib/content/public-types";
+import PageVideo from "./PageVideo";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
@@ -76,46 +78,21 @@ function SpecCard({
   );
 }
 
-const SOCIAL_GALLERY_ITEMS = [
-  {
-    image: "/images/social/reels/DMFYazaOIoF.jpg",
-    alt: "Formel 1 Öltanks reel",
-    href: "https://www.instagram.com/braeutigamgmbh/reel/DMFYazaOIoF/",
-  },
-  {
-    image: "/images/social/reels/DbvB42ZlH5d.jpg",
-    alt: "Autoklaven reel",
-    href: "https://www.instagram.com/braeutigamgmbh/reel/DbvB42ZlH5d/",
-  },
-  {
-    image: "/images/social/reels/Dbp4OcWgFZ0.jpg",
-    alt: "F1-Ballastplatte Gummierung reel",
-    href: "https://www.instagram.com/braeutigamgmbh/reel/Dbp4OcWgFZ0/",
-  },
-  {
-    image: "/images/social/reels/Dbkum1MjefO.jpg",
-    alt: "Carbon Handarbeit reel",
-    href: "https://www.instagram.com/braeutigamgmbh/reel/Dbkum1MjefO/",
-  },
-  {
-    image: "/images/social/reels/DbdALvFD9y7.jpg",
-    alt: "Werkzeuge aus Carbon reel",
-    href: "https://www.instagram.com/braeutigamgmbh/reel/DbdALvFD9y7/",
-  },
-  {
-    image: "/images/social/reels/DbabXLzgm8W.jpg",
-    alt: "Formel-1-Ballastplatte reel",
-    href: "https://www.instagram.com/braeutigamgmbh/reel/DbabXLzgm8W/",
-  },
-];
+
 
 const EXPERT_PREVIEW = 3;
 
 export default function HomePage({
   heroSlide,
+  experts,
+  reels,
+  video,
   locale = "de",
 }: {
   heroSlide: HeroSlide;
+  experts: readonly Expert[];
+  reels: PublicReel[];
+  video?: PublicVideo;
   locale?: Locale;
 }) {
   const [showAllExperts, setShowAllExperts] = useState(false);
@@ -441,8 +418,8 @@ export default function HomePage({
           </div>
 
           <div className="experts-figma__grid">
-            {EXPERTS.slice(0, EXPERT_PREVIEW).map((expert) => (
-              <ExpertSlot key={expert.email} expert={expert} />
+            {experts.slice(0, EXPERT_PREVIEW).map((expert) => (
+              <ExpertSlot key={expert.id ?? expert.memberId} expert={expert} />
             ))}
           </div>
 
@@ -454,9 +431,9 @@ export default function HomePage({
           >
             <div className="experts-figma__more-inner">
               <div className="experts-figma__grid">
-                {EXPERTS.slice(EXPERT_PREVIEW).map((expert, index) => (
+                {experts.slice(EXPERT_PREVIEW).map((expert, index) => (
                   <ExpertSlot
-                    key={expert.email}
+                    key={expert.id ?? expert.memberId}
                     expert={expert}
                     delay={showAllExperts ? `${Math.floor(index / 3) * 80 + (index % 3) * 45}ms` : "0ms"}
                   />
@@ -485,15 +462,17 @@ export default function HomePage({
         </div>
       </section>
 
+      {video ? <PageVideo video={video} locale={locale} /> : null}
+
       {/* 5. SECTION: SOCIAL — Circular gallery, Figma 1154:1338 */}
       <section id="social" className="social-section cv-auto relative overflow-hidden">
-        <SocialGalleryBoundary items={SOCIAL_GALLERY_ITEMS}>
+        {reels.length > 0 ? <SocialGalleryBoundary items={reels}>
           <LazyOnVisible
             loader={loadCircularGallery}
             className="social-gallery"
             rootMargin="240px"
             componentProps={{
-              items: SOCIAL_GALLERY_ITEMS,
+              items: reels,
               bend: 3,
               textColor: "#ffffff",
               borderRadius: 0.05,
@@ -508,7 +487,7 @@ export default function HomePage({
               },
             }}
           />
-        </SocialGalleryBoundary>
+        </SocialGalleryBoundary> : null}
         <div className="social-section__copy site-container">
           <h2 className="social-section__title">
             <span>Follow the daily</span>

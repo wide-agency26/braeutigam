@@ -4,11 +4,14 @@ import { countApplicationsByStatus, recentApplications } from "@/lib/data/applic
 import { countJobsByStatus } from "@/lib/data/jobs";
 import { APPLICATION_STATUS_LABEL, formatDateTime } from "@/lib/format";
 
+import { upcomingCvDeletions } from "@/lib/data/retention";
+
 export default async function AdminHomePage() {
-  const [jobCounts, appCounts, recent] = await Promise.all([
+  const [jobCounts, appCounts, recent, retention] = await Promise.all([
     countJobsByStatus(),
     countApplicationsByStatus(),
     recentApplications(8),
+    upcomingCvDeletions(5),
   ]);
 
   return (
@@ -22,6 +25,11 @@ export default async function AdminHomePage() {
         </div>
       </header>
 
+      {retention.count > 0 ? <aside className="desk-notice" aria-label="CV deletion notice">
+        <h2>{retention.count} CV{retention.count === 1 ? "" : "s"} expire within seven days or are overdue</h2>
+        <p>Only the CV files are removed. The application records and recruitment statuses remain.</p>
+        <Link className="desk-link" href="/cms/admin/retention">Review scheduled deletions</Link>
+      </aside> : null}
       <section className="desk-stats" aria-label="Counts">
         <article>
           <strong>{jobCounts.PUBLISHED}</strong>
