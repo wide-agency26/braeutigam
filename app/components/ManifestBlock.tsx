@@ -121,7 +121,6 @@ export default function ManifestBlock() {
             </p>
             <p className="manifest-overview__row">
               <HudLine text="CLIENT NAMES:" className="mg-dim" />
-              <HudLine text="ACCESS DENIED" className="mg-amber" />
             </p>
             <p className="manifest-overview__wait">
               <HudLine text="... WAITING FOR USER INPUT" className="mg-dim" />
@@ -190,7 +189,7 @@ export default function ManifestBlock() {
 
       <div className="mg-bar mg-bar--values copy-tiny" aria-label="Company facts">
         <div className="mg-stat">
-          <FigmaStatIcon src="/icons/figma/stat-motorsport.svg" />
+          <FigmaStatIcon src="/icons/figma/stat-machinery.png" height={48} />
           <span className="copy-caption">
             {SHOW_F1_CLAIM ? (
               <>
@@ -216,7 +215,7 @@ export default function ManifestBlock() {
           </span>
         </div>
         <div className="mg-stat">
-          <FigmaStatIcon src="/icons/figma/stat-machinery.png" height={48} />
+          <FigmaStatIcon src="/icons/figma/stat-motorsport.svg" />
           <span className="copy-caption">
             SOPHISTICATED
             <br />

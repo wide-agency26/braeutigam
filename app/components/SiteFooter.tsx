@@ -114,6 +114,17 @@ export default function SiteFooter() {
               <p className="decorative-tertiary footer-figma__since text-[var(--text-on-bright-accent)]">
                 SINCE 2016
               </p>
+              <address className="footer-figma__address copy-tiny not-italic">
+                <span>Daimlerstraße 13</span>
+                <span>D-71691 Freiberg am Neckar</span>
+                <span>
+                  E:{" "}
+                  <a href="mailto:info@braeutigam-gmbh.eu" className="footer-figma__address-link">
+                    info@braeutigam-gmbh.eu
+                  </a>
+                </span>
+                <span>P: +49 (0)7141/2996700</span>
+              </address>
             </div>
 
             <nav className="footer-figma__nav" aria-label="Social">

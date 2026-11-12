@@ -51,14 +51,14 @@
 
 .contact-hero__portal,
 .contact-hero__build {
-  top: 64px;
+  top: 96px;
   display: flex;
   flex-direction: column;
   white-space: nowrap;
 }
 
 .contact-hero__portal {
-  left: 96px;
+  left: max(120px, calc(24px + 5.5rem));
 }
 
 .contact-hero__build {
