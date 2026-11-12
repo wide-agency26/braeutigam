@@ -1,0 +1,134 @@
+/**
+ * Figma design tokens — file U6PdyBS92GPjpwcznGYV7J
+ * Light: node 2006:131 (Final - Home - Light) — Figma 2006:131
+ * Dark: Figma 934:241 (Final - Home - Dark)
+ * Regenerate: node scripts/fetch-figma-variables.mjs && pnpm sync:figma-tokens
+ */
+
+:root {
+  --border-sizes-radius-l: 12px;
+  --border-sizes-radius-m: 8px;
+  --border-sizes-radius-xl: 20px;
+  --border-sizes-width-s: 2px;
+  --border-sizes-width-xs: 1px;
+  --brand-colors-greys-transparent-500-30: #1314144d;
+  --color-accent-500: #00ff00;
+  --color-accent-600: #00cc00;
+  --colors-greeeen: #00ff00;
+  --neutral-black: #131414;
+  --neutral-image-overlay-black-30: #1314144d;
+  --neutral-white: #f0f0f0;
+  --scale-0: 0px;
+  --scale-100: 4px;
+  --scale-1000: 40px;
+  --scale-1050: 52px;
+  --scale-1100: 64px;
+  --scale-1200: 72px;
+  --scale-1400: 132px;
+  --scale-200: 8px;
+  --scale-300: 12px;
+  --scale-400: 16px;
+  --scale-50: 2px;
+  --scale-500: 20px;
+  --scale-600: 24px;
+  --scale-700: 28px;
+  --scale-800: 32px;
+  --scale-900: 36px;
+  --border-primary-default: #131414;
+  --border-primary-default-hover: #424343;
+  --border-primary-secondary: #00ff00;
+  --border-primary-secondary-hover: #00cc00;
+  --border-primary-tertiary: #ff8800;
+  --button-background-default: #a1a1a1;
+  --button-background-default-hover: #424343;
+  --button-background-secondary: #a1a1a1;
+  --button-background-secondary-hover: #424343;
+  --button-text-default: #f0f0f0;
+  --button-text-default-hover: #00cc00;
+  --icon-default-caption: #1f2020;
+  --icon-default-placeholder: #717272;
+  --surface-pages-page: #f0f0f0;
+  --surface-pages-page-secondary: #1f2020;
+  --text-default-accent: #009900;
+  --text-default-accent-secondary: #ff8800;
+  --text-default-accent-subtle: #00cc00;
+  --text-default-accent-subtle-secondary: #cc6d00;
+  --text-default-body: #1f2020;
+  --text-default-caption: #131414;
+  --text-default-heading: #131414;
+  --text-default-placeholder: #1f2020;
+  --text-on-bright-accent: #00cc00;
+  --text-on-bright-heading: #f0f0f0;
+
+  /* Semantic aliases (no hex) */
+  --background: var(--surface-pages-page);
+  --foreground: var(--text-default-heading);
+  --surface: var(--surface-pages-page);
+  --surface-muted: var(--surface-pages-page-secondary);
+  --focus-ring: var(--colors-greeeen);
+  --color-brand-neon: var(--colors-greeeen);
+}
+
+.dark {
+  --border-sizes-radius-l: 12px;
+  --border-sizes-radius-m: 8px;
+  --border-sizes-radius-xl: 20px;
+  --border-sizes-width-s: 2px;
+  --border-sizes-width-xs: 1px;
+  --brand-colors-greys-transparent-500-30: #1314144d;
+  --color-accent-500: #00ff00;
+  --color-accent-600: #00cc00;
+  --colors-greeeen: #00ff00;
+  --neutral-black: #131414;
+  --neutral-image-overlay-black-30: #1314144d;
+  --neutral-white: #f0f0f0;
+  --scale-0: 0px;
+  --scale-100: 4px;
+  --scale-1000: 40px;
+  --scale-1050: 52px;
+  --scale-1100: 64px;
+  --scale-1200: 72px;
+  --scale-1400: 132px;
+  --scale-200: 8px;
+  --scale-300: 12px;
+  --scale-400: 16px;
+  --scale-50: 2px;
+  --scale-500: 20px;
+  --scale-600: 24px;
+  --scale-700: 28px;
+  --scale-800: 32px;
+  --scale-900: 36px;
+  --border-primary-default: #131414;
+  --border-primary-default-hover: #424343;
+  --border-primary-secondary: #00ff00;
+  --border-primary-secondary-hover: #00cc00;
+  --border-primary-tertiary: #ffbf00;
+  --button-background-default: #1f2020;
+  --button-background-default-hover: #424343;
+  --button-background-secondary: #1f2020;
+  --button-background-secondary-hover: #424343;
+  --button-text-default: #f0f0f0;
+  --button-text-default-hover: #00cc00;
+  --icon-default-caption: #a1a1a1;
+  --icon-default-placeholder: #717272;
+  --surface-pages-page: #131414;
+  --surface-pages-page-secondary: #1f2020;
+  --text-default-accent: #00ff00;
+  --text-default-accent-secondary: #ffbf00;
+  --text-default-accent-subtle: #006600;
+  --text-default-accent-subtle-secondary: #cc9900;
+  --text-default-body: #d0d0d0;
+  --text-default-caption: #a1a1a1;
+  --text-default-heading: #f0f0f0;
+  --text-default-placeholder: #717272;
+  --text-on-bright-accent: #00cc00;
+  --text-on-bright-heading: #131414;
+
+  /* Semantic aliases (no hex) */
+  --background: var(--surface-pages-page);
+  --foreground: var(--text-default-heading);
+  --surface: var(--surface-pages-page);
+  --surface-muted: var(--surface-pages-page-secondary);
+  --focus-ring: var(--colors-greeeen);
+  --color-brand-neon: var(--colors-greeeen);
+}
