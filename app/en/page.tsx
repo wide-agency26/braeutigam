@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import HomePage from "../components/HomePage";
 import { pageTitleForLocale } from "@/lib/site-nav";
-import { pickRandomHeroSlide } from "@/lib/hero-slides";
-
 export const metadata: Metadata = {
   title: pageTitleForLocale("Start", "en"),
   description:
@@ -11,6 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const heroSlide = pickRandomHeroSlide();
-  return <HomePage heroSlide={heroSlide} locale="en" />;
+  return <HomePage locale="en" />;
 }

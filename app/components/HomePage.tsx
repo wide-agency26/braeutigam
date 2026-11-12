@@ -115,7 +115,7 @@ export default function HomePage({
   heroSlide,
   locale = "de",
 }: {
-  heroSlide: HeroSlide;
+  heroSlide?: HeroSlide;
   locale?: Locale;
 }) {
   const [showAllExperts, setShowAllExperts] = useState(false);

@@ -2,16 +2,21 @@
 
 import React, { useSyncExternalStore } from "react";
 import Image from "next/image";
-import NotchedBorderGlow from "./NotchedBorderGlow";
 import LazyOnVisible from "./LazyOnVisible";
 import { useTheme } from "./ThemeProvider";
+import "./SiteHero.css";
 import "./MagicRingsPoster.css";
-import {
-  activeHeroSlides,
-  type HeroSlide,
-} from "@/lib/hero-slides";
+import type { HeroSlide } from "@/lib/hero-slides";
 
 const loadMagicRings = () => import("./MagicRings");
+
+const FIGMA_HERO = {
+  light: "/images/hero/figma/hero-light-2x.png",
+  dark: "/images/hero/figma/hero-dark-2x.png",
+} as const;
+
+const ENABLE_MAGIC_RINGS =
+  process.env.NEXT_PUBLIC_HERO_MAGIC_RINGS === "true";
 
 function subscribeReducedMotion(cb: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -28,166 +33,195 @@ function serverReducedMotion() {
 }
 
 interface SiteHeroProps {
-  /** Anchor the "scroll to explore" affordance jumps to on this route. */
   scrollTarget?: string;
-  /** Only the landing route should fetch the silhouette at high priority. */
   priority?: boolean;
-  /** Off when the route already has its own <h1> below the fold. */
   isPageHeading?: boolean;
-  /** Light/dark pair for this hero (from server random on Start). */
   slide?: HeroSlide;
-  /** Alt text language for the silhouette. */
   locale?: "de" | "en";
 }
 
-/**
- * Full-screen cinematic hero: car silhouette, ambient WebGL rings, HUD
- * telemetry and the centre typography block. Shared across routes.
- */
 export default function SiteHero({
   scrollTarget = "#story",
   priority = true,
   isPageHeading = true,
   slide,
-  locale = "de",
 }: SiteHeroProps) {
   const { isDark } = useTheme();
   const Title = isPageHeading ? "h1" : "p";
-  const resolved =
-    slide ?? activeHeroSlides()[0] ?? {
-      id: "f1",
-      light: "/images/hero/f1-light.webp",
-      dark: "/images/hero/f1-dark.webp",
-      altDe: "Formel-1-Fahrzeug als Silhouette",
-      altEn: "Formula car silhouette",
-      enabled: true,
-    };
-  const alt = locale === "en" ? resolved.altEn : resolved.altDe;
   const reduceMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotion,
     serverReducedMotion,
   );
-  const crossfadeClass = reduceMotion
-    ? ""
-    : "transition-opacity duration-1000";
+
+  const lightSrc = slide?.light ?? FIGMA_HERO.light;
+  const darkSrc = slide?.dark ?? FIGMA_HERO.dark;
+  const crossfadeClass =
+    reduceMotion ? "" : "transition-opacity duration-1000";
+
+  const heroNode = isDark ? "934:242" : "2006:132";
 
   return (
     <section
       id="silhouette"
-      className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden transition-colors duration-500 text-zinc-900 dark:text-zinc-100"
+      className="hero-figma"
+      data-figma-node={heroNode}
+      data-figma-node-light="2006:132"
+      data-figma-node-dark="934:242"
+      aria-label="Hero"
     >
-      <div className="absolute inset-0 w-full h-full select-none pointer-events-none z-0">
-        <div
-          className={`absolute inset-0 opacity-0 dark:opacity-100 ${crossfadeClass}`}
-        >
-          <Image
-            src={resolved.dark}
-            alt={alt}
-            fill
-            className="object-cover"
-            sizes="100vw"
+      <div
+        className="hero-figma__bg"
+        data-figma-node="hero-background"
+        aria-hidden
+      >
+        <div className="hero-figma__photo" data-figma-node="hero-photo">
+          <HeroPhotoLayer
+            src={darkSrc}
+            visible={isDark}
+            crossfadeClass={crossfadeClass}
+            priority={priority}
+          />
+          <HeroPhotoLayer
+            src={lightSrc}
+            visible={!isDark}
+            crossfadeClass={crossfadeClass}
             priority={priority}
           />
         </div>
+        <div className="hero-figma__scrim" />
+      </div>
 
+      {ENABLE_MAGIC_RINGS ? (
         <div
-          className={`absolute inset-0 opacity-100 dark:opacity-0 ${crossfadeClass}`}
+          className={`hero-figma__rings magic-rings-stage ${ENABLE_MAGIC_RINGS ? "hero-figma__rings--on" : ""}`}
+          data-figma-node="hero-magic-rings"
+          data-rebuild-flag="NEXT_PUBLIC_HERO_MAGIC_RINGS"
+          aria-hidden
         >
-          <Image
-            src={resolved.light}
-            alt={alt}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority={priority}
+          <div className="magic-rings-poster" />
+          <LazyOnVisible
+            loader={loadMagicRings}
+            delayMs={400}
+            rootMargin="0px"
+            className="absolute inset-0"
+            componentProps={{
+              color: "var(--colors-greeeen)",
+              colorTwo: "var(--icon-default-placeholder)",
+              ringCount: 6,
+              speed: 0.4,
+            }}
           />
         </div>
+      ) : null}
 
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(249,249,251,0.12)_0%,rgba(249,249,251,0.45)_100%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(11,11,12,0.12)_0%,rgba(11,11,12,0.42)_100%)]" />
-        <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/50 to-transparent dark:from-[#0B0B0C] dark:via-[#0B0B0C]/45 dark:to-transparent" />
-      </div>
-
-      <div className="magic-rings-stage absolute inset-0 z-10 opacity-30 pointer-events-none">
-        <div className="magic-rings-poster" aria-hidden="true" />
-        <LazyOnVisible
-          loader={loadMagicRings}
-          delayMs={400}
-          rootMargin="0px"
-          className="absolute inset-0"
-          componentProps={{
-            color: "#39FF14",
-            colorTwo: isDark ? "#555555" : "#cbd5e1",
-            ringCount: 6,
-            speed: 0.4,
-            attenuation: 14,
-            lineThickness: 1.6,
-            baseRadius: 0.28,
-            radiusStep: 0.11,
-            scaleRate: 0.05,
-            opacity: 0.5,
-            blur: 0,
-            noiseAmount: 0.06,
-            rotation: 20,
-            ringGap: 1.35,
-            fadeIn: 0.8,
-            fadeOut: 0.4,
-            followMouse: true,
-            mouseInfluence: 0.25,
-            hoverScale: 1.15,
-            parallax: 0.03,
-            clickBurst: true,
-          }}
-        />
-      </div>
-
-      <div className="absolute z-20 top-28 left-6 hidden md:block font-mono text-[9px] font-light leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
-        <div>LOCATION: GERMANY [48.9298° N, 9.2070° E]</div>
-        <div>ESTABLISHED: 2016</div>
-        <div>CURRENT TEAM SIZE: 81</div>
-      </div>
-
-      <div className="absolute z-20 top-28 right-6 hidden md:block font-mono text-[9px] font-light text-right leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">
-        <div>**COMPOSITE COMPONENT DEVELOPMENT INSIGHT**</div>
-        <div>PROJECT: AERO_HYPERCAR_v2.2</div>
-      </div>
-
-      <div className="relative z-20 w-full max-w-5xl flex flex-col items-center text-center px-6 pointer-events-none">
-        <div className="hero-rise flex flex-col items-center relative gap-1">
-          <p className="font-sans font-bold text-[11vw] sm:text-[7vw] tracking-tighter uppercase leading-[0.9] select-none text-zinc-950 dark:text-zinc-100">
-            BRÄUTIGAM
-          </p>
-
-          <Title className="font-sans font-light text-[8vw] sm:text-[5.5vw] tracking-tighter uppercase leading-[0.85] select-none text-zinc-800 dark:text-zinc-100">
-            CARBON FIBER WORKS
-          </Title>
-
-          <div className="hero-since mt-4 pointer-events-auto">
-            <NotchedBorderGlow
-              notchPosition="slanted"
-              active={true}
-              noPadding={true}
-              className="select-none"
-            >
-              <div className="px-8 py-2.5">
-                <span className="font-accent text-brand-neon text-2xl sm:text-3xl md:text-4xl tracking-wide uppercase">
-                  SINCE 2016
-                </span>
-              </div>
-            </NotchedBorderGlow>
+      <div className="hero-figma__grid">
+        <div
+          className="hero-figma__location"
+          data-figma-node="2006:133"
+          data-figma-node-dark="940:24"
+        >
+          <div className="copy-caption hero-figma__caption-block">
+            <p>LOCATION: GERMANY [48.9298° N, 9.2070° E]</p>
+            <p>ESTABLISHED: 2016</p>
+            <p>CURRENT TEAM SIZE: 81</p>
           </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-8 font-mono text-[9px] tracking-[0.2em] uppercase text-zinc-700 dark:text-zinc-300">
-        <div className="select-none">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</div>
-        <a
-          href={scrollTarget}
-          className="pointer-events-auto cursor-pointer select-none hover:text-zinc-950 dark:hover:text-white"
+        <div
+          className="hero-figma__dev"
+          data-figma-node="2006:135"
+          data-figma-node-dark="940:26"
         >
-          SCROLL TO EXPLORE
-        </a>
+          <div className="copy-caption hero-figma__caption-block">
+            <p>**COMPOSITE COMPONENT DEVELOPMENT INSIGHT**</p>
+            <p>PROJECT: AERO_HYPERCAR_v2.2</p>
+          </div>
+        </div>
+
+        <div className="hero-figma__main" data-figma-node="2006:143" data-figma-node-dark="937:247">
+          <div
+            className="hero-figma__lockup"
+            data-figma-node="2006:144"
+            data-figma-node-dark="1373:11"
+          >
+            <div
+              className="hero-figma__logo"
+              data-figma-node="2006:145"
+              data-figma-node-dark="1256:232"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/icons/figma/client-wordmark.svg"
+                alt=""
+                width={343}
+                height={72}
+                draggable={false}
+              />
+              <span className="sr-only">Bräutigam</span>
+            </div>
+            <Title
+              className="hero-figma__title heading-secondary heading-figma-overlay"
+              data-figma-node="2006:158"
+              data-figma-node-dark="937:249"
+            >
+              CARBON FIBER WORKS
+            </Title>
+          </div>
+          <p
+            className="hero-figma__since decorative-tertiary"
+            data-figma-node="2006:161"
+            data-figma-node-dark="937:252"
+          >
+            SINCE 2016
+          </p>
+        </div>
+
+        <div
+          className="hero-figma__status"
+          data-figma-node="2006:137"
+          data-figma-node-dark="938:267"
+        >
+          <p className="hero-figma__status-caption copy-caption">
+            PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS
+          </p>
+          <a
+            href={scrollTarget}
+            className="hero-figma__scroll copy-body-sm"
+            data-figma-node="2006:139"
+            data-figma-node-dark="938:269"
+          >
+            SCROLL TO EXPLORE
+          </a>
+        </div>
       </div>
     </section>
+  );
+}
+
+function HeroPhotoLayer({
+  src,
+  visible,
+  crossfadeClass,
+  priority,
+}: {
+  src: string;
+  visible: boolean;
+  crossfadeClass: string;
+  priority: boolean;
+}) {
+  return (
+    <div
+      className={`hero-figma__photo-layer ${visible ? "opacity-100" : "opacity-0"} ${crossfadeClass}`}
+    >
+      <Image
+        src={src}
+        alt=""
+        fill
+        className="hero-figma__photo-img"
+        sizes="(max-width: 1920px) 100vw, 1920px"
+        priority={priority}
+      />
+    </div>
   );
 }

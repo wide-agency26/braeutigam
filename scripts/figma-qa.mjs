@@ -83,6 +83,12 @@ async function main() {
       await page.waitForTimeout(150);
     }
 
+    let anchor = { x: 0, y: 0 };
+    if (section.anchor) {
+      const anchorBox = await page.locator(section.anchor).first().boundingBox();
+      if (anchorBox) anchor = { x: anchorBox.x, y: anchorBox.y };
+    }
+
     const targets = section.targets ?? [];
     for (const t of targets) {
       const el = page.locator(t.selector).first();
@@ -106,8 +112,8 @@ async function main() {
       }
 
       const exp = t.figma;
-      const dx = box.x - exp.x;
-      const dy = box.y - exp.y;
+      const dx = box.x - (anchor.x + exp.x);
+      const dy = box.y - (anchor.y + exp.y);
       const dw = box.width - exp.w;
       const dh = box.height - exp.h;
       const ok =
@@ -133,7 +139,16 @@ async function main() {
   await browser.close();
 
   console.log(`\nFigma QA @ ${viewport.width}×${viewport.height} (±${tolerance}px)\n`);
-  console.table(rows);
+  for (const row of rows) {
+    if (row.status === "MISSING" || row.status === "NO_BOX") {
+      console.log(`${row.section} | ${row.label} | ${row.status}`);
+      continue;
+    }
+    console.log(
+      `${row.status} | ${row.label} | figma ${row.figmaId} | ` +
+        `x Δ${row.x.Δ} y Δ${row.y.Δ} w Δ${row.w.Δ} h Δ${row.h.Δ}`,
+    );
+  }
   console.log(`\n${failures} issue(s)\n`);
   process.exit(failures > 0 ? 1 : 0);
 }

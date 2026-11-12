@@ -3,5 +3,60 @@
   "designHeight": 1080,
   "tolerancePx": 4,
   "baseUrl": "http://127.0.0.1:3000",
-  "sections": {}
+  "sections": {
+    "hero": {
+      "scrollY": 0,
+      "anchor": "#silhouette",
+      "targets": [
+        {
+          "label": "Hero frame",
+          "figmaNodeId": "2006:132",
+          "selector": "#silhouette",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1080 }
+        },
+        {
+          "label": "Client logo",
+          "figmaNodeId": "2006:145",
+          "selector": "[data-figma-node=\"2006:145\"]",
+          "figma": { "x": 789, "y": 463, "w": 343, "h": 72 }
+        },
+        {
+          "label": "CARBON FIBER WORKS",
+          "figmaNodeId": "2006:158",
+          "selector": "[data-figma-node=\"2006:158\"]",
+          "figma": { "x": 64, "y": 555, "w": 1792, "h": 52 }
+        },
+        {
+          "label": "SINCE 2016",
+          "figmaNodeId": "2006:161",
+          "selector": "[data-figma-node=\"2006:161\"]",
+          "figma": { "x": 864, "y": 615, "w": 192, "h": 38 }
+        },
+        {
+          "label": "Location HUD",
+          "figmaNodeId": "2006:133",
+          "selector": "[data-figma-node=\"2006:133\"]",
+          "figma": { "x": 64, "y": 185, "w": 587, "h": 66 }
+        },
+        {
+          "label": "Dev HUD",
+          "figmaNodeId": "2006:135",
+          "selector": "[data-figma-node=\"2006:135\"]",
+          "figma": { "x": 1269, "y": 185, "w": 587, "h": 105 }
+        },
+        {
+          "label": "Status block",
+          "figmaNodeId": "2006:137",
+          "selector": "[data-figma-node=\"2006:137\"]",
+          "figma": { "x": 612, "y": 972, "w": 696, "h": 44 }
+        },
+        {
+          "label": "Scroll prompt",
+          "figmaNodeId": "2006:139",
+          "selector": "[data-figma-node=\"2006:139\"]",
+          "figma": { "x": 612, "y": 998, "w": 696, "h": 18 }
+        }
+      ]
+    }
+  }
 }
