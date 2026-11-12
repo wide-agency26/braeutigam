@@ -41,13 +41,28 @@ export function ThemeProvider({
   children: ReactNode;
   defaultTheme?: Theme;
 }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof document === "undefined") return defaultTheme;
-    return document.documentElement.classList.contains("light") ? "light" : "dark";
-  });
+  const [theme, setThemeState] = useState<Theme>(defaultTheme);
 
-  // useLayoutEffect: apply before paint so `dark:` utilities match the SSR
-  // <html class="dark"> and we never flash light-theme (black text on black).
+  // useLayoutEffect: read blocking-script / stored theme before paint so client
+  // islands (hero photo, etc.) match <html class="light|dark"> on first render.
+  useLayoutEffect(() => {
+    let resolved: Theme = defaultTheme;
+    try {
+      const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored === "light" || stored === "dark") {
+        resolved = stored;
+      } else {
+        resolved = document.documentElement.classList.contains("light") ? "light" : "dark";
+      }
+    } catch {
+      resolved = document.documentElement.classList.contains("light") ? "light" : "dark";
+    }
+    // Hydration: server state is `defaultTheme`; blocking script may already set `light` on <html>.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync React theme to DOM/localStorage once before paint
+    setThemeState(resolved);
+    applyDomTheme(resolved);
+  }, [defaultTheme]);
+
   useLayoutEffect(() => {
     applyDomTheme(theme);
   }, [theme]);

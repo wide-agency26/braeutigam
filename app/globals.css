@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "./figma-tokens.css";
 @import "./figma-scale.css";
+
+/* Figma artboard vertical rhythm — 64px @ 1920 (between stacked sections). */
+.figma-artboard-gap {
+  width: min(100%, var(--figma-design-width, 1920px));
+  height: var(--scale-1100);
+  margin-inline: auto;
+  flex-shrink: 0;
+}
 @import "./typography-tokens.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */

@@ -11,6 +11,7 @@ import LazyOnVisible from "./LazyOnVisible";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
+import FigmaArtboardGap from "./FigmaArtboardGap";
 import ManifestBlock from "./ManifestBlock";
 import { ManifestMicrographicBottom, ManifestMicrographicTop } from "./ManifestMicrographic";
 import SiteButton from "./SiteButton";
@@ -178,11 +179,19 @@ export default function HomePage({
       {/* 1. HERO / LANDING SECTION — shared with /karriere */}
       <SiteHero scrollTarget="#story" slide={heroSlide} locale={locale} />
 
+      <FigmaArtboardGap />
+
       <ManifestMicrographicTop />
+
+      <FigmaArtboardGap />
 
       <ManifestBlock />
 
+      <FigmaArtboardGap />
+
       <ManifestMicrographicBottom />
+
+      <FigmaArtboardGap />
 
       {/* 2. SECTION: SEAMLESS EVOLUTION SCROLLYTELLING (CAD -> Autoclave -> Finished Product) */}
       <section id="story" ref={scrollyRef} className="cv-auto relative h-[300vh]">
@@ -195,7 +204,11 @@ export default function HomePage({
           <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-t dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
 
           {/* CAD Topography — Figma field behind all three story steps */}
-          <div className="cad-topo-stage absolute inset-0" aria-hidden>
+          <div
+            className="cad-topo-stage absolute inset-0"
+            data-rebuild-layer="Topography"
+            aria-hidden
+          >
             <div className="cad-topo-poster" />
             <LazyOnVisible
               loader={loadTopography}

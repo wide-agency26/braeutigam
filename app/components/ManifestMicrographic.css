@@ -29,6 +29,8 @@
   flex-direction: column;
   gap: calc(16 * min(100vw, 1920px) / 1920);
   align-items: flex-start;
+  width: calc(142 * min(100vw, 1920px) / 1920);
+  max-width: 142px;
 }
 
 .manifest-micro__col--center {
@@ -40,9 +42,10 @@
 .manifest-micro__col--end {
   grid-column: 3;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: calc(16 * min(100vw, 1920px) / 1920);
+  margin-top: calc(-7 * min(100vw, 1920px) / 1920);
 }
 
 .manifest-micro__col--stats {
@@ -70,7 +73,8 @@
   display: flex;
   flex-direction: column;
   gap: calc(2 * min(100vw, 1920px) / 1920);
-  width: 100%;
+  width: calc(142 * min(100vw, 1920px) / 1920);
+  max-width: 142px;
 }
 
 .manifest-micro__stack-12 {
@@ -81,10 +85,23 @@
 }
 
 .manifest-micro__credit-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: calc(12 * min(100vw, 1920px) / 1920);
+  position: relative;
+  width: calc(142 * min(100vw, 1920px) / 1920);
+  max-width: 142px;
+  min-height: calc(14 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__credit-row .manifest-micro__caption {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.manifest-micro__credit-row .manifest-micro__placeholder {
+  position: absolute;
+  left: calc((112 - 64) * min(100vw, 1920px) / 1920);
+  top: 0;
+  white-space: nowrap;
 }
 
 .manifest-micro__body {
@@ -104,6 +121,8 @@
 .manifest-micro__accent {
   margin: 0;
   color: var(--text-default-accent);
+  width: calc(142 * min(100vw, 1920px) / 1920);
+  max-width: 142px;
 }
 
 .manifest-micro__accent-subtle {

@@ -25,6 +25,21 @@ function serverReducedMotion() {
   return false;
 }
 
+function subscribeHtmlTheme(onStoreChange: () => void) {
+  const root = document.documentElement;
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+
+function readIsDarkFromDom() {
+  return !document.documentElement.classList.contains("light");
+}
+
+function serverIsDark() {
+  return true;
+}
+
 interface SiteHeroProps {
   scrollTarget?: string;
   priority?: boolean;
@@ -41,6 +56,7 @@ export default function SiteHero({
   locale = "de",
 }: SiteHeroProps) {
   const { isDark } = useTheme();
+  const photoIsDark = useSyncExternalStore(subscribeHtmlTheme, readIsDarkFromDom, serverIsDark);
   const Title = isPageHeading ? "h1" : "p";
   useSyncExternalStore(subscribeReducedMotion, getReducedMotion, serverReducedMotion);
 
@@ -55,7 +71,7 @@ export default function SiteHero({
       enabled: true,
     };
 
-  const photoSrc = isDark ? resolved.dark : resolved.light;
+  const photoSrc = photoIsDark ? resolved.dark : resolved.light;
   const photoAlt = locale === "en" ? resolved.altEn : resolved.altDe;
 
   const ringColors = useMemo(

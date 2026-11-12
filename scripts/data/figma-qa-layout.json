@@ -59,7 +59,7 @@
       ]
     },
     "manifest-micro-top": {
-      "scrollY": 1080,
+      "scrollY": 1144,
       "anchor": "[data-figma-node=\"2006:162\"]",
       "targets": [
         {
@@ -71,7 +71,7 @@
       ]
     },
     "manifest": {
-      "scrollY": 1158,
+      "scrollY": 1286,
       "anchor": "[data-figma-node=\"2006:220\"]",
       "targets": [
         {
@@ -143,7 +143,7 @@
       ]
     },
     "manifest-micro-bottom": {
-      "scrollY": 3048,
+      "scrollY": 3240,
       "anchor": "[data-figma-node=\"2006:287\"]",
       "targets": [
         {
@@ -151,6 +151,18 @@
           "figmaNodeId": "2006:287",
           "selector": "[data-figma-node=\"2006:287\"]",
           "figma": { "x": 0, "y": 0, "w": 1920, "h": 118 }
+        }
+      ]
+    },
+    "story": {
+      "scrollY": 3422,
+      "anchor": "#story",
+      "targets": [
+        {
+          "label": "Story sticky viewport",
+          "figmaNodeId": "story-viewport",
+          "selector": "#story > .sticky",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1080 }
         }
       ]
     }

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import HomePage from "../components/HomePage";
+import HeroPhotoPreload from "../components/HeroPhotoPreload";
 import { pageTitleForLocale } from "@/lib/site-nav";
-import { pickRandomHeroSlide } from "@/lib/hero-slides";
+import { activeHeroSlides, pickRandomHeroSlide } from "@/lib/hero-slides";
 
 export const dynamic = "force-dynamic";
 
@@ -14,5 +15,13 @@ export const metadata: Metadata = {
 
 export default function Page() {
   const heroSlide = pickRandomHeroSlide();
-  return <HomePage heroSlide={heroSlide} locale="en" />;
+  const fallback = activeHeroSlides()[0];
+  const lightSrc = heroSlide?.light ?? fallback?.light ?? "/images/hero/gwagon_light.jpeg";
+  const darkSrc = heroSlide?.dark ?? fallback?.dark ?? "/images/hero/gwagon_dark.jpeg";
+  return (
+    <>
+      <HeroPhotoPreload lightSrc={lightSrc} darkSrc={darkSrc} />
+      <HomePage heroSlide={heroSlide} locale="en" />
+    </>
+  );
 }
