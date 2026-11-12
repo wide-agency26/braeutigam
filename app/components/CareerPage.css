@@ -199,16 +199,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  display: grid;
-  width: 46px;
-  height: 46px;
-  place-items: center;
+  display: block;
   translate: -50% -50%;
-  border: 1px solid var(--career-neon);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--neutral-black) 38%, transparent);
-  color: var(--career-neon);
   pointer-events: none;
+  line-height: 0;
+}
+.crew-play__asset {
+  display: block;
+  width: 80px;
+  height: 80px;
+}
+.crew-play__asset--small {
+  width: 64px;
+  height: 64px;
 }
 
 .crew-jobs {
@@ -257,9 +260,9 @@
   margin-top: 0.3rem;
 }
 .crew-job__icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  color: var(--career-neon);
+  width: 11px;
+  height: 11px;
+  flex: none;
 }
 
 .crew-steps {
@@ -376,7 +379,7 @@
   position: absolute;
   z-index: 3;
   left: 50%;
-  bottom: clamp(6.5rem, 22vh, 11rem);
+  bottom: clamp(8.5rem, 38vh, 26rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -391,14 +394,14 @@
 .crew-hero__title {
   margin: 0;
   width: 100%;
-  color: var(--text-on-bright-heading);
+  color: var(--neutral-white);
   text-transform: uppercase;
 }
 
 .crew-hiring {
   margin: 0;
   max-width: 28rem;
-  color: var(--text-on-bright-heading);
+  color: var(--neutral-white);
   font-family: var(--font-mono), monospace;
   font-size: var(--typesize-copy-caption-text-size, 12px);
   line-height: var(--typesize-copy-caption-line-height, 18px);
@@ -439,7 +442,7 @@
     margin-inline: auto;
   }
   .crew-hero__mark {
-    bottom: clamp(5rem, 18vh, 8rem);
+    bottom: clamp(7rem, 34vh, 12rem);
     transform: translateX(-50%);
   }
   .crew-job {

@@ -26,16 +26,25 @@ export default function SiteFooter() {
   const waveColors = useMemo(() => {
     const neon = readCssVarColor("--colors-greeeen", "#00ff00");
     const secondary = readCssVarColor("--surface-pages-page-secondary", "#1f2020");
+    const page = readCssVarColor("--surface-pages-page", "#f0f0f0");
     const ink = readCssVarColor("--neutral-black", "#131414");
     if (isDark) {
       return { color1: neon, color2: secondary, color3: ink, brightness: 0.3 };
     }
-    return { color1: neon, color2: secondary, color3: ink, brightness: 1.0 };
+    /* Figma 2006:809 / 2006:810 — neon waves, page secondary, 20% black overlay */
+    return { color1: neon, color2: page, color3: ink, brightness: 0.3 };
   }, [isDark]);
 
   return (
     <footer className="footer-figma-section cv-auto">
-      <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-brand-dark dark:to-transparent" />
+      <div
+        className={
+          isDark
+            ? "absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-dark to-transparent"
+            : "absolute inset-0 z-[5] pointer-events-none bg-[color-mix(in_srgb,var(--neutral-black)_20%,transparent)]"
+        }
+        aria-hidden
+      />
 
       <div className="absolute inset-0 z-0">
         <LazyOnVisible

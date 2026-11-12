@@ -91,7 +91,7 @@
 }
 
 :root:not(.dark) .mission-figma__perf {
-  color: var(--text-default-accent);
+  color: var(--colors-greeeen);
 }
 
 :root:not(.dark) .mission-figma__watermark p {

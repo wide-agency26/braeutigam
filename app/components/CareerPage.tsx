@@ -136,11 +136,11 @@ function Film({ image, role, wide }: (typeof CREW)[number]) {
         <span className="crew-play" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/icons/figma/play-fill.svg"
+            src={wide ? "/icons/figma/play-fill.svg" : "/icons/figma/play-fill-small.svg"}
             alt=""
-            width={16}
-            height={16}
-            className="h-4 w-4 translate-x-px"
+            width={wide ? 80 : 64}
+            height={wide ? 80 : 64}
+            className={`crew-play__asset${wide ? "" : " crew-play__asset--small"}`}
           />
         </span>
       </div>
@@ -276,10 +276,10 @@ export default function CareerPage({
                       </span>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src="/icons/figma/chevron-right.svg"
+                        src="/icons/figma/traffic-light-default.svg"
                         alt=""
-                        width={24}
-                        height={24}
+                        width={11}
+                        height={11}
                         className="crew-job__icon"
                         aria-hidden
                       />
