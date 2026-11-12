@@ -48,16 +48,15 @@ export default function SiteHero({
 }: SiteHeroProps) {
   const { isDark } = useTheme();
   const Title = isPageHeading ? "h1" : "p";
-  const reduceMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotion,
-    serverReducedMotion,
-  );
+  useSyncExternalStore(subscribeReducedMotion, getReducedMotion, serverReducedMotion);
 
-  const lightSrc = slide?.light ?? FIGMA_HERO.light;
-  const darkSrc = slide?.dark ?? FIGMA_HERO.dark;
-  const crossfadeClass =
-    reduceMotion ? "" : "transition-opacity duration-1000";
+  const photoSrc = slide
+    ? isDark
+      ? slide.dark
+      : slide.light
+    : isDark
+      ? FIGMA_HERO.dark
+      : FIGMA_HERO.light;
 
   const heroNode = isDark ? "934:242" : "2006:132";
 
@@ -72,22 +71,26 @@ export default function SiteHero({
     >
       <div
         className="hero-figma__bg"
-        data-figma-node="hero-background"
+        data-figma-node="2006:132-bg"
+        data-figma-node-dark="934:242-bg"
         aria-hidden
       >
-        <div className="hero-figma__photo" data-figma-node="hero-photo">
-          <HeroPhotoLayer
-            src={darkSrc}
-            visible={isDark}
-            crossfadeClass={crossfadeClass}
-            priority={priority}
-          />
-          <HeroPhotoLayer
-            src={lightSrc}
-            visible={!isDark}
-            crossfadeClass={crossfadeClass}
-            priority={priority}
-          />
+        <div
+          className="hero-figma__photo"
+          data-figma-node="2006:132-photo"
+          data-figma-node-dark="934:242-photo"
+        >
+          <div className="hero-figma__photo-layer">
+            <Image
+              key={photoSrc}
+              src={photoSrc}
+              alt=""
+              fill
+              className="hero-figma__photo-img"
+              sizes="(max-width: 1920px) 120vw, 2304px"
+              priority={priority}
+            />
+          </div>
         </div>
         <div className="hero-figma__scrim" />
       </div>
@@ -96,6 +99,7 @@ export default function SiteHero({
         <div
           className={`hero-figma__rings magic-rings-stage ${ENABLE_MAGIC_RINGS ? "hero-figma__rings--on" : ""}`}
           data-figma-node="hero-magic-rings"
+          data-figma-node-dark="hero-magic-rings"
           data-rebuild-flag="NEXT_PUBLIC_HERO_MAGIC_RINGS"
           aria-hidden
         >
@@ -182,7 +186,11 @@ export default function SiteHero({
           data-figma-node="2006:137"
           data-figma-node-dark="938:267"
         >
-          <p className="hero-figma__status-caption copy-caption">
+          <p
+            className="hero-figma__status-caption copy-caption"
+            data-figma-node="2006:138"
+            data-figma-node-dark="940:40"
+          >
             PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS
           </p>
           <a
@@ -199,29 +207,3 @@ export default function SiteHero({
   );
 }
 
-function HeroPhotoLayer({
-  src,
-  visible,
-  crossfadeClass,
-  priority,
-}: {
-  src: string;
-  visible: boolean;
-  crossfadeClass: string;
-  priority: boolean;
-}) {
-  return (
-    <div
-      className={`hero-figma__photo-layer ${visible ? "opacity-100" : "opacity-0"} ${crossfadeClass}`}
-    >
-      <Image
-        src={src}
-        alt=""
-        fill
-        className="hero-figma__photo-img"
-        sizes="(max-width: 1920px) 100vw, 1920px"
-        priority={priority}
-      />
-    </div>
-  );
-}

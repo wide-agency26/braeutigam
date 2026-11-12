@@ -134,15 +134,27 @@
   text-align: center;
 }
 
+.hero-figma__title.heading-figma-overlay {
+  padding-block: 0.3em;
+  margin-block: -0.3em;
+  box-sizing: content-box;
+}
+
 .heading-figma-overlay {
   color: transparent;
   background-image:
     url("/images/hero/figma/heading-overlay-2x.png"),
-  linear-gradient(90deg, var(--neutral-white, #f0f0f0) 0%, var(--neutral-white, #f0f0f0) 100%);
+  linear-gradient(90deg, var(--text-default-heading, #131414) 0%, var(--text-default-heading, #131414) 100%);
   background-size: cover, auto;
   background-position: center, top left;
   background-clip: text;
   -webkit-background-clip: text;
+}
+
+.dark .heading-figma-overlay {
+  background-image:
+    url("/images/hero/figma/heading-overlay-2x.png"),
+  linear-gradient(90deg, var(--neutral-white, #f0f0f0) 0%, var(--neutral-white, #f0f0f0) 100%);
 }
 
 .hero-figma__since {
