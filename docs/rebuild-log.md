@@ -14,7 +14,7 @@ Light home: `2006:131` · Dark home: `934:241`
 
 | Section | Figma node | Commit | QA | Notes |
 |---------|------------|--------|-----|-------|
-| Hero | `2006:132` / `934:242` | _(this commit)_ | see below | Figma grid; MagicRings off unless `NEXT_PUBLIC_HERO_MAGIC_RINGS=true`. Nav chrome stays in `SiteChrome` (Figma `2006:140` not duplicated). |
+| Hero | `2006:132` / `934:242` | `cc837ed` | all PASS ±4px @1920 | MagicRings off unless `NEXT_PUBLIC_HERO_MAGIC_RINGS=true`. Nav stays in `SiteChrome` (Figma `2006:140` / `940:32` not in hero DOM). Home uses static Figma hero JPEGs, not `pickRandomHeroSlide`. |
 | Main Image | `937:253` | — | — | pending |
 | CAD / story | `2006:304`+ | — | — | pending |
 | Mission | `989:2` | — | — | pending |
