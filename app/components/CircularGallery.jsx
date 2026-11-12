@@ -263,6 +263,7 @@ const CircularGallery = ({
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const [canvasEpoch, setCanvasEpoch] = useState(0);
+  const [failed, setFailed] = useState(false);
   const recoveriesRef = useRef(0);
   const list = Array.isArray(items) && items.length ? items : DEFAULT_ITEMS;
   const settings = {
@@ -320,7 +321,11 @@ const CircularGallery = ({
     let stop = () => {};
     const bootId = requestAnimationFrame(() => {
       if (!alive) return;
-      stop = boot();
+      try { stop = boot(); }
+      catch {
+        canvas.getContext('webgl2')?.getExtension('WEBGL_lose_context')?.loseContext();
+        setFailed(true);
+      }
     });
 
     return () => {
@@ -342,13 +347,14 @@ const CircularGallery = ({
       if (alive && recoveriesRef.current < 3) {
         recoveriesRef.current += 1;
         setCanvasEpoch(epoch => epoch + 1);
-      }
+      } else if (alive) setFailed(true);
       return () => {};
     }
 
     const program = link(gl);
     if (!program) {
       gl.getExtension('WEBGL_lose_context')?.loseContext();
+      setFailed(true);
       return () => {};
     }
     const u = program.uniforms;
@@ -450,7 +456,7 @@ const CircularGallery = ({
       if (recoveriesRef.current < 3) {
         recoveriesRef.current += 1;
         setCanvasEpoch(epoch => epoch + 1);
-      }
+      } else setFailed(true);
     };
 
     const textureFor = url => {
@@ -490,6 +496,7 @@ const CircularGallery = ({
           recover();
         }
       };
+      image.onerror = () => { if (alive && !dead) setFailed(true); };
       image.src = url;
       return entry;
     };
@@ -1132,6 +1139,9 @@ const CircularGallery = ({
   useEffect(() => {
     engineRef.current?.wake();
   });
+
+  // Surface asynchronous WebGL failure to the React boundary's linked posters.
+  if (failed) throw new Error('The animated gallery is unavailable. Showing reel links instead.');
 
   const count = list.length;
   const current = list[active % count] || list[0];

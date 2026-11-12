@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import SocialGalleryFallback from "./SocialGalleryFallback";
 
 export type SocialReel = {
   image: string;
@@ -38,24 +39,7 @@ export default class SocialGalleryBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.failed) {
-      return (
-        <div className="social-gallery social-gallery-fallback">
-          {this.props.items.map(item => {
-            const image = (
-              // Posters are already saved locally; this row only appears after the gallery gives up.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={item.image} alt={item.alt ?? ""} />
-            );
-            return item.href ? (
-              <a key={item.image} href={item.href} target="_blank" rel="noopener noreferrer">
-                {image}
-              </a>
-            ) : (
-              <span key={item.image}>{image}</span>
-            );
-          })}
-        </div>
-      );
+      return <SocialGalleryFallback items={this.props.items} />;
     }
 
     return <div key={this.state.resets}>{this.props.children}</div>;

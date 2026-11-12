@@ -14,6 +14,9 @@ import SiteHero from "./SiteHero";
 import ManifestBlock from "./ManifestBlock";
 import SiteButton from "./SiteButton";
 import SocialGalleryBoundary from "./SocialGalleryBoundary";
+import SocialGalleryFallback from "./SocialGalleryFallback";
+import TimelineSummary from "./TimelineSummary";
+import { getImageProps } from "next/image";
 import ExpertSlot from "./ExpertSlot";
 import type { Expert } from "@/lib/data/experts";
 import type { PublicVideo, PublicReel } from "@/lib/content/public-types";
@@ -96,6 +99,9 @@ export default function HomePage({
   locale?: Locale;
 }) {
   const [showAllExperts, setShowAllExperts] = useState(false);
+  const galleryReels = React.useMemo(() => reels.map(item => ({ ...item,
+    image: getImageProps({ src: item.image, alt: item.alt, width: 640, height: 930 }).props.src,
+  })), [reels]);
 
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
@@ -388,11 +394,12 @@ export default function HomePage({
       </section>
 
       {/* 3. SECTION: HORIZONTAL SCROLL TIMELINE (2016-2026) */}
-      <div id="timeline" className="cv-auto">
+      <div id="timeline">
         <LazyOnVisible
           loader={loadTimeline}
-          rootMargin="100px"
-          style={{ minHeight: "calc(100svh + 1100vh)" }}
+          rootMargin="900px"
+          className="timeline-lazy"
+          fallback={<TimelineSummary />}
         />
       </div>
 
@@ -470,9 +477,10 @@ export default function HomePage({
           <LazyOnVisible
             loader={loadCircularGallery}
             className="social-gallery"
-            rootMargin="240px"
+            rootMargin="600px"
+            fallback={<SocialGalleryFallback items={reels} />}
             componentProps={{
-              items: reels,
+              items: galleryReels,
               bend: 3,
               textColor: "#ffffff",
               borderRadius: 0.05,

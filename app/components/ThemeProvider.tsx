@@ -13,6 +13,11 @@ import {
 type Theme = "light" | "dark";
 const THEME_STORAGE_KEY = "braeutigam-theme";
 
+function rememberTheme(theme: Theme) {
+  try { window.localStorage.setItem(THEME_STORAGE_KEY, theme); }
+  catch { /* Theme switching still works when browser storage is unavailable. */ }
+}
+
 interface ThemeContextValue {
   theme: Theme;
   isDark: boolean;
@@ -54,13 +59,13 @@ export function ThemeProvider({
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);
-    window.localStorage.setItem(THEME_STORAGE_KEY, next);
+    rememberTheme(next);
   }, []);
 
   const toggleTheme = useCallback(() => {
     setThemeState(prev => {
       const next = prev === "dark" ? "light" : "dark";
-      window.localStorage.setItem(THEME_STORAGE_KEY, next);
+      rememberTheme(next);
       return next;
     });
   }, []);

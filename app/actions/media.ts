@@ -4,7 +4,7 @@ import { z } from "zod";
 import { verifySession } from "@/lib/auth/dal";
 import { prisma } from "@/lib/prisma";
 import { IMAGE_LIMIT, MEDIA_LIMIT, MEDIA_TYPES } from "@/lib/content/config";
-import { publicMediaUrl, signMediaUpload, verifyMediaObject } from "@/lib/content/storage";
+import { MediaVerificationError, publicMediaUrl, signMediaUpload, verifyMediaObject } from "@/lib/content/storage";
 
 const uploadSchema = z.object({
   filename: z.string().min(1).max(180), mime: z.enum(["image/webp", "video/mp4", "video/webm"]),
@@ -26,11 +26,11 @@ export async function beginMediaUpload(input: { filename: string; mime: string; 
 export async function finishMediaUpload(id: string) {
   await verifySession();
   if (typeof id !== "string" || id.length > 100) return { error: "Invalid upload." };
-  const asset = await prisma.mediaAsset.findUnique({ where: { id } });
-  if (!asset) return { error: "Upload was not found." };
   try {
+    const asset = await prisma.mediaAsset.findUnique({ where: { id } });
+    if (!asset) return { error: "Upload was not found." };
     await verifyMediaObject(asset);
     await prisma.mediaAsset.update({ where: { id }, data: { verifiedAt: new Date() } });
     return { url: publicMediaUrl(asset.objectKey) };
-  } catch (error) { return { error: error instanceof Error ? error.message : "Upload verification failed." }; }
+  } catch (error) { return { error: error instanceof MediaVerificationError ? error.message : "Upload verification is unavailable. Please try again." }; }
 }

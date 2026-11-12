@@ -13,7 +13,7 @@ import { useSiteLocale } from "@/lib/i18n/use-locale";
 const StaggeredMenu = dynamic(() => import("./StaggeredMenu"), { ssr: false });
 
 const controlClass =
-  "w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer border-none backdrop-blur-sm bg-zinc-900/90 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-100/90 dark:hover:bg-white dark:text-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-neon";
+  "w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-300 cursor-pointer border-none backdrop-blur-sm bg-zinc-900/90 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-100/90 dark:hover:bg-white dark:text-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-neon";
 
 /**
  * Floating top-left controls (menu, then home) and the nav overlay.

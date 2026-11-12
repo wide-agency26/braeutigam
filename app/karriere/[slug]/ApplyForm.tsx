@@ -61,6 +61,9 @@ export function ApplyForm({
       className="career-card px-5 py-6"
       aria-labelledby={`${formId}-title`}
       onSubmit={onSubmit}
+      // React resets action forms even when the server returns a validation error.
+      // Success replaces this form, so retain text and the selected CV on a retry.
+      onReset={(event) => event.preventDefault()}
     >
       <p className="career-eyebrow text-[var(--career-neon)]">{t.eyebrow}</p>
       <h2

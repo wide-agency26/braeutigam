@@ -28,9 +28,9 @@ const nextConfig: NextConfig = {
       pathname: "/storage/v1/object/public/site-media/**",
       search: "",
     }] : [],
-    // Default is ['image/webp']. AVIF is roughly 20% smaller and is preferred
-    // when the browser advertises support, with WebP as the fallback.
-    formats: ["image/avif", "image/webp"],
+    // WebP avoids the much slower first-request AVIF encoding and duplicate
+    // format caches. Responsive resizing still keeps delivered images small.
+    formats: ["image/webp"],
   },
 };
 

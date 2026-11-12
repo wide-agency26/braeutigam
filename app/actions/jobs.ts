@@ -12,7 +12,12 @@ import { fieldErrors, jobSchema, type FieldErrors } from "@/lib/validations";
 export type JobState = {
   error?: string;
   fieldErrors?: FieldErrors;
+  values?: Record<string, string>;
 };
+
+function jobFormValues(formData: FormData) {
+  return Object.fromEntries(Object.keys(jobSchema.shape).map(key => [key, String(formData.get(key) ?? "")]));
+}
 
 function readJob(formData: FormData) {
   return jobSchema.safeParse({
@@ -66,7 +71,7 @@ export async function createJob(
   await verifySession();
   const parsed = readJob(formData);
   if (!parsed.success) {
-    return { fieldErrors: fieldErrors(parsed.error) };
+    return { fieldErrors: fieldErrors(parsed.error), values: jobFormValues(formData) };
   }
 
   const slug = await uniqueSlug(parsed.data.title, async (candidate) => {
@@ -98,7 +103,7 @@ export async function updateJob(
 
   const parsed = readJob(formData);
   if (!parsed.success) {
-    return { fieldErrors: fieldErrors(parsed.error) };
+    return { fieldErrors: fieldErrors(parsed.error), values: jobFormValues(formData) };
   }
 
   // Titles can change without breaking already-shared application links.

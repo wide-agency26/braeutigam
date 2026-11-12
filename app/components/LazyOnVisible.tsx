@@ -1,12 +1,19 @@
 "use client";
 
 import {
+  Component,
   type ComponentType,
   type ReactNode,
   useEffect,
   useRef,
   useState,
 } from "react";
+
+class WidgetBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
 
 interface LazyOnVisibleProps<Props extends object> {
   /** Factory matching next/dynamic's loader shape. */
@@ -44,6 +51,7 @@ export default function LazyOnVisible<Props extends object>({
 }: LazyOnVisibleProps<Props>) {
   const ref = useRef<HTMLDivElement>(null);
   const [Comp, setComp] = useState<ComponentType<Props> | null>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -53,21 +61,28 @@ export default function LazyOnVisible<Props extends object>({
     let loading = false;
     let io: IntersectionObserver | null = null;
     let delayTimer = 0;
+    let retryTimer = 0;
+    let attempts = 0;
 
     const load = () => {
       if (loading || cancelled) return;
       loading = true;
+      attempts++;
       loader()
         .then(mod => {
           if (!cancelled) setComp(() => mod.default);
         })
         .catch(() => {
           loading = false;
+          if (cancelled) return;
+          if (attempts < 2) retryTimer = window.setTimeout(load, 1000);
+          else setFailed(true);
         });
     };
 
     const observe = () => {
       if (cancelled) return;
+      if (!("IntersectionObserver" in window)) { load(); return; }
       io = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -89,13 +104,14 @@ export default function LazyOnVisible<Props extends object>({
     return () => {
       cancelled = true;
       if (delayTimer) clearTimeout(delayTimer);
+      if (retryTimer) clearTimeout(retryTimer);
       io?.disconnect();
     };
   }, [loader, rootMargin, delayMs]);
 
   return (
-    <div ref={ref} className={className} style={style}>
-      {Comp ? <Comp {...((componentProps ?? {}) as Props)} /> : fallback}
+    <div ref={ref} className={className} style={style} data-lazy-state={Comp ? "ready" : failed ? "failed" : "waiting"}>
+      {Comp ? <WidgetBoundary fallback={fallback}><Comp {...((componentProps ?? {}) as Props)} /></WidgetBoundary> : fallback}
     </div>
   );
 }

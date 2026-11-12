@@ -110,7 +110,7 @@ export default function SiteHero({
 
       <div className="magic-rings-stage absolute inset-0 z-10 opacity-30 pointer-events-none">
         <div className="magic-rings-poster" aria-hidden="true" />
-        <LazyOnVisible
+        {reduceMotion ? null : <LazyOnVisible
           loader={loadMagicRings}
           delayMs={400}
           rootMargin="0px"
@@ -138,7 +138,7 @@ export default function SiteHero({
             parallax: 0.03,
             clickBurst: true,
           }}
-        />
+        />}
       </div>
 
       <div className="absolute z-20 top-28 left-6 hidden md:block font-mono text-[9px] font-light leading-[1.35] tracking-[0.04em] uppercase text-zinc-800 dark:text-zinc-200">

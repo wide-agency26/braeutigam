@@ -5,8 +5,10 @@ const SHOW_F1_CLAIM = false;
 
 import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, CSSProperties } from "react";
 import Image from "next/image";
-import { m, useScroll, useTransform, useMotionValueEvent, useSpring, useReducedMotion } from "framer-motion";
+import { m, useScroll, useTransform, useMotionValueEvent, useSpring } from "framer-motion";
 import SiteButton from "./SiteButton";
+import TimelineSummary from "./TimelineSummary";
+import { usePrefersReducedMotion } from "../hooks/useVisible";
 import "./HorizontalTimeline.css";
 
 const BOARD_W = 12352;
@@ -14,16 +16,7 @@ const BOARD_H = 1080;
 const HOLD = 0.08;
 const LAST_PANEL_W = 3096;
 const TICK_YEARS = ["2016", "2017", "2019", "2020", "2021", "2022", "2024", "2026"];
-const REDUCED_JOURNEY = [
-  ["2016", "Founded"],
-  ["2017", "Entry into Formula 1"],
-  ["2019", "More space"],
-  ["2020", "Monocoque construction"],
-  ["2021", "Development and manufacturing"],
-  ["2022", "Growth and recognition"],
-  ["2024", "Powered by Brabus"],
-  ["2026", "80+ experts"],
-] as const;
+
 
 function box(left: number, top: number, width: number, height: number, extra?: CSSProperties): CSSProperties {
   return { position: "absolute", left, top, width, height, ...extra };
@@ -129,10 +122,10 @@ function Board() {
     <div className="tl-board">
       {/* 2016 / 2017 — Figma Year Container 2880×1080 (screenshot 1024×384) */}
       <section className="tl-panel tl-panel--2016">
-        <Photo src="/images/timeline/figma/2016-hero.png" alt="Carbon component branded Bräutigam Carbon Fiber Works" left={774} top={66} width={692} height={692} dim crop={{ width: "100%", height: "177.47%", left: "0%", top: "0%" }} />
-        <Photo src="/images/timeline/figma/2016-thumb-1.png" alt="Carbon fiber weave with a recessed inset" left={1654} top={66} width={345} height={345} dim />
-        <Photo src="/images/timeline/figma/2016-thumb-2.png" alt="Hand sanding a carbon fiber surface" left={1654} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
-        <Photo src="/images/timeline/figma/2016-thumb-3.png" alt="Gloved hands finishing a composite part" left={1654} top={820} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2016-hero.webp" alt="Carbon component branded Bräutigam Carbon Fiber Works" left={774} top={66} width={692} height={692} dim crop={{ width: "100%", height: "177.47%", left: "0%", top: "0%" }} />
+        <Photo src="/images/timeline/figma/2016-thumb-1.webp" alt="Carbon fiber weave with a recessed inset" left={1654} top={66} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2016-thumb-2.webp" alt="Hand sanding a carbon fiber surface" left={1654} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
+        <Photo src="/images/timeline/figma/2016-thumb-3.webp" alt="Gloved hands finishing a composite part" left={1654} top={820} width={345} height={345} dim />
         <div className="tl-copy" style={box(66, 307, 550, 586.5, { gap: 32, zIndex: 12 })}>
           <p className="tl-y-xl">2016</p>
           <h3 className="tl-h-founded">FOUNDED</h3>
@@ -187,8 +180,8 @@ function Board() {
           <br />
           GROWING.
         </p>
-        <Photo src="/images/timeline/figma/2019-hall.png" alt="Production hall with autoclaves" left={566} top={307} width={800} height={533} />
-        <Photo src="/images/timeline/figma/2019-autoclave.png" alt="Open autoclave chamber" left={1570.5} top={427.5} width={900} height={700} />
+        <Photo src="/images/timeline/figma/2019-hall.webp" alt="Production hall with autoclaves" left={566} top={307} width={800} height={533} />
+        <Photo src="/images/timeline/figma/2019-autoclave.webp" alt="Open autoclave chamber" left={1570.5} top={427.5} width={900} height={700} />
         <p className="tl-meta" style={box(566, 1004, 800, 10)}>
           THREE AUTOCLAVES
         </p>
@@ -230,11 +223,11 @@ function Board() {
       <section className="tl-panel tl-panel--gallery" aria-hidden>
         <div className="tl-gallery-col">
           {[
-            "/images/timeline/figma/gallery-1.png",
-            "/images/timeline/figma/gallery-2.png",
-            "/images/timeline/figma/gallery-3.png",
-            "/images/timeline/figma/gallery-4.png",
-            "/images/timeline/figma/gallery-5.png",
+            "/images/timeline/figma/gallery-1.webp",
+            "/images/timeline/figma/gallery-2.webp",
+            "/images/timeline/figma/gallery-3.webp",
+            "/images/timeline/figma/gallery-4.webp",
+            "/images/timeline/figma/gallery-5.webp",
           ].map((src) => (
             <div key={src} className="tl-photo tl-photo--dim" style={{ width: 337.58, height: 225 }}>
               <Image src={src} alt="" fill sizes="338px" />
@@ -286,10 +279,10 @@ function Board() {
             </p>
           </div>
         </div>
-        <Photo src="/images/timeline/figma/2021-shop.png" alt="Technicians working a carbon component" left={922} top={488} width={774} height={800} />
-        <Photo src="/images/timeline/figma/2016-thumb-1.png" alt="Carbon weave detail" left={1927} top={66} width={345} height={345} dim />
-        <Photo src="/images/timeline/figma/2016-thumb-2.png" alt="Precision finishing" left={1927} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
-        <Photo src="/images/timeline/figma/2016-thumb-3.png" alt="Hand finishing a composite part" left={1927} top={820} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2021-shop.webp" alt="Technicians working a carbon component" left={922} top={488} width={774} height={800} />
+        <Photo src="/images/timeline/figma/2016-thumb-1.webp" alt="Carbon weave detail" left={1927} top={66} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2016-thumb-2.webp" alt="Precision finishing" left={1927} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
+        <Photo src="/images/timeline/figma/2016-thumb-3.webp" alt="Hand finishing a composite part" left={1927} top={820} width={345} height={345} dim />
         <div className="tl-copy" style={box(2502, 217.43, 774, 254.86, { padding: "28px 0", gap: 36 })}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%", gap: 32 }}>
             <h3 className="tl-h-award">
@@ -303,8 +296,8 @@ function Board() {
             </div>
           </div>
         </div>
-        <Photo src="/images/timeline/figma/2022-award.png" alt="Wachstums-Champion 2022" left={2574} top={643.71} width={250} height={254.86} contain plain />
-        <Photo src="/images/timeline/figma/2023-award.png" alt="Wachstums-Champion 2023" left={2954} top={643.71} width={250} height={254.86} contain plain />
+        <Photo src="/images/timeline/figma/2022-award.webp" alt="Wachstums-Champion 2022" left={2574} top={643.71} width={250} height={254.86} contain plain />
+        <Photo src="/images/timeline/figma/2023-award.webp" alt="Wachstums-Champion 2023" left={2954} top={643.71} width={250} height={254.86} contain plain />
       </section>
 
       {/* 2024–26 — Figma Year Container 3096×1080 */}
@@ -312,7 +305,7 @@ function Board() {
         <p className="tl-y-sm" style={box(1197, 66, 135, 84, { zIndex: 12, textAlign: "right" })}>
           2024
         </p>
-        <Photo src="/images/timeline/figma/2024-brabus.png" alt="Work on a Brabus grille" left={741} top={174} width={591} height={394} dim />
+        <Photo src="/images/timeline/figma/2024-brabus.webp" alt="Work on a Brabus grille" left={741} top={174} width={591} height={394} dim />
         <div className="tl-copy" style={box(132, 669, 774, 346, { gap: 32 })}>
           <div className="tl-head-stack" style={{ padding: "8px 0" }}>
             <h3 className="tl-h-light">POWERED BY</h3>
@@ -358,7 +351,7 @@ function Board() {
   );
 }
 
-export default function HorizontalTimeline() {
+function AnimatedTimeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const yearRefs = useRef<(HTMLElement | null)[]>([]);
@@ -406,7 +399,6 @@ export default function HorizontalTimeline() {
     };
   }, [measure]);
 
-  const reduceMotion = useReducedMotion();
   const x = useTransform(scrollYProgress, [0, HOLD, 1], [0, 0, travel]);
   const smoothPageProgress = useSpring(pageProgress, {
     stiffness: 80,
@@ -433,18 +425,12 @@ export default function HorizontalTimeline() {
 
   useMotionValueEvent(scrollYProgress, "change", paintYears);
 
-  useMotionValueEvent(pageProgress, "change", (latest) => {
-    if (reduceMotion) paintPct(latest);
-  });
-
-  useMotionValueEvent(smoothPageProgress, "change", (latest) => {
-    if (!reduceMotion) paintPct(latest);
-  });
+  useMotionValueEvent(smoothPageProgress, "change", paintPct);
 
   useEffect(() => {
     paintYears(scrollYProgress.get());
-    paintPct((reduceMotion ? pageProgress : smoothPageProgress).get());
-  }, [paintYears, paintPct, reduceMotion, scrollYProgress, pageProgress, smoothPageProgress]);
+    paintPct(smoothPageProgress.get());
+  }, [paintYears, paintPct, scrollYProgress, smoothPageProgress]);
 
   const progressWidth = useTransform(scrollYProgress, [HOLD, 1], ["0%", "100%"]);
 
@@ -496,18 +482,6 @@ export default function HorizontalTimeline() {
         </div>
       </section>
 
-      {reduceMotion ? (
-        <section className="site-container py-16" aria-label="Unternehmensgeschichte">
-          <ol className="grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
-            {REDUCED_JOURNEY.map(([year, title]) => (
-              <li key={year} className="border-t border-zinc-300 py-5 dark:border-zinc-700">
-                <p className="font-mono text-sm font-bold text-brand-neon">{year}</p>
-                <h3 className="mt-2 font-sans text-xl uppercase text-zinc-950 dark:text-zinc-100">{title}</h3>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ) : (
       <section ref={sectionRef} className="relative" style={{ height: "1100vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div
@@ -616,7 +590,11 @@ export default function HorizontalTimeline() {
           </div>
         </div>
       </section>
-      )}
     </>
   );
+}
+
+export default function HorizontalTimeline() {
+  const reduceMotion = usePrefersReducedMotion();
+  return reduceMotion ? <TimelineSummary /> : <AnimatedTimeline />;
 }

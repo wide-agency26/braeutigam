@@ -68,9 +68,9 @@ preparing this PR.
 
 ## Verification completed locally
 
-- `pnpm test:cms`: nine tests covering exact retention timing, advance notice,
+- `pnpm test:cms`: twelve tests covering exact retention timing, advance notice,
   failed deletion/retry, wrong-bucket rejection, media signatures, CMS validation,
-  and Instagram URL validation.
+  Instagram URL validation, upload progress, cancellation, and network failures.
 - TypeScript and the production Next.js build passed. The build used no database
   connection to avoid a disposable PGlite multi-worker limitation; the resulting
   production server was then exercised against the migrated test database.
@@ -83,8 +83,52 @@ preparing this PR.
   rows, and the unchanged 60-second signed CV download.
 - Browser check: job draft returns 404, publication makes both language routes
   available, and renaming keeps the original slug.
-- Scoped ESLint has no errors; existing raw-image warnings remain in Home and
-  Contact. No new dependencies were added.
+- Full ESLint has no errors; four existing raw-image warnings remain in Home and
+  ManifestBlock. No new dependencies were added.
+
+## Reliability and performance review (12 November)
+
+- Fixed a browser-confirmed React form-reset issue: rejected CMS content/job saves
+  now preserve editable values. A rejected public application retains its text
+  and selected CV, so the applicant can correct it without starting over.
+- Media uploads show progress and offer cancellation, permit choosing the same
+  file again, and handle network failure with a finite timeout. Server-side
+  public-media requests time out after 15 seconds. Unexpected verification
+  failures no longer expose internal database errors.
+- All 13 team cards are included in the initial HTML. Portraits remain lazy-loaded;
+  card content no longer waits for visibility detection and another JavaScript
+  chunk before appearing. This adds a modest amount of initial HTML/JavaScript
+  in exchange for removing that content waterfall.
+- Converted 16 Contact/timeline source PNGs from 50,552,629 bytes to 4,946,724 bytes
+  of WebP (90.2% smaller), limiting photos to a 2,560px edge. This is source-asset
+  size, not a claim that every page previously downloaded 50 MB. Next.js still
+  generates responsive image sizes. Social textures and video posters now use
+  the image optimizer instead of full-size CMS uploads.
+- Image delivery uses WebP. One local cold-encode sample at 1,080px took 126 ms
+  for WebP versus 812 ms for AVIF (92,614 versus 77,945 bytes). This trades a small
+  size increase for faster uncached processing; it is not a field-performance
+  benchmark. The secondary condensed font no longer preloads on every route.
+- Lazy animation chunks retry once and have readable history/linked-poster
+  fallbacks. Gallery initialization/image failures reach a component boundary
+  instead of leaving a blank canvas. Reduced-motion mode avoids decorative
+  WebGL and the timeline's long reserved scroll area. Normal animations remain.
+- Added CMS navigation loading feedback, a bilingual route error/retry screen,
+  and video playback failure feedback. Theme changes tolerate blocked local
+  storage. Contact email/coordinate text wraps at 320px without sideways overflow.
+
+Rechecked the production build, TypeScript, all 12 tests, and CMS integration
+flows against disposable local Postgres-compatible/Storage services. Closing a
+populated job preserved all three synthetic applications and returned a public
+404. Both language routes, preview noindex headers, the custom 404, and all 16
+converted asset URLs passed HTTP checks. Browser checks covered retained form
+values, photo upload/save, mobile Team and Contact, 320px navigation, language and
+theme switching, and the animated timeline/social gallery without console errors.
+Stopping the local database displayed the route error screen; restarting it and
+pressing Retry restored the CMS job list successfully.
+
+These checks do not substitute for real Supabase CORS/bucket verification,
+physical-device testing, measured production Core Web Vitals, or final copy/design
+approval. The remaining launch checks below still apply.
 
 ## Mobile review and remaining launch work
 

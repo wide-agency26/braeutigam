@@ -7,6 +7,7 @@ import type { PublicVideo } from "@/lib/content/public-types";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import Link from "next/link";
+import Image from "next/image";
 import SiteButton from "./SiteButton";
 import ConsentGate from "./ConsentGate";
 import type { Locale } from "@/lib/i18n";
@@ -304,7 +305,7 @@ export default function ContactPage({ locale = "de", video }: { locale?: Locale;
         <main id="main-content" lang={locale}>
         <section className="contact-hero" aria-label="Kontakt">
           <div className="contact-hero__media" aria-hidden="true">
-            <img className="contact-photo--hero" src="/images/contact/hero.png" alt="" />
+            <Image className="contact-photo--hero" src="/images/contact/hero.webp" alt="" fill sizes="100vw" preload />
           </div>
           <div className="contact-hero__shade" aria-hidden="true" />
 

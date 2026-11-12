@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
-import { useVisibility } from '../hooks/useVisible';
+import { usePrefersReducedMotion, useVisibility } from '../hooks/useVisible';
 import './Topography.css';
 
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -213,9 +213,10 @@ export default function Topography({
 }: TopographyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { visible } = useVisibility(containerRef);
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (!visible) return undefined;
+    if (!visible || reducedMotion) return undefined;
     const container = containerRef.current;
     if (!container) return undefined;
 
@@ -402,7 +403,7 @@ export default function Topography({
       } catch {}
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [visible]);
+  }, [visible, reducedMotion]);
 
   useEffect(() => {
     const container = containerRef.current;

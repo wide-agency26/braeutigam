@@ -8,7 +8,7 @@ import { fieldErrors, type FieldErrors } from "@/lib/validations";
 import { contentKindSchema, teamSchema, videoSchema, reelSchema, type ContentKind } from "@/lib/content/validation";
 import { publicMediaUrl } from "@/lib/content/storage";
 
-export type ContentState = { error?: string; fieldErrors?: FieldErrors };
+export type ContentState = { error?: string; fieldErrors?: FieldErrors; values?: Record<string, string | number | boolean> };
 
 async function approvedMedia(url: string, kind: "image" | "video") {
   // Existing checked-in images remain usable when editing migrated content.
@@ -31,31 +31,37 @@ export async function saveContent(_previous: ContentState, formData: FormData): 
   if (!kind.success) return { error: "Unknown content type." };
   const id = String(formData.get("id") ?? "");
   if (id.length > 100) return { error: "Invalid entry." };
-  const input = { ...Object.fromEntries(formData), published: formData.get("published") === "on", showContact: formData.get("showContact") === "on" };
+  const input: Record<string, FormDataEntryValue | boolean> = { ...Object.fromEntries(formData), published: formData.get("published") === "on", showContact: formData.get("showContact") === "on" };
+  const schema = kind.data === "team" ? teamSchema : kind.data === "videos" ? videoSchema : reelSchema;
+  // Return only editable fields, never server-action bookkeeping from FormData.
+  const values = Object.fromEntries(Object.keys(schema.shape).map(key => [key,
+    typeof input[key] === "boolean" ? input[key] : typeof input[key] === "string" ? input[key] : "",
+  ])) as NonNullable<ContentState["values"]>;
+  const failure = (state: ContentState): ContentState => ({ ...state, values });
   try {
     if (kind.data === "team") {
       const parsed = teamSchema.safeParse(input);
-      if (!parsed.success) return { fieldErrors: fieldErrors(parsed.error) };
-      if (!await approvedMedia(parsed.data.avatarUrl, "image")) return { error: "Upload and verify a portrait before saving." };
+      if (!parsed.success) return failure({ fieldErrors: fieldErrors(parsed.error) });
+      if (!await approvedMedia(parsed.data.avatarUrl, "image")) return failure({ error: "Upload and verify a portrait before saving." });
       if (id) await prisma.teamMember.update({ where: { id }, data: parsed.data });
       else await prisma.teamMember.create({ data: parsed.data });
     } else if (kind.data === "videos") {
       const parsed = videoSchema.safeParse(input);
-      if (!parsed.success) return { fieldErrors: fieldErrors(parsed.error) };
+      if (!parsed.success) return failure({ fieldErrors: fieldErrors(parsed.error) });
       const [video, poster] = await Promise.all([approvedMedia(parsed.data.videoUrl, "video"), approvedMedia(parsed.data.posterUrl, "image")]);
-      if (!video || !poster) return { error: "Upload and verify both a video and a poster before saving." };
+      if (!video || !poster) return failure({ error: "Upload and verify both a video and a poster before saving." });
       if (id) await prisma.siteVideo.update({ where: { id }, data: parsed.data });
       else await prisma.siteVideo.create({ data: parsed.data });
     } else {
       const parsed = reelSchema.safeParse(input);
-      if (!parsed.success) return { fieldErrors: fieldErrors(parsed.error) };
-      if (!await approvedMedia(parsed.data.imageUrl, "image")) return { error: "Upload and verify a reel cover before saving." };
+      if (!parsed.success) return failure({ fieldErrors: fieldErrors(parsed.error) });
+      if (!await approvedMedia(parsed.data.imageUrl, "image")) return failure({ error: "Upload and verify a reel cover before saving." });
       if (id) await prisma.socialReel.update({ where: { id }, data: parsed.data });
       else await prisma.socialReel.create({ data: parsed.data });
     }
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") return { error: "That placement or Instagram reel is already in use. Edit its existing entry." };
-    return { error: "Could not save this entry. Your changes have not been published. Please try again." };
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") return failure({ error: "That placement or Instagram reel is already in use. Edit its existing entry." });
+    return failure({ error: "Could not save this entry. Your changes have not been published. Please try again." });
   }
   refreshContent(kind.data);
   redirect(`/cms/admin/content/${kind.data}?saved=1`);

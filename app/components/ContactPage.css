@@ -684,6 +684,15 @@
     align-items: flex-start;
   }
 
+  .contact-info__value {
+    overflow-wrap: anywhere;
+  }
+
+  .contact-map header > p {
+    max-width: 100%;
+    white-space: normal;
+  }
+
   .contact-map__frame {
     height: 360px;
   }

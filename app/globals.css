@@ -157,6 +157,12 @@ body {
   contain-intrinsic-size: auto 800px;
 }
 
+/* Reserve the animated section's scroll length, but not for its static fallback. */
+.timeline-lazy[data-lazy-state="waiting"] { min-height: calc(100svh + 1100vh); }
+@media (prefers-reduced-motion: reduce) {
+  .timeline-lazy[data-lazy-state="waiting"] { min-height: 0; }
+}
+
 /* Glowing LED Pillars for Silhouette screen */
 .led-pillar {
   width: 4px;
@@ -1193,10 +1199,12 @@ body {
 .social-gallery-fallback {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 16px;
   padding: 0 40px;
-  overflow: hidden;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
 }
 
 .social-gallery-fallback a,
@@ -1205,6 +1213,7 @@ body {
   height: min(474px, 78%);
   aspect-ratio: 326 / 474;
   flex: 0 0 auto;
+  scroll-snap-align: center;
 }
 
 .social-gallery-fallback img {

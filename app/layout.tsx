@@ -34,6 +34,7 @@ const universCn = localFont({
   weight: "400",
   variable: "--font-univers-cn",
   display: "swap",
+  preload: false,
 });
 
 /* ── Font 2: DxBurst-Smooth — display/heading font ──

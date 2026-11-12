@@ -12,7 +12,7 @@
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --force",
     "postinstall": "prisma generate",
-    "test:cms": "node --import tsx --test tests/cms.test.ts"
+    "test:cms": "node --import tsx --test tests/*.test.ts"
   },
   "prisma": {
     "seed": "node --import tsx prisma/seed.ts"

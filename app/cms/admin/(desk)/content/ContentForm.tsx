@@ -9,6 +9,7 @@ export type ContentValues = Record<string, string | number | boolean>;
 const INITIAL: ContentState = {};
 export function ContentForm({ kind, values = {} }: { kind: ContentKind; values?: ContentValues }) {
   const [state, action, pending] = useActionState(saveContent, INITIAL);
+  values = { ...values, ...state.values };
   const [uploads, setUploads] = useState(0);
   const busy = (active: boolean) => setUploads(count => count + (active ? 1 : -1));
   const text = (name: string, label: string, options: { required?: boolean; multiline?: boolean; type?: string; hint?: string } = {}) => <label className="desk-field" key={name}>
@@ -19,8 +20,7 @@ export function ContentForm({ kind, values = {} }: { kind: ContentKind; values?:
     {state.fieldErrors?.[name] ? <span className="desk-error">{state.fieldErrors[name]?.[0]}</span> : null}
   </label>;
   const media = (name: string, label: string, mediaKind: "image" | "video") => <div key={name}>
-    <MediaUpload name={name} label={label} kind={mediaKind} value={String(values[name] ?? "")} onBusy={busy} />
-    {state.fieldErrors?.[name] ? <p className="desk-error">{state.fieldErrors[name]?.[0]}</p> : null}
+    <MediaUpload name={name} label={label} kind={mediaKind} value={String(values[name] ?? "")} onBusy={busy} error={state.fieldErrors?.[name]?.[0]} />
   </div>;
   return <>
     <form action={action} className="desk-form">
