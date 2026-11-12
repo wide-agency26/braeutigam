@@ -29,7 +29,7 @@ Exports sourced via Figma MCP `get_design_context` on nodes `1424:108` and `1417
 | `public/images/figma/mission-craft-1334-1880.png` | `1334:1880` | Home mission / OUR CRAFT image |
 | `public/images/timeline/figma/join-team-1360-444.png` | `1360:444` | Timeline JOIN OUR TEAM |
 | `public/images/manifest/client-939-301.png` | `939:301` | Manifest client column |
-| `public/images/figma/heading-secondary-overlay.png` | `2006:158` overlay asset | `.heading-figma-overlay` CSS |
+| (CSS only) | `2006:158` gradient overlay | `.heading-figma-overlay` — live text + neutral black→white 20% |
 
 ## Color
 

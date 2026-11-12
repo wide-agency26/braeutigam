@@ -9,4 +9,4 @@ Drop paired light/dark files here. File names must match `lib/hero-slides.ts`.
 | `superbike`| `motorbike_light.jpeg`, `motorbike_dark.jpeg` |
 | `f1`       | `f1-light.webp`, `f1-dark.webp` (legacy; disable when JPEG set is complete) |
 
-Set `enabled: true` on each slide in `lib/hero-slides.ts` after both files exist. Until the six Drive JPEGs are present, only `f1` remains active.
+Set `enabled: true` on each slide in `lib/hero-slides.ts` after both files exist. Active rotation: `offroad`, `hypercar`, `superbike` (F1 webp disabled — not in Figma `2006:132` Drive set).

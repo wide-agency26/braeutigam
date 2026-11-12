@@ -259,20 +259,16 @@ body {
 /* Heading gradient overlay — Figma hero/story/experts/social (nodes 2006:132, 2006:158) */
 .heading-figma-overlay {
   color: transparent;
+  -webkit-text-fill-color: transparent;
   background-image:
     linear-gradient(
       180deg,
       color-mix(in srgb, var(--neutral-black) 20%, transparent) 0%,
       color-mix(in srgb, var(--neutral-white) 20%, transparent) 100%
     ),
-  url("/images/figma/heading-secondary-overlay.png"),
-  linear-gradient(var(--text-default-heading), var(--text-default-heading));
-  background-size: auto, cover, auto;
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  -webkit-background-clip: text;
+    linear-gradient(var(--text-default-heading), var(--text-default-heading));
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
 
 /* Figma home hero stack gaps @ 1440: 20px logo→secondary, 8px secondary→since */

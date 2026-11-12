@@ -18,7 +18,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     dark: "/images/hero/gwagon_dark.jpeg",
     altDe: "G-Wagon Carbon als Silhouette",
     altEn: "G-Wagon carbon silhouette",
-    enabled: false,
+    enabled: true,
   },
   {
     id: "hypercar",
@@ -26,7 +26,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     dark: "/images/hero/hypercar_dark.jpeg",
     altDe: "Hypercar-Chassis als Silhouette",
     altEn: "Hypercar chassis silhouette",
-    enabled: false,
+    enabled: true,
   },
   {
     id: "superbike",
@@ -34,7 +34,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     dark: "/images/hero/motorbike_dark.jpeg",
     altDe: "Motorbike-Carbon als Silhouette",
     altEn: "Motorbike carbon silhouette",
-    enabled: false,
+    enabled: true,
   },
   {
     id: "f1",
@@ -42,7 +42,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     dark: "/images/hero/f1-dark.webp",
     altDe: "Formel-1-Fahrzeug als Silhouette in der Bräutigam-Werkstatt",
     altEn: "Formula car silhouette in the Bräutigam workshop",
-    enabled: true,
+    enabled: false,
   },
 ];
 
