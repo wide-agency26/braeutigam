@@ -77,8 +77,9 @@ function derivedCollection(key) {
   return head;
 }
 
-/** @param {Record<string, string>} vars */
-function buildBlock(vars) {
+/** @param {Record<string, string>} vars @param {{ colorsOnly?: boolean }} [opts] */
+function buildBlock(vars, opts = {}) {
+  const { colorsOnly = true } = opts;
   const lines = [];
   for (const key of Object.keys(vars).sort()) {
     const raw = vars[key];
@@ -86,7 +87,7 @@ function buildBlock(vars) {
     const name = figmaKeyToCssVar(key);
     if (isColorValue(raw)) {
       lines.push(`  ${name}: ${raw.toLowerCase()};`);
-    } else if (isDimensionValue(raw)) {
+    } else if (!colorsOnly && isDimensionValue(raw)) {
       lines.push(`  ${name}: ${raw}px;`);
     }
   }
@@ -161,6 +162,12 @@ function main() {
 
   fs.writeFileSync(OUT_APP, css);
   fs.writeFileSync(OUT_PUBLIC, css);
+
+  const writeDocs = process.argv.includes("--write-docs");
+  if (!writeDocs) {
+    console.log(`Wrote ${OUT_APP} (colors only; layout vars in app/figma-scale.css)`);
+    return;
+  }
 
   const tableRows = [];
   const allKeys = new Set([

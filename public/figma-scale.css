@@ -8,6 +8,7 @@
   --figma-design-width: 1920px;
   --figma-stack-bp: 768px;
   --scale-0: min(0px, calc(0 * min(100vw, 1920px) / 1920));
+  --scale-25: min(1px, calc(1 * min(100vw, 1920px) / 1920));
   --scale-50: min(2px, calc(2 * min(100vw, 1920px) / 1920));
   --scale-100: min(4px, calc(4 * min(100vw, 1920px) / 1920));
   --scale-200: min(8px, calc(8 * min(100vw, 1920px) / 1920));
@@ -22,9 +23,20 @@
   --scale-1050: min(52px, calc(52 * min(100vw, 1920px) / 1920));
   --scale-1100: min(64px, calc(64 * min(100vw, 1920px) / 1920));
   --scale-1200: min(72px, calc(72 * min(100vw, 1920px) / 1920));
+  --scale-1300: min(96px, calc(96 * min(100vw, 1920px) / 1920));
   --scale-1400: min(132px, calc(132 * min(100vw, 1920px) / 1920));
+  --scale-1500: min(196px, calc(196 * min(100vw, 1920px) / 1920));
+  --scale-1550: min(220px, calc(220 * min(100vw, 1920px) / 1920));
+  --scale-1600: min(264px, calc(264 * min(100vw, 1920px) / 1920));
+  --border-sizes-width-none: min(0px, calc(0 * min(100vw, 1920px) / 1920));
   --border-sizes-width-xs: min(1px, calc(1 * min(100vw, 1920px) / 1920));
   --border-sizes-width-s: min(2px, calc(2 * min(100vw, 1920px) / 1920));
+  --border-sizes-width-m: min(4px, calc(4 * min(100vw, 1920px) / 1920));
+  --border-sizes-width-l: min(8px, calc(8 * min(100vw, 1920px) / 1920));
+  --border-sizes-width-xl: min(12px, calc(12 * min(100vw, 1920px) / 1920));
+  --border-sizes-radius-none: min(0px, calc(0 * min(100vw, 1920px) / 1920));
+  --border-sizes-radius-xs: min(1px, calc(1 * min(100vw, 1920px) / 1920));
+  --border-sizes-radius-s: min(4px, calc(4 * min(100vw, 1920px) / 1920));
   --border-sizes-radius-m: min(8px, calc(8 * min(100vw, 1920px) / 1920));
   --border-sizes-radius-l: min(12px, calc(12 * min(100vw, 1920px) / 1920));
   --border-sizes-radius-xl: min(20px, calc(20 * min(100vw, 1920px) / 1920));

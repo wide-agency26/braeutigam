@@ -55,9 +55,28 @@ function renderToken(t) {
   return lines.join("\n");
 }
 
+/** @param {import('./data/figma-type-styles.json').styles[0]} t @param {{ class: string, ls: { kind: string, value: number } }} mod */
+function renderModifier(t, mod) {
+  const lsCss = scaleLetterSpacing(mod.ls);
+  return [
+    `.${mod.class} {`,
+    `  letter-spacing: ${lsCss};`,
+    `  /* modifier of .${t.id} — Figma override */`,
+    `}`,
+  ].join("\n");
+}
+
 function main() {
   const data = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
   const all = [...data.styles, ...(data.oneOff ?? [])];
+
+  const blocks = [];
+  for (const t of all) {
+    blocks.push(renderToken(t));
+    for (const mod of t.modifiers ?? []) {
+      blocks.push(renderModifier(t, mod));
+    }
+  }
 
   const header = `/**
  * Figma typography — ${DESIGN_WIDTH}px base: ${scaleCalc(1).replace(/calc\(1 /, "calc(N ")}
@@ -67,7 +86,7 @@ function main() {
 
 `;
 
-  const css = header + all.map(renderToken).join("\n\n") + "\n";
+  const css = header + blocks.join("\n\n") + "\n";
 
   for (const rel of ["app/typography-tokens.css", "public/typography-tokens.css"]) {
     fs.writeFileSync(path.join(ROOT, rel), css);

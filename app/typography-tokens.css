@@ -10,7 +10,7 @@
   font-weight: 700;
   font-size: min(100px, calc(100 * min(100vw, 1920px) / 1920));
   line-height: min(100px, calc(100 * min(100vw, 1920px) / 1920));
-  letter-spacing: calc(-4 * min(100vw, 1920px) / 1920);
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -50,7 +50,22 @@
   font-weight: 400;
   font-size: min(332px, calc(332 * min(100vw, 1920px) / 1920));
   line-height: min(232px, calc(232 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(8 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.decorative-primary--wide {
   letter-spacing: calc(14 * min(100vw, 1920px) / 1920);
+  /* modifier of .decorative-primary — Figma override */
+}
+
+.decorative-secondary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(72px, calc(72 * min(100vw, 1920px) / 1920));
+  line-height: min(84px, calc(84 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(4 * min(100vw, 1920px) / 1920);
   text-transform: uppercase;
 }
 
@@ -62,6 +77,15 @@
   line-height: min(48px, calc(48 * min(100vw, 1920px) / 1920));
   letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
   text-transform: uppercase;
+}
+
+.copy-body-lg {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 400;
+  font-size: min(28px, max(14px, calc(28 * min(100vw, 1920px) / 1920)));
+  line-height: min(38px, max(14px, calc(38 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
 }
 
 .copy-body {
@@ -89,6 +113,7 @@
   font-size: min(12px, max(14px, calc(12 * min(100vw, 1920px) / 1920)));
   line-height: min(18px, max(14px, calc(18 * min(100vw, 1920px) / 1920)));
   letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .copy-tiny {
@@ -98,6 +123,7 @@
   font-size: min(10px, max(10px, calc(10 * min(100vw, 1920px) / 1920)));
   line-height: min(12px, max(10px, calc(12 * min(100vw, 1920px) / 1920)));
   letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
 }
 
 .button-body-lg {
@@ -137,7 +163,6 @@
   font-size: min(56px, calc(56 * min(100vw, 1920px) / 1920));
   line-height: min(48px, calc(48 * min(100vw, 1920px) / 1920));
   letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
-  text-transform: uppercase;
 }
 
 .footer-decorative-secondary {
@@ -147,7 +172,6 @@
   font-size: min(24px, calc(24 * min(100vw, 1920px) / 1920));
   line-height: min(32px, calc(32 * min(100vw, 1920px) / 1920));
   letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
-  text-transform: uppercase;
 }
 
 .team-card-primary {
@@ -157,7 +181,6 @@
   font-size: min(32px, calc(32 * min(100vw, 1920px) / 1920));
   line-height: min(36px, calc(36 * min(100vw, 1920px) / 1920));
   letter-spacing: calc(-1 * min(100vw, 1920px) / 1920);
-  text-transform: uppercase;
 }
 
 .manifest-title-univers {
