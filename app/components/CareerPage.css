@@ -442,7 +442,7 @@
     margin-inline: auto;
   }
   .crew-hero__mark {
-    bottom: clamp(7rem, 34vh, 12rem);
+    bottom: max(7rem, 38vh);
     transform: translateX(-50%);
   }
   .crew-job {

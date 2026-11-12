@@ -23,17 +23,13 @@ export default function SiteFooter() {
   const { isDark } = useTheme();
   const locale = useSiteLocale();
 
+  /** Figma 2006:809 / 2006:810 — dark green wave plate + 20% black overlay (light home too). */
   const waveColors = useMemo(() => {
     const neon = readCssVarColor("--colors-greeeen", "#00ff00");
     const secondary = readCssVarColor("--surface-pages-page-secondary", "#1f2020");
-    const page = readCssVarColor("--surface-pages-page", "#f0f0f0");
     const ink = readCssVarColor("--neutral-black", "#131414");
-    if (isDark) {
-      return { color1: neon, color2: secondary, color3: ink, brightness: 0.3 };
-    }
-    /* Figma 2006:809 / 2006:810 — neon waves, page secondary, 20% black overlay */
-    return { color1: neon, color2: page, color3: ink, brightness: 0.3 };
-  }, [isDark]);
+    return { color1: neon, color2: secondary, color3: ink, brightness: 0.3 };
+  }, []);
 
   return (
     <footer className="footer-figma-section cv-auto">
@@ -46,7 +42,9 @@ export default function SiteFooter() {
         aria-hidden
       />
 
-      <div className="absolute inset-0 z-0">
+      <div
+        className={`absolute inset-0 z-0 ${isDark ? "" : "bg-[var(--neutral-black)]"}`}
+      >
         <LazyOnVisible
           loader={loadLineWaves}
           rootMargin="100px"
