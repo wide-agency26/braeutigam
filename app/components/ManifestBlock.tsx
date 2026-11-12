@@ -84,8 +84,7 @@ export default function ManifestBlock() {
     <section id="craft-technology" className="manifest-section cv-auto relative" lang="de">
       <div
         className="manifest-section__waves"
-        data-figma-node="manifest-line-waves"
-        data-figma-node-dark="manifest-line-waves"
+        data-rebuild-layer="LineWaves"
         aria-hidden
       >
         <LazyOnVisible
@@ -113,14 +112,26 @@ export default function ManifestBlock() {
         <FigmaWrap light="2006:220" dark="937:253" className="manifest-stage">
           <FigmaWrap light="2006:221" dark="1330:881" className="manifest-stack">
             <FigmaWrap light="2006:222" dark="1330:737" className="manifest-hud copy-tiny">
-              <p className="manifest-hud__title">*** CLIENT OVERVIEW ***</p>
-              <div className="manifest-hud__row" data-figma-node="2006:224" data-figma-node-dark="1330:740">
-                <span className="manifest-hud__label">CLIENT COUNT:</span>
-                <span className="manifest-hud__accent">265</span>
-              </div>
-              <div className="manifest-hud__row" data-figma-node="2006:227" data-figma-node-dark="1330:744">
-                <span className="manifest-hud__label">CLIENT NAMEs:</span>
-                <span className="manifest-hud__denied">ACCESS DENIED</span>
+              <p className="manifest-hud__title" data-figma-node="2006:223" data-figma-node-dark="1330:738">
+                *** CLIENT OVERVIEW ***
+              </p>
+              <div className="manifest-hud__pairs">
+                <div className="manifest-hud__row" data-figma-node="2006:224" data-figma-node-dark="1330:740">
+                  <span className="manifest-hud__label" data-figma-node="2006:225" data-figma-node-dark="1330:741">
+                    CLIENT COUNT:
+                  </span>
+                  <span className="manifest-hud__accent" data-figma-node="2006:226" data-figma-node-dark="1330:742">
+                    265
+                  </span>
+                </div>
+                <div className="manifest-hud__row" data-figma-node="2006:227" data-figma-node-dark="1330:744">
+                  <span className="manifest-hud__label" data-figma-node="2006:228" data-figma-node-dark="1330:745">
+                    CLIENT NAMEs:
+                  </span>
+                  <span className="manifest-hud__denied" data-figma-node="2006:229" data-figma-node-dark="1330:746">
+                    ACCESS DENIED
+                  </span>
+                </div>
               </div>
               <p className="manifest-hud__label" data-figma-node="2006:231" data-figma-node-dark="1330:748">
                 ... Waiting for user input
@@ -140,7 +151,7 @@ export default function ManifestBlock() {
 
           <FigmaWrap light="2006:234" dark="939:278" className="manifest-lead">
             <FigmaWrap light="2006:235" dark="937:265" className="manifest-headline-block">
-              <p className="manifest-title-univers heading-figma-overlay">UNSERE KUNDEN:</p>
+              <p className="manifest-title-univers">UNSERE KUNDEN:</p>
               <p className="manifest-title-bootzy">höchste </p>
               <p className="manifest-title-bootzy">anforderungen.</p>
             </FigmaWrap>
@@ -156,7 +167,7 @@ export default function ManifestBlock() {
 
           <FigmaWrap light="2006:237" dark="939:279" className="manifest-principle">
             <FigmaWrap light="2006:238" dark="939:280" className="manifest-headline-block">
-              <p className="manifest-title-univers heading-figma-overlay">Unser Grundsatz:</p>
+              <p className="manifest-title-univers">Unser Grundsatz:</p>
               <p className="manifest-title-bootzy">KOMPLEX, SCHNELL, </p>
               <p className="manifest-title-bootzy">INOUSE</p>
             </FigmaWrap>
@@ -164,7 +175,9 @@ export default function ManifestBlock() {
 
           <FigmaWrap light="2006:239" dark="945:53" className="manifest-mission">
             <FigmaWrap light="2006:240" dark="1330:747" className="manifest-hud manifest-hud--mission copy-tiny">
-              <p className="manifest-hud__title">*** Mission statement ***</p>
+              <p className="manifest-hud__title" data-figma-node="2006:241" data-figma-node-dark="1330:750">
+                *** MISSION STATEMENT ***
+              </p>
               <div
                 className="manifest-hud__details"
                 data-figma-node="2006:242"

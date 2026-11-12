@@ -1,0 +1,196 @@
+/* Micrographic strips — 2006:162 / 971:52 (78px) and 2006:287 / 1330:1118 (118px) */
+
+.manifest-micro {
+  width: min(100%, 1920px);
+  margin-inline: auto;
+}
+
+.manifest-micro__strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: calc(16 * min(100vw, 1920px) / 1920);
+  padding-inline: calc(64 * min(100vw, 1920px) / 1920);
+  box-sizing: border-box;
+}
+
+.manifest-micro__strip--top {
+  min-height: calc(78 * min(100vw, 1920px) / 1920);
+  align-items: center;
+}
+
+.manifest-micro__strip--bottom {
+  min-height: calc(118 * min(100vw, 1920px) / 1920);
+  align-items: stretch;
+}
+
+.manifest-micro__col--start {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * min(100vw, 1920px) / 1920);
+  align-items: flex-start;
+}
+
+.manifest-micro__col--center {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+}
+
+.manifest-micro__col--end {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__col--stats {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+}
+
+.manifest-micro__stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: calc(1792 * min(100vw, 1920px) / 1920);
+  padding-block: calc(12 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__stack-tight {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__stack-loose {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * min(100vw, 1920px) / 1920);
+  width: 100%;
+}
+
+.manifest-micro__stack-12 {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * min(100vw, 1920px) / 1920);
+  align-items: flex-start;
+}
+
+.manifest-micro__credit-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: calc(12 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__body {
+  margin: 0;
+  color: var(--text-default-body);
+}
+
+.manifest-micro__caption {
+  color: var(--text-default-caption);
+}
+
+.manifest-micro__placeholder {
+  margin: 0;
+  color: var(--text-default-placeholder);
+}
+
+.manifest-micro__accent {
+  margin: 0;
+  color: var(--text-default-accent);
+}
+
+.manifest-micro__accent-subtle {
+  margin: 0;
+  color: var(--text-default-accent-subtle);
+}
+
+.manifest-micro__amber {
+  margin: 0;
+  color: var(--text-default-accent-secondary);
+}
+
+.manifest-micro__core-label {
+  flex: none;
+  text-align: center;
+}
+
+.manifest-micro__pills {
+  display: flex;
+  align-items: center;
+  gap: calc(28 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(8 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__pill-icon {
+  display: block;
+  width: calc(40 * min(100vw, 1920px) / 1920);
+  height: auto;
+}
+
+.manifest-micro__pill-label {
+  color: var(--text-default-caption);
+  text-align: center;
+}
+
+.manifest-micro__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(16 * min(100vw, 1920px) / 1920);
+  text-align: center;
+}
+
+.manifest-micro__stat-svg {
+  width: calc(50 * min(100vw, 1920px) / 1920);
+  height: calc(50 * min(100vw, 1920px) / 1920);
+  color: var(--icon-default-caption, var(--text-default-caption));
+}
+
+.manifest-micro__stat-img {
+  display: block;
+  width: calc(50 * min(100vw, 1920px) / 1920);
+  height: auto;
+}
+
+.manifest-micro__stat-copy {
+  margin: 0;
+  color: var(--text-default-caption);
+  line-height: calc(14 * min(100vw, 1920px) / 1920);
+}
+
+@media (max-width: 1100px) {
+  .manifest-micro__strip {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+    padding-inline: 20px;
+  }
+
+  .manifest-micro__col--center,
+  .manifest-micro__col--end,
+  .manifest-micro__col--start {
+    grid-column: 1;
+  }
+
+  .manifest-micro__col--end {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .manifest-micro__stats {
+    flex-direction: column;
+    gap: 22px;
+  }
+}

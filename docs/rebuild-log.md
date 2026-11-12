@@ -21,7 +21,7 @@ Light home: `2006:131` · Dark home: `934:241`
 | Section | Figma node | Commit | QA | Notes |
 |---------|------------|--------|-----|-------|
 | Hero | `2006:132` / `934:242` | `cc837ed` + fix-ups | all PASS ±4px @1920 | `/` + `/en`: `pickRandomHeroSlide` (gwagon/hypercar/motorbike JPEGs; F1 off). Figma grid/HUD unchanged; **MagicRings** kept (see interactive layers). **SINCE 2016:** `38px` @1920 lh/height for QA. Nav in `SiteChrome` only. |
-| Main Image | `2006:220` / `937:253` | `dfdb62c` | all PASS ±4px @1920 light+dark | `manifest-title-univers` + `manifest-title-bootzy`; `heading-figma-overlay` on Univers lines. Headline QA box **341px** h. Grid rows **699/444/571**. HUD bars `2006:162–287` not in DOM. **LineWaves** behind section (fix-up). Assets `public/images/manifest/figma/*` @2x MCP. |
+| Main Image | `2006:220` / `937:253` | `dfdb62c` + fix-up | all PASS ±4px @1920 | Headlines **316px** h; client HUD **140+140** cols @ x204; mission **280×168** @ y861; BL slot **450×450**; micro **`2006:162`** (78px) / **`2006:287`** (118px); **`LineWaves`** `data-rebuild-layer`. MCP image fills re-exported. |
 | CAD / story | `2006:304`+ | — | — | pending |
 | Mission | `989:2` | — | — | pending |
 | Journey | timeline frames | — | — | pending |

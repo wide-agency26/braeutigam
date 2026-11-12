@@ -12,6 +12,7 @@ import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
 import ManifestBlock from "./ManifestBlock";
+import { ManifestMicrographicBottom, ManifestMicrographicTop } from "./ManifestMicrographic";
 import SiteButton from "./SiteButton";
 import SocialGalleryBoundary from "./SocialGalleryBoundary";
 import ExpertSlot from "./ExpertSlot";
@@ -177,8 +178,11 @@ export default function HomePage({
       {/* 1. HERO / LANDING SECTION — shared with /karriere */}
       <SiteHero scrollTarget="#story" slide={heroSlide} locale={locale} />
 
+      <ManifestMicrographicTop />
 
       <ManifestBlock />
+
+      <ManifestMicrographicBottom />
 
       {/* 2. SECTION: SEAMLESS EVOLUTION SCROLLYTELLING (CAD -> Autoclave -> Finished Product) */}
       <section id="story" ref={scrollyRef} className="cv-auto relative h-[300vh]">

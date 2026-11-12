@@ -75,11 +75,18 @@
   color: var(--text-default-body);
 }
 
-.manifest-hud__row {
+.manifest-hud__pairs {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: calc(12 / 1920 * 100cqi);
+  width: 100%;
+}
+
+.manifest-hud__row {
+  display: grid;
+  grid-template-columns: calc(140 / 1920 * 100cqi) calc(140 / 1920 * 100cqi);
+  column-gap: 0;
+  align-items: center;
   margin: 0;
   width: 100%;
 }
@@ -92,28 +99,26 @@
 .manifest-hud__accent {
   margin: 0;
   color: var(--text-default-accent);
-  text-align: right;
+  text-align: left;
 }
 
 .manifest-hud__denied {
   margin: 0;
   color: var(--text-default-accent-subtle-secondary);
-  text-align: right;
+  text-align: left;
 }
 
 .manifest-headline-block {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(12 / 1920 * 100cqi);
+  gap: 0;
   width: 100%;
   text-align: center;
 }
 
-.manifest-stage .manifest-title-univers.heading-figma-overlay {
-  padding-block: 0.3em;
-  margin-block: -0.3em;
-  box-sizing: content-box;
+.manifest-stage .manifest-title-univers {
+  color: var(--text-default-heading);
   max-width: none;
   width: 100%;
 }
@@ -156,10 +161,12 @@
 .manifest-row2-spacer {
   grid-column: 1;
   grid-row: 2;
-  justify-self: end;
-  align-self: stretch;
+  justify-self: start;
+  align-self: start;
   width: calc(350 / 1920 * 100cqi);
-  min-height: 1px;
+  height: calc(571 / 1920 * 100cqi);
+  margin-top: calc((659 - 787) / 1920 * 100cqi);
+  min-height: 0;
 }
 
 .manifest-bottom {
@@ -226,7 +233,7 @@
   align-items: flex-start;
   overflow: clip;
   width: calc(450 / 1920 * 100cqi);
-  height: calc(560 / 1920 * 100cqi);
+  height: calc(450 / 1920 * 100cqi);
   flex: none;
 }
 
@@ -253,21 +260,25 @@
 .manifest-mission {
   grid-column: 5;
   grid-row: 2;
-  align-self: center;
-  justify-self: stretch;
+  align-self: start;
+  justify-self: end;
+  margin-top: calc((861 - 787) / 1920 * 100cqi);
   position: relative;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: calc(280 / 1920 * 100cqi);
   min-width: 0;
 }
 
 .manifest-hud--mission {
-  align-items: flex-end;
-  text-align: right;
-  max-width: calc(280 / 1920 * 100cqi);
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  max-width: none;
+  min-height: calc(168 / 1920 * 100cqi);
 }
 
 .manifest-hud__details {

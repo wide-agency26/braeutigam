@@ -2,7 +2,7 @@
   "designWidth": 1920,
   "designHeight": 1080,
   "tolerancePx": 4,
-  "baseUrl": "http://127.0.0.1:3000",
+  "baseUrl": "http://127.0.0.1:3001",
   "sections": {
     "hero": {
       "scrollY": 0,
@@ -58,8 +58,20 @@
         }
       ]
     },
-    "manifest": {
+    "manifest-micro-top": {
       "scrollY": 1080,
+      "anchor": "[data-figma-node=\"2006:162\"]",
+      "targets": [
+        {
+          "label": "Micrographic top",
+          "figmaNodeId": "2006:162",
+          "selector": "[data-figma-node=\"2006:162\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 78 }
+        }
+      ]
+    },
+    "manifest": {
+      "scrollY": 1158,
       "anchor": "[data-figma-node=\"2006:220\"]",
       "targets": [
         {
@@ -72,13 +84,37 @@
           "label": "Customer headline",
           "figmaNodeId": "2006:235",
           "selector": "[data-figma-node=\"2006:235\"]",
-          "figma": { "x": 426, "y": 200, "w": 1069, "h": 341 }
+          "figma": { "x": 426, "y": 200, "w": 1069, "h": 316 }
         },
         {
           "label": "Principle headline",
           "figmaNodeId": "2006:238",
           "selector": "[data-figma-node=\"2006:238\"]",
-          "figma": { "x": 426, "y": 787, "w": 1069, "h": 341 }
+          "figma": { "x": 426, "y": 787, "w": 1069, "h": 316 }
+        },
+        {
+          "label": "CLIENT COUNT value",
+          "figmaNodeId": "2006:226",
+          "selector": "[data-figma-node=\"2006:226\"]",
+          "figma": { "x": 204, "y": 97, "w": 140, "h": 14 }
+        },
+        {
+          "label": "Mission HUD",
+          "figmaNodeId": "2006:240",
+          "selector": "[data-figma-node=\"2006:240\"]",
+          "figma": { "x": 1576, "y": 861, "w": 280, "h": 168 }
+        },
+        {
+          "label": "Row 2 spacer",
+          "figmaNodeId": "2006:246",
+          "selector": "[data-figma-node=\"2006:246\"]",
+          "figma": { "x": 64, "y": 659, "w": 350, "h": 571 }
+        },
+        {
+          "label": "BL image container",
+          "figmaNodeId": "2006:248",
+          "selector": "[data-figma-node=\"2006:248\"]",
+          "figma": { "x": 64, "y": 1247, "w": 450, "h": 450 }
         },
         {
           "label": "TL carbon",
@@ -103,6 +139,18 @@
           "figmaNodeId": "2006:286",
           "selector": "[data-figma-node=\"2006:286\"]",
           "figma": { "x": 1156, "y": 1247, "w": 707, "h": 715 }
+        }
+      ]
+    },
+    "manifest-micro-bottom": {
+      "scrollY": 3048,
+      "anchor": "[data-figma-node=\"2006:287\"]",
+      "targets": [
+        {
+          "label": "Micrographic bottom",
+          "figmaNodeId": "2006:287",
+          "selector": "[data-figma-node=\"2006:287\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 118 }
         }
       ]
     }
