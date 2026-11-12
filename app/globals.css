@@ -923,7 +923,7 @@ body {
   margin-top: calc(20 * 100vw / 1440);
   line-height: max(12px, calc(12 * 100vw / 1440));
   text-align: center;
-  color: var(--text-default-caption);
+  color: #a1a1a1;
 }
 
 .footer-figma__address-link {

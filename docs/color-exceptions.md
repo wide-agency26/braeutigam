@@ -110,3 +110,7 @@ Format: `` `app/path/file.ext:line` — reason ``
 - `app/components/NotchedBorderGlow.css:100` — card body elevation shadow
 - `app/components/NotchedBorderGlow.css:101` — card body elevation shadow
 - `app/components/NotchedBorderGlow.css:102` — card body elevation shadow
+
+## Footer address (dark plate, both themes)
+
+- `app/globals.css:926` — footer `.copy-tiny` address matches Figma caption on dark plate (#a1a1a1)
