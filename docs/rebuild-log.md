@@ -33,7 +33,7 @@ Light home: `2006:131` · Dark home: `934:241`
 
 | Layer | Frame / placement | Commit note |
 |-------|-------------------|-------------|
-| **MagicRings** | Hero `2006:132` / `934:242` — `hero-figma__rings`, z-index 1 behind HUD grid | Always on; colors from `--colors-greeeen` + placeholder token via `readCssVarColor` |
+| **MagicRings** | Hero — `data-rebuild-layer="MagicRings"`, z-index 1, `pointer-events: none` | Component file from **`e7ee9f5`** (pre-rebuild); props match `style/light-mode-figma-v2` (`followMouse`, `clickBurst`, speed 0.4, opacity 0.5) |
 | **Topography** | Story `#story` sticky viewport — `cad-topo-stage` | Always on; elevation colors from `--text-default-accent*` + `--colors-greeeen` |
 | **LineWaves (manifest)** | Main Image `2006:220` / `937:253` — `manifest-section__waves`, z-index 0 | Behind Figma grid only; no pointer events |
 | **LineWaves (footer)** | Footer (unchanged) | `SiteFooter` — existing lazy canvas |

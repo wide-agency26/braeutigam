@@ -60,10 +60,9 @@ export default function SiteHero({
 
   const ringColors = useMemo(
     () => ({
-      color: readCssVarColor("--colors-greeeen", "#00ff00"),
+      color: readCssVarColor("--colors-greeeen"),
       colorTwo: readCssVarColor(
         isDark ? "--icon-default-placeholder" : "--text-default-placeholder",
-        isDark ? "#717272" : "#1f2020",
       ),
     }),
     [isDark],
@@ -108,8 +107,7 @@ export default function SiteHero({
 
       <div
         className="hero-figma__rings magic-rings-stage hero-figma__rings--on"
-        data-figma-node="hero-magic-rings"
-        data-figma-node-dark="hero-magic-rings"
+        data-rebuild-layer="MagicRings"
         aria-hidden
       >
         <div className="magic-rings-poster" />
@@ -135,6 +133,11 @@ export default function SiteHero({
             ringGap: 1.35,
             fadeIn: 0.8,
             fadeOut: 0.4,
+            followMouse: true,
+            mouseInfluence: 0.25,
+            hoverScale: 1.15,
+            parallax: 0.03,
+            clickBurst: true,
           }}
         />
       </div>

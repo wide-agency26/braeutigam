@@ -72,9 +72,9 @@ export default function ManifestBlock() {
   const { isDark } = useTheme();
   const waveColors = useMemo(
     () => ({
-      color1: readCssVarColor("--colors-greeeen", "#00ff00"),
-      color2: readCssVarColor("--neutral-black", "#131414"),
-      color3: readCssVarColor("--text-default-placeholder", "#717272"),
+      color1: readCssVarColor("--text-default-accent"),
+      color2: readCssVarColor("--text-default-accent-subtle"),
+      color3: readCssVarColor("--text-default-accent"),
       brightness: isDark ? 0.28 : 0.85,
     }),
     [isDark],

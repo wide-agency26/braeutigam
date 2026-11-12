@@ -124,14 +124,14 @@ export default function HomePage({
   const { isDark } = useTheme();
   const [showAllExperts, setShowAllExperts] = useState(false);
 
-  const topographyColors = useMemo(
-    () => ({
-      lowColor: readCssVarColor("--text-default-accent-subtle", isDark ? "#006600" : "#009900"),
-      midColor: readCssVarColor("--text-default-accent", isDark ? "#00ff00" : "#009900"),
-      highColor: readCssVarColor("--colors-greeeen", "#00ff00"),
-    }),
-    [isDark],
-  );
+  const topographyColors = useMemo(() => {
+    void isDark;
+    return {
+      lowColor: readCssVarColor("--text-default-accent-subtle"),
+      midColor: readCssVarColor("--text-default-accent"),
+      highColor: readCssVarColor("--colors-greeeen"),
+    };
+  }, [isDark]);
 
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
