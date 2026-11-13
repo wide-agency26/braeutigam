@@ -31,7 +31,8 @@ if (!bypass) {
   process.exit(1);
 }
 
-const extra = process.argv.slice(3);
+const rawExtra = process.argv.slice(3);
+const extra = rawExtra[0] === "--" ? rawExtra.slice(1) : rawExtra;
 const qaArgs = ["figma:qa", "--base", preview, ...extra];
 const r = spawnSync("pnpm", qaArgs, {
   cwd: ROOT,

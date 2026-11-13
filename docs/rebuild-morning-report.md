@@ -1,7 +1,7 @@
 # Rebuild morning report (fidelity pass)
 
 **Branch:** `rebuild/figma-1920`  
-**Latest hash:** `2530220` (+ cleanup `HEAD`) — geometry QA pass local @127.0.0.1: hero, manifest, manifest-micro-bottom, story, mission (light)
+**Latest hash:** `3ba865d` — geometry 0 FAIL: hero (preview + local), manifest, manifest-micro-bottom, story, mission @ light
 
 ## QA report format
 
