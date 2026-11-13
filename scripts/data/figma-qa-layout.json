@@ -73,6 +73,24 @@
           "figmaNodeId": "2006:162",
           "selector": "[data-figma-node=\"2006:162\"]",
           "figma": { "x": 0, "y": 0, "w": 1920, "h": 78 }
+        },
+        {
+          "label": "ACCESS GRANTED",
+          "figmaNodeId": "2006:170",
+          "selector": "[data-figma-node=\"2006:170\"]",
+          "figma": { "x": 64, "y": 32, "w": 110, "h": 14 }
+        },
+        {
+          "label": "FOUND core values",
+          "figmaNodeId": "2006:166",
+          "selector": "[data-figma-node=\"2006:166\"]",
+          "figma": { "x": 667, "y": 48, "w": 238, "h": 14 }
+        },
+        {
+          "label": "Core values row",
+          "figmaNodeId": "2006:178",
+          "selector": "[data-figma-node=\"2006:178\"]",
+          "figma": { "x": 1270, "y": 0, "w": 586, "h": 62 }
         }
       ]
     },
@@ -111,6 +129,12 @@
           "figma": { "x": 1510, "y": 861, "w": 346, "h": 168 }
         },
         {
+          "label": "Mission title",
+          "figmaNodeId": "2006:241",
+          "selector": "[data-figma-node=\"2006:241\"]",
+          "figma": { "x": 1576, "y": 861, "w": 280, "h": 14 }
+        },
+        {
           "label": "Mission HUD",
           "figmaNodeId": "2006:240",
           "selector": "[data-figma-node=\"2006:240\"]",
@@ -132,13 +156,13 @@
           "label": "TL carbon slot",
           "figmaNodeId": "2006:232",
           "selector": "[data-figma-node=\"2006:232\"]",
-          "figma": { "x": 64, "y": 293, "w": 346, "h": 350 }
+          "figma": { "x": 64, "y": 435, "w": 346, "h": 350 }
         },
         {
           "label": "TL carbon",
           "figmaNodeId": "2006:233",
           "selector": "[data-figma-node=\"2006:233\"]",
-          "figma": { "x": 64, "y": 293, "w": 346, "h": 350 }
+          "figma": { "x": 64, "y": 435, "w": 346, "h": 350 }
         },
         {
           "label": "TR CLK GTR",
@@ -175,6 +199,12 @@
           "figmaNodeId": "2006:288",
           "selector": "[data-figma-node=\"2006:288\"]",
           "figma": { "x": 667, "y": 0, "w": 587, "h": 118 }
+        },
+        {
+          "label": "Stats row",
+          "figmaNodeId": "2006:289",
+          "selector": "[data-figma-node=\"2006:289\"]",
+          "figma": { "x": 667, "y": -4, "w": 587, "h": 126 }
         }
       ]
     },

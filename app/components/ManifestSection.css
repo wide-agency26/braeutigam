@@ -8,14 +8,6 @@
   isolation: isolate;
 }
 
-.manifest-section__waves {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
 .manifest-frame {
   position: relative;
   z-index: 1;
@@ -53,13 +45,14 @@
   min-width: 0;
 }
 
-.manifest-tl-slot {
-  display: flex;
-  flex-direction: column;
+.manifest-carbon-slot {
+  position: absolute;
+  left: calc(64 / 1920 * 100cqi);
+  top: calc(435 / 1920 * 100cqi);
   width: calc(346 / 1920 * 100cqi);
   height: calc(350 / 1920 * 100cqi);
   overflow: clip;
-  flex: none;
+  z-index: 1;
 }
 
 .manifest-hud {
@@ -75,6 +68,11 @@
 .manifest-hud__title {
   margin: 0;
   color: var(--text-default-body);
+}
+
+.manifest-hud__title--mission {
+  width: calc(280 / 1920 * 100cqi);
+  max-width: calc(280 / 1920 * 100cqi);
 }
 
 .manifest-hud__pairs {
@@ -212,14 +210,6 @@
   height: 100%;
 }
 
-.manifest-photo__crop {
-  position: absolute;
-  width: 111.71%;
-  height: 139.64%;
-  left: -5.86%;
-  top: -19.82%;
-}
-
 .manifest-photo--tr {
   grid-column: 5;
   grid-row: 1;
@@ -339,9 +329,11 @@
   }
 
   .manifest-photo--tl,
-  .manifest-tl-slot {
+  .manifest-carbon-slot {
+    position: static;
     height: auto;
     aspect-ratio: 346 / 350;
+    width: 100%;
   }
 
   .manifest-photo--tr,

@@ -1,17 +1,12 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import Image, { type StaticImageData } from "next/image";
-import dynamic from "next/dynamic";
-import { useTheme } from "./ThemeProvider";
-import { readCssVarColor } from "@/lib/css-var-color";
 import tlCarbon from "../../public/images/manifest/figma/tl-carbon-939-297.png";
 import trClk from "../../public/images/manifest/figma/tr-clk-939-301.png";
 import blPrecision from "../../public/images/manifest/figma/bl-precision-1330-1356.png";
 import brAutoclave from "../../public/images/manifest/figma/br-autoclave-1330-1362.png";
 import "./ManifestSection.css";
-
-const LineWaves = dynamic(() => import("./LineWaves"), { ssr: false });
 
 const PHOTO_SIZES = {
   tl: "(max-width: 1100px) 100vw, 346px",
@@ -48,38 +43,21 @@ function ManifestPhoto({
   area,
   light,
   dark,
-  crop,
 }: {
   src: StaticImageData;
   alt: string;
   area: keyof typeof PHOTO_SIZES;
   light: string;
   dark: string;
-  crop?: boolean;
 }) {
-  const image = (
-    <Image src={src} alt={alt} fill className="object-cover" sizes={PHOTO_SIZES[area]} />
-  );
-
   return (
     <FigmaWrap light={light} dark={dark} className={`manifest-photo manifest-photo--${area}`}>
-      {crop ? <div className="manifest-photo__crop">{image}</div> : image}
+      <Image src={src} alt={alt} fill className="object-cover" sizes={PHOTO_SIZES[area]} />
     </FigmaWrap>
   );
 }
 
 export default function ManifestBlock() {
-  const { isDark } = useTheme();
-  const waveColors = useMemo(
-    () => ({
-      color1: readCssVarColor("--text-default-accent"),
-      color2: readCssVarColor("--text-default-accent-subtle"),
-      color3: readCssVarColor("--text-default-accent"),
-      brightness: isDark ? 0.55 : 0.85,
-    }),
-    [isDark],
-  );
-
   return (
     <section
       id="craft-technology"
@@ -88,30 +66,6 @@ export default function ManifestBlock() {
       data-figma-node="2006:220"
       data-figma-node-dark="937:253"
     >
-      <div
-        className="manifest-section__waves"
-        data-rebuild-layer="LineWaves"
-        aria-hidden
-      >
-        <div className="absolute inset-0">
-          <LineWaves
-          speed={0.1}
-          innerLineCount={35}
-          outerLineCount={20}
-          warpIntensity={1.0}
-          rotation={59}
-          edgeFadeWidth={0.05}
-          colorCycleSpeed={0}
-          brightness={waveColors.brightness}
-          color1={waveColors.color1}
-          color2={waveColors.color2}
-          color3={waveColors.color3}
-          enableMouseInteraction={false}
-          mouseInfluence={0}
-          initWhenMounted
-        />
-        </div>
-      </div>
       <div className="manifest-frame">
         <div className="manifest-stage">
           <FigmaWrap light="2006:221" dark="1330:881" className="manifest-stack">
@@ -141,16 +95,16 @@ export default function ManifestBlock() {
                 ... Waiting for user input
               </p>
             </FigmaWrap>
-            <FigmaWrap light="2006:232" dark="1330:818" className="manifest-tl-slot manifest-tl-slot--carbon">
-              <ManifestPhoto
-                src={tlCarbon}
-                alt="Carbon fiber weave through a circular aperture"
-                area="tl"
-                light="2006:233"
-                dark="939:297"
-                crop
-              />
-            </FigmaWrap>
+          </FigmaWrap>
+
+          <FigmaWrap light="2006:232" dark="1330:818" className="manifest-carbon-slot">
+            <ManifestPhoto
+              src={tlCarbon}
+              alt="Carbon fiber weave through a circular aperture"
+              area="tl"
+              light="2006:233"
+              dark="939:297"
+            />
           </FigmaWrap>
 
           <FigmaWrap light="2006:234" dark="939:278" className="manifest-lead">
@@ -179,7 +133,11 @@ export default function ManifestBlock() {
 
           <FigmaWrap light="2006:239" dark="945:53" className="manifest-mission">
             <FigmaWrap light="2006:240" dark="1330:747" className="manifest-hud manifest-hud--mission copy-tiny">
-              <p className="manifest-hud__title" data-figma-node="2006:241" data-figma-node-dark="1330:750">
+              <p
+                className="manifest-hud__title manifest-hud__title--mission"
+                data-figma-node="2006:241"
+                data-figma-node-dark="1330:750"
+              >
                 *** MISSION STATEMENT ***
               </p>
               <div

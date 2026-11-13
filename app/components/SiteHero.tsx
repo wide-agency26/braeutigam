@@ -197,7 +197,11 @@ export default function SiteHero({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/icons/figma/client-wordmark.svg"
+                src={
+                  isDark
+                    ? "/icons/figma/client-wordmark.svg"
+                    : "/icons/figma/client-wordmark-light.svg"
+                }
                 alt=""
                 width={343}
                 height={72}
