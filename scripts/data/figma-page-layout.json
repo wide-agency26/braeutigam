@@ -1,0 +1,17 @@
+{
+  "designWidth": 1920,
+  "homeLightRoot": "2006:131",
+  "sections": [
+    { "id": "hero", "figmaNodeId": "2006:132", "pageY": 0, "height": 1080 },
+    { "id": "manifest-micro-top", "figmaNodeId": "2006:162", "pageY": 1144, "height": 78 },
+    { "id": "manifest", "figmaNodeId": "2006:220", "pageY": 1286, "height": 1890 },
+    { "id": "manifest-micro-bottom", "figmaNodeId": "2006:287", "pageY": 3240, "height": 118 },
+    { "id": "story-cad-1", "figmaNodeId": "2006:304", "pageY": 3422, "height": 1080 },
+    { "id": "story-cad-2", "figmaNodeId": "2006:359", "pageY": 4566, "height": 1080 },
+    { "id": "story-cad-3", "figmaNodeId": "2006:414", "pageY": 5710, "height": 1080 },
+    { "id": "mission", "figmaNodeId": "2006:469", "pageY": 6854, "height": 1219 },
+    { "id": "journey-intro", "figmaNodeId": "2006:660", "pageY": 10305, "height": 1056 },
+    { "id": "social", "figmaNodeId": "2006:790", "pageY": 11425, "height": 1148 },
+    { "id": "footer", "figmaNodeId": "2006:809", "pageY": 12637, "height": 800 }
+  ]
+}
