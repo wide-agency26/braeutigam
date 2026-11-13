@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./typography-tokens.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));

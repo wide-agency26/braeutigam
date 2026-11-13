@@ -1,0 +1,206 @@
+/**
+ * Figma typography — 1920px base: calc(N * min(100vw, 1920px) / 1920)
+ * Regenerate: pnpm sync:typography
+ * Source: scripts/data/figma-type-styles.json (from get_variable_defs + node one-offs)
+ */
+
+.heading-primary-bold {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: min(100px, calc(100 * min(100vw, 1920px) / 1920));
+  line-height: min(100px, calc(100 * min(100vw, 1920px) / 1920));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.heading-secondary {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  line-height: min(52px, calc(52 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(-2 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.heading-secondary-bold {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  line-height: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(-2 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.heading-tertiary {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: min(57px, calc(57 * min(100vw, 1920px) / 1920));
+  line-height: min(57px, calc(57 * min(100vw, 1920px) / 1920));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.decorative-primary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(332px, calc(332 * min(100vw, 1920px) / 1920));
+  line-height: min(232px, calc(232 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(8 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.decorative-primary--wide {
+  letter-spacing: calc(14 * min(100vw, 1920px) / 1920);
+  /* modifier of .decorative-primary — Figma override */
+}
+
+.decorative-secondary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(72px, calc(72 * min(100vw, 1920px) / 1920));
+  line-height: min(84px, calc(84 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(4 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.decorative-tertiary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(42px, calc(42 * min(100vw, 1920px) / 1920));
+  line-height: min(48px, calc(48 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.copy-body-lg {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 400;
+  font-size: min(28px, max(14px, calc(28 * min(100vw, 1920px) / 1920)));
+  line-height: min(38px, max(14px, calc(38 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
+}
+
+.copy-body {
+  margin: 0;
+  font-family: var(--font-univers), sans-serif;
+  font-weight: 400;
+  font-size: min(20px, max(14px, calc(20 * min(100vw, 1920px) / 1920)));
+  line-height: min(24px, max(14px, calc(24 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
+}
+
+.copy-body-sm {
+  margin: 0;
+  font-family: var(--font-mono), monospace;
+  font-weight: 400;
+  font-size: min(14px, max(14px, calc(14 * min(100vw, 1920px) / 1920)));
+  line-height: min(18px, max(14px, calc(18 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
+}
+
+.copy-caption {
+  margin: 0;
+  font-family: var(--font-mono), monospace;
+  font-weight: 400;
+  font-size: min(12px, max(14px, calc(12 * min(100vw, 1920px) / 1920)));
+  line-height: min(18px, max(14px, calc(18 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.copy-tiny {
+  margin: 0;
+  font-family: var(--font-mono), monospace;
+  font-weight: 300;
+  font-size: min(10px, max(10px, calc(10 * min(100vw, 1920px) / 1920)));
+  line-height: min(14px, max(10px, calc(14 * min(100vw, 1920px) / 1920)));
+  letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.button-body-lg {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: min(24px, max(14px, calc(24 * min(100vw, 1920px) / 1920)));
+  line-height: min(24px, max(14px, calc(24 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.button-body-caption {
+  margin: 0;
+  font-family: var(--font-univers-cn), sans-serif;
+  font-weight: 400;
+  font-size: min(10px, max(10px, calc(10 * min(100vw, 1920px) / 1920)));
+  line-height: min(10px, max(10px, calc(10 * min(100vw, 1920px) / 1920)));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.footer-headline-primary {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: min(72px, calc(72 * min(100vw, 1920px) / 1920));
+  line-height: min(68px, calc(68 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(-1 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+}
+
+.footer-decorative-primary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(56px, calc(56 * min(100vw, 1920px) / 1920));
+  line-height: min(48px, calc(48 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
+}
+
+.footer-decorative-secondary {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(24px, calc(24 * min(100vw, 1920px) / 1920));
+  line-height: min(32px, calc(32 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(2 * min(100vw, 1920px) / 1920);
+}
+
+.team-card-primary {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: min(32px, calc(32 * min(100vw, 1920px) / 1920));
+  line-height: min(36px, calc(36 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(-1 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-title-univers {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
+  font-size: min(119.05px, calc(119.05 * min(100vw, 1920px) / 1920));
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  /* Figma node 937:265 */
+}
+
+.manifest-title-bootzy {
+  margin: 0;
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
+  font-size: min(127.05px, calc(127.05 * min(100vw, 1920px) / 1920));
+  line-height: 0.85;
+  letter-spacing: calc(3.81 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+  /* Figma node 989:7 */
+}
