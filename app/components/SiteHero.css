@@ -1,0 +1,332 @@
+/* Hero — Figma 2006:132; 100svh bleed + anchored content stage (max 1920px) */
+
+.hero-figma {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--text-default-caption);
+  transition: color 400ms ease;
+}
+
+.hero-figma__bleed {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-figma__stage {
+  position: relative;
+  z-index: 2;
+  width: min(100vw, 1920px);
+  max-width: var(--figma-design-width, 1920px);
+  height: 100%;
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+/* Anchor layer — top / centre / bottom pins (insets scale with min(100vw, 1920)) */
+.hero-figma__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.hero-figma__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-figma__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-figma__photo .hero-figma__photo-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-figma__photo-layer--theme {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__photo-layer--theme.is-active {
+  opacity: 1;
+}
+
+.hero-figma--instant .hero-figma__photo-layer--theme {
+  transition: none;
+}
+
+.hero-figma__photo-img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.hero-figma__photo-layer .hero-figma__photo-img {
+  width: 100% !important;
+  height: 100% !important;
+  inset: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  max-width: none;
+}
+
+.hero-figma__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(19, 20, 20, 0) 63.194%,
+    var(--neutral-black, #131414) 100%
+  );
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__location {
+  position: absolute;
+  top: calc(185 * min(100vw, 1920px) / 1920);
+  left: calc(64 * min(100vw, 1920px) / 1920);
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-600, calc(24 * min(100vw, 1920px) / 1920));
+  width: calc(587 * min(100vw, 1920px) / 1920);
+  max-width: 587px;
+  min-height: calc(66 * min(100vw, 1920px) / 1920);
+  padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+  box-sizing: border-box;
+  transition: color 400ms ease;
+}
+
+.hero-figma__location .hero-figma__caption-block {
+  width: calc(296 * min(100vw, 1920px) / 1920);
+  max-width: 296px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.hero-figma__dev {
+  position: absolute;
+  top: calc(185 * min(100vw, 1920px) / 1920);
+  right: calc(64 * min(100vw, 1920px) / 1920);
+  left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-600, calc(24 * min(100vw, 1920px) / 1920));
+  align-items: flex-end;
+  padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+  max-width: calc(587 * min(100vw, 1920px) / 1920);
+  transition: color 400ms ease;
+}
+
+.hero-figma__caption-block p {
+  margin: 0;
+}
+
+.hero-figma__caption-block p + p {
+  margin-top: calc(6 * min(100vw, 1920px) / 1920);
+}
+
+.hero-figma__dev .copy-caption {
+  text-align: right;
+}
+
+.hero-figma__main {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
+  pointer-events: none;
+  width: calc(1792 * min(100vw, 1920px) / 1920);
+  max-width: 1792px;
+}
+
+.hero-figma__lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-500, calc(20 * min(100vw, 1920px) / 1920));
+  width: 100%;
+}
+
+.hero-figma__logo {
+  position: relative;
+  width: calc(342.784 * min(100vw, 1920px) / 1920);
+  height: calc(72 * min(100vw, 1920px) / 1920);
+  flex: none;
+}
+
+.hero-figma__wordmark {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__wordmark.is-active {
+  opacity: 1;
+}
+
+.hero-figma--instant .hero-figma__wordmark {
+  transition: none;
+}
+
+.hero-figma__title {
+  width: 100%;
+  text-align: center;
+}
+
+.hero-figma__title.heading-figma-overlay {
+  box-sizing: border-box;
+  font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  line-height: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  height: calc(76 * min(100vw, 1920px) / 1920);
+  max-height: none;
+  overflow: visible;
+  margin: 0;
+  transition: background 400ms ease, color 400ms ease;
+}
+
+.heading-figma-overlay {
+  color: transparent;
+  background-image:
+    url("/images/hero/figma/heading-overlay-2x.png"),
+    linear-gradient(90deg, var(--text-default-heading, #131414) 0%, var(--text-default-heading, #131414) 100%);
+  background-size: cover, auto;
+  background-position: center, top left;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.dark .heading-figma-overlay {
+  background-image:
+    url("/images/hero/figma/heading-overlay-2x.png"),
+    linear-gradient(90deg, var(--neutral-white, #f0f0f0) 0%, var(--neutral-white, #f0f0f0) 100%);
+}
+
+.hero-figma__since {
+  margin: 0;
+  text-align: center;
+  color: var(--text-default-accent);
+  line-height: calc(38 * min(100vw, 1920px) / 1920);
+  height: calc(38 * min(100vw, 1920px) / 1920);
+  overflow: hidden;
+  transition: color 400ms ease;
+}
+
+.hero-figma__status {
+  position: absolute;
+  left: 50%;
+  bottom: calc(64 * min(100vw, 1920px) / 1920);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
+  width: calc(696 * min(100vw, 1920px) / 1920);
+  max-width: 696px;
+  text-align: center;
+  transition: color 400ms ease;
+  pointer-events: auto;
+}
+
+.hero-figma__status-caption {
+  width: calc(446 * min(100vw, 1920px) / 1920);
+  max-width: 446px;
+  margin: 0;
+}
+
+.hero-figma__scroll {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: transparent;
+  background-image:
+    url("/images/hero/figma/scroll-prompt-2x.png"),
+    linear-gradient(90deg, var(--text-default-body, #d0d0d0) 0%, var(--text-default-body, #d0d0d0) 100%);
+  background-size: cover, auto;
+  background-position: center, top left;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 400ms ease, background 400ms ease;
+  pointer-events: auto;
+}
+
+.hero-figma__scroll:hover,
+.hero-figma__scroll:focus-visible {
+  opacity: 0.92;
+}
+
+.hero-figma__rings {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hero-figma__rings--on {
+  opacity: 0.3;
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__rings .absolute.inset-0 {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 767.98px) {
+  .hero-figma__location,
+  .hero-figma__dev {
+    max-width: calc(100% - calc(32 * min(100vw, 1920px) / 1920) * 2);
+  }
+
+  .hero-figma__main {
+    width: calc(100% - calc(32 * min(100vw, 1920px) / 1920) * 2);
+  }
+
+  .hero-figma__title {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-figma,
+  .hero-figma__photo-layer--theme,
+  .hero-figma__wordmark,
+  .hero-figma__scrim,
+  .hero-figma__since,
+  .hero-figma__scroll,
+  .hero-figma__location,
+  .hero-figma__dev,
+  .hero-figma__status,
+  .hero-figma__title.heading-figma-overlay,
+  .hero-figma__rings--on {
+    transition: none !important;
+  }
+}
