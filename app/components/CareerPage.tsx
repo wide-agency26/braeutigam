@@ -1,99 +1,119 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { ChevronRight, Play } from "lucide-react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
+import SiteButton from "./SiteButton";
 import "./CareerPage.css";
-// TODO(client): confirm licence — internal/placeholder shoot asset.
-import hero from "../../public/images/crew/hero.webp";
-// TODO(client): confirm licence for stock culture imagery.
-import events from "../../public/images/crew/events.webp";
-import training from "../../public/images/crew/training.webp";
-import balance from "../../public/images/crew/balance.webp";
-import christian from "../../public/images/crew/christian.webp";
-import florian from "../../public/images/crew/florian.webp";
-import jens from "../../public/images/crew/jens.webp";
-import niko from "../../public/images/crew/niko.webp";
-import atila from "../../public/images/crew/atila.webp";
 import { localizedHref, type Locale } from "@/lib/i18n";
 
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
 
-/** TODO(client): confirm team size, in-house rate, and race-team count before enabling. */
-const SHOW_CREW_STATS = false;
-
-const STATS = [
-  { value: "81", label: "Teammitglieder" },
-  { value: "100%", label: "Eigenfertigung" },
-  { value: "15+", label: "Rennteams" },
+const PILLARS = [
+  {
+    title: "team events",
+    image: "/images/crew/pillar-events.png",
+    crop: "crew-photo--events",
+    body: "Cutting-edge composite engineering using advanced simulation, precision tooling, and optimized layup processes.",
+  },
+  {
+    title: "weiterbildungen",
+    image: "/images/crew/pillar-training.png",
+    crop: "crew-photo--cover",
+    paragraphs: [
+      "Wir glauben an die kontinuierliche Weiterentwicklung unserer Mitarbeiter. Bei uns erhältst du eine umfangreiche Einarbeitung, da die Arbeit mit Kohlefaser Komponenten eine spezielle Expertise erfordert.",
+      "Neben spezifischen Schulungen zur Materialkunde, Bauteilherstellung und dem Umgang mit Geräten bieten wir auch Weiterbildungen für Abteilungsleiter und Führungspositionen an. Wir legen Wert darauf, dass unsere Mitarbeiter ihr Potenzial voll ausschöpfen und sich beruflich weiterentwickeln können.",
+    ],
+  },
+  {
+    title: "Work-life balance",
+    image: "/images/crew/pillar-balance.png",
+    crop: "crew-photo--balance",
+    body: "A proven track record in motorsport and aerospace with over eight years of high-performance component delivery.",
+  },
 ] as const;
-const STORIES: ReadonlyArray<{
-  image: StaticImageData;
-  title: string;
-  body: string;
-  alt: string;
-}> = [
-  {
-    image: events,
-    title: "Teamveranstaltungen",
-    body: "Einmal im Jahr raus aus der Halle. Gleiche Truppe, andere Strecke.",
-    alt: "Gruppe von Menschen im Freien, Platzhalter für Team Events.",
-  },
-  {
-    image: training,
-    title: "Weiterbildungen",
-    body: "Neue Anlagen, neue Lagenaufbauten. Wer am Teil steht, lernt den Prozess dazu.",
-    alt: "Person an einem Arbeitsplatz, Platzhalter für Weiterbildungen.",
-  },
-  {
-    image: balance,
-    title: "Work-Life-Balance",
-    body: "Saisonpeaks sind planbar. Schicht und Familie teilen sich denselben Kalender.",
-    alt: "Erwachsene Person mit einem Kind, Platzhalter für Work-Life Balance.",
-  },
-];
 
-const CREW: ReadonlyArray<{
-  image: StaticImageData;
-  role: string;
-  wide?: boolean;
-}> = [
-  { image: christian, role: "Laminierer", wide: true },
-  { image: florian, role: "Fertigung", wide: true },
-  { image: jens, role: "Laminierer" },
-  { image: niko, role: "Qualität" },
-  { image: atila, role: "Qualität" },
-];
+const ROLE_FILMS = [
+  {
+    title: "Konstruktion",
+    body: "Designing the mathematical fiber layouts in Catia to withstand extreme aerodynamic load.",
+    poster: "/images/crew/film-1.png",
+    crop: "crew-photo--konstruktion",
+    play: "/images/crew/play-lg.svg",
+    playWidth: 128,
+    playHeight: 128,
+    large: true,
+  },
+  {
+    title: "Pre-preg Laminierer",
+    body: "Placing resin-infused fiber orientations layer-by-layer with surgical human precision.",
+    poster: "/images/crew/film-2.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-lg.svg",
+    playWidth: 128,
+    playHeight: 128,
+    large: true,
+  },
+  {
+    title: "Zuschnitt",
+    body: "Nesting and optimizing fiber templates for perfect cutting layouts.",
+    poster: "/images/crew/film-3.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-sm.svg",
+    playWidth: 64,
+    playHeight: 64,
+    large: false,
+  },
+  {
+    title: "Produktionsplanung & Projektmanagement",
+    body: "Coordinating autoclave schedules and managing client racing constraints.",
+    poster: "/images/crew/film-4.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-sm-2.svg",
+    playWidth: 112,
+    playHeight: 112,
+    large: false,
+  },
+  {
+    title: "Montage",
+    body: "Assembling cured composite structures and polishing clearcoats.",
+    poster: "/images/crew/film-5.png",
+    crop: "crew-photo--bottom",
+    play: "/images/crew/play-sm.svg",
+    playWidth: 64,
+    playHeight: 64,
+    large: false,
+  },
+] as const;
 
-const STEPS = [
+const APPLY_STEPS = [
   {
     index: "01",
     title: "Bewerbung",
-    body: "Unterlagen direkt an die Stelle oder initiativ an unsere Karriere-Adresse.",
+    body: "Sende uns deine Unterlagen über unser Online-Formular oder per E-Mail.",
   },
   {
     index: "02",
     title: "Interview",
-    body: "Gespräch in der Halle oder am Tisch. Es geht um Teile und den Ablauf.",
+    body: "Lerne unser Team in einem persönlichen Gespräch kennen.",
   },
   {
     index: "03",
     title: "Probearbeit",
-    body: "Ein Tag am Platz. Laminieren, Zeichnung oder Zuschnitt, je nach Rolle.",
+    body: "Zeige dein Können in einem praxisnahen Probetag vor Ort.",
   },
   {
     index: "04",
     title: "Angebot",
-    body: "Passt es auf beiden Seiten, kommt das Angebot schriftlich.",
+    body: "Erhalte dein Vertragsangebot und werde Teil des Teams.",
   },
 ] as const;
 
 export type CareerOpening = {
   slug: string;
   title: string;
+  titleEn?: string | null;
   department: string;
   location: string;
   employmentType: "FULL_TIME" | "PART_TIME" | "APPRENTICESHIP";
@@ -105,43 +125,23 @@ const EMPLOYMENT_DE: Record<CareerOpening["employmentType"], string> = {
   APPRENTICESHIP: "AUSBILDUNG",
 };
 
-function Story({
-  image,
-  title,
-  body,
-  alt,
-}: (typeof STORIES)[number]) {
-  return (
-    <figure className="crew-story">
-      <div className="crew-shot">
-        <Image src={image} alt={alt} fill sizes="(min-width: 800px) 30vw, 100vw" />
-      </div>
-      <figcaption>
-        <h3>{title}</h3>
-        <p>{body}</p>
-      </figcaption>
-    </figure>
-  );
+function openingTitle(job: CareerOpening, locale: Locale) {
+  if (locale === "en" && job.titleEn?.trim()) return job.titleEn.trim();
+  return job.title;
 }
 
-function Film({ image, role, wide }: (typeof CREW)[number]) {
+function FilmCard({ film }: { film: (typeof ROLE_FILMS)[number] }) {
   return (
-    <figure className={`crew-film${wide ? " crew-film--wide" : " crew-film--third"}`}>
-      <div className={`crew-shot${wide ? " crew-shot--wide" : ""}`}>
-        <Image
-          src={image}
-          alt={`Platzhalter: ${role}.`}
-          fill
-          sizes={wide ? "(min-width: 800px) 46vw, 100vw" : "(min-width: 800px) 30vw, 100vw"}
-        />
+    <article className="crew-film">
+      <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}`}>
+        <img className={film.crop} src={film.poster} alt={`${film.title} bei Bräutigam`} />
         <span className="crew-play" aria-hidden="true">
-          <Play className="h-4 w-4 translate-x-px" fill="currentColor" strokeWidth={0} />
+          <img src={film.play} alt="" width={film.playWidth} height={film.playHeight} />
         </span>
       </div>
-      <figcaption>
-        <h3>{role}</h3>
-      </figcaption>
-    </figure>
+      <h3 className="crew-film__title">{film.title}</h3>
+      <p className="crew-film__body">{film.body}</p>
+    </article>
   );
 }
 
@@ -152,106 +152,130 @@ export default function CareerPage({
   openings: CareerOpening[];
   locale?: Locale;
 }) {
-  const applyHref =
-    openings.length > 0
-      ? "#offene-stellen"
-      : `mailto:${APPLY_EMAIL}?subject=${encodeURIComponent("Initiativbewerbung")}`;
-
   return (
     <LazyMotion features={domAnimation}>
-      <div className="career crew relative min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-        <div className="noise-overlay pointer-events-none" />
+      <div className="crew-page">
         <SiteChrome />
 
         <main id="main-content" lang={locale}>
-          <section className="crew-hero" aria-label="Karriere">
-            <Image
-              src={hero}
-              alt="Mitarbeiter von hinten im Bräutigam-Shirt, Berge im Hintergrund."
-              fill
-              priority
-              sizes="100vw"
-              className="crew-hero__photo"
-            />
-            <div className="crew-hero__fade" aria-hidden="true" />
-            <div className="crew-hero__mark">
-              <p className="career-watermark">{locale === "en" ? "Careers" : "Karriere"}</p>
-              <p className="crew-hiring">Wir suchen Verstärkung</p>
+          <section className="crew-hero" aria-label="Crew">
+            <div className="crew-hero__media" aria-hidden="true">
+              <img className="crew-photo--hero" src="/images/crew/hero.png" alt="" />
             </div>
+            <div className="crew-hero__shade" aria-hidden="true" />
+
+            <p className="crew-hero__join">[ JOIN THE CREW ]</p>
+            <p className="crew-hero__pitch">
+              <span>We build with precision, passion, and purpose. Join a team</span>
+              <span>of world-class engineers pushing the boundaries of composite technology.</span>
+            </p>
+
+            <div className="crew-hero__title">
+              <h1>CREW</h1>
+              <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
+            </div>
+
+            <a className="crew-hero__status" href="#crew-intro">
+              <span>CREW STATUS: RECRUITING</span>
+              <span>SCROLL TO EXPLORE</span>
+            </a>
           </section>
 
-          <section id="crew-intro" className="crew-block">
-            <div className="career-shell">
-              <div className="crew-head">
-                <h1>
-                  <span className="crew-kicker">Unser Team:</span>
-                  <span className="crew-display">Einzigartig</span>
-                </h1>
-                <p className="career-watermark crew-head__mark" aria-hidden="true">
-                  Team
-                </p>
-              </div>
-              <p className="crew-lead">
-                Laminieren, Zuschnitt, Autoklav und Qualität liegen in Freiberg am Neckar unter einem Dach.
-                Die Truppe kennt die Teile, weil sie sie selbst baut.
+          <div className="crew-body">
+            <section id="crew-intro" className="crew-block crew-intro">
+              <p className="crew-mark crew-mark--crew" aria-hidden="true">
+                CREW
               </p>
-              {SHOW_CREW_STATS ? (
-                <dl className="crew-stats">
-                  {STATS.map((stat) => (
-                    <div key={stat.label}>
-                      <dt>{stat.label}</dt>
-                      <dd>{stat.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-            </div>
-          </section>
-
-          <section className="crew-block" aria-labelledby="crew-truppe">
-            <div className="career-shell">
-              <h2 id="crew-truppe">
-                <span className="crew-kicker">Das Wichtigste:</span>
-                <span className="crew-display">Die Truppe.</span>
+              <p className="crew-micro">
+                <span>BRAEUTIGAM_WEBFILE / CREW</span>
+                <span>ZUGANG GEWÄHRT</span>
+              </p>
+              <h2 className="crew-intro__title">
+                <span>UNSER TEAM:</span>
+                <span>EINZIGARTIG</span>
               </h2>
-              <p className="crew-lead">
-                Events, Weiterbildung, der Kalender daneben. Darum bleibt die Truppe.
+              <p className="crew-copy crew-copy--narrow">
+                Hinter jedem Bauteil steckt ein Team, das Höchstleistung als Standard setzt. Unser Team
+                arbeitet präzise, innovativ, kompromisslos.
               </p>
-              <div className="crew-stories">
-                {STORIES.map((story) => (
-                  <Story key={story.title} {...story} />
-                ))}
+              <div className="crew-actions">
+                <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
+                <SiteButton href={localizedHref("/team", locale)} variant="amber">
+                  Über das team
+                </SiteButton>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section className="crew-block" aria-labelledby="crew-alltag">
-            <div className="career-shell">
-              <div className="crew-head">
-                <h2 id="crew-alltag">
-                  <span className="crew-kicker crew-kicker--neon">Unser Alltag</span>
-                  <span className="crew-display">Ein Tag im Team</span>
+            <section id="truppe" className="crew-block">
+              <div className="crew-lead">
+                <p className="crew-kicker">ARBEITSWEISE</p>
+                <h2 className="crew-display">
+                  <span>DAS WICHTIGSTE:</span>
+                  <span>DIE TRUPPE.</span>
                 </h2>
-                <p className="career-watermark crew-head__mark" aria-hidden="true">
-                  Alltag
-                </p>
+                <p className="crew-copy crew-copy--narrow">Unser Alltag ist dynamisch und anspruchsvoll.</p>
               </div>
-              <div className="crew-films">
-                {CREW.map((person) => (
-                  <Film key={person.role + String(person.wide)} {...person} />
+              <div className="crew-pillars">
+                {PILLARS.map((pillar) => (
+                  <article key={pillar.title} className="crew-pillar">
+                    <div className="crew-pillar__frame">
+                      <img className={pillar.crop} src={pillar.image} alt={`${pillar.title} bei Bräutigam`} />
+                    </div>
+                    <h3>{pillar.title}</h3>
+                    {"paragraphs" in pillar ? (
+                      <div className="crew-copy">
+                        {pillar.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="crew-copy">{pillar.body}</p>
+                    )}
+                  </article>
                 ))}
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section id="offene-stellen" className="crew-block" aria-labelledby="crew-jobs">
-            <div id="stellen" className="career-shell">
-              <h2 id="crew-jobs">
-                <span className="crew-display">Offene Stellen</span>
-              </h2>
+            <section className="crew-block crew-day" aria-label="Ein Tag im Team">
+              <div className="crew-day__head">
+                <div className="crew-lead">
+                  <p className="crew-kicker">{"// EIN TAG IM TEAM"}</p>
+                  <h2 className="crew-display">
+                    <span>Unser alltag</span>
+                    <span>Ein tag im team</span>
+                  </h2>
+                </div>
+                <p className="crew-mark crew-mark--life" aria-hidden="true">
+                  LIFE
+                </p>
+              </div>
+              <div className="crew-films crew-films--lg">
+                {ROLE_FILMS.slice(0, 2).map((film) => (
+                  <FilmCard key={film.title} film={film} />
+                ))}
+              </div>
+              <div className="crew-films crew-films--sm">
+                {ROLE_FILMS.slice(2).map((film) => (
+                  <FilmCard key={film.title} film={film} />
+                ))}
+              </div>
+            </section>
+
+            <section id="stellen" className="crew-block">
+              <div className="crew-lead">
+                <p className="crew-kicker crew-kicker--tiny">{"// OFFENE STELLEN"}</p>
+                <h2 className="crew-display">
+                  <span>Offene</span>
+                  <span>Stellen.</span>
+                </h2>
+              </div>
               <div className="crew-jobs">
                 {openings.length === 0 ? (
-                  <p className="crew-lead">Aktuell keine veröffentlichten Stellen.</p>
+                  <p className="crew-jobs__empty">
+                    {locale === "en"
+                      ? "No published openings at the moment."
+                      : "Keine veröffentlichten Stellen."}
+                  </p>
                 ) : (
                   openings.map((job) => (
                     <Link
@@ -259,55 +283,69 @@ export default function CareerPage({
                       className="crew-job"
                       href={localizedHref(`/karriere/${job.slug}`, locale)}
                     >
-                      <span>
-                        <span className="crew-job__title">{job.title}</span>
-                        <span className="crew-job__dept">{job.department}</span>
+                      <span className="crew-job__title">
+                        <span>{openingTitle(job, locale)}</span>
+                        <span>ABTEILUNG: {job.department}</span>
                       </span>
                       <span className="crew-job__meta">
-                        {job.location} <span aria-hidden="true">·</span> {EMPLOYMENT_DE[job.employmentType]}
+                        <span>{job.department}</span>
+                        <span aria-hidden="true">·</span>
+                        <span>{job.location}</span>
+                        <span aria-hidden="true">·</span>
+                        <span>{EMPLOYMENT_DE[job.employmentType]}</span>
                       </span>
-                      <ChevronRight className="crew-job__icon" aria-hidden="true" strokeWidth={1.6} />
+                      <img src="/images/crew/status-dot.svg" alt="" width={21} height={21} />
                     </Link>
                   ))
                 )}
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section className="crew-block" aria-labelledby="crew-path">
-            <div className="career-shell">
-              <h2 id="crew-path">
-                <span className="crew-display">So kommst du ins Team:</span>
-              </h2>
-              <p className="crew-lead">
-                Vier Schritte, ohne Umwege. Die Stelle bleibt offen, bis beide Seiten ja sagen.
-              </p>
+            <section className="crew-block">
+              <div className="crew-lead">
+                <p className="crew-kicker crew-kicker--tiny">{"// BEWERBUNGSPROZESS"}</p>
+                <h2 className="crew-display">
+                  <span>So kommst du</span>
+                  <span>ins team:</span>
+                </h2>
+              </div>
+              <div className="crew-split">
+                <p>
+                  Unser Bewerbungsprozess ist transparent und effizient. Du musst uns nur deine Unterlagen
+                  wie Lebenslauf und kurzes Anschreiben zukommen lassen. In einem persönlichen Gespräch mit
+                  unserer Personalabteilung und dem entsprechenden Abteilungsleiter können wir uns
+                  kennenlernen und detailliertere Informationen austauschen.
+                </p>
+                <p>
+                  Anschließend laden wir dich zu einem Probetag ein, bei dem du das Team und die
+                  Arbeitsumgebung kennenlernen kannst, während wir deine Fähigkeiten genauer prüfen.
+                </p>
+              </div>
               <ol className="crew-steps">
-                {STEPS.map((step) => (
-                  <li key={step.index} className="crew-step">
-                    <div className="crew-step__top">
-                      <span className="crew-step__no">{step.index}</span>
-                      <h3>{step.title}</h3>
-                    </div>
+                {APPLY_STEPS.map((step) => (
+                  <li key={step.index}>
+                    <span>{step.index}</span>
+                    <h3>{step.title}</h3>
                     <p>{step.body}</p>
                   </li>
                 ))}
               </ol>
-            </div>
-          </section>
+            </section>
 
-          <section className="crew-block crew-block--last" aria-labelledby="crew-join">
-            <div className="career-shell">
-              <div className="crew-join">
-                <h2 id="crew-join">
-                  <span className="crew-display crew-display--neon">Werde Teil des Teams.</span>
-                </h2>
-                <a className="crew-cta" href={applyHref}>
+            <section className="crew-block">
+              <div className="crew-cta">
+                <p>INITIATIVBEWERBUNG</p>
+                <h2>WERDE TEIL DES TEAMS.</h2>
+                <p>Auch ohne ausgeschriebene Stelle — überzeuge uns mit deiner Bewerbung.</p>
+                <SiteButton
+                  variant="fill"
+                  href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent("Initiativbewerbung")}`}
+                >
                   Jetzt bewerben
-                </a>
+                </SiteButton>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </main>
 
         <SiteFooter />
