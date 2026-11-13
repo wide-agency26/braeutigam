@@ -22,7 +22,11 @@ export default function SiteFooter() {
   const locale = useSiteLocale();
 
   return (
-    <footer className="footer-figma-section cv-auto">
+    <footer
+      className="footer-figma-section cv-auto"
+      data-figma-node="2006:809"
+      data-figma-node-dark="945:57"
+    >
       <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-[#0B0B0C] dark:to-transparent" />
 
       <div className="absolute inset-0 z-0">

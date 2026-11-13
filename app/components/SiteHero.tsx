@@ -84,13 +84,11 @@ export default function SiteHero({
     [isDark],
   );
 
-  const heroNode = isDark ? "934:242" : "2006:132";
-
   return (
     <section
       id="silhouette"
       className="hero-figma"
-      data-figma-node={heroNode}
+      data-figma-node="2006:132"
       data-figma-node-light="2006:132"
       data-figma-node-dark="934:242"
       aria-label="Hero"
@@ -164,7 +162,11 @@ export default function SiteHero({
           data-figma-node="2006:133"
           data-figma-node-dark="940:24"
         >
-          <div className="copy-caption hero-figma__caption-block">
+          <div
+            className="copy-caption hero-figma__caption-block"
+            data-figma-node="2006:134"
+            data-figma-node-dark="940:25"
+          >
             <p>LOCATION: GERMANY [48.9298° N, 9.2070° E]</p>
             <p>ESTABLISHED: 2016</p>
             <p>CURRENT TEAM SIZE: 81</p>

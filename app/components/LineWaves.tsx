@@ -135,6 +135,8 @@ export interface LineWavesProps {
   color3?: string;
   enableMouseInteraction?: boolean;
   mouseInfluence?: number;
+  /** Mount WebGL without waiting for intersection (decorative backgrounds). */
+  initWhenMounted?: boolean;
 }
 
 export default function LineWaves({
@@ -150,7 +152,8 @@ export default function LineWaves({
   color2 = '#ffffff',
   color3 = '#ffffff',
   enableMouseInteraction = true,
-  mouseInfluence = 2.0
+  mouseInfluence = 2.0,
+  initWhenMounted = false,
 }: LineWavesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const programRef = useRef<Program | null>(null);
@@ -164,7 +167,8 @@ export default function LineWaves({
   // This canvas lives in the footer, many screens below the fold. Building the
   // context on mount meant compiling a shader nobody could see yet. Release it
   // again once the footer leaves the viewport so the slot is free elsewhere.
-  const shouldInit = visible && afterPaint && !reducedMotion;
+  const shouldInit =
+    (initWhenMounted || visible) && afterPaint && !reducedMotion;
 
   const activeRef = useRef(active);
   const enableMouseRef = useRef(enableMouseInteraction);

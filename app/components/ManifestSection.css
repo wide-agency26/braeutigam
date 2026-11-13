@@ -48,13 +48,15 @@
   flex-direction: column;
   align-items: flex-start;
   gap: calc(10 / 1920 * 100cqi);
+  width: calc(346 / 1920 * 100cqi);
+  max-width: calc(346 / 1920 * 100cqi);
   min-width: 0;
 }
 
 .manifest-tl-slot {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(346 / 1920 * 100cqi);
   height: calc(350 / 1920 * 100cqi);
   overflow: clip;
   flex: none;
@@ -269,15 +271,16 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  width: calc(280 / 1920 * 100cqi);
+  width: calc(346 / 1920 * 100cqi);
   min-width: 0;
 }
 
 .manifest-hud--mission {
   align-items: flex-start;
   text-align: left;
-  width: 100%;
-  max-width: none;
+  width: calc(280 / 1920 * 100cqi);
+  max-width: calc(280 / 1920 * 100cqi);
+  margin-left: calc(66 / 1920 * 100cqi);
   min-height: calc(168 / 1920 * 100cqi);
 }
 

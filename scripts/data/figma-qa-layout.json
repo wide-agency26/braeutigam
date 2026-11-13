@@ -30,7 +30,13 @@
           "label": "SINCE 2016",
           "figmaNodeId": "2006:161",
           "selector": "[data-figma-node=\"2006:161\"]",
-          "figma": { "x": 864, "y": 615, "w": 192, "h": 48 }
+          "figma": { "x": 864, "y": 615, "w": 192, "h": 38 }
+        },
+        {
+          "label": "Location caption",
+          "figmaNodeId": "2006:134",
+          "selector": "[data-figma-node=\"2006:134\"]",
+          "figma": { "x": 96, "y": 185, "w": 296, "h": 66 }
         },
         {
           "label": "Location HUD",
@@ -99,6 +105,12 @@
           "figma": { "x": 204, "y": 97, "w": 140, "h": 14 }
         },
         {
+          "label": "Mission Statement frame",
+          "figmaNodeId": "2006:239",
+          "selector": "[data-figma-node=\"2006:239\"]",
+          "figma": { "x": 1510, "y": 861, "w": 346, "h": 168 }
+        },
+        {
           "label": "Mission HUD",
           "figmaNodeId": "2006:240",
           "selector": "[data-figma-node=\"2006:240\"]",
@@ -115,6 +127,12 @@
           "figmaNodeId": "2006:248",
           "selector": "[data-figma-node=\"2006:248\"]",
           "figma": { "x": 64, "y": 1247, "w": 450, "h": 450 }
+        },
+        {
+          "label": "TL carbon slot",
+          "figmaNodeId": "2006:232",
+          "selector": "[data-figma-node=\"2006:232\"]",
+          "figma": { "x": 64, "y": 293, "w": 346, "h": 350 }
         },
         {
           "label": "TL carbon",
@@ -151,6 +169,12 @@
           "figmaNodeId": "2006:287",
           "selector": "[data-figma-node=\"2006:287\"]",
           "figma": { "x": 0, "y": 0, "w": 1920, "h": 118 }
+        },
+        {
+          "label": "Bottom logo row",
+          "figmaNodeId": "2006:288",
+          "selector": "[data-figma-node=\"2006:288\"]",
+          "figma": { "x": 667, "y": 0, "w": 587, "h": 118 }
         }
       ]
     },

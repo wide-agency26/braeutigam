@@ -194,7 +194,13 @@ export default function HomePage({
       <FigmaArtboardGap />
 
       {/* 2. SECTION: SEAMLESS EVOLUTION SCROLLYTELLING (CAD -> Autoclave -> Finished Product) */}
-      <section id="story" ref={scrollyRef} className="cv-auto relative h-[300vh]">
+      <section
+        id="story"
+        ref={scrollyRef}
+        className="cv-auto relative h-[300vh]"
+        data-figma-node="2006:304"
+        data-figma-node-dark="1334:1500"
+      >
         
         {/* Sticky 100vh Viewport background elements */}
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
@@ -380,7 +386,12 @@ export default function HomePage({
       </section>
 
       {/* 2.5. SECTION: MISSION — Final Home (Figma 989:2 proportions) */}
-      <section id="mission" className="mission-figma cv-auto relative overflow-hidden transition-colors duration-500">
+      <section
+        id="mission"
+        className="mission-figma cv-auto relative overflow-hidden transition-colors duration-500"
+        data-figma-node="2006:469"
+        data-figma-node-dark="945:2"
+      >
         <div className="mission-figma__stage">
           <div className="mission-figma__watermark" aria-hidden>
             <p>
@@ -440,7 +451,7 @@ export default function HomePage({
       </section>
 
       {/* 3. SECTION: HORIZONTAL SCROLL TIMELINE (2016-2026) */}
-      <div id="timeline" className="cv-auto">
+      <div id="timeline" className="cv-auto" data-figma-node="2006:519" data-figma-node-dark="945:54">
         <LazyOnVisible
           loader={loadTimeline}
           rootMargin="100px"
@@ -449,7 +460,12 @@ export default function HomePage({
       </div>
 
       {/* 4. SECTION: MEET THE EXPERTS — HUD trading cards */}
-      <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
+      <section
+        id="datasheet"
+        className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden"
+        data-figma-node="2006:660"
+        data-figma-node-dark="945:55"
+      >
         <div className="site-container relative z-10">
           <div className="experts-figma__header">
             <h2 className="experts-figma__title">
@@ -515,7 +531,12 @@ export default function HomePage({
       </section>
 
       {/* 5. SECTION: SOCIAL — Circular gallery, Figma 1154:1338 */}
-      <section id="social" className="social-section cv-auto relative overflow-hidden">
+      <section
+        id="social"
+        className="social-section cv-auto relative overflow-hidden"
+        data-figma-node="2006:790"
+        data-figma-node-dark="945:56"
+      >
         <SocialGalleryBoundary items={SOCIAL_GALLERY_ITEMS}>
           <LazyOnVisible
             loader={loadCircularGallery}

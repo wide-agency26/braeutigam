@@ -52,15 +52,47 @@
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
+  width: calc(587 * min(100vw, 1920px) / 1920);
+  max-width: 587px;
+  margin-inline: auto;
 }
 
 .manifest-micro__stats {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  max-width: calc(1792 * min(100vw, 1920px) / 1920);
   padding-block: calc(12 * min(100vw, 1920px) / 1920);
+}
+
+.manifest-micro__stat:nth-child(1) {
+  width: calc(142 * min(100vw, 1920px) / 1920);
+  max-width: 142px;
+}
+
+.manifest-micro__stat:nth-child(2) {
+  width: calc(70 * min(100vw, 1920px) / 1920);
+  max-width: 70px;
+}
+
+.manifest-micro__stat:nth-child(3) {
+  width: calc(102 * min(100vw, 1920px) / 1920);
+  max-width: 102px;
+}
+
+.manifest-micro__stat:nth-child(1) .manifest-micro__stat-copy {
+  width: calc(142 * min(100vw, 1920px) / 1920);
+  max-width: 142px;
+}
+
+.manifest-micro__stat:nth-child(2) .manifest-micro__stat-copy {
+  width: calc(70 * min(100vw, 1920px) / 1920);
+  max-width: 70px;
+}
+
+.manifest-micro__stat:nth-child(3) .manifest-micro__stat-copy {
+  width: calc(102 * min(100vw, 1920px) / 1920);
+  max-width: 102px;
 }
 
 .manifest-micro__stack-tight {

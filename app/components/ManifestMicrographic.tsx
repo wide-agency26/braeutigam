@@ -98,7 +98,11 @@ export function ManifestMicrographicBottom() {
         data-figma-node="2006:287"
         data-figma-node-dark="1330:1118"
       >
-        <div className="manifest-micro__col manifest-micro__col--stats" data-figma-node="2006:288" data-figma-node-dark="1330:1133">
+        <div
+          className="manifest-micro__col manifest-micro__col--stats"
+          data-figma-node="2006:288"
+          data-figma-node-dark="1330:1133"
+        >
           <div className="manifest-micro__stats" data-figma-node="2006:289" data-figma-node-dark="1330:1134">
             <div className="manifest-micro__stat" data-figma-node="2006:290" data-figma-node-dark="1330:1149">
               <FlagStatIcon />

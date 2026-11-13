@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import Image, { type StaticImageData } from "next/image";
-import LazyOnVisible from "./LazyOnVisible";
+import dynamic from "next/dynamic";
 import { useTheme } from "./ThemeProvider";
 import { readCssVarColor } from "@/lib/css-var-color";
 import tlCarbon from "../../public/images/manifest/figma/tl-carbon-939-297.png";
@@ -11,7 +11,7 @@ import blPrecision from "../../public/images/manifest/figma/bl-precision-1330-13
 import brAutoclave from "../../public/images/manifest/figma/br-autoclave-1330-1362.png";
 import "./ManifestSection.css";
 
-const loadLineWaves = () => import("./LineWaves");
+const LineWaves = dynamic(() => import("./LineWaves"), { ssr: false });
 
 const PHOTO_SIZES = {
   tl: "(max-width: 1100px) 100vw, 346px",
@@ -75,41 +75,45 @@ export default function ManifestBlock() {
       color1: readCssVarColor("--text-default-accent"),
       color2: readCssVarColor("--text-default-accent-subtle"),
       color3: readCssVarColor("--text-default-accent"),
-      brightness: isDark ? 0.28 : 0.85,
+      brightness: isDark ? 0.55 : 0.85,
     }),
     [isDark],
   );
 
   return (
-    <section id="craft-technology" className="manifest-section cv-auto relative" lang="de">
+    <section
+      id="craft-technology"
+      className="manifest-section cv-auto relative"
+      lang="de"
+      data-figma-node="2006:220"
+      data-figma-node-dark="937:253"
+    >
       <div
         className="manifest-section__waves"
         data-rebuild-layer="LineWaves"
         aria-hidden
       >
-        <LazyOnVisible
-          loader={loadLineWaves}
-          rootMargin="120px"
-          className="absolute inset-0"
-          componentProps={{
-            speed: 0.1,
-            innerLineCount: 35,
-            outerLineCount: 20,
-            warpIntensity: 1.0,
-            rotation: 59,
-            edgeFadeWidth: 0.05,
-            colorCycleSpeed: 1.0,
-            brightness: waveColors.brightness,
-            color1: waveColors.color1,
-            color2: waveColors.color2,
-            color3: waveColors.color3,
-            enableMouseInteraction: false,
-            mouseInfluence: 0,
-          }}
+        <div className="absolute inset-0">
+          <LineWaves
+          speed={0.1}
+          innerLineCount={35}
+          outerLineCount={20}
+          warpIntensity={1.0}
+          rotation={59}
+          edgeFadeWidth={0.05}
+          colorCycleSpeed={0}
+          brightness={waveColors.brightness}
+          color1={waveColors.color1}
+          color2={waveColors.color2}
+          color3={waveColors.color3}
+          enableMouseInteraction={false}
+          mouseInfluence={0}
+          initWhenMounted
         />
+        </div>
       </div>
       <div className="manifest-frame">
-        <FigmaWrap light="2006:220" dark="937:253" className="manifest-stage">
+        <div className="manifest-stage">
           <FigmaWrap light="2006:221" dark="1330:881" className="manifest-stack">
             <FigmaWrap light="2006:222" dark="1330:737" className="manifest-hud copy-tiny">
               <p className="manifest-hud__title" data-figma-node="2006:223" data-figma-node-dark="1330:738">
@@ -137,7 +141,7 @@ export default function ManifestBlock() {
                 ... Waiting for user input
               </p>
             </FigmaWrap>
-            <FigmaWrap light="2006:232" dark="1330:818" className="manifest-tl-slot">
+            <FigmaWrap light="2006:232" dark="1330:818" className="manifest-tl-slot manifest-tl-slot--carbon">
               <ManifestPhoto
                 src={tlCarbon}
                 alt="Carbon fiber weave through a circular aperture"
@@ -222,7 +226,7 @@ export default function ManifestBlock() {
               />
             </FigmaWrap>
           </FigmaWrap>
-        </FigmaWrap>
+        </div>
       </div>
     </section>
   );
