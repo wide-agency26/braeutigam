@@ -22,7 +22,7 @@ Light home: `2006:131` · Dark home: `934:241`
 |---------|------------|--------|-----|-------|
 | Hero | `2006:132` / `934:242` | `cc837ed` + fix-ups | all PASS ±4px @1920 | `/` + `/en`: `pickRandomHeroSlide` (gwagon/hypercar/motorbike JPEGs; F1 off). **2006:158** title box **52px** lh; **2006:161** SINCE **`decorative-tertiary` (48px)**. Nav in `SiteChrome` only. |
 | Main Image | `2006:220` / `937:253` | `dfdb62c` + fix-up | all PASS ±4px @1920 | Headlines **316px** h; client HUD **140+140** cols @ x204; mission **280×168** @ y861; BL slot **450×450**; micro **`2006:162`** (78px) / **`2006:287`** (118px); **`LineWaves`** `data-rebuild-layer`. MCP image fills re-exported. |
-| CAD / story | `2006:304`+ | — | — | pending |
+| CAD / story | `2006:304`+ | `TBD` | in progress | Figma 7-col grid, 3368px scroll track, Topography + scrolly retained |
 | Mission | `989:2` | — | — | pending |
 | Journey | timeline frames | — | — | pending |
 | Experts | `2006:660` | — | — | pending |

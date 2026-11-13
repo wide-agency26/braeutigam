@@ -56,7 +56,20 @@ async function main() {
   }
 
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
+  /** @type {Record<string, string>} */
+  const extraHTTPHeaders = {};
+  if (process.env.VERCEL_OIDC_TOKEN) {
+    extraHTTPHeaders["x-vercel-trusted-oidc-idp-token"] =
+      process.env.VERCEL_OIDC_TOKEN;
+  }
+  if (process.env.VERCEL_PROTECTION_BYPASS) {
+    extraHTTPHeaders["x-vercel-protection-bypass"] =
+      process.env.VERCEL_PROTECTION_BYPASS;
+  }
+  const context = await browser.newContext(
+    Object.keys(extraHTTPHeaders).length ? { extraHTTPHeaders } : {},
+  );
+  const page = await context.newPage();
   await page.setViewportSize(viewport);
 
   if (cli.theme === "dark") {

@@ -213,10 +213,28 @@
       "anchor": "#story",
       "targets": [
         {
-          "label": "Story sticky viewport",
-          "figmaNodeId": "story-viewport",
-          "selector": "#story > .sticky",
+          "label": "CAD frame",
+          "figmaNodeId": "2006:304",
+          "selector": "#story",
           "figma": { "x": 0, "y": 0, "w": 1920, "h": 1080 }
+        },
+        {
+          "label": "Part container",
+          "figmaNodeId": "2006:327",
+          "selector": "[data-figma-node=\"2006:327\"]",
+          "figma": { "x": 331, "y": 64, "w": 1258, "h": 768 }
+        },
+        {
+          "label": "Render HUD",
+          "figmaNodeId": "2006:313",
+          "selector": "[data-figma-node=\"2006:313\"]",
+          "figma": { "x": 64, "y": 64, "w": 400, "h": 14 }
+        },
+        {
+          "label": "Story description",
+          "figmaNodeId": "2006:358",
+          "selector": "[data-figma-node=\"2006:358\"]",
+          "figma": { "x": 1270, "y": 900, "w": 586, "h": 96 }
         }
       ]
     }
