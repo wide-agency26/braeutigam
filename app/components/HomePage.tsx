@@ -154,6 +154,8 @@ export default function HomePage({
         topographyColors={topographyColors}
       />
 
+      <FigmaArtboardGap />
+
       <MissionSection />
 
       {/* 3. SECTION: HORIZONTAL SCROLL TIMELINE (2016-2026) */}

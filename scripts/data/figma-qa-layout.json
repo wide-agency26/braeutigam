@@ -258,6 +258,58 @@
           "figma": { "x": 1270, "y": 900, "w": 586, "h": 96 }
         }
       ]
+    },
+    "journey": {
+      "scrollY": 10305,
+      "anchor": "#timeline",
+      "overlaySelector": "#timeline",
+      "targets": [
+        {
+          "label": "Journey root",
+          "figmaNodeId": "2006:660",
+          "selector": "#timeline",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1056 }
+        }
+      ]
+    },
+    "experts": {
+      "scrollY": 8085,
+      "anchor": "#datasheet",
+      "overlaySelector": "#datasheet",
+      "targets": [
+        {
+          "label": "Experts section",
+          "figmaNodeId": "2006:660",
+          "selector": "#datasheet",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 800 }
+        }
+      ]
+    },
+    "social": {
+      "scrollY": 11425,
+      "anchor": "[data-figma-node=\"2006:790\"]",
+      "overlaySelector": "[data-figma-node=\"2006:790\"]",
+      "targets": [
+        {
+          "label": "Social gallery",
+          "figmaNodeId": "2006:790",
+          "selector": "[data-figma-node=\"2006:790\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1148 }
+        }
+      ]
+    },
+    "footer": {
+      "scrollY": 12637,
+      "anchor": "[data-figma-node=\"2006:809\"]",
+      "overlaySelector": "[data-figma-node=\"2006:809\"]",
+      "targets": [
+        {
+          "label": "Footer",
+          "figmaNodeId": "2006:809",
+          "selector": "[data-figma-node=\"2006:809\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 800 }
+        }
+      ]
     }
   }
 }
