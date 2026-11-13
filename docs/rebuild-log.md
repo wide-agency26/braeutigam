@@ -25,11 +25,11 @@ Preview QA: `pnpm figma:qa:preview <vercel-preview-url> -- --mode all --section 
 
 | Section | Figma node | Status | Notes |
 |---------|------------|--------|-------|
-| Hero | `2006:132` / `934:242` | fidelity pass | Title 2006:158 full glyphs; MCP geometry QA |
-| Main Image | `2006:220` / `937:253` | PASS @1920 | No manifest LineWaves |
-| Manifest micro | `2006:162`, `2006:287` | fidelity pass | MCP icons 2006:180/183/187, 291/299/302; stat grid x gaps |
-| CAD / story | `2006:304`+ | fidelity pass | Topography only; MCP part PNGs; CompositeSpecCard; sentence-case 358 |
-| Mission | `2006:469` / `989:2` | fidelity pass | `MissionSection.tsx`, MCP assets |
+| Hero | `2006:132` / `934:242` | geometry PASS | Title `2006:158` 76px box + lockup offset |
+| Main Image | `2006:220` / `937:253` | geometry PASS | No manifest LineWaves |
+| Manifest micro | `2006:162`, `2006:287` | geometry PASS | MCP icons; stat row `2006:289` absolute |
+| CAD / story | `2006:304`+ | geometry PASS | Viewport anchor; absolute HUD/part/copy |
+| Mission | `2006:469` / `989:2` | geometry PASS | Fixed 1219px; `MissionSection.tsx` |
 | Journey | `2006:519`+ | pending MCP | `HorizontalTimeline.tsx` |
 | Experts | `2006:660` | pending MCP | Grid + `ExpertSlot` |
 | Social | `2006:790` | pending MCP | `CircularGallery` layout |
