@@ -37,9 +37,9 @@ export function protectionHeaders() {
     extraHTTPHeaders["x-vercel-trusted-oidc-idp-token"] =
       process.env.VERCEL_OIDC_TOKEN;
   }
-  if (process.env.VERCEL_PROTECTION_BYPASS) {
-    extraHTTPHeaders["x-vercel-protection-bypass"] =
-      process.env.VERCEL_PROTECTION_BYPASS;
+  const bypass = process.env.VERCEL_PROTECTION_BYPASS?.trim();
+  if (bypass) {
+    extraHTTPHeaders["x-vercel-protection-bypass"] = bypass;
   }
   return extraHTTPHeaders;
 }

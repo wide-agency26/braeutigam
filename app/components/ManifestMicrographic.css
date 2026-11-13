@@ -19,8 +19,11 @@
 }
 
 .manifest-micro__strip--bottom {
+  height: calc(118 * min(100vw, 1920px) / 1920);
   min-height: calc(118 * min(100vw, 1920px) / 1920);
-  align-items: stretch;
+  max-height: calc(118 * min(100vw, 1920px) / 1920);
+  align-items: center;
+  overflow: hidden;
 }
 
 .manifest-micro__col--start {
@@ -55,14 +58,19 @@
 
 .manifest-micro__col--stats {
   grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
+  position: relative;
   width: calc(587 * min(100vw, 1920px) / 1920);
   max-width: 587px;
+  height: 100%;
   margin-inline: auto;
+  box-sizing: border-box;
 }
 
 .manifest-micro__stats {
+  position: absolute;
+  left: 50%;
+  top: calc(-4 * min(100vw, 1920px) / 1920);
+  transform: translateX(-50%);
   display: grid;
   grid-template-columns:
     calc(142 * min(100vw, 1920px) / 1920)

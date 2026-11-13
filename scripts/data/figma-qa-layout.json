@@ -230,13 +230,13 @@
     },
     "story": {
       "scrollY": 3422,
-      "anchor": "#story",
+      "anchor": ".story-cad-viewport",
       "overlaySelector": ".story-cad-viewport",
       "targets": [
         {
           "label": "CAD frame",
           "figmaNodeId": "2006:304",
-          "selector": "#story",
+          "selector": ".story-cad-viewport",
           "figma": { "x": 0, "y": 0, "w": 1920, "h": 1080 }
         },
         {

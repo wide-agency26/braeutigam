@@ -13,31 +13,32 @@
   width: 100%;
   height: calc(1080 * min(100vw, 1920px) / 1920);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .story-cad-grid {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 20;
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: auto 1fr 1fr 1fr 1fr 1fr auto;
-  gap: calc(16 * min(100vw, 1920px) / 1920);
-  padding: calc(64 * min(100vw, 1920px) / 1920);
   box-sizing: border-box;
-  flex: 1;
-  min-height: 0;
   pointer-events: none;
 }
 
 .story-cad__progress {
-  grid-column: 1 / span 2;
-  grid-row: 1;
+  position: absolute;
+  left: calc(64 * min(100vw, 1920px) / 1920);
+  top: calc(64 * min(100vw, 1920px) / 1920);
+  width: calc(400 * min(100vw, 1920px) / 1920);
+  height: calc(14 * min(100vw, 1920px) / 1920);
   display: flex;
   align-items: center;
   gap: calc(12 * min(100vw, 1920px) / 1920);
-  align-self: stretch;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.story-cad__progress .story-cad__body {
+  font-size: calc(14 * min(100vw, 1920px) / 1920);
+  line-height: calc(14 * min(100vw, 1920px) / 1920);
 }
 
 .story-cad__status-dot {
@@ -47,9 +48,9 @@
 }
 
 .story-cad__telemetry {
-  grid-column: 7;
-  grid-row: 1;
-  justify-self: end;
+  position: absolute;
+  right: calc(64 * min(100vw, 1920px) / 1920);
+  top: calc(64 * min(100vw, 1920px) / 1920);
   display: flex;
   flex-direction: column;
   gap: calc(12 * min(100vw, 1920px) / 1920);
@@ -67,22 +68,20 @@
 }
 
 .story-cad__part-stage {
-  grid-column: 2 / span 5;
-  grid-row: 2 / span 5;
-  justify-self: center;
-  align-self: stretch;
-  position: relative;
+  position: absolute;
+  left: calc(331 * min(100vw, 1920px) / 1920);
+  top: calc(64 * min(100vw, 1920px) / 1920);
   width: calc(1258 * min(100vw, 1920px) / 1920);
-  max-width: 100%;
+  height: calc(768 * min(100vw, 1920px) / 1920);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .story-cad__part-stack {
   position: relative;
   width: 100%;
-  aspect-ratio: 1357 / 768;
+  height: 100%;
 }
 
 .story-cad__part-layer {
@@ -100,8 +99,9 @@
 }
 
 .story-cad__coords {
-  grid-column: 1;
-  grid-row: 7;
+  position: absolute;
+  left: calc(64 * min(100vw, 1920px) / 1920);
+  bottom: calc(64 * min(100vw, 1920px) / 1920);
   display: flex;
   flex-direction: column;
   gap: calc(28 * min(100vw, 1920px) / 1920);
@@ -147,23 +147,22 @@
 }
 
 .story-cad__description {
-  grid-column: 6 / span 2;
-  grid-row: 6;
-  align-self: end;
+  position: absolute;
+  left: calc(1270 * min(100vw, 1920px) / 1920);
+  top: calc(900 * min(100vw, 1920px) / 1920);
+  width: calc(586 * min(100vw, 1920px) / 1920);
+  height: calc(96 * min(100vw, 1920px) / 1920);
   margin: 0;
   color: var(--text-default-body);
   font-size: calc(20 * min(100vw, 1920px) / 1920);
   line-height: calc(24 * min(100vw, 1920px) / 1920);
-  max-width: calc(586 * min(100vw, 1920px) / 1920);
 }
 
 .story-cad__specs {
-  grid-column: 6 / span 2;
-  grid-row: 7;
-  justify-self: end;
-  align-self: start;
-  width: 100%;
-  max-width: calc(320 * min(100vw, 1920px) / 1920);
+  position: absolute;
+  right: calc(64 * min(100vw, 1920px) / 1920);
+  bottom: calc(64 * min(100vw, 1920px) / 1920);
+  width: calc(320 * min(100vw, 1920px) / 1920);
   pointer-events: auto;
 }
 

@@ -79,14 +79,12 @@ export default function StoryCadSection({
   topographyColors,
 }: StoryCadSectionProps) {
   return (
-    <section
-      id="story"
-      ref={scrollyRef}
-      className="story-cad-track cv-auto relative"
-      data-figma-node="2006:304"
-      data-figma-node-dark="1334:1500"
-    >
-      <div className="story-cad-viewport">
+    <section id="story" ref={scrollyRef} className="story-cad-track cv-auto relative">
+      <div
+        className="story-cad-viewport"
+        data-figma-node="2006:304"
+        data-figma-node-dark="1334:1500"
+      >
         <div
           className="cad-topo-stage absolute inset-0"
           data-rebuild-layer="Topography"
