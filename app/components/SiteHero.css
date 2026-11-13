@@ -1,14 +1,33 @@
-/* Hero — Figma 2006:132 / 934:242 — full-bleed viewport, scale caps at 1920 */
+/* Hero — Figma 2006:132; content in 1920 stage, bg/rings full viewport bleed */
 
 .hero-figma {
   position: relative;
   width: 100%;
-  max-width: none;
-  margin-inline: 0;
-  aspect-ratio: 1920 / 1080;
+  height: calc(1080 * min(100vw, 1920px) / 1920);
   overflow: hidden;
   color: var(--text-default-caption);
   transition: color 400ms ease;
+}
+
+/* Full-viewport background layers (photo, scrim, MagicRings) */
+.hero-figma__bleed {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-figma__stage {
+  position: relative;
+  z-index: 2;
+  width: min(100vw, 1920px);
+  max-width: var(--figma-design-width, 1920px);
+  height: 100%;
+  margin-inline: auto;
+  pointer-events: none;
 }
 
 .hero-figma__grid {
@@ -67,6 +86,18 @@
   top: -6.81% !important;
   right: auto !important;
   bottom: auto !important;
+  object-position: center center;
+}
+
+@media (min-width: 1920.02px) {
+  .hero-figma__photo-layer .hero-figma__photo-img {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    object-fit: cover;
+    object-position: center center;
+  }
 }
 
 .hero-figma__scrim {
@@ -134,6 +165,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
+  pointer-events: none;
 }
 
 .hero-figma__lockup {
@@ -171,7 +203,6 @@
 
 .hero-figma__title {
   width: calc(1792 * min(100vw, 1920px) / 1920);
-  max-width: calc(1792 * min(100vw, 1920px) / 1920);
   text-align: center;
 }
 
@@ -225,6 +256,7 @@
   width: calc(696 * min(100vw, 1920px) / 1920);
   text-align: center;
   transition: color 400ms ease;
+  pointer-events: auto;
 }
 
 .hero-figma__status-caption {
@@ -268,62 +300,9 @@
   transition: opacity 400ms ease;
 }
 
-.hero-figma__rings .absolute.inset-0 {
-  width: 100%;
-  height: 100%;
-}
-
-/* Ultra-wide: pin corner HUDs to viewport insets; keep lockup centred (scale capped at 1920). */
-@media (min-width: 1920px) {
-  .hero-figma__grid {
-    display: block;
-    padding: 0;
-  }
-
-  .hero-figma__location {
-    position: absolute;
-    left: calc(64 * min(100vw, 1920px) / 1920);
-    top: calc(185 * min(100vw, 1920px) / 1920);
-    grid-column: unset;
-    grid-row: unset;
-    padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
-  }
-
-  .hero-figma__dev {
-    position: absolute;
-    right: calc(64 * min(100vw, 1920px) / 1920);
-    left: auto;
-    top: calc(185 * min(100vw, 1920px) / 1920);
-    grid-column: unset;
-    grid-row: unset;
-    padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
-  }
-
-  .hero-figma__main {
-    position: absolute;
-    left: 50%;
-    right: auto;
-    bottom: calc(173 * min(100vw, 1920px) / 1920);
-    transform: translateX(-50%);
-    grid-column: unset;
-    grid-row: unset;
-    width: 100%;
-    max-width: none;
-    align-items: center;
-  }
-
-  .hero-figma__lockup {
-    transform: translateY(calc(24 * min(100vw, 1920px) / 1920));
-  }
-
-  .hero-figma__status {
-    position: absolute;
-    left: 50%;
-    bottom: calc(64 * min(100vw, 1920px) / 1920);
-    transform: translateX(-50%);
-    grid-column: unset;
-    grid-row: unset;
-  }
+.hero-figma__status,
+.hero-figma__scroll {
+  pointer-events: auto;
 }
 
 @media (max-width: 767.98px) {
@@ -339,21 +318,10 @@
   .hero-figma__status {
     grid-column: 1;
     grid-row: auto;
-    position: relative;
-    left: auto;
-    right: auto;
-    top: auto;
-    bottom: auto;
-    transform: none;
   }
 
   .hero-figma__title {
     width: 100%;
-    max-width: none;
-  }
-
-  .hero-figma__lockup {
-    transform: translateY(calc(24 * min(100vw, 1920px) / 1920));
   }
 }
 

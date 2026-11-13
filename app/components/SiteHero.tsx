@@ -98,11 +98,11 @@ export default function SiteHero({
       data-figma-node-dark="934:242"
       aria-label="Hero"
     >
+      <div className="hero-figma__bleed" aria-hidden>
       <div
         className="hero-figma__bg"
         data-figma-node="2006:132-bg"
         data-figma-node-dark="934:242-bg"
-        aria-hidden
       >
         <div
           className="hero-figma__photo"
@@ -179,7 +179,9 @@ export default function SiteHero({
           }}
         />
       </div>
+      </div>
 
+      <div className="hero-figma__stage">
       <div className="hero-figma__grid">
         <div
           className="hero-figma__location"
@@ -280,6 +282,7 @@ export default function SiteHero({
             SCROLL TO EXPLORE
           </a>
         </div>
+      </div>
       </div>
     </section>
   );
