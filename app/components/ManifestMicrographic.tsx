@@ -1,30 +1,27 @@
 "use client";
 
 import React from "react";
-import { useTheme } from "./ThemeProvider";
 import "./ManifestMicrographic.css";
 
-function CoreValuePill({ icon, label }: { icon: string; label: string }) {
+function CoreValuePill({
+  icon,
+  label,
+  iconNodeId,
+  iconNodeIdDark,
+}: {
+  icon: string;
+  label: string;
+  iconNodeId: string;
+  iconNodeIdDark: string;
+}) {
   return (
     <div className="manifest-micro__pill">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={icon} alt="" width={40} height={40} className="manifest-micro__pill-icon" />
+      <span data-figma-node={iconNodeId} data-figma-node-dark={iconNodeIdDark}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={icon} alt="" width={40} height={40} className="manifest-micro__pill-icon" />
+      </span>
       <span className="manifest-micro__pill-label">{label}</span>
     </div>
-  );
-}
-
-function FlagStatIcon() {
-  return (
-    <svg className="manifest-micro__stat-svg" viewBox="0 0 50 50" fill="none" aria-hidden>
-      <path d="M12 8v34" stroke="currentColor" strokeWidth="1.6" />
-      <rect x="14" y="10" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="10" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="14" y="17" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="24" y="17" width="10" height="7" fill="currentColor" />
-      <rect x="14" y="24" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="24" width="10" height="7" fill="currentColor" opacity="0.35" />
-    </svg>
   );
 }
 
@@ -76,9 +73,24 @@ export function ManifestMicrographicTop() {
             CORE VALUE definition:
           </p>
           <div className="manifest-micro__pills" data-figma-node="2006:178" data-figma-node-dark="1330:685">
-            <CoreValuePill icon="/icons/figma/mg-speed.svg" label="speed" />
-            <CoreValuePill icon="/icons/figma/mg-complexity.svg" label="complexity" />
-            <CoreValuePill icon="/icons/figma/mg-inhouse.svg" label="inhouse" />
+            <CoreValuePill
+              icon="/icons/figma/nodes/2006-180-speed.svg"
+              label="speed"
+              iconNodeId="2006:180"
+              iconNodeIdDark="1330:691"
+            />
+            <CoreValuePill
+              icon="/icons/figma/nodes/2006-183-complexity.svg"
+              label="complexity"
+              iconNodeId="2006:183"
+              iconNodeIdDark="1330:692"
+            />
+            <CoreValuePill
+              icon="/icons/figma/nodes/2006-187-inhouse.svg"
+              label="inhouse"
+              iconNodeId="2006:187"
+              iconNodeIdDark="1330:693"
+            />
           </div>
         </div>
       </div>
@@ -87,10 +99,6 @@ export function ManifestMicrographicTop() {
 }
 
 export function ManifestMicrographicBottom() {
-  const { isDark } = useTheme();
-  const globeIcon = isDark ? "/icons/figma/mg-globe-dark.svg" : "/icons/figma/mg-globe.svg";
-  const sparkIcon = "/icons/figma/mg-spark.svg";
-
   return (
     <div className="manifest-micro">
       <div
@@ -105,7 +113,16 @@ export function ManifestMicrographicBottom() {
         >
           <div className="manifest-micro__stats" data-figma-node="2006:289" data-figma-node-dark="1330:1134">
             <div className="manifest-micro__stat" data-figma-node="2006:290" data-figma-node-dark="1330:1149">
-              <FlagStatIcon />
+              <span data-figma-node="2006:291" data-figma-node-dark="1330:1150">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/icons/figma/nodes/2006-291-flag.png"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="manifest-micro__stat-img"
+                />
+              </span>
               <p className="manifest-micro__stat-copy" data-figma-node="2006:297" data-figma-node-dark="1330:1156">
                 suppling mayority
                 <br />
@@ -113,8 +130,16 @@ export function ManifestMicrographicBottom() {
               </p>
             </div>
             <div className="manifest-micro__stat" data-figma-node="2006:298" data-figma-node-dark="1330:1157">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={globeIcon} alt="" width={50} height={50} className="manifest-micro__stat-img" />
+              <span data-figma-node="2006:299" data-figma-node-dark="1330:1158">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/icons/figma/nodes/2006-299-globe.svg"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="manifest-micro__stat-img"
+                />
+              </span>
               <p className="manifest-micro__stat-copy" data-figma-node="2006:300" data-figma-node-dark="1330:1159">
                 active
                 <br />
@@ -122,8 +147,16 @@ export function ManifestMicrographicBottom() {
               </p>
             </div>
             <div className="manifest-micro__stat" data-figma-node="2006:301" data-figma-node-dark="1330:1163">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={sparkIcon} alt="" width={50} height={50} className="manifest-micro__stat-img" />
+              <span data-figma-node="2006:302" data-figma-node-dark="1330:1164">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/icons/figma/nodes/2006-302-machinery.svg"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="manifest-micro__stat-img"
+                />
+              </span>
               <p className="manifest-micro__stat-copy" data-figma-node="2006:303" data-figma-node-dark="1330:1165">
                 SOPHISTICATED
                 <br />

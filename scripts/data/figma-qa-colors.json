@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "hero-dark": {
+      "scrollY": 0,
+      "colors": [
+        {
+          "figmaNodeId": "2006:161",
+          "selector": ".dark [data-figma-node=\"2006:161\"]",
+          "property": "color",
+          "expected": "rgb(15, 255, 0)"
+        }
+      ]
+    }
+  }
+}

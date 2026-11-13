@@ -44,10 +44,13 @@
   grid-column: 3;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: calc(16 * min(100vw, 1920px) / 1920);
   margin-top: 0;
   align-self: flex-start;
+  width: calc(586 * min(100vw, 1920px) / 1920);
+  max-width: 586px;
+  justify-self: end;
 }
 
 .manifest-micro__col--stats {
@@ -60,10 +63,15 @@
 }
 
 .manifest-micro__stats {
-  display: flex;
+  display: grid;
+  grid-template-columns:
+    calc(142 * min(100vw, 1920px) / 1920)
+    calc(70 * min(100vw, 1920px) / 1920)
+    calc(102 * min(100vw, 1920px) / 1920);
+  column-gap: calc(136.33 * min(100vw, 1920px) / 1920);
   align-items: flex-start;
-  justify-content: space-between;
-  width: 100%;
+  width: calc(586.67 * min(100vw, 1920px) / 1920);
+  max-width: 586.67px;
   height: calc(126 * min(100vw, 1920px) / 1920);
   min-height: calc(126 * min(100vw, 1920px) / 1920);
   padding-block: calc(12 * min(100vw, 1920px) / 1920);
@@ -71,18 +79,12 @@
 }
 
 .manifest-micro__stat:nth-child(1) {
-  width: calc(142 * min(100vw, 1920px) / 1920);
-  max-width: 142px;
+  padding-top: calc(1.44 * min(100vw, 1920px) / 1920);
 }
 
-.manifest-micro__stat:nth-child(2) {
-  width: calc(70 * min(100vw, 1920px) / 1920);
-  max-width: 70px;
-}
-
+.manifest-micro__stat:nth-child(2),
 .manifest-micro__stat:nth-child(3) {
-  width: calc(102 * min(100vw, 1920px) / 1920);
-  max-width: 102px;
+  padding-top: 0;
 }
 
 .manifest-micro__stat:nth-child(1) .manifest-micro__stat-copy {
@@ -189,8 +191,10 @@
 
 .manifest-micro__pills {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: calc(28 * min(100vw, 1920px) / 1920);
+  width: calc(228 * min(100vw, 1920px) / 1920);
+  max-width: 228px;
 }
 
 .manifest-micro__pill {

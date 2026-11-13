@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { LazyMotion, domAnimation, useScroll, useTransform, useSpring } from "framer-motion";
 import LazyOnVisible from "./LazyOnVisible";
 import StoryCadSection from "./StoryCadSection";
+import MissionSection from "./MissionSection";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
@@ -26,7 +26,6 @@ import { useTheme } from "./ThemeProvider";
    the viewport. */
 const loadTimeline = () => import("./HorizontalTimeline");
 const loadCircularGallery = () => import("./CircularGallery");
-import laserTech from "../../public/images/laser_technology.webp";
 
 const SOCIAL_GALLERY_ITEMS = [
   {
@@ -155,70 +154,7 @@ export default function HomePage({
         topographyColors={topographyColors}
       />
 
-      {/* 2.5. SECTION: MISSION — Final Home (Figma 989:2 proportions) */}
-      <section
-        id="mission"
-        className="mission-figma cv-auto relative overflow-hidden transition-colors duration-500"
-        data-figma-node="2006:469"
-        data-figma-node-dark="945:2"
-      >
-        <div className="mission-figma__stage">
-          <div className="mission-figma__watermark" aria-hidden>
-            <p>
-              OUR
-              <br />
-              CRAFT
-            </p>
-          </div>
-
-          <aside className="mission-figma__sidebar" aria-label="Craft principles">
-            <div className="mission-figma__chip">
-              <img src="/images/mission/chip-experts.svg" alt="" width={50} height={47} />
-              <span className="mission-figma__chip-label">
-                <span>End 2 end</span>
-                <span>Experts</span>
-              </span>
-            </div>
-            <div className="mission-figma__chip">
-              <img src="/images/mission/chip-craft.svg" alt="" width={50} height={50} />
-              <span className="mission-figma__chip-label">
-                <span>Precision</span>
-                <span>Craft</span>
-              </span>
-            </div>
-            <div className="mission-figma__chip">
-              <img src="/images/mission/chip-execution.svg" alt="" width={50} height={50} />
-              <span className="mission-figma__chip-label">
-                <span>Flawless</span>
-                <span>Execution</span>
-              </span>
-            </div>
-          </aside>
-
-          <h2 className="mission-figma__headline">
-            <span className="mission-figma__quality">FLAWLESS QUALITY &amp;</span>
-            <span className="mission-figma__perf">HIGH PERFORMANCE.</span>
-          </h2>
-
-          <div className="mission-figma__split">
-            <div className="mission-figma__image">
-              <Image
-                src={laserTech}
-                alt="Precision finishing on a carbon fiber component"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 30vw"
-              />
-            </div>
-            <div className="mission-figma__aside">
-              <p className="mission-figma__copy">
-                Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
-              </p>
-              <SiteButton href="#story">MANUFACTURING</SiteButton>
-            </div>
-          </div>
-        </div>
-      </section>
+      <MissionSection />
 
       {/* 3. SECTION: HORIZONTAL SCROLL TIMELINE (2016-2026) */}
       <div id="timeline" className="cv-auto" data-figma-node="2006:519" data-figma-node-dark="945:54">

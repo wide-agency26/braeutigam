@@ -146,9 +146,13 @@
 
 .hero-figma__title.heading-figma-overlay {
   box-sizing: border-box;
-  line-height: calc(52 * min(100vw, 1920px) / 1920);
+  /* Figma 2006:158: 76px type in a 52px layout box — show full glyphs */
+  font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  line-height: min(76px, calc(76 * min(100vw, 1920px) / 1920));
   min-height: calc(52 * min(100vw, 1920px) / 1920);
-  max-height: calc(52 * min(100vw, 1920px) / 1920);
+  max-height: none;
+  overflow: visible;
+  padding-block: calc(12 * min(100vw, 1920px) / 1920);
 }
 
 .heading-figma-overlay {

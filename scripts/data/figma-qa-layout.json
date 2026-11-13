@@ -6,6 +6,7 @@
   "sections": {
     "hero": {
       "scrollY": 0,
+      "overlaySelector": "#silhouette",
       "anchor": "#silhouette",
       "targets": [
         {
@@ -24,7 +25,7 @@
           "label": "CARBON FIBER WORKS",
           "figmaNodeId": "2006:158",
           "selector": "[data-figma-node=\"2006:158\"]",
-          "figma": { "x": 64, "y": 555, "w": 1792, "h": 52 }
+          "figma": { "x": 64, "y": 555, "w": 1792, "h": 76 }
         },
         {
           "label": "SINCE 2016",
@@ -87,9 +88,9 @@
           "figma": { "x": 667, "y": 48, "w": 238, "h": 14 }
         },
         {
-          "label": "Core values row",
-          "figmaNodeId": "2006:178",
-          "selector": "[data-figma-node=\"2006:178\"]",
+          "label": "Core values end col",
+          "figmaNodeId": "2006:176",
+          "selector": "[data-figma-node=\"2006:176\"]",
           "figma": { "x": 1270, "y": 0, "w": 586, "h": 62 }
         }
       ]
@@ -208,9 +209,29 @@
         }
       ]
     },
+    "mission": {
+      "scrollY": 6854,
+      "anchor": "#mission",
+      "overlaySelector": "#mission",
+      "targets": [
+        {
+          "label": "Mission frame",
+          "figmaNodeId": "2006:469",
+          "selector": "#mission",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1219 }
+        },
+        {
+          "label": "Mission headlines",
+          "figmaNodeId": "2006:512",
+          "selector": "[data-figma-node=\"2006:512\"]",
+          "figma": { "x": 580, "y": 548, "w": 1275, "h": 261 }
+        }
+      ]
+    },
     "story": {
       "scrollY": 3422,
       "anchor": "#story",
+      "overlaySelector": ".story-cad-viewport",
       "targets": [
         {
           "label": "CAD frame",

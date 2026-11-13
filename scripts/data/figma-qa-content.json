@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "hero": {
+      "scrollY": 0,
+      "content": [
+        {
+          "figmaNodeId": "2006:158",
+          "selector": "[data-figma-node=\"2006:158\"]",
+          "text": "CARBON FIBER WORKS"
+        },
+        {
+          "figmaNodeId": "2006:161",
+          "selector": "[data-figma-node=\"2006:161\"]",
+          "text": "SINCE 2016"
+        }
+      ]
+    },
+    "manifest-micro-bottom": {
+      "scrollY": 3240,
+      "content": [
+        {
+          "figmaNodeId": "2006:297",
+          "selector": "[data-figma-node=\"2006:297\"]",
+          "text": "suppling mayority\nof f1 teams",
+          "exact": false
+        }
+      ]
+    },
+    "story": {
+      "scrollY": 3422,
+      "content": [
+        {
+          "figmaNodeId": "2006:358",
+          "selector": "[data-figma-node=\"2006:358\"]",
+          "text": "Our finished carbon fiber structures undergo strict quality assurance. Every component is ultrasonically scanned and CNC inspected, ensuring tolerance thresholds of less than 0.05mm and absolute structural compliance."
+        }
+      ]
+    }
+  }
+}

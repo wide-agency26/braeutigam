@@ -129,11 +129,21 @@
 .story-cad__coords-text {
   margin: 0;
   color: var(--text-default-body);
-  font-family: var(--font-jetbrains-mono, ui-monospace, monospace);
-  font-size: calc(12 * min(100vw, 1920px) / 1920);
-  line-height: calc(18 * min(100vw, 1920px) / 1920);
-  text-transform: uppercase;
   white-space: pre;
+}
+
+.story-cad__description--sentence {
+  margin: 0;
+  color: var(--text-default-body);
+  font-size: calc(20 * min(100vw, 1920px) / 1920);
+  line-height: calc(24 * min(100vw, 1920px) / 1920);
+  text-transform: none;
+  font-family: var(--font-univers), sans-serif;
+}
+
+.story-cad__part-img {
+  object-fit: contain;
+  object-position: center top;
 }
 
 .story-cad__description {
@@ -154,14 +164,6 @@
   align-self: start;
   width: 100%;
   max-width: calc(320 * min(100vw, 1920px) / 1920);
-  pointer-events: auto;
-}
-
-.story-cad-scroll-map {
-  position: absolute;
-  left: calc(64 * min(100vw, 1920px) / 1920);
-  bottom: calc(64 * min(100vw, 1920px) / 1920);
-  z-index: 25;
   pointer-events: auto;
 }
 
