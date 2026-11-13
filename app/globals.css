@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./figma-scale.css";
+@import "./hero-figma-tokens.css";
 @import "./typography-tokens.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */

@@ -1,0 +1,27 @@
+/**
+ * Subset of Figma color tokens for SiteHero + MagicRings only (does not override site --background).
+ */
+
+:root {
+  --colors-greeeen: #00ff00;
+  --neutral-black: #131414;
+  --neutral-white: #f0f0f0;
+  --text-default-accent: #009900;
+  --text-default-caption: #131414;
+  --text-default-heading: #131414;
+  --text-default-body: #1f2020;
+  --text-default-placeholder: #1f2020;
+  --icon-default-placeholder: #717272;
+}
+
+.dark {
+  --colors-greeeen: #00ff00;
+  --neutral-black: #131414;
+  --neutral-white: #f0f0f0;
+  --text-default-accent: #00ff00;
+  --text-default-caption: #a1a1a1;
+  --text-default-heading: #f0f0f0;
+  --text-default-body: #d0d0d0;
+  --text-default-placeholder: #717272;
+  --icon-default-placeholder: #717272;
+}
