@@ -168,9 +168,13 @@
 }
 
 .tl-y-sm {
+  /* Figma Decorative/Secondary — prefer .decorative-secondary token when refactored */
+  font-family: var(--font-bootzy), sans-serif;
+  font-weight: 400;
   font-size: 72px;
   line-height: 84px;
   letter-spacing: 4px;
+  text-transform: uppercase;
   text-align: right;
 }
 

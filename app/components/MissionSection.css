@@ -1,0 +1,126 @@
+/* Figma 2006:469 / 989:2 — 1920×1219 */
+
+.mission-section {
+  width: min(100%, 1920px);
+  margin-inline: auto;
+  height: calc(1219 * min(100vw, 1920px) / 1920);
+  min-height: calc(1219 * min(100vw, 1920px) / 1920);
+  max-height: calc(1219 * min(100vw, 1920px) / 1920);
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-section__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: calc(16 * min(100vw, 1920px) / 1920);
+  padding: calc(132 * min(100vw, 1920px) / 1920) calc(64 * min(100vw, 1920px) / 1920);
+  height: calc(1219 * min(100vw, 1920px) / 1920);
+  min-height: calc(1219 * min(100vw, 1920px) / 1920);
+  max-height: calc(1219 * min(100vw, 1920px) / 1920);
+  box-sizing: border-box;
+}
+
+.mission-section__watermark {
+  grid-column: 2 / span 5;
+  grid-row: 1 / span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(24 * min(100vw, 1920px) / 1920) calc(16 * min(100vw, 1920px) / 1920);
+  pointer-events: none;
+  overflow: hidden;
+  max-height: 100%;
+}
+
+.mission-section__watermark p {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-bootzy), serif;
+  font-size: min(332px, calc(332 * min(100vw, 1920px) / 1920));
+  line-height: min(232px, calc(232 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(8 * min(100vw, 1920px) / 1920);
+  text-transform: uppercase;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: calc(2 * min(100vw, 1920px) / 1920) var(--text-default-accent);
+}
+
+.mission-section__sidebar {
+  grid-column: 1;
+  grid-row: 5 / span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: calc(52 * min(100vw, 1920px) / 1920);
+  padding: calc(12 * min(100vw, 1920px) / 1920) calc(20 * min(100vw, 1920px) / 1920);
+  border-radius: calc(80 * min(100vw, 1920px) / 1920);
+}
+
+.mission-section__pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(24 * min(100vw, 1920px) / 1920);
+  text-align: center;
+}
+
+.mission-section__pill .copy-tiny {
+  margin: 0;
+  color: var(--text-default-placeholder);
+}
+
+.mission-section__headlines {
+  grid-column: 3 / span 5;
+  grid-row: 4 / span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.mission-section__quality {
+  margin: 0;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-size: min(119.05px, calc(119.05 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(-4.762 * min(100vw, 1920px) / 1920);
+  color: var(--text-default-heading);
+  background-image: url("/images/mission/figma/quality-text-fill.png"),
+    linear-gradient(90deg, var(--text-default-heading) 0%, var(--text-default-heading) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: cover, auto;
+}
+
+.mission-section__perf {
+  margin: 0;
+  font-family: var(--font-bootzy), serif;
+  font-size: min(127.053px, calc(127.053 * min(100vw, 1920px) / 1920));
+  letter-spacing: calc(3.8116 * min(100vw, 1920px) / 1920);
+  color: var(--text-default-accent);
+}
+
+.mission-section__image {
+  grid-column: 2 / span 2;
+  grid-row: 6 / span 2;
+  position: relative;
+  overflow: hidden;
+  min-height: calc(261 * min(100vw, 1920px) / 1920);
+}
+
+.mission-section__info {
+  grid-column: 6 / span 2;
+  grid-row: 6 / span 2;
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * min(100vw, 1920px) / 1920);
+  align-items: flex-start;
+}
+
+.mission-section__copy {
+  margin: 0;
+  text-transform: none;
+  color: var(--text-default-body);
+}

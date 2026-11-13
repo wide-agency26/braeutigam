@@ -1,4 +1,15 @@
 @import "tailwindcss";
+@import "./figma-tokens.css";
+@import "./figma-scale.css";
+
+/* Figma artboard vertical rhythm — 64px @ 1920 (between stacked sections). */
+.figma-artboard-gap {
+  width: min(100%, var(--figma-design-width, 1920px));
+  height: var(--scale-1100);
+  margin-inline: auto;
+  flex-shrink: 0;
+}
+@import "./typography-tokens.css";
 
 /* Class-based dark mode driven by <html class="dark"> (see ThemeProvider). */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -21,21 +32,12 @@
 }
 
 :root {
-  --background: #F9F9FB;
-  --foreground: #111111;
-  --surface: #F9F9FB;
-  --surface-muted: #ffffff;
-  --site-max-width: 1440px;
+  /* Colors/surfaces: app/figma-tokens.css (Figma 2006:131 / 934:241) */
+  --site-max-width: 1920px;
   --site-gutter: clamp(1.5rem, 4vw, 4rem);
-  --focus-ring: #087a08;
-}
-
-.dark {
-  --background: #0B0B0C;
-  --foreground: #f4f4f5;
-  --surface: #0B0B0C;
-  --surface-muted: #18181b;
-  --focus-ring: #39ff14;
+  /* Legacy aliases until section rebuild removes @theme brand hex */
+  --color-brand-light: var(--surface-pages-page);
+  --color-brand-dark: var(--neutral-black);
 }
 
 html {

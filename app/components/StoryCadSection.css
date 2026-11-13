@@ -1,0 +1,175 @@
+/* Story CAD scrolly — Figma 2006:304 / 2006:359 / 2006:414 @ 1920×1080 ×3 + 64px gaps */
+
+.story-cad-track {
+  position: relative;
+  width: min(100%, 1920px);
+  margin-inline: auto;
+  height: calc(3368 * min(100vw, 1920px) / 1920);
+}
+
+.story-cad-viewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: calc(1080 * min(100vw, 1920px) / 1920);
+  overflow: hidden;
+}
+
+.story-cad-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.story-cad__progress {
+  position: absolute;
+  left: calc(64 * min(100vw, 1920px) / 1920);
+  top: calc(64 * min(100vw, 1920px) / 1920);
+  width: calc(400 * min(100vw, 1920px) / 1920);
+  height: calc(14 * min(100vw, 1920px) / 1920);
+  display: flex;
+  align-items: center;
+  gap: calc(12 * min(100vw, 1920px) / 1920);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.story-cad__progress .story-cad__body {
+  font-size: calc(14 * min(100vw, 1920px) / 1920);
+  line-height: calc(14 * min(100vw, 1920px) / 1920);
+}
+
+.story-cad__status-dot {
+  width: calc(11 * min(100vw, 1920px) / 1920);
+  height: calc(11 * min(100vw, 1920px) / 1920);
+  flex-shrink: 0;
+}
+
+.story-cad__telemetry {
+  position: absolute;
+  right: calc(64 * min(100vw, 1920px) / 1920);
+  top: calc(64 * min(100vw, 1920px) / 1920);
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * min(100vw, 1920px) / 1920);
+  align-items: flex-start;
+  text-align: right;
+  max-width: calc(280 * min(100vw, 1920px) / 1920);
+}
+
+.story-cad__telemetry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: calc(12 * min(100vw, 1920px) / 1920);
+}
+
+.story-cad__part-stage {
+  position: absolute;
+  left: calc(331 * min(100vw, 1920px) / 1920);
+  top: calc(64 * min(100vw, 1920px) / 1920);
+  width: calc(1258 * min(100vw, 1920px) / 1920);
+  height: calc(768 * min(100vw, 1920px) / 1920);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.story-cad__part-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.story-cad__part-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-cad__part-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.story-cad__coords {
+  position: absolute;
+  left: calc(64 * min(100vw, 1920px) / 1920);
+  bottom: calc(64 * min(100vw, 1920px) / 1920);
+  display: flex;
+  flex-direction: column;
+  gap: calc(28 * min(100vw, 1920px) / 1920);
+  align-items: flex-start;
+  pointer-events: auto;
+}
+
+.story-cad__coord-thumb {
+  width: calc(242.286 * min(100vw, 1920px) / 1920);
+  height: calc(149 * min(100vw, 1920px) / 1920);
+  overflow: hidden;
+  position: relative;
+}
+
+.story-cad__coord-thumb img {
+  position: absolute;
+  width: 113.13%;
+  height: 113.94%;
+  left: -7.07%;
+  top: -9.09%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.story-cad__coords-text {
+  margin: 0;
+  color: var(--text-default-body);
+  white-space: pre;
+}
+
+.story-cad__description--sentence {
+  margin: 0;
+  color: var(--text-default-body);
+  font-size: calc(20 * min(100vw, 1920px) / 1920);
+  line-height: calc(24 * min(100vw, 1920px) / 1920);
+  text-transform: none;
+  font-family: var(--font-univers), sans-serif;
+}
+
+.story-cad__part-img {
+  object-fit: contain;
+  object-position: center top;
+}
+
+.story-cad__description {
+  position: absolute;
+  left: calc(1270 * min(100vw, 1920px) / 1920);
+  top: calc(900 * min(100vw, 1920px) / 1920);
+  width: calc(586 * min(100vw, 1920px) / 1920);
+  height: calc(96 * min(100vw, 1920px) / 1920);
+  margin: 0;
+  color: var(--text-default-body);
+  font-size: calc(20 * min(100vw, 1920px) / 1920);
+  line-height: calc(24 * min(100vw, 1920px) / 1920);
+}
+
+.story-cad__specs {
+  position: absolute;
+  right: calc(64 * min(100vw, 1920px) / 1920);
+  bottom: calc(64 * min(100vw, 1920px) / 1920);
+  width: calc(320 * min(100vw, 1920px) / 1920);
+  pointer-events: auto;
+}
+
+.story-cad__body {
+  color: var(--text-default-placeholder);
+}
+
+.story-cad__body--accent {
+  color: var(--text-default-body);
+}

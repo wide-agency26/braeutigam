@@ -1,148 +1,16 @@
-/* Figma Final Home — Micrographic HUD + Manifest + stats strip.
-   Tokens invert in light mode; neon stays the single accent. */
+/* Figma Main Image — 2006:220 / 937:253 @ 1920 */
 
-.manifest-shell {
-  --mg-fg: #fbfafc;
-  --mg-dim: #8a8a8a;
-  --mg-muted: #b2b1b2;
-  --mg-neon: #00ff00;
-  --mg-amber: #c9a227;
-  --mg-line: rgba(251, 250, 252, 0.18);
-  color: var(--mg-fg);
+.manifest-section {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  isolation: isolate;
 }
 
-:root:not(.dark) .manifest-shell {
-  --mg-fg: #131414;
-  --mg-dim: #5c5c5c;
-  --mg-muted: #4a4a4a;
-  --mg-neon: #087a08;
-  --mg-amber: #8a6a10;
-  --mg-line: rgba(19, 20, 20, 0.14);
-}
-
-.mg-bar {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
-  align-items: center;
-  column-gap: clamp(16px, 3vw, 48px);
-  padding: 14px clamp(20px, 3.33vw, 64px);
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 10px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  line-height: 1.15;
-  border-block: 1px solid var(--mg-line);
-}
-
-.mg-bar--values {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding-block: 28px;
-  justify-items: center;
-}
-
-.mg-bar__cluster {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.mg-bar__cluster--center {
-  align-items: center;
-  text-align: center;
-}
-
-.mg-bar__cluster--end {
-  align-items: flex-end;
-  text-align: right;
-}
-
-.mg-neon {
-  color: var(--mg-neon);
-}
-
-.mg-amber {
-  color: var(--mg-amber);
-}
-
-.mg-dim {
-  color: var(--mg-dim);
-}
-
-.mg-muted {
-  color: var(--mg-muted);
-}
-
-.mg-credit {
-  margin-top: 8px;
-  font-size: 8px;
-  letter-spacing: 0.12em;
-  color: var(--mg-dim);
-}
-
-.mg-core {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-
-.mg-core__label {
-  color: var(--mg-dim);
-  letter-spacing: 0.08em;
-  font-size: 9px;
-}
-
-.mg-core__row {
-  display: flex;
-  align-items: flex-end;
-  gap: clamp(18px, 2.2vw, 36px);
-}
-
-.mg-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--mg-fg);
-}
-
-.mg-icon img {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: none;
-}
-
-.mg-icon span {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-}
-
-.mg-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: var(--mg-muted);
-  text-align: center;
-}
-
-.mg-stat svg {
-  width: 50px;
-  height: 50px;
-}
-
-.mg-stat span {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  line-height: 1.35;
-}
-
-/* ── Manifest stage: Figma Main Image 937:253, 1920×1890, 5-col grid ──
-   The frame is the query container so padding does not shrink 100cqi. */
 .manifest-frame {
+  position: relative;
+  z-index: 1;
   container-type: inline-size;
   width: min(100%, 1920px);
   margin-inline: auto;
@@ -152,9 +20,15 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  /* Figma 937:253 row bands: 699 + 444 + 571 (+ 72×2 pad + 16×2 gap = 1890) */
+  grid-template-rows:
+    calc(699 / 1920 * 100cqi)
+    calc(444 / 1920 * 100cqi)
+    calc(571 / 1920 * 100cqi);
   column-gap: calc(16 / 1920 * 100cqi);
   row-gap: calc(16 / 1920 * 100cqi);
   padding: calc(72 / 1920 * 100cqi) calc(64 / 1920 * 100cqi);
+  min-height: calc(1890 / 1920 * 100cqi);
   overflow: hidden;
   align-items: start;
 }
@@ -166,27 +40,99 @@
   flex-direction: column;
   align-items: flex-start;
   gap: calc(10 / 1920 * 100cqi);
+  width: calc(346 / 1920 * 100cqi);
+  max-width: calc(346 / 1920 * 100cqi);
   min-width: 0;
+}
+
+.manifest-carbon-slot {
+  position: absolute;
+  left: calc(64 / 1920 * 100cqi);
+  top: calc(435 / 1920 * 100cqi);
+  width: calc(346 / 1920 * 100cqi);
+  height: calc(350 / 1920 * 100cqi);
+  overflow: clip;
+  z-index: 1;
+}
+
+.manifest-hud {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 / 1920 * 100cqi);
+  width: 100%;
+  max-width: calc(280 / 1920 * 100cqi);
+  min-height: calc(211 / 1920 * 100cqi);
+  word-break: break-word;
+}
+
+.manifest-hud__title {
+  margin: 0;
+  color: var(--text-default-body);
+}
+
+.manifest-hud__title--mission {
+  width: calc(280 / 1920 * 100cqi);
+  max-width: calc(280 / 1920 * 100cqi);
+}
+
+.manifest-hud__pairs {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 / 1920 * 100cqi);
+  width: 100%;
+}
+
+.manifest-hud__row {
+  display: grid;
+  grid-template-columns: calc(140 / 1920 * 100cqi) calc(140 / 1920 * 100cqi);
+  column-gap: 0;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+
+.manifest-hud__label {
+  margin: 0;
+  color: var(--text-default-placeholder);
+}
+
+.manifest-hud__accent {
+  margin: 0;
+  color: var(--text-default-accent);
+  text-align: left;
+}
+
+.manifest-hud__denied {
+  margin: 0;
+  color: var(--text-default-accent-subtle-secondary);
+  text-align: left;
+}
+
+.manifest-headline-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.manifest-stage .manifest-title-univers {
+  color: var(--text-default-heading);
+  max-width: none;
+  width: 100%;
+}
+
+.manifest-stage .manifest-title-bootzy {
+  color: var(--text-default-accent);
+  width: 100%;
 }
 
 .manifest-lead {
   grid-column: 2 / span 3;
   grid-row: 1;
-  align-self: center;
-  justify-self: stretch;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-width: 0;
-}
-
-.manifest-principle {
-  grid-column: 2 / span 3;
-  grid-row: 2;
-  align-self: center;
+  align-self: start;
+  margin-top: calc(128 / 1920 * 100cqi);
   justify-self: stretch;
   position: relative;
   z-index: 2;
@@ -194,63 +140,45 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(571 / 1920 * 100cqi);
+  min-width: 0;
+}
+
+.manifest-principle {
+  grid-column: 2 / span 3;
+  grid-row: 2;
+  align-self: start;
+  justify-self: stretch;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   min-width: 0;
+}
+
+.manifest-row2-spacer {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+  align-self: start;
+  width: calc(350 / 1920 * 100cqi);
+  height: calc(571 / 1920 * 100cqi);
+  margin-top: calc((659 - 787) / 1920 * 100cqi);
+  min-height: 0;
 }
 
 .manifest-bottom {
   grid-column: 1 / -1;
   grid-row: 3;
+  align-self: start;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-}
-
-.manifest-overview {
-  position: relative;
-  z-index: 3;
-  width: min(100%, calc(280 / 1920 * 100cqi));
-  min-height: calc(211 / 1920 * 100cqi);
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: calc(10 / 1920 * 100cqi);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.manifest-overview__title {
-  margin: 0 0 10px;
-  color: var(--mg-dim);
-  letter-spacing: 0.16em;
-}
-
-.manifest-overview__row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  margin: 0 0 6px;
-  color: var(--mg-dim);
-}
-
-.manifest-overview__wait {
-  margin: 10px 0 0;
-  color: var(--mg-dim);
-}
-
-.manifest-stage .manifest-figma__line {
-  max-width: none;
-  font-family: var(--font-univers-bold-cn), var(--font-sans);
-  font-size: calc(119.05 / 1920 * 100cqi);
-  white-space: nowrap;
-}
-
-.manifest-stage .manifest-figma__neon {
-  display: block;
-  margin: 0;
-  font-size: calc(127.053 / 1920 * 100cqi);
-  text-align: center;
+  width: 100%;
+  max-width: calc(1792 / 1920 * 100cqi);
+  overflow: clip;
 }
 
 .manifest-photo {
@@ -275,25 +203,11 @@
 
 :root:not(.dark) .manifest-photo {
   background: #e7e7ea;
-  outline: 1px solid rgba(19, 20, 20, 0.08);
-}
-
-:root:not(.dark) .manifest-photo::after {
-  background: rgba(19, 20, 20, 0.12);
 }
 
 .manifest-photo--tl {
   width: 100%;
-  height: calc(350 / 1920 * 100cqi);
-}
-
-/* Figma crop on the weave: imageTransform [[0.895, 0, 0.052], [0, 0.716, 0.142]] */
-.manifest-photo__crop {
-  position: absolute;
-  width: 111.71%;
-  height: 139.64%;
-  left: -5.86%;
-  top: -19.82%;
+  height: 100%;
 }
 
 .manifest-photo--tr {
@@ -305,51 +219,72 @@
   height: calc(500 / 1920 * 100cqi);
 }
 
-.manifest-photo--bl {
+.manifest-photo-slot--bl {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: clip;
   width: calc(450 / 1920 * 100cqi);
   height: calc(450 / 1920 * 100cqi);
+  flex: none;
+}
+
+.manifest-photo--bl {
+  width: calc(447 / 1920 * 100cqi);
+  height: calc(448 / 1920 * 100cqi);
+}
+
+.manifest-photo-slot--br {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: clip;
+  width: calc(700 / 1920 * 100cqi);
+  height: calc(560 / 1920 * 100cqi);
+  flex: none;
 }
 
 .manifest-photo--br {
-  width: calc(700 / 1920 * 100cqi);
-  height: calc(560 / 1920 * 100cqi);
+  width: calc(707.2 / 1920 * 100cqi);
+  height: calc(715 / 1920 * 100cqi);
 }
 
 .manifest-mission {
   grid-column: 5;
   grid-row: 2;
-  align-self: center;
+  align-self: start;
   justify-self: end;
+  margin-top: calc((861 - 787) / 1920 * 100cqi);
   position: relative;
   z-index: 3;
-  width: min(100%, calc(280 / 1920 * 100cqi));
-  min-height: calc(571 / 1920 * 100cqi);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: calc(10 / 1920 * 100cqi);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  line-height: 1;
-  text-align: right;
-  color: var(--mg-muted);
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: calc(346 / 1920 * 100cqi);
+  min-width: 0;
 }
 
-.manifest-mission__title {
-  margin: 0 0 10px;
-  letter-spacing: 0.14em;
-  color: var(--mg-dim);
+.manifest-hud--mission {
+  align-items: flex-start;
+  text-align: left;
+  width: calc(280 / 1920 * 100cqi);
+  max-width: calc(280 / 1920 * 100cqi);
+  margin-left: calc(66 / 1920 * 100cqi);
+  min-height: calc(168 / 1920 * 100cqi);
 }
 
-.manifest-mission p {
-  margin: 0 0 8px;
-  max-width: 34ch;
+.manifest-hud__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(8 / 1920 * 100cqi);
+  width: 100%;
+  text-align: left;
 }
 
-.manifest-mission p:last-child {
-  margin-bottom: 0;
+.manifest-hud--mission .manifest-hud__details {
+  align-items: flex-start;
 }
 
 @media (max-width: 1100px) {
@@ -366,7 +301,8 @@
   .manifest-principle,
   .manifest-mission,
   .manifest-bottom,
-  .manifest-photo--tr {
+  .manifest-photo--tr,
+  .manifest-row2-spacer {
     grid-column: auto;
     grid-row: auto;
     width: 100%;
@@ -374,37 +310,32 @@
     justify-self: stretch;
   }
 
-  .manifest-principle,
-  .manifest-mission {
-    min-height: 0;
+  .manifest-row2-spacer {
+    display: none;
+  }
+
+  .manifest-hud,
+  .manifest-hud--mission {
+    max-width: none;
   }
 
   .manifest-mission {
     align-items: flex-start;
+  }
+
+  .manifest-hud--mission {
+    align-items: flex-start;
     text-align: left;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    line-height: 1.35;
-  }
-
-  .manifest-overview {
-    width: 100%;
-    min-height: 0;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    line-height: 1.35;
-  }
-
-  .manifest-stage .manifest-figma__line {
-    font-size: clamp(2.25rem, 8vw, 4.5rem);
-    white-space: normal;
-  }
-
-  .manifest-stage .manifest-figma__neon {
-    font-size: clamp(2.25rem, 8.4vw, 4.75rem);
   }
 
   .manifest-photo--tl,
+  .manifest-carbon-slot {
+    position: static;
+    height: auto;
+    aspect-ratio: 346 / 350;
+    width: 100%;
+  }
+
   .manifest-photo--tr,
   .manifest-photo--bl,
   .manifest-photo--br {
@@ -412,50 +343,31 @@
     height: auto;
   }
 
-  .manifest-photo--tl {
-    aspect-ratio: 346 / 350;
-  }
-
   .manifest-photo--tr {
     aspect-ratio: 1;
     max-width: 500px;
   }
 
+  .manifest-photo-slot--bl,
+  .manifest-photo-slot--br {
+    width: 100%;
+    height: auto;
+  }
+
   .manifest-photo--bl {
-    aspect-ratio: 1;
+    aspect-ratio: 447 / 448;
     max-width: 450px;
   }
 
   .manifest-photo--br {
-    aspect-ratio: 700 / 560;
+    aspect-ratio: 707 / 715;
     max-width: 700px;
   }
 
   .manifest-bottom {
     flex-direction: column;
     gap: 16px;
-  }
-
-  .mg-bar {
-    grid-template-columns: 1fr;
-    row-gap: 16px;
-  }
-
-  .mg-bar--values {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .mg-bar__cluster--end,
-  .mg-core {
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
-@media (max-width: 640px) {
-  .mg-bar--values {
-    grid-template-columns: 1fr;
-    row-gap: 22px;
+    max-width: none;
   }
 }
 

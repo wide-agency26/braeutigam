@@ -3,16 +3,8 @@
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
 import { useVisibility, useAfterPaint, usePrefersReducedMotion } from '../hooks/useVisible';
+import { parseColorToVec3 } from '@/lib/parse-color';
 import './LineWaves.css';
-
-function hexToVec3(hex: string): [number, number, number] {
-  const h = hex.replace('#', '');
-  return [
-    parseInt(h.slice(0, 2), 16) / 255,
-    parseInt(h.slice(2, 4), 16) / 255,
-    parseInt(h.slice(4, 6), 16) / 255
-  ];
-}
 
 const vertexShader = `
 attribute vec2 uv;
@@ -120,14 +112,9 @@ void main() {
   }
 
   float pattern = vMask * lines;
-
-  float cycleT = fullT * uColorCycleSpeed;
-  float rChannel = (pattern + lines * ridge) * (cos(blended.y + cycleT * 0.234) * 0.5 + 1.0);
-  float gChannel = (pattern + vMask * ridge) * (sin(blended.x + cycleT * 1.745) * 0.5 + 1.0);
-  float bChannel = (pattern + lines * ridge) * (cos(blended.x + cycleT * 0.534) * 0.5 + 1.0);
-
-  float intensity = (rChannel + gChannel + bChannel) / 3.0;
-  vec3 col = (rChannel * uColor1 + gChannel * uColor2 + bChannel * uColor3) * uBrightness;
+  float intensity = clamp(pattern + vMask * ridge * 0.35, 0.0, 1.0);
+  vec3 accent = mix(uColor2, uColor1, clamp(intensity + 0.15, 0.0, 1.0));
+  vec3 col = accent * intensity * uBrightness;
   float alpha = clamp(intensity * uBrightness, 0.0, 1.0);
 
   gl_FragColor = vec4(col, alpha);
@@ -148,6 +135,8 @@ export interface LineWavesProps {
   color3?: string;
   enableMouseInteraction?: boolean;
   mouseInfluence?: number;
+  /** Mount WebGL without waiting for intersection (decorative backgrounds). */
+  initWhenMounted?: boolean;
 }
 
 export default function LineWaves({
@@ -163,7 +152,8 @@ export default function LineWaves({
   color2 = '#ffffff',
   color3 = '#ffffff',
   enableMouseInteraction = true,
-  mouseInfluence = 2.0
+  mouseInfluence = 2.0,
+  initWhenMounted = false,
 }: LineWavesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const programRef = useRef<Program | null>(null);
@@ -177,7 +167,8 @@ export default function LineWaves({
   // This canvas lives in the footer, many screens below the fold. Building the
   // context on mount meant compiling a shader nobody could see yet. Release it
   // again once the footer leaves the viewport so the slot is free elsewhere.
-  const shouldInit = visible && afterPaint && !reducedMotion;
+  const shouldInit =
+    (initWhenMounted || visible) && afterPaint && !reducedMotion;
 
   const activeRef = useRef(active);
   const enableMouseRef = useRef(enableMouseInteraction);
@@ -225,9 +216,9 @@ export default function LineWaves({
         uEdgeFadeWidth: { value: edgeFadeWidth },
         uColorCycleSpeed: { value: colorCycleSpeed },
         uBrightness: { value: brightness },
-        uColor1: { value: hexToVec3(color1) },
-        uColor2: { value: hexToVec3(color2) },
-        uColor3: { value: hexToVec3(color3) },
+        uColor1: { value: parseColorToVec3(color1) },
+        uColor2: { value: parseColorToVec3(color2) },
+        uColor3: { value: parseColorToVec3(color3) },
         uMouse: { value: new Float32Array([0.5, 0.5]) },
         uMouseInfluence: { value: mouseInfluence },
         uEnableMouse: { value: enableMouseInteraction }
@@ -317,9 +308,9 @@ export default function LineWaves({
     u.uEdgeFadeWidth.value = edgeFadeWidth;
     u.uColorCycleSpeed.value = colorCycleSpeed;
     u.uBrightness.value = brightness;
-    u.uColor1.value = hexToVec3(color1);
-    u.uColor2.value = hexToVec3(color2);
-    u.uColor3.value = hexToVec3(color3);
+    u.uColor1.value = parseColorToVec3(color1);
+    u.uColor2.value = parseColorToVec3(color2);
+    u.uColor3.value = parseColorToVec3(color3);
     u.uMouseInfluence.value = mouseInfluence;
     u.uEnableMouse.value = enableMouseInteraction;
   }, [

@@ -1,0 +1,315 @@
+{
+  "designWidth": 1920,
+  "designHeight": 1080,
+  "tolerancePx": 4,
+  "baseUrl": "http://127.0.0.1:3001",
+  "sections": {
+    "hero": {
+      "scrollY": 0,
+      "overlaySelector": "#silhouette",
+      "anchor": "#silhouette",
+      "targets": [
+        {
+          "label": "Hero frame",
+          "figmaNodeId": "2006:132",
+          "selector": "#silhouette",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1080 }
+        },
+        {
+          "label": "Client logo",
+          "figmaNodeId": "2006:145",
+          "selector": "[data-figma-node=\"2006:145\"]",
+          "figma": { "x": 789, "y": 463, "w": 343, "h": 72 }
+        },
+        {
+          "label": "CARBON FIBER WORKS",
+          "figmaNodeId": "2006:158",
+          "selector": "[data-figma-node=\"2006:158\"]",
+          "figma": { "x": 64, "y": 555, "w": 1792, "h": 76 }
+        },
+        {
+          "label": "SINCE 2016",
+          "figmaNodeId": "2006:161",
+          "selector": "[data-figma-node=\"2006:161\"]",
+          "figma": { "x": 864, "y": 615, "w": 192, "h": 38 }
+        },
+        {
+          "label": "Location caption",
+          "figmaNodeId": "2006:134",
+          "selector": "[data-figma-node=\"2006:134\"]",
+          "figma": { "x": 96, "y": 185, "w": 296, "h": 66 }
+        },
+        {
+          "label": "Location HUD",
+          "figmaNodeId": "2006:133",
+          "selector": "[data-figma-node=\"2006:133\"]",
+          "figma": { "x": 64, "y": 185, "w": 587, "h": 66 }
+        },
+        {
+          "label": "Dev HUD",
+          "figmaNodeId": "2006:135",
+          "selector": "[data-figma-node=\"2006:135\"]",
+          "figma": { "x": 1269, "y": 185, "w": 587, "h": 105 }
+        },
+        {
+          "label": "Status block",
+          "figmaNodeId": "2006:137",
+          "selector": "[data-figma-node=\"2006:137\"]",
+          "figma": { "x": 612, "y": 972, "w": 696, "h": 44 }
+        },
+        {
+          "label": "Scroll prompt",
+          "figmaNodeId": "2006:139",
+          "selector": "[data-figma-node=\"2006:139\"]",
+          "figma": { "x": 612, "y": 998, "w": 696, "h": 18 }
+        }
+      ]
+    },
+    "manifest-micro-top": {
+      "scrollY": 1144,
+      "anchor": "[data-figma-node=\"2006:162\"]",
+      "targets": [
+        {
+          "label": "Micrographic top",
+          "figmaNodeId": "2006:162",
+          "selector": "[data-figma-node=\"2006:162\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 78 }
+        },
+        {
+          "label": "ACCESS GRANTED",
+          "figmaNodeId": "2006:170",
+          "selector": "[data-figma-node=\"2006:170\"]",
+          "figma": { "x": 64, "y": 32, "w": 110, "h": 14 }
+        },
+        {
+          "label": "FOUND core values",
+          "figmaNodeId": "2006:166",
+          "selector": "[data-figma-node=\"2006:166\"]",
+          "figma": { "x": 667, "y": 48, "w": 238, "h": 14 }
+        },
+        {
+          "label": "Core values end col",
+          "figmaNodeId": "2006:176",
+          "selector": "[data-figma-node=\"2006:176\"]",
+          "figma": { "x": 1270, "y": 0, "w": 586, "h": 62 }
+        }
+      ]
+    },
+    "manifest": {
+      "scrollY": 1286,
+      "anchor": "[data-figma-node=\"2006:220\"]",
+      "targets": [
+        {
+          "label": "Main Image frame",
+          "figmaNodeId": "2006:220",
+          "selector": "[data-figma-node=\"2006:220\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1890 }
+        },
+        {
+          "label": "Customer headline",
+          "figmaNodeId": "2006:235",
+          "selector": "[data-figma-node=\"2006:235\"]",
+          "figma": { "x": 426, "y": 200, "w": 1069, "h": 316 }
+        },
+        {
+          "label": "Principle headline",
+          "figmaNodeId": "2006:238",
+          "selector": "[data-figma-node=\"2006:238\"]",
+          "figma": { "x": 426, "y": 787, "w": 1069, "h": 316 }
+        },
+        {
+          "label": "CLIENT COUNT value",
+          "figmaNodeId": "2006:226",
+          "selector": "[data-figma-node=\"2006:226\"]",
+          "figma": { "x": 204, "y": 97, "w": 140, "h": 14 }
+        },
+        {
+          "label": "Mission Statement frame",
+          "figmaNodeId": "2006:239",
+          "selector": "[data-figma-node=\"2006:239\"]",
+          "figma": { "x": 1510, "y": 861, "w": 346, "h": 168 }
+        },
+        {
+          "label": "Mission title",
+          "figmaNodeId": "2006:241",
+          "selector": "[data-figma-node=\"2006:241\"]",
+          "figma": { "x": 1576, "y": 861, "w": 280, "h": 14 }
+        },
+        {
+          "label": "Mission HUD",
+          "figmaNodeId": "2006:240",
+          "selector": "[data-figma-node=\"2006:240\"]",
+          "figma": { "x": 1576, "y": 861, "w": 280, "h": 168 }
+        },
+        {
+          "label": "Row 2 spacer",
+          "figmaNodeId": "2006:246",
+          "selector": "[data-figma-node=\"2006:246\"]",
+          "figma": { "x": 64, "y": 659, "w": 350, "h": 571 }
+        },
+        {
+          "label": "BL image container",
+          "figmaNodeId": "2006:248",
+          "selector": "[data-figma-node=\"2006:248\"]",
+          "figma": { "x": 64, "y": 1247, "w": 450, "h": 450 }
+        },
+        {
+          "label": "TL carbon slot",
+          "figmaNodeId": "2006:232",
+          "selector": "[data-figma-node=\"2006:232\"]",
+          "figma": { "x": 64, "y": 435, "w": 346, "h": 350 }
+        },
+        {
+          "label": "TL carbon",
+          "figmaNodeId": "2006:233",
+          "selector": "[data-figma-node=\"2006:233\"]",
+          "figma": { "x": 64, "y": 435, "w": 346, "h": 350 }
+        },
+        {
+          "label": "TR CLK GTR",
+          "figmaNodeId": "2006:236",
+          "selector": "[data-figma-node=\"2006:236\"]",
+          "figma": { "x": 1510, "y": 72, "w": 500, "h": 500 }
+        },
+        {
+          "label": "BL precision",
+          "figmaNodeId": "2006:249",
+          "selector": "[data-figma-node=\"2006:249\"]",
+          "figma": { "x": 64, "y": 1247, "w": 447, "h": 448 }
+        },
+        {
+          "label": "BR autoclave",
+          "figmaNodeId": "2006:286",
+          "selector": "[data-figma-node=\"2006:286\"]",
+          "figma": { "x": 1156, "y": 1247, "w": 707, "h": 715 }
+        }
+      ]
+    },
+    "manifest-micro-bottom": {
+      "scrollY": 3240,
+      "anchor": "[data-figma-node=\"2006:287\"]",
+      "targets": [
+        {
+          "label": "Micrographic bottom",
+          "figmaNodeId": "2006:287",
+          "selector": "[data-figma-node=\"2006:287\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 118 }
+        },
+        {
+          "label": "Bottom logo row",
+          "figmaNodeId": "2006:288",
+          "selector": "[data-figma-node=\"2006:288\"]",
+          "figma": { "x": 667, "y": 0, "w": 587, "h": 118 }
+        },
+        {
+          "label": "Stats row",
+          "figmaNodeId": "2006:289",
+          "selector": "[data-figma-node=\"2006:289\"]",
+          "figma": { "x": 667, "y": -4, "w": 587, "h": 126 }
+        }
+      ]
+    },
+    "mission": {
+      "scrollY": 6854,
+      "anchor": "#mission",
+      "overlaySelector": "#mission",
+      "targets": [
+        {
+          "label": "Mission frame",
+          "figmaNodeId": "2006:469",
+          "selector": "#mission",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1219 }
+        },
+        {
+          "label": "Mission headlines",
+          "figmaNodeId": "2006:512",
+          "selector": "[data-figma-node=\"2006:512\"]",
+          "figma": { "x": 580, "y": 548, "w": 1275, "h": 261 }
+        }
+      ]
+    },
+    "story": {
+      "scrollY": 3422,
+      "anchor": ".story-cad-viewport",
+      "overlaySelector": ".story-cad-viewport",
+      "targets": [
+        {
+          "label": "CAD frame",
+          "figmaNodeId": "2006:304",
+          "selector": ".story-cad-viewport",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1080 }
+        },
+        {
+          "label": "Part container",
+          "figmaNodeId": "2006:327",
+          "selector": "[data-figma-node=\"2006:327\"]",
+          "figma": { "x": 331, "y": 64, "w": 1258, "h": 768 }
+        },
+        {
+          "label": "Render HUD",
+          "figmaNodeId": "2006:313",
+          "selector": "[data-figma-node=\"2006:313\"]",
+          "figma": { "x": 64, "y": 64, "w": 400, "h": 14 }
+        },
+        {
+          "label": "Story description",
+          "figmaNodeId": "2006:358",
+          "selector": "[data-figma-node=\"2006:358\"]",
+          "figma": { "x": 1270, "y": 900, "w": 586, "h": 96 }
+        }
+      ]
+    },
+    "journey": {
+      "scrollY": 10305,
+      "anchor": "#timeline",
+      "overlaySelector": "#timeline",
+      "targets": [
+        {
+          "label": "Journey root",
+          "figmaNodeId": "2006:660",
+          "selector": "#timeline",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1056 }
+        }
+      ]
+    },
+    "experts": {
+      "scrollY": 8085,
+      "anchor": "#datasheet",
+      "overlaySelector": "#datasheet",
+      "targets": [
+        {
+          "label": "Experts section",
+          "figmaNodeId": "2006:660",
+          "selector": "#datasheet",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 800 }
+        }
+      ]
+    },
+    "social": {
+      "scrollY": 11425,
+      "anchor": "[data-figma-node=\"2006:790\"]",
+      "overlaySelector": "[data-figma-node=\"2006:790\"]",
+      "targets": [
+        {
+          "label": "Social gallery",
+          "figmaNodeId": "2006:790",
+          "selector": "[data-figma-node=\"2006:790\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 1148 }
+        }
+      ]
+    },
+    "footer": {
+      "scrollY": 12637,
+      "anchor": "[data-figma-node=\"2006:809\"]",
+      "overlaySelector": "[data-figma-node=\"2006:809\"]",
+      "targets": [
+        {
+          "label": "Footer",
+          "figmaNodeId": "2006:809",
+          "selector": "[data-figma-node=\"2006:809\"]",
+          "figma": { "x": 0, "y": 0, "w": 1920, "h": 800 }
+        }
+      ]
+    }
+  }
+}

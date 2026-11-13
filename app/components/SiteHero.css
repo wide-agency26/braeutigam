@@ -1,0 +1,256 @@
+/* Hero — Figma 2006:132 (light) / 934:242 (dark), 1920×1080 grid */
+
+.hero-figma {
+  position: relative;
+  width: 100%;
+  max-width: var(--figma-design-width, 1920px);
+  margin-inline: auto;
+  aspect-ratio: 1920 / 1080;
+  overflow: hidden;
+  color: var(--text-default-caption);
+}
+
+.hero-figma__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  gap: calc(16 * min(100vw, 1920px) / 1920);
+  width: 100%;
+  height: 100%;
+  padding: calc(64 * min(100vw, 1920px) / 1920);
+  box-sizing: border-box;
+}
+
+.hero-figma__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-figma__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-figma__photo .hero-figma__photo-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-figma__photo-img {
+  object-fit: cover;
+}
+
+.hero-figma__photo-layer .hero-figma__photo-img {
+  width: 119.76% !important;
+  height: 118.84% !important;
+  max-width: none;
+  left: -9.95% !important;
+  top: -6.81% !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+.hero-figma__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(19, 20, 20, 0) 63.194%,
+    var(--neutral-black, #131414) 100%
+  );
+}
+
+.hero-figma__location {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-600, calc(24 * min(100vw, 1920px) / 1920));
+  width: calc(587 * min(100vw, 1920px) / 1920);
+  max-width: 587px;
+  min-height: calc(66 * min(100vw, 1920px) / 1920);
+  padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+  box-sizing: border-box;
+}
+
+.hero-figma__location .hero-figma__caption-block {
+  width: calc(296 * min(100vw, 1920px) / 1920);
+  max-width: 296px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.hero-figma__dev {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-600, calc(24 * min(100vw, 1920px) / 1920));
+  align-items: flex-end;
+  padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+}
+
+.hero-figma__caption-block p {
+  margin: 0;
+}
+
+.hero-figma__caption-block p + p {
+  margin-top: calc(6 * min(100vw, 1920px) / 1920);
+}
+
+.hero-figma__dev .copy-caption {
+  text-align: right;
+}
+
+.hero-figma__main {
+  grid-column: 1 / -1;
+  grid-row: 4 / span 2;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
+}
+
+.hero-figma__lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-500, calc(20 * min(100vw, 1920px) / 1920));
+  /* Full 76px title box vs clipped 52px spec — keep Figma y for 145/158 */
+  transform: translateY(calc(24 * min(100vw, 1920px) / 1920));
+}
+
+.hero-figma__logo {
+  position: relative;
+  width: calc(342.784 * min(100vw, 1920px) / 1920);
+  height: calc(72 * min(100vw, 1920px) / 1920);
+  flex: none;
+}
+
+.hero-figma__logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-figma__title {
+  width: calc(1792 * min(100vw, 1920px) / 1920);
+  text-align: center;
+}
+
+.hero-figma__title.heading-figma-overlay {
+  box-sizing: border-box;
+  /* Figma 2006:158 — 76×76 glyph box (no extra padding; keeps lockup QA bounds) */
+  font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  line-height: min(76px, calc(76 * min(100vw, 1920px) / 1920));
+  height: calc(76 * min(100vw, 1920px) / 1920);
+  max-height: none;
+  overflow: visible;
+  margin: 0;
+}
+
+.heading-figma-overlay {
+  color: transparent;
+  background-image:
+    url("/images/hero/figma/heading-overlay-2x.png"),
+  linear-gradient(90deg, var(--text-default-heading, #131414) 0%, var(--text-default-heading, #131414) 100%);
+  background-size: cover, auto;
+  background-position: center, top left;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.dark .heading-figma-overlay {
+  background-image:
+    url("/images/hero/figma/heading-overlay-2x.png"),
+  linear-gradient(90deg, var(--neutral-white, #f0f0f0) 0%, var(--neutral-white, #f0f0f0) 100%);
+}
+
+.hero-figma__since {
+  margin: 0;
+  text-align: center;
+  color: var(--text-default-accent);
+  line-height: calc(38 * min(100vw, 1920px) / 1920);
+  height: calc(38 * min(100vw, 1920px) / 1920);
+  overflow: hidden;
+}
+
+.hero-figma__status {
+  grid-column: 2;
+  grid-row: 8;
+  align-self: end;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
+  width: calc(696 * min(100vw, 1920px) / 1920);
+  text-align: center;
+}
+
+.hero-figma__status-caption {
+  width: calc(446 * min(100vw, 1920px) / 1920);
+  margin: 0;
+}
+
+.hero-figma__scroll {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: transparent;
+  background-image:
+    url("/images/hero/figma/scroll-prompt-2x.png"),
+    linear-gradient(90deg, var(--text-default-body, #d0d0d0) 0%, var(--text-default-body, #d0d0d0) 100%);
+  background-size: cover, auto;
+  background-position: center, top left;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hero-figma__scroll:hover,
+.hero-figma__scroll:focus-visible {
+  opacity: 0.92;
+}
+
+.hero-figma__rings {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hero-figma__rings--on {
+  opacity: 0.3;
+}
+
+@media (max-width: 767.98px) {
+  .hero-figma__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: var(--scale-400, calc(16 * min(100vw, 1920px) / 1920));
+  }
+
+  .hero-figma__location,
+  .hero-figma__dev,
+  .hero-figma__main,
+  .hero-figma__status {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .hero-figma__title {
+    width: 100%;
+  }
+}

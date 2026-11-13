@@ -1,12 +1,12 @@
 # Hero slide images
 
-Drop paired light/dark WebP files here. File names must match `lib/hero-slides.ts`.
+Paired light/dark files must match `lib/hero-slides.ts`. No runtime filesystem checks.
 
-| Slide id   | Files |
-|------------|-------|
-| `f1`       | `f1-light.webp`, `f1-dark.webp` (shipped) |
-| `superbike`| `superbike-light.webp`, `superbike-dark.webp` |
-| `hypercar` | `hypercar-light.webp`, `hypercar-dark.webp` |
-| `offroad`  | `offroad-light.webp`, `offroad-dark.webp` |
+| Slide id   | Files (shipped) |
+|------------|-----------------|
+| `offroad`  | `gwagon_light.jpeg`, `gwagon_dark.jpeg` |
+| `hypercar` | `hypercar_light.jpeg`, `hypercar_dark.jpeg` |
+| `superbike`| `motorbike_light.jpeg`, `motorbike_dark.jpeg` |
+| `f1`       | `f1-light.webp`, `f1-dark.webp` (**disabled** in registry) |
 
-After adding a pair, set `enabled: true` on that slide in `lib/hero-slides.ts` and redeploy. No runtime file checks.
+Home `/` and `/en` pick a random **enabled** slide per request (`force-dynamic`). Set `enabled: true` only when both files exist.

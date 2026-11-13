@@ -1,0 +1,49 @@
+{
+  "icons": [
+    {
+      "section": "manifest-micro-top",
+      "figmaNodeId": "2006:180",
+      "selector": "[data-figma-node=\"2006:180\"] img",
+      "golden": "2006-180-speed.svg"
+    },
+    {
+      "section": "manifest-micro-top",
+      "figmaNodeId": "2006:183",
+      "selector": "[data-figma-node=\"2006:183\"] img",
+      "golden": "2006-183-complexity.svg"
+    },
+    {
+      "section": "manifest-micro-top",
+      "figmaNodeId": "2006:187",
+      "selector": "[data-figma-node=\"2006:187\"] img",
+      "golden": "2006-187-inhouse.svg"
+    },
+    {
+      "section": "manifest-micro-bottom",
+      "figmaNodeId": "2006:291",
+      "selector": "[data-figma-node=\"2006:291\"] img",
+      "golden": "2006-291-flag.png"
+    },
+    {
+      "section": "manifest-micro-bottom",
+      "figmaNodeId": "2006:299",
+      "selector": "[data-figma-node=\"2006:299\"] img",
+      "golden": "2006-299-globe.svg"
+    },
+    {
+      "section": "manifest-micro-bottom",
+      "figmaNodeId": "2006:302",
+      "selector": "[data-figma-node=\"2006:302\"] img",
+      "golden": "2006-302-machinery.svg"
+    }
+  ],
+  "sha256": {
+    "2006-180-speed.svg": "959634808003e86a5fada0bbd539c3a50804d3f769f552f7e20236ff93fc41f2",
+    "2006-183-complexity.svg": "ef50afd4d2ca2fd03e6d2064a01d7acc487e0c0b081535e3bc10db223476070f",
+    "2006-187-inhouse.svg": "de8e859f251ff01ef6af6ea03497299828a3f07687363b2c1ae6fdfd5ad70669",
+    "2006-291-flag.png": "77767bb834953f5dcea40140de4d63c94f938006deaec32914e8db80aee20c09",
+    "2006-299-globe.svg": "1c1b7b3370932962b30f592bcfc9a58910cf53cd188aecf99db70d5b369c0c24",
+    "2006-302-machinery.svg": "23991b2dde78aebebe7599b6229819206f4968d7aa931c4e06e1b9e41f842b8a"
+  },
+  "updatedAt": "2026-11-13T09:44:41.541Z"
+}
