@@ -57,8 +57,12 @@ export default function SiteHero({
 }: SiteHeroProps) {
   const { isDark } = useTheme();
   const photoIsDark = useSyncExternalStore(subscribeHtmlTheme, readIsDarkFromDom, serverIsDark);
+  const reduceMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    serverReducedMotion,
+  );
   const Title = isPageHeading ? "h1" : "p";
-  useSyncExternalStore(subscribeReducedMotion, getReducedMotion, serverReducedMotion);
 
   const resolved =
     slide ??
@@ -71,7 +75,6 @@ export default function SiteHero({
       enabled: true,
     };
 
-  const photoSrc = photoIsDark ? resolved.dark : resolved.light;
   const photoAlt = locale === "en" ? resolved.altEn : resolved.altDe;
 
   const ringColors = useMemo(
@@ -84,10 +87,12 @@ export default function SiteHero({
     [isDark],
   );
 
+  const heroInstant = reduceMotion ? " hero-figma--instant" : "";
+
   return (
     <section
       id="silhouette"
-      className="hero-figma"
+      className={`hero-figma${heroInstant}`}
       data-figma-node="2006:132"
       data-figma-node-light="2006:132"
       data-figma-node-dark="934:242"
@@ -104,14 +109,33 @@ export default function SiteHero({
           data-figma-node="2006:132-photo"
           data-figma-node-dark="934:242-photo"
         >
-          <div className="hero-figma__photo-layer">
+          <div
+            className={`hero-figma__photo-layer hero-figma__photo-layer--theme${
+              photoIsDark ? "" : " is-active"
+            }`}
+            aria-hidden={photoIsDark}
+          >
             <Image
-              key={photoSrc}
-              src={photoSrc}
+              src={resolved.light}
               alt={photoAlt}
               fill
               className="hero-figma__photo-img"
-              sizes="(max-width: 1920px) 120vw, 2304px"
+              sizes="100vw"
+              priority={priority}
+            />
+          </div>
+          <div
+            className={`hero-figma__photo-layer hero-figma__photo-layer--theme${
+              photoIsDark ? " is-active" : ""
+            }`}
+            aria-hidden={!photoIsDark}
+          >
+            <Image
+              src={resolved.dark}
+              alt={photoAlt}
+              fill
+              className="hero-figma__photo-img"
+              sizes="100vw"
               priority={priority}
             />
           </div>
@@ -197,11 +221,20 @@ export default function SiteHero({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={
-                  isDark
-                    ? "/icons/figma/client-wordmark.svg"
-                    : "/icons/figma/client-wordmark-light.svg"
-                }
+                className={`hero-figma__wordmark hero-figma__wordmark--light${
+                  isDark ? "" : " is-active"
+                }`}
+                src="/icons/figma/client-wordmark-light.svg"
+                alt=""
+                width={343}
+                height={72}
+                draggable={false}
+              />
+              <img
+                className={`hero-figma__wordmark hero-figma__wordmark--dark${
+                  isDark ? " is-active" : ""
+                }`}
+                src="/icons/figma/client-wordmark.svg"
                 alt=""
                 width={343}
                 height={72}

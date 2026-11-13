@@ -14,7 +14,7 @@ export default function HeroPhotoPreload({
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(){try{var t=localStorage.getItem('braeutigam-theme');var isLight=t==='light';if(t!=='light'&&t!=='dark'){isLight=document.documentElement.classList.contains('light')}var href=isLight?${light}:${dark};var l=document.createElement('link');l.rel='preload';l.as='image';l.href=href;document.head.appendChild(l)}catch(e){}})();`,
+        __html: `(function(){try{[${light},${dark}].forEach(function(href){var l=document.createElement('link');l.rel='preload';l.as='image';l.href=href;document.head.appendChild(l)})}catch(e){}})();`,
       }}
     />
   );

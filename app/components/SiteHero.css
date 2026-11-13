@@ -1,13 +1,14 @@
-/* Hero — Figma 2006:132 (light) / 934:242 (dark), 1920×1080 grid */
+/* Hero — Figma 2006:132 / 934:242 — full-bleed viewport, scale caps at 1920 */
 
 .hero-figma {
   position: relative;
   width: 100%;
-  max-width: var(--figma-design-width, 1920px);
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
   aspect-ratio: 1920 / 1080;
   overflow: hidden;
   color: var(--text-default-caption);
+  transition: color 400ms ease;
 }
 
 .hero-figma__grid {
@@ -41,6 +42,19 @@
   inset: 0;
 }
 
+.hero-figma__photo-layer--theme {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__photo-layer--theme.is-active {
+  opacity: 1;
+}
+
+.hero-figma--instant .hero-figma__photo-layer--theme {
+  transition: none;
+}
+
 .hero-figma__photo-img {
   object-fit: cover;
 }
@@ -63,6 +77,7 @@
     rgba(19, 20, 20, 0) 63.194%,
     var(--neutral-black, #131414) 100%
   );
+  transition: opacity 400ms ease;
 }
 
 .hero-figma__location {
@@ -77,6 +92,7 @@
   min-height: calc(66 * min(100vw, 1920px) / 1920);
   padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
   box-sizing: border-box;
+  transition: color 400ms ease;
 }
 
 .hero-figma__location .hero-figma__caption-block {
@@ -95,6 +111,7 @@
   gap: var(--scale-600, calc(24 * min(100vw, 1920px) / 1920));
   align-items: flex-end;
   padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+  transition: color 400ms ease;
 }
 
 .hero-figma__caption-block p {
@@ -124,7 +141,6 @@
   flex-direction: column;
   align-items: center;
   gap: var(--scale-500, calc(20 * min(100vw, 1920px) / 1920));
-  /* Full 76px title box vs clipped 52px spec — keep Figma y for 145/158 */
   transform: translateY(calc(24 * min(100vw, 1920px) / 1920));
 }
 
@@ -135,33 +151,46 @@
   flex: none;
 }
 
-.hero-figma__logo img {
+.hero-figma__wordmark {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__wordmark.is-active {
+  opacity: 1;
+}
+
+.hero-figma--instant .hero-figma__wordmark {
+  transition: none;
 }
 
 .hero-figma__title {
   width: calc(1792 * min(100vw, 1920px) / 1920);
+  max-width: calc(1792 * min(100vw, 1920px) / 1920);
   text-align: center;
 }
 
 .hero-figma__title.heading-figma-overlay {
   box-sizing: border-box;
-  /* Figma 2006:158 — 76×76 glyph box (no extra padding; keeps lockup QA bounds) */
   font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
   line-height: min(76px, calc(76 * min(100vw, 1920px) / 1920));
   height: calc(76 * min(100vw, 1920px) / 1920);
   max-height: none;
   overflow: visible;
   margin: 0;
+  transition: background 400ms ease, color 400ms ease;
 }
 
 .heading-figma-overlay {
   color: transparent;
   background-image:
     url("/images/hero/figma/heading-overlay-2x.png"),
-  linear-gradient(90deg, var(--text-default-heading, #131414) 0%, var(--text-default-heading, #131414) 100%);
+    linear-gradient(90deg, var(--text-default-heading, #131414) 0%, var(--text-default-heading, #131414) 100%);
   background-size: cover, auto;
   background-position: center, top left;
   background-clip: text;
@@ -171,7 +200,7 @@
 .dark .heading-figma-overlay {
   background-image:
     url("/images/hero/figma/heading-overlay-2x.png"),
-  linear-gradient(90deg, var(--neutral-white, #f0f0f0) 0%, var(--neutral-white, #f0f0f0) 100%);
+    linear-gradient(90deg, var(--neutral-white, #f0f0f0) 0%, var(--neutral-white, #f0f0f0) 100%);
 }
 
 .hero-figma__since {
@@ -181,6 +210,7 @@
   line-height: calc(38 * min(100vw, 1920px) / 1920);
   height: calc(38 * min(100vw, 1920px) / 1920);
   overflow: hidden;
+  transition: color 400ms ease;
 }
 
 .hero-figma__status {
@@ -194,6 +224,7 @@
   gap: var(--scale-200, calc(8 * min(100vw, 1920px) / 1920));
   width: calc(696 * min(100vw, 1920px) / 1920);
   text-align: center;
+  transition: color 400ms ease;
 }
 
 .hero-figma__status-caption {
@@ -216,6 +247,7 @@
   -webkit-background-clip: text;
   text-decoration: none;
   cursor: pointer;
+  transition: opacity 400ms ease, background 400ms ease;
 }
 
 .hero-figma__scroll:hover,
@@ -233,6 +265,65 @@
 
 .hero-figma__rings--on {
   opacity: 0.3;
+  transition: opacity 400ms ease;
+}
+
+.hero-figma__rings .absolute.inset-0 {
+  width: 100%;
+  height: 100%;
+}
+
+/* Ultra-wide: pin corner HUDs to viewport insets; keep lockup centred (scale capped at 1920). */
+@media (min-width: 1920px) {
+  .hero-figma__grid {
+    display: block;
+    padding: 0;
+  }
+
+  .hero-figma__location {
+    position: absolute;
+    left: calc(64 * min(100vw, 1920px) / 1920);
+    top: calc(185 * min(100vw, 1920px) / 1920);
+    grid-column: unset;
+    grid-row: unset;
+    padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+  }
+
+  .hero-figma__dev {
+    position: absolute;
+    right: calc(64 * min(100vw, 1920px) / 1920);
+    left: auto;
+    top: calc(185 * min(100vw, 1920px) / 1920);
+    grid-column: unset;
+    grid-row: unset;
+    padding-inline: var(--scale-800, calc(32 * min(100vw, 1920px) / 1920));
+  }
+
+  .hero-figma__main {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    bottom: calc(173 * min(100vw, 1920px) / 1920);
+    transform: translateX(-50%);
+    grid-column: unset;
+    grid-row: unset;
+    width: 100%;
+    max-width: none;
+    align-items: center;
+  }
+
+  .hero-figma__lockup {
+    transform: translateY(calc(24 * min(100vw, 1920px) / 1920));
+  }
+
+  .hero-figma__status {
+    position: absolute;
+    left: 50%;
+    bottom: calc(64 * min(100vw, 1920px) / 1920);
+    transform: translateX(-50%);
+    grid-column: unset;
+    grid-row: unset;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -248,9 +339,36 @@
   .hero-figma__status {
     grid-column: 1;
     grid-row: auto;
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
   }
 
   .hero-figma__title {
     width: 100%;
+    max-width: none;
+  }
+
+  .hero-figma__lockup {
+    transform: translateY(calc(24 * min(100vw, 1920px) / 1920));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-figma,
+  .hero-figma__photo-layer--theme,
+  .hero-figma__wordmark,
+  .hero-figma__scrim,
+  .hero-figma__since,
+  .hero-figma__scroll,
+  .hero-figma__location,
+  .hero-figma__dev,
+  .hero-figma__status,
+  .hero-figma__title.heading-figma-overlay,
+  .hero-figma__rings--on {
+    transition: none !important;
   }
 }
