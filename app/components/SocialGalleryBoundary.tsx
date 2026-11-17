@@ -38,26 +38,20 @@ export default class SocialGalleryBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.failed) {
-      return (
-        <div className="social-gallery social-gallery-fallback">
-          {this.props.items.map(item => {
-            const image = (
-              // Posters are already saved locally; this row only appears after the gallery gives up.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={item.image} alt={item.alt ?? ""} />
-            );
-            return item.href ? (
-              <a key={item.image} href={item.href} target="_blank" rel="noopener noreferrer">
-                {image}
-              </a>
-            ) : (
-              <span key={item.image}>{image}</span>
-            );
-          })}
-        </div>
-      );
+      return <SocialPosters items={this.props.items} />;
     }
 
     return <div key={this.state.resets}>{this.props.children}</div>;
   }
+}
+
+
+export function SocialPosters({ items }: { items: readonly SocialReel[] }) {
+  return <div className="social-gallery social-gallery-fallback">
+    {items.map(item => <a key={item.image} href={item.href} target="_blank" rel="noopener noreferrer">
+      {/* Static WebP posters keep the reels available without WebGL. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={item.image} alt={item.alt ?? "Bräutigam on Instagram"} width={326} height={474} loading="lazy" decoding="async" />
+    </a>)}
+  </div>;
 }

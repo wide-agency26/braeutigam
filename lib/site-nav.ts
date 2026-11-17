@@ -12,7 +12,7 @@ export const SITE_NAV: SiteNavItem[] = [
   { labelEn: "HOME", href: "/", titleDe: "Start" },
   { labelEn: "JOIN US", href: "/karriere", titleDe: "Karriere" },
   { labelEn: "TEAM", href: "/team", titleDe: "Experten" },
-  { labelEn: "CRAFT", soon: true, titleDe: "Leistungen" },
+  { labelEn: "CRAFT", href: "/craft", titleDe: "Leistungen" },
   { labelEn: "CONTACT", href: "/kontakt", titleDe: "Kontakt" },
 ];
 

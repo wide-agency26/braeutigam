@@ -1,9 +1,7 @@
 "use client";
 
 import type { Expert } from "@/lib/data/experts";
-import LazyOnVisible from "./LazyOnVisible";
-
-const loadExpertCard = () => import("./ExpertCard");
+import ExpertCard from "./ExpertCard";
 
 export default function ExpertSlot({
   expert,
@@ -15,12 +13,8 @@ export default function ExpertSlot({
   headingLevel?: 2 | 3;
 }) {
   return (
-    <LazyOnVisible
-      loader={loadExpertCard}
-      rootMargin="100px"
-      className="experts-figma__card"
-      style={{ width: "100%", aspectRatio: "403 / 522", transitionDelay: delay }}
-      componentProps={{ ...expert, headingLevel }}
-    />
+    <div className="experts-figma__card" style={{ width: "100%", aspectRatio: "403 / 522", transitionDelay: delay }}>
+      <ExpertCard {...expert} headingLevel={headingLevel} />
+    </div>
   );
 }

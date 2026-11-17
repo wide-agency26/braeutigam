@@ -684,6 +684,8 @@
     align-items: flex-start;
   }
 
+  .contact-map header > p { white-space: normal; }
+
   .contact-map__frame {
     height: 360px;
   }
@@ -752,4 +754,26 @@
 
 :root:not(.dark) .contact-shield p:last-child {
   color: #3f3f46;
+}
+
+/* Reserve the floating navigation row before hero metadata. */
+.contact-hero__portal, .contact-hero__build { top: 112px; }
+.contact-info__value { overflow-wrap: anywhere; white-space: normal; }
+.contact-form__delivery { max-width: 55ch; font: 400 16px/1.4 var(--font-univers), sans-serif; color: #b2b1b2; }
+:root:not(.dark) .contact-form__delivery { color: #3f3f46; }
+:root:not(.dark) .contact-form__privacy a { color: #087a08; }
+
+:root:not(.dark) .contact-faq__head h2 span:first-child,
+:root:not(.dark) .contact-faq__question { color: #171717; }
+:root:not(.dark) .contact-faq__head h2 span:last-child,
+:root:not(.dark) .contact-faq__question:hover,
+:root:not(.dark) .contact-faq li.is-open .contact-faq__question { color: #087a08; }
+:root:not(.dark) .contact-faq__panel-inner p { color: #3f3f46; }
+:root:not(.dark) .contact-faq__mark::before,
+:root:not(.dark) .contact-faq__mark::after { background: #087a08; }
+:root:not(.dark) .contact-faq__rule { background: #a1a1aa; }
+@media (max-width: 700px) {
+  .contact-photo--hero { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .contact-faq__head h2 span { overflow-wrap: anywhere; line-height: 1.15; }
+  .contact-faq__head h2 { gap: 12px; }
 }

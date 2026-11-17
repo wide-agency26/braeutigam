@@ -38,7 +38,7 @@ export default function SiteChrome() {
       <a className="skip-link" href="#main-content">
         {chrome.skipLink}
       </a>
-      <div className="fixed top-6 left-6 z-[95] flex items-center gap-3">
+      <div className="site-chrome-controls fixed top-6 left-6 z-[95] flex items-center gap-3">
         <button
           ref={menuButtonRef}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -48,10 +48,10 @@ export default function SiteChrome() {
           aria-expanded={isMenuOpen}
           aria-controls="site-menu"
         >
-          <div className="flex flex-col items-center justify-center gap-[5px] w-6">
+          <div className="flex flex-col items-start justify-center gap-[5px] w-6">
             <span className={`block h-[2px] rounded-full transition-all duration-300 bg-zinc-100 dark:bg-zinc-900 ${isMenuOpen ? "w-6 rotate-45 translate-y-[7px]" : "w-6"}`} />
-            <span className={`block h-[2px] rounded-full transition-all duration-300 bg-zinc-100 dark:bg-zinc-900 ${isMenuOpen ? "opacity-0 w-0" : "w-4 ml-auto opacity-70"}`} />
-            <span className={`block h-[2px] rounded-full transition-all duration-300 bg-zinc-100 dark:bg-zinc-900 ${isMenuOpen ? "w-6 -rotate-45 -translate-y-[7px]" : "w-5 ml-auto"}`} />
+            <span className={`block h-[2px] rounded-full transition-all duration-300 bg-zinc-100 dark:bg-zinc-900 ${isMenuOpen ? "opacity-0 w-0" : "w-4 opacity-70"}`} />
+            <span className={`block h-[2px] rounded-full transition-all duration-300 bg-zinc-100 dark:bg-zinc-900 ${isMenuOpen ? "w-6 -rotate-45 -translate-y-[7px]" : "w-5"}`} />
           </div>
         </button>
 

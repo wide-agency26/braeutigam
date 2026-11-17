@@ -14,7 +14,7 @@ import { useSiteLocale } from "@/lib/i18n/use-locale";
 import { SOCIAL_LINKS } from "@/lib/site-links";
 
 /**
- * Shared Figma footer (Oswald + frame notches) with the LineWaves canvas.
+ * Shared Figma footer with the LineWaves canvas.
  * Used on the homepage and inner routes so chrome stays identical.
  */
 export default function SiteFooter() {
@@ -32,16 +32,16 @@ export default function SiteFooter() {
           className="absolute inset-0"
           componentProps={{
             speed: 0.1,
-            innerLineCount: 35,
+            innerLineCount: 34,
             outerLineCount: 20,
-            warpIntensity: 1.0,
-            rotation: 59,
-            edgeFadeWidth: 0.05,
-            colorCycleSpeed: 1.0,
+            warpIntensity: 2.2,
+            rotation: -120,
+            edgeFadeWidth: 0.15,
+            colorCycleSpeed: 0.6,
             brightness: isDark ? 0.3 : 1.0,
-            color1: isDark ? "#39ff14" : "#000000",
-            color2: isDark ? "#222222" : "#000000",
-            color3: isDark ? "#111111" : "#000000",
+            color1: isDark ? "#00e500" : "#000000",
+            color2: isDark ? "#008000" : "#000000",
+            color3: isDark ? "#66ff66" : "#000000",
             enableMouseInteraction: true,
             mouseInfluence: 3.0,
           }}
@@ -81,17 +81,9 @@ export default function SiteFooter() {
             </nav>
 
             <div className="footer-figma__brand">
-              <span className="footer-figma__logo">BRÄUTIGAM</span>
-              <div className="footer-figma__since">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/ui/since-badge.svg"
-                  alt=""
-                  aria-hidden
-                  draggable={false}
-                />
-                <span>SINCE 2016</span>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="footer-figma__wordmark" src="/icons/figma/footer-wordmark.svg" alt="Bräutigam" width={343} height={72} />
+              <div className="footer-figma__since"><span>SINCE 2016</span></div>
             </div>
 
             <nav className="footer-figma__nav" aria-label="Social">
@@ -118,11 +110,7 @@ export default function SiteFooter() {
               </a>
             </div>
             <div className="footer-figma__legal">
-              <span>Legal Notice</span>
-              <span>Privacy Policy</span>
-              <span>Change Privacy Settings</span>
-              <span>History of Privacy Settings</span>
-              <span>Revoke Consent</span>
+              <span>© {new Date().getFullYear()} Bräutigam GmbH</span>
             </div>
             <a
               href={WIDE_CREDIT_URL}

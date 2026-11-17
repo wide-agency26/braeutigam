@@ -176,7 +176,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
           className="fixed inset-0 z-[90] overflow-hidden"
           role="dialog"
           aria-modal="true"
-          aria-label="Hauptnavigation"
+          aria-label={locale === "en" ? "Main navigation" : "Hauptnavigation"}
           initial="closed"
           animate="open"
         >
@@ -218,7 +218,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
 
           {/* Layer 3: Main Full Screen Content Panel */}
           <m.div
-            className="absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-[#0B0B0C] overflow-y-auto"
+            className="site-menu-panel absolute inset-0 z-30 flex flex-col justify-center items-center px-6 py-16 bg-white dark:bg-[#0B0B0C] overflow-y-auto"
             variants={{
               closed: { x: "-100%" },
               open: { 
@@ -245,17 +245,13 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                 variants={metaVariants}
               >
                 <div>
-                  <span className="font-bold text-lg px-3 py-1 uppercase tracking-tight text-zinc-100 bg-zinc-900 dark:text-zinc-950 dark:bg-zinc-100">
-                    BRÄUTIGAM
-                  </span>
-                  <div className="text-[10px] tracking-wider mt-4 leading-relaxed text-zinc-400 dark:text-zinc-500">
-                    <div>DIVISION // COMPOSITE ENGINEERING</div>
-                    <div>PROJECT // AERO_HYPERCAR_v2.2</div>
-                    <div>STATUS // SYSTEM_ACTIVE</div>
-                  </div>
+                  {/* Figma vector export; no raster optimization needed. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="menu-wordmark" src="/icons/figma/footer-wordmark.svg" alt="Bräutigam" width={343} height={72} />
+                  <p className="copy-tiny mt-4">SINCE 2016</p>
                 </div>
 
-                <div className="text-[10px] tracking-widest leading-loose text-zinc-600 dark:text-zinc-400">
+                <div className="copy-tiny leading-loose text-zinc-600 dark:text-zinc-400">
                   <div>Daimlerstraße 13</div>
                   <div>D-71691 Freiberg am Neckar</div>
                   <div className="mt-4">
@@ -268,7 +264,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     </a>
                   </div>
                   <div>
-                    P: +49 (0)7141/2996700
+                    <a href="tel:+4971412996700">P: +49 (0)7141/2996700</a>
                   </div>
                 </div>
               </m.div>

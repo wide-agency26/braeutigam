@@ -464,3 +464,12 @@
     filter: none;
   }
 }
+
+/* Figma stats form a compact centered group with 250px icon-to-icon pitch. */
+.mg-bar--values { grid-template-columns: repeat(3, minmax(0, 170px)); justify-content: center; column-gap: clamp(24px, 4.17vw, 80px); padding-block: clamp(48px, 6.67vw, 128px); border: 0; }
+.mg-stat img { display: block; width: 50px; height: 50px; object-fit: contain; }
+.mg-stat span { font-size: 10px; letter-spacing: 2px; line-height: 1.8; }
+.mg-icon img { width: 40px; height: 40px; object-fit: contain; }
+/* This export already includes the Figma image treatment. */
+.manifest-photo--tr::after { display: none; }
+@media (max-width: 600px) { .mg-bar--values { column-gap: 12px; padding-inline: 16px; } .mg-stat span { font-size: 9px; letter-spacing: 1px; } }
