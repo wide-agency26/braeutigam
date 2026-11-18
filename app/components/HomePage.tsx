@@ -14,7 +14,7 @@ import SiteButton from "./SiteButton";
 import SocialGalleryBoundary, { SocialPosters } from "./SocialGalleryBoundary";
 import ExpertSlot from "./ExpertSlot";
 import { EXPERTS } from "@/lib/data/experts";
-import { SOCIAL_LINKS } from "@/lib/site-links";
+import TrackScrollMap from "./TrackScrollMap";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
@@ -209,7 +209,7 @@ export default function HomePage({
           </div>
 
           {/* Top HUD Telemetry — Figma CAD corners */}
-          <div className="absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
+          <div className="cad-story__hud absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
@@ -220,6 +220,12 @@ export default function HomePage({
           {/* Main Layout Area spanning max-w-7xl */}
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12 h-full relative flex flex-col justify-between py-24 pointer-events-none">
             
+            <header className="cad-story__heading">
+              <p className="copy-caption">[ HIGH PERFORMANCE ]</p>
+              <h2 className="section-heading"><span>{locale === "en" ? "TO THE FINISHED" : "BIS ZUM FERTIGEN"}</span><span>{locale === "en" ? "COMPONENT." : "BAUTEIL."}</span></h2>
+            </header>
+            <div className="cad-story__minimap" aria-hidden="true"><TrackScrollMap progress={smoothScrollProgress} /></div>
+
             {/* FULL SCREEN BORDERLESS TRANSFERRING IMAGES (In centered position) */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-5xl h-[55vh] lg:h-[65vh] flex items-center justify-center pointer-events-none z-0">
               <div className="relative w-full h-full flex items-center justify-center overflow-visible">
@@ -361,7 +367,7 @@ export default function HomePage({
               <p className="mission-figma__copy">
                 Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
               </p>
-              <SiteButton href={localizedHref("/craft", locale)}>MANUFACTURING</SiteButton>
+              <SiteButton href={localizedHref("/craft", locale)}>{locale === "en" ? "Craft" : "Leistungen"}</SiteButton>
             </div>
           </div>
         </div>
@@ -382,7 +388,7 @@ export default function HomePage({
       <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
         <div className="site-container relative z-10">
           <div className="experts-figma__header">
-            <h2 className="experts-figma__title">
+            <h2 className="experts-figma__title section-heading">
               <span className="experts-figma__meet heading-secondary">MEET</span>
               <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
             </h2>
@@ -440,15 +446,11 @@ export default function HomePage({
           />
         </SocialGalleryBoundary>
         <div className="social-section__copy site-container">
-          <h2 className="social-section__title">
+          <h2 className="social-section__title section-heading">
             <span className="heading-secondary">Follow the daily</span>
             <span className="heading-secondary-bold">Bräutigam Experience</span>
           </h2>
-          <nav className="social-section__links" aria-label="Social">
-            {SOCIAL_LINKS.filter((item) => item.href).map((item) => (
-              <a key={item.label} href={item.href!} target="_blank" rel="noopener noreferrer">{item.label}</a>
-            ))}
-          </nav>
+
         </div>
       </section>
       </main>

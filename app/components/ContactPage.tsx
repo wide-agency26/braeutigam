@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import SiteHero from "./SiteHero";
+import type { HeroSlide } from "@/lib/hero-slides";
 import { FormEvent, useId, useState } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
@@ -296,7 +297,7 @@ function ContactMapPin({ locale }: { locale: Locale }) {
   );
 }
 
-export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
+export default function ContactPage({ locale = "de", heroSlide }: { locale?: Locale; heroSlide: HeroSlide }) {
   const t = (de: string, en: string) => locale === "en" ? en : de;
   return (
     <LazyMotion features={domAnimation}>
@@ -304,39 +305,16 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
         <SiteChrome />
 
         <main id="main-content" lang={locale}>
-        <section className="contact-hero" aria-label={t("Kontakt", "Contact")}>
-          <div className="contact-hero__media" aria-hidden="true">
-            <Image className="contact-photo--hero" src="/images/contact/hero.webp" alt="" width={2400} height={1339} sizes="(max-width: 700px) 100vw, 120vw" preload />
-          </div>
-          <div className="contact-hero__shade" aria-hidden="true" />
-
-          <p className="contact-hero__portal">
-            <span>PORTAL [48.9298° N, 9.2070° E]</span>
-            <span>STATUS: ONLINE // READY FOR INQUIRIES</span>
-            <span>PROJECT INQUIRIES // DIRECT CONTACT</span>
-          </p>
-          <p className="contact-hero__build">
-            <span>CONTACT INTERFACE v2.4</span>
-            <span>UPDATE 2026 // CERTIFIED CFRP</span>
-          </p>
-
-          <div className="contact-hero__title">
-            <h1>{t("Kontakt", "Contact")}</h1>
-            <p>{t("Haben Sie ein Projekt? Ob Motorsport-Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.", "Have a project in mind? From motorsport prototypes to small production runs, we look forward to hearing from you.")}</p>
-          </div>
-
-          <a className="contact-hero__status" href="#anfrage">
-            <span>PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</span>
-            <span>SCROLL TO EXPLORE</span>
-          </a>
-        </section>
+        <SiteHero slide={heroSlide} locale={locale} scrollTarget="#anfrage"
+          title={t("KONTAKT", "CONTACT")}
+          description={t("Haben Sie ein Projekt? Ob Motorsport-Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.", "Have a project in mind? From motorsport prototypes to small production runs, we look forward to hearing from you.")} />
 
         <div className="contact-body">
           <section id="anfrage" className="contact-split">
             <div className="contact-form-side">
               <header className="contact-section-head">
                 <p>{">> START_PROJECT_MANIFEST"}</p>
-                <h2>{t("PROJEKTANFRAGE STARTEN", "START A PROJECT INQUIRY")}</h2>
+                <h2 className="section-heading">{t("PROJEKTANFRAGE STARTEN", "START A PROJECT INQUIRY")}</h2>
               </header>
               <ContactForm locale={locale} />
             </div>
@@ -344,7 +322,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
             <aside className="contact-info" aria-label={t("Direkter Kontakt", "Direct contact")}>
               <header className="contact-section-head">
                 <p>{"// DIRECT_CONTACT_DETAILS"}</p>
-                <h2>{t("DIREKTER KONTAKT", "DIRECT CONTACT")}</h2>
+                <h2 className="section-heading">{t("DIREKTER KONTAKT", "DIRECT CONTACT")}</h2>
               </header>
               <div className="contact-info__blocks">
                 <div>
@@ -384,7 +362,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
             <section className="contact-faq" aria-label={t("Häufig gestellte Fragen", "Frequently asked questions")}>
               <header className="contact-faq__head">
                 <p>{"// FAQ_ENGINEERING_ANSWERS"}</p>
-                <h2>
+                <h2 className="section-heading">
                   <span>{t("HÄUFIG", "FREQUENTLY")}</span>
                   <span>{t("GESTELLTE FRAGEN.", "ASKED QUESTIONS.")}</span>
                 </h2>
@@ -397,7 +375,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
             <header>
               <div>
                 <p>{">>_TARGET_GEOLOCATION"}</p>
-                <h2>{t("UNSER STANDORT", "OUR LOCATION")}</h2>
+                <h2 className="section-heading">{t("UNSER STANDORT", "OUR LOCATION")}</h2>
               </div>
               <p>AXIS_X: +1.28 AXIS_Y: -0.49 AXIS_Z: +0.00</p>
             </header>

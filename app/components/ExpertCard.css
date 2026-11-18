@@ -183,8 +183,8 @@
 
 .expert-card__sys {
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -221,8 +221,8 @@
   left: 12px;
   bottom: 12px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -264,8 +264,8 @@
   width: 100%;
   min-height: 8px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 1.25;
   letter-spacing: -0.02em;
   text-transform: uppercase;

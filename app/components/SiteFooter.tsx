@@ -25,7 +25,7 @@ export default function SiteFooter() {
     <footer className="footer-figma-section cv-auto">
       <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-[#0B0B0C] dark:to-transparent" />
 
-      <div className="absolute inset-0 z-0">
+      <div className="footer-waves absolute inset-0 z-0">
         <LazyOnVisible
           loader={loadLineWaves}
           rootMargin="100px"
@@ -39,9 +39,9 @@ export default function SiteFooter() {
             edgeFadeWidth: 0.15,
             colorCycleSpeed: 0.6,
             brightness: isDark ? 0.3 : 1.0,
-            color1: isDark ? "#00e500" : "#000000",
-            color2: isDark ? "#008000" : "#000000",
-            color3: isDark ? "#66ff66" : "#000000",
+            color1: isDark ? "#00e500" : "#333333",
+            color2: isDark ? "#008000" : "#333333",
+            color3: isDark ? "#66ff66" : "#333333",
             enableMouseInteraction: true,
             mouseInfluence: 3.0,
           }}
@@ -110,7 +110,12 @@ export default function SiteFooter() {
               </a>
             </div>
             <div className="footer-figma__legal">
-              <span>© {new Date().getFullYear()} Bräutigam GmbH</span>
+              <a href={localizedHref("/impressum", locale)}>{locale === "en" ? "Legal Notice" : "Rechtliche Hinweise"}</a>
+              <a href={localizedHref("/datenschutz", locale)}>{locale === "en" ? "Privacy Policy" : "Datenschutzerklärung"}</a>
+              {/* Destinations/actions are pending client input; do not fake links. */}
+              <span>{locale === "en" ? "Change Privacy Settings" : "Datenschutzeinstellungen ändern"}</span>
+              <span>{locale === "en" ? "History of Privacy Settings" : "Verlauf der Datenschutzeinstellungen"}</span>
+              <span>{locale === "en" ? "Revoke Consent" : "Einwilligung widerrufen"}</span>
             </div>
             <a
               href={WIDE_CREDIT_URL}

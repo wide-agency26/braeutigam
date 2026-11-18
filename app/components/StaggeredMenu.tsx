@@ -248,10 +248,9 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                   {/* Figma vector export; no raster optimization needed. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img className="menu-wordmark" src="/icons/figma/footer-wordmark.svg" alt="Bräutigam" width={343} height={72} />
-                  <p className="copy-tiny mt-4">SINCE 2016</p>
                 </div>
 
-                <div className="copy-tiny leading-loose text-zinc-600 dark:text-zinc-400">
+                <div className="menu-contact copy-caption leading-loose text-zinc-600 dark:text-zinc-400">
                   <div>Daimlerstraße 13</div>
                   <div>D-71691 Freiberg am Neckar</div>
                   <div className="mt-4">
@@ -276,7 +275,7 @@ export default function StaggeredMenu({ isOpen, onClose }: StaggeredMenuProps) {
                     key={item.label}
                     custom={idx}
                     variants={itemVariants}
-                    className="overflow-hidden border-b border-zinc-200/10 dark:border-zinc-800/60 pb-3"
+                    className="border-b border-zinc-200/10 dark:border-zinc-800/60 pt-2 pb-3"
                   >
                     {item.soon ? (
                       <span

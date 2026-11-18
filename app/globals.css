@@ -321,7 +321,7 @@ body {
 /* ── Journey Timeline Intro (screenshot: HUD top-left, watermark contained) ── */
 .journey-intro {
   position: relative;
-  min-height: 100svh;
+  min-height: 80svh;
   overflow: hidden;
   background: var(--background);
 }
@@ -1051,11 +1051,10 @@ body {
   left: 0.15%;
   right: 0.15%;
   bottom: 1.4%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 4cqi;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3.2fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px;
 }
 
 .footer-figma__imprint {
@@ -1085,20 +1084,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.863cqi; /* 16 */
+  flex-wrap: wrap;
+  gap: 4px 16px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
   font-weight: 400;
-  font-size: 0.647cqi; /* 12 */
-  line-height: 1.35;
-  letter-spacing: 0.09em;
-  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  min-width: 0;
 }
 
 .footer-figma__legal a,
 .footer-figma__legal span {
   color: #fbfafc;
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   transition: color 160ms ease;
 }
 
@@ -1107,6 +1108,7 @@ body {
 }
 
 .footer-figma__credit {
+  justify-self: end;
   font-family: var(--font-bootzy), sans-serif;
   font-size: 1.187cqi; /* 22 */
   letter-spacing: 0.09em;
@@ -1122,7 +1124,7 @@ body {
   color: #00ff00;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .footer-figma {
     aspect-ratio: auto;
     min-height: 560px;
@@ -1141,6 +1143,7 @@ body {
   }
   .footer-figma__main,
   .footer-figma__bottom {
+    display: flex;
     position: static;
     inset: auto;
   }
@@ -1167,9 +1170,6 @@ body {
     text-align: center;
   }
   .footer-figma__legal {
-    flex-wrap: wrap;
-    white-space: normal;
-    font-size: 11px;
     gap: 6px 14px;
   }
   .footer-figma__imprint,
@@ -1183,14 +1183,14 @@ body {
 
 .social-section {
   padding: 52px 0;
-  background: #0b0b0c;
-  color: #f3f3f3;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 .social-gallery {
   width: 100%;
   height: 600px;
-  background: #0b0b0c;
+  background: transparent;
 }
 
 .social-gallery-fallback {
@@ -1316,8 +1316,8 @@ body {
 .cad-story__details > p { text-transform: none; text-align: left; }
 .composite-spec, .dark .composite-spec { --nbg-static-border: #b88b00; --nbg-bg: var(--background); --nbg-glow-stroke: #b88b00; }
 .composite-spec .notched-glow-content { padding: 18px 24px 24px; }
-.composite-spec .text-right, .composite-spec .spec-badge { color: #8f6900; }
-.dark .composite-spec .text-right, .dark .composite-spec .spec-badge { color: #e5b427; }
+.composite-spec .spec-badge { color: #8f6900; }
+.dark .composite-spec .spec-badge { color: #e5b427; }
 .cad-blueprint { filter: brightness(1.8); }
 @media (max-width: 767px) {
   .cad-story__details { left: 24px; right: 24px; bottom: 40px; width: auto; max-width: none; align-items: stretch; }
@@ -1372,3 +1372,78 @@ main [id] { scroll-margin-top: 96px; }
   .journey-intro__title { line-height: 1.1; gap: 4px; }
   .journey-intro__watermark { position: relative; left: auto; right: auto; top: auto; margin-top: 48px; font-size: 20vw; text-align: left; }
 }
+
+/* 18 Nov feedback: section headings share the approved Mission pairing.
+   Generated Figma tokens remain intact; only these public section roles change. */
+#main-content .section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: .12em;
+  font-size: clamp(36px, 3.958vw, 76px);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+#main-content .section-heading > :first-child {
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+#main-content .section-heading > :last-child {
+  font-family: var(--font-bootzy), sans-serif;
+  font-size: 1.067em;
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: .03em;
+}
+#main-content .section-heading > * { padding-block: .15em; margin-block: -.15em; }
+
+/* Readable content captions. Approved decorative CAD and manifest telemetry
+   retain their original smaller scale. */
+main :is(.copy-caption, .copy-tiny, .crew-micro, .crew-kicker, .crew-video__meta,
+  .journey-intro__kicker, .journey-intro__row, .mission-figma__chip-label,
+  .experts-figma__hud, .experts-figma__hud-kicker, .craft-phase__label,
+  .craft-hero__location, .craft-hero__equipment, .contact-eyebrow,
+  .contact-form__hint, .contact-faq__head > p, .contact-map header > p),
+.site-menu-panel .menu-contact {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+main :is(.text-\[8px\], .text-\[9px\], .text-\[10px\], .text-\[11px\]):not(.cad-story__hud),
+main .crew-job__title span:last-child,
+main .crew-hero__join, main .crew-hero__pitch {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.cad-story__heading { position: absolute; left: 48px; top: 130px; z-index: 30; max-width: 560px; }
+.cad-story__heading > p { margin-bottom: 24px; }
+.cad-story__heading .section-heading { font-size: clamp(36px, 3.2vw, 62px); }
+.cad-story__heading .section-heading > :last-child { color: var(--text-default-accent); }
+.cad-story__minimap { position: absolute; bottom: 72px; left: 48px; z-index: 30; }
+:root:not(.dark) .cad-topo-stage { opacity: .4; }
+.social-section .social-section__title { color: var(--foreground); }
+
+/* Keep the requested white footer lettering legible on the lighter dark frame. */
+:root:not(.dark) .footer-figma-section { background: #333; }
+
+:root:not(.dark) .footer-figma__wordmark { filter: none; }
+:root:not(.dark) .footer-figma :is(.footer-figma__nav a, .footer-figma__imprint a, .footer-figma__legal a, .footer-figma__legal span, .footer-figma__credit) { color: #fff; }
+:root:not(.dark) .footer-figma__since span { color: #00ff00; }
+.footer-figma .footer-figma__imprint, .footer-figma .footer-figma__credit { font-size: max(12px, 1.187cqi); line-height: 1.5; }
+.footer-figma__legal a { text-decoration: underline; text-underline-offset: 3px; }
+.footer-figma__legal span { cursor: default; }
+@media (max-width: 700px) {
+  #main-content .section-heading { font-size: clamp(30px, 7.8vw, 48px); }
+  .cad-story__hud { padding-block: 4px; }
+  .cad-story__hud > :last-child { display: none; }
+  .cad-story__heading { top: 112px; left: 24px; right: 24px; }
+  .cad-story__heading .section-heading { font-size: clamp(28px, 7vw, 42px); }
+  .cad-story__minimap { left: 24px; bottom: 48%; }
+  .cad-story__minimap > div { width: 96px; height: 80px; }
+}
+
+:root:not(.dark) .footer-waves { filter: brightness(.4); opacity: .6; }

@@ -2,11 +2,9 @@
 export const INSTAGRAM_HANDLE = "braeutigamgmbh";
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
 
-// TODO(client): confirm LinkedIn company URL
-export const LINKEDIN_URL: string | null = null;
+export const LINKEDIN_URL = "https://www.linkedin.com/company/102550870";
 
-// TODO(client): confirm Facebook page URL
-export const FACEBOOK_URL: string | null = null;
+export const FACEBOOK_URL = "https://www.facebook.com/braeutigam.carbonfiber/";
 
 export const SOCIAL_LINKS = [
   { label: "INSTAGRAM", href: INSTAGRAM_URL },

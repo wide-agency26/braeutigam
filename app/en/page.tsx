@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import HomePage from "../components/HomePage";
 import { pageTitleForLocale } from "@/lib/site-nav";
-import { pickRandomHeroSlide } from "@/lib/hero-slides";
+import { getRequestHeroSlide } from "@/lib/hero-request";
 
 export const dynamic = "force-dynamic";
 
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   alternates: { languages: { de: "/", en: "/en" } },
 };
 
-export default function Page() {
-  const heroSlide = pickRandomHeroSlide();
+export default async function Page() {
+  const heroSlide = await getRequestHeroSlide();
   // SiteHero's Next/Image priority already preloads the responsive sources.
   return <HomePage heroSlide={heroSlide} locale="en" />;
 }

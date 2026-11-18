@@ -1,3 +1,4 @@
+import { getRequestHeroSlide } from "@/lib/hero-request";
 import type { Metadata } from "next";
 import ContactPage from "../components/ContactPage";
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   alternates: { languages: { de: "/kontakt", en: "/en/kontakt" } },
 };
 
-export default function Page() {
-  return <ContactPage />;
+export default async function Page() {
+  const heroSlide = await getRequestHeroSlide();
+  return <ContactPage heroSlide={heroSlide} />;
 }

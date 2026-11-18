@@ -39,6 +39,14 @@ const phases = [
   },
 ] as const;
 
+// Figma 1985:63 contains eight individual slots. Photos and unconfirmed
+// machine data deliberately remain labelled placeholders until supplied.
+const machineGroups = [
+  { id: "cnc", label: ["// CNC-Fräsen", "// CNC mills"], title: ["Drei 5-Achs-Fräsen", "Three 5-axis mills"], name: ["CNC", "CNC"], count: 3, manufacturer: "POS", model: "POSmill H 500 U" },
+  { id: "cutters", label: ["// Zuschnitt", "// Cutting"], title: ["Zwei Cutter", "Two cutters"], name: ["Cutter", "Cutter"], count: 2, manufacturer: "Zünd", model: null },
+  { id: "autoclaves", label: ["// Aushärtung", "// Curing"], title: ["Drei Autoklaven", "Three autoclaves"], name: ["Autoklav", "Autoclave"], count: 3, manufacturer: "Scholz", model: null },
+] as const;
+
 export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
   const language = locale === "en" ? 1 : 0;
   const t = (de: string, en: string) => language ? en : de;
@@ -51,7 +59,7 @@ export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
             <p className="craft-hero__location copy-tiny">Freiberg am Neckar · Germany<br />{t("Fertigung: Inhouse, End to End", "Manufacturing: In-house, end to end")}</p>
             <p className="craft-hero__equipment copy-tiny">** {t("Maschinenpark", "Machine park")} **<br />CNC 3 · Zünd Cutter 2 · Scholz 3</p>
             <div className="craft-hero__title">
-              <h1 className="heading-primary-bold">CRAFT</h1>
+              <h1 className="heading-primary-bold">{t("LEISTUNGEN", "CRAFT")}</h1>
               <p>{t("Kleinserien und Unikate für Motorsport, Automotive und Luftfahrt. Von der Planung über die Fertigung bis zur Qualitätsfreigabe — unser End-to-End-Prozess für Hochleistungs-Carbonbauteile.", "Small series and one-off components for motorsport, automotive and aerospace. From planning and manufacturing to quality release — our end-to-end process for high-performance carbon components.")}</p>
             </div>
             <a className="craft-hero__scroll copy-caption" href="#craft-process">↓ {t("Prozess entdecken", "Explore the process")}</a>
@@ -62,7 +70,7 @@ export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
                 <header className="craft-phase__header">
                   {index === 0 && <p className="craft-watermark" aria-hidden="true">CRAFT</p>}
                   <p className="craft-phase__label">{phase.label[language]}</p>
-                  <h2><span>{phase.title[language]}</span><strong>{phase.accent[language]}</strong></h2>
+                  <h2 className="section-heading"><span>{phase.title[language]}</span><strong>{phase.accent[language]}</strong></h2>
                   <p>{phase.body[language]}</p>
                 </header>
                 <div className="craft-grid">
@@ -79,23 +87,45 @@ export default function CraftPage({ locale = "de" }: { locale?: Locale }) {
               </section>
             ))}
             <section className="craft-phase">
-              <header className="craft-phase__header"><p className="craft-phase__label">{t("// Anlagen", "// Equipment")}</p><h2><span>{t("Maschinenpark", "Equipment")}</span><strong>{t("Im Haus.", "In house.")}</strong></h2></header>
-              <div className="craft-inventory">
-                <article><h3>{t("Drei 5-Achs-Fräsen", "Three 5-axis mills")}</h3><p>POS · POSmill H 500 U</p></article>
-                <article><h3>{t("Zwei Cutter", "Two cutters")}</h3><p>Zünd</p></article>
-                <article><h3>{t("Drei Autoklaven", "Three autoclaves")}</h3><p>Scholz</p></article>
+              <header className="craft-phase__header"><p className="craft-phase__label">{t("// Anlagen", "// Equipment")}</p><h2 className="section-heading"><span>{t("Maschinenpark", "Equipment")}</span><strong>{t("Im Haus.", "In house.")}</strong></h2></header>
+              <div className="machine-park" data-figma-node="1985:63">
+                {machineGroups.map((group) => (
+                  <section className="machine-park__group" key={group.id} aria-labelledby={`machine-${group.id}`}>
+                    <p className="craft-phase__label">{group.label[language]}</p>
+                    <h3 id={`machine-${group.id}`}>{group.title[language]}</h3>
+                    <div className={`machine-park__grid machine-park__grid--${group.count}`}>
+                      {Array.from({ length: group.count }, (_, index) => (
+                        <article className="machine-card" key={index}>
+                          <div className="machine-card__photo" role="img" aria-label={t("Maschinenfoto folgt", "Machine photo to follow")}>
+                            <span>{t("FOTO FOLGT", "PHOTO TO FOLLOW")}</span>
+                          </div>
+                          <div className="machine-card__heading"><span>{String(index + 1).padStart(2, "0")}</span><h4>{group.name[language]} {String(index + 1).padStart(2, "0")}</h4></div>
+                          <dl>
+                            <div><dt>{t("Hersteller", "Manufacturer")}</dt><dd>{group.manufacturer}</dd></div>
+                            <div><dt>{t("Typ", "Model")}</dt><dd>{group.model ?? t("Folgt", "To follow")}</dd></div>
+                            {group.id === "autoclaves" && [
+                              ["Druck (max.)", "Pressure (max.)"],
+                              ["Temperatur (max.)", "Temperature (max.)"],
+                              ["Kapazität", "Capacity"],
+                            ].map((label) => <div key={label[0]}><dt>{label[language]}</dt><dd>{t("Folgt", "To follow")}</dd></div>)}
+                          </dl>
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+                ))}
               </div>
             </section>
             <section className="craft-phase">
-              <header className="craft-phase__header"><p className="craft-phase__label">{"// Assembly"}</p><h2><span>{t("Endmontage", "Final assembly")}</span><strong>{t("Im Prozess.", "In the process.")}</strong></h2><p>{t("Der letzte Fertigungsschritt vor der Qualitätsfreigabe.", "The final manufacturing step before quality release.")}</p></header>
+              <header className="craft-phase__header"><p className="craft-phase__label">{"// Assembly"}</p><h2 className="section-heading"><span>{t("Endmontage", "Final assembly")}</span><strong>{t("Im Prozess.", "In the process.")}</strong></h2><p>{t("Der letzte Fertigungsschritt vor der Qualitätsfreigabe.", "The final manufacturing step before quality release.")}</p></header>
               <div className="craft-grid"><article><div className="craft-photo"><Image src="/images/timeline/figma/2016-thumb-2.webp" alt={t("Bearbeitung einer Carbonoberfläche", "Finishing a carbon surface")} fill sizes="(max-width: 700px) 100vw, 50vw" /></div><h3>Assembly</h3><p>{t("Nach der Aushärtung werden die Bauteile gefügt, angepasst und zur prüffertigen Baugruppe montiert.", "After curing, components are joined, fitted and assembled for inspection.")}</p></article></div>
             </section>
             <section className="craft-phase">
-              <header className="craft-phase__header"><p className="craft-phase__label">{t("// Phase 04 — Abschluss & Freigabe", "// Phase 04 — Completion & release")}</p><h2><span>{t("Qualitäts-", "Quality")}</span><strong>{t("Sicherung.", "Assurance.")}</strong></h2><p>{t("Prüfung und finale Freigabe vor der Auslieferung.", "Inspection and final release before delivery.")}</p></header>
+              <header className="craft-phase__header"><p className="craft-phase__label">{t("// Phase 04 — Abschluss & Freigabe", "// Phase 04 — Completion & release")}</p><h2 className="section-heading"><span>{t("Qualitäts-", "Quality")}</span><strong>{t("Sicherung.", "Assurance.")}</strong></h2><p>{t("Prüfung und finale Freigabe vor der Auslieferung.", "Inspection and final release before delivery.")}</p></header>
               <div className="craft-grid craft-quality"><div className="craft-photo"><Image src="/images/mission/precision-figma.webp" alt={t("Maßprüfung eines Carbonbauteils", "Dimensional inspection of a carbon component")} fill sizes="(max-width: 700px) 100vw, 50vw" /></div><div><h3>{t("Qualitätssicherung", "Quality assurance")}</h3><p>{t("Zerstörungsfreie Prüfverfahren, Ultraschallmessung und dimensionale Kontrolle sichern die Qualität. Die Ergebnisse werden dokumentiert, bevor das Bauteil zur Auslieferung freigegeben wird.", "Non-destructive testing, ultrasonic inspection and dimensional checks ensure quality. Results are documented before the component is released for delivery.")}</p></div></div>
             </section>
             <section className="craft-phase">
-              <header className="craft-phase__header"><p className="craft-phase__label">{t("// Bauteil-Spektrum", "// Component range")}</p><h2><span>{t("Das Spektrum", "The range")}</span><strong>{t("Der Bauteile.", "Of components.")}</strong></h2><p>{t("Von der Idee bis zum fertigen Bauteil — und darüber hinaus in der Instandsetzung.", "From the idea to the finished component — and beyond, through repair and restoration.")}</p></header>
+              <header className="craft-phase__header"><p className="craft-phase__label">{t("// Bauteil-Spektrum", "// Component range")}</p><h2 className="section-heading"><span>{t("Das Spektrum", "The range")}</span><strong>{t("Der Bauteile.", "Of components.")}</strong></h2><p>{t("Von der Idee bis zum fertigen Bauteil — und darüber hinaus in der Instandsetzung.", "From the idea to the finished component — and beyond, through repair and restoration.")}</p></header>
               <div className="craft-inventory">
                 <article><h3>Motorsport</h3><p>{t("Powertrain, Fahrwerk, Chassis und Aerodynamik.", "Powertrain, suspension, chassis and aerodynamics.")}</p></article>
                 <article><h3>Automotive</h3><p>{t("Interieur in matt und glänzend. Lackiertes Exterieur.", "Matt and gloss interior components. Painted exterior surfaces.")}</p></article>

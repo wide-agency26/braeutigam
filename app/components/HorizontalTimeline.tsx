@@ -165,18 +165,14 @@ function Board({ careersHref }: { careersHref: string }) {
         </p>
         <Photo src="/images/timeline/figma/2019-hall.webp" alt="Production hall with autoclaves" left={566} top={307} width={800} height={533} />
         <Photo src="/images/timeline/figma/2019-autoclave.webp" alt="Open autoclave chamber" left={1570.5} top={427.5} width={900} height={700} />
-        <p className="tl-meta" style={box(566, 1004, 800, 10)}>
-          THREE AUTOCLAVES
-        </p>
-        <p className="tl-meta" style={box(566, 950, 174, 64, { zIndex: 12 })}>
-          AUTOCLAVE INFORMATION:
-          <br />
-          AMOUNT: 3
-          <br />
-          MAX TEMP:
-          <br />
-          MAX PRESSURE:
-        </p>
+        <div className="tl-meta tl-autoclave-info">
+          <p>AUTOCLAVE INFORMATION</p>
+          <dl>
+            <div><dt>AMOUNT</dt><dd>3</dd></div>
+            <div><dt>MAX TEMP</dt><dd>—</dd></div>
+            <div><dt>MAX PRESSURE</dt><dd>—</dd></div>
+          </dl>
+        </div>
         <div className="tl-copy" style={box(0, 186.5, 550, 586.5, { gap: 32, zIndex: 12 })}>
           <p className="tl-y-xl">2019</p>
           <div className="tl-head-stack">
@@ -215,15 +211,6 @@ function Board({ careersHref }: { careersHref: string }) {
 
       {/* 2020–23 — Figma Year Container 3276×1080 (screenshot 1024×337) */}
       <section className="tl-panel tl-panel--2020">
-        <p className="tl-meta" style={box(132, 66, 174, 64, { zIndex: 12 })}>
-          AUTOCLAVE INFORMATION:
-          <br />
-          AMOUNT: 3
-          <br />
-          MAX TEMP:
-          <br />
-          MAX PRESSURE:
-        </p>
         <div className="tl-copy" style={box(132, 217.43, 774, 661.14, { gap: 32 })}>
           <p className="tl-y-xl">2020</p>
           <div className="tl-head-stack">
@@ -457,7 +444,7 @@ export default function HorizontalTimeline() {
               </dd>
             </div>
           </dl>
-          <h2 id="journey-heading" className="journey-intro__title">
+          <h2 id="journey-heading" className="journey-intro__title section-heading">
             <span>OUR JOURNEY</span>
             <span>&amp; HISTORY</span>
           </h2>
@@ -492,7 +479,7 @@ export default function HorizontalTimeline() {
             <div
               ref={hostRef}
               className="tl-scale-host"
-              style={{ width: hostW }}
+              style={{ width: hostW, "--tl-readable-size": `${12 / scale}px` } as React.CSSProperties}
             >
               <div
                 style={{

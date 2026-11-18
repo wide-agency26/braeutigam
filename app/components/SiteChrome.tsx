@@ -55,7 +55,7 @@ export default function SiteChrome() {
           </div>
         </button>
 
-        <Link href={homeHref} className={controlClass} title={chrome.home} aria-label={chrome.home}>
+        <Link prefetch={false} href={homeHref} className={controlClass} title={chrome.home} aria-label={chrome.home}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M4 10.5 12 4l8 6.5" />
             <path d="M6.5 9.8V20h11V9.8" />

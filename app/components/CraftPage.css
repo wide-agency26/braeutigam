@@ -32,4 +32,25 @@
 .craft-cta h2 { max-width: 650px; margin: 0 0 24px; font: 700 clamp(40px, 3.958vw, 76px)/1.1 var(--font-univers-bold-cn), sans-serif; text-transform: uppercase; }
 .craft-cta .site-btn { margin-top: 64px; }
 @media(max-width:1100px) { .craft-watermark { position: relative; top: auto; margin-bottom: 40px; font-size: 19vw; } }
-@media(max-width:700px) { .craft-hero__equipment { display: none; } .craft-phase__label { margin-bottom: 24px; font-size: 10px; } .craft-grid, .craft-inventory { grid-template-columns: 1fr; gap: 40px; } .craft-phase__header { margin-bottom: 32px; } .craft-phase__header > p:not(.craft-watermark):not(.craft-phase__label) { margin-top: 32px; } .craft-phase h2 { font-size: 10vw; } .craft-hero__location { font-size: 9px; } }
+@media(max-width:700px) { .craft-hero__equipment { display: none; } .craft-phase__label { margin-bottom: 24px; font-size: 12px; } .craft-grid, .craft-inventory { grid-template-columns: 1fr; gap: 40px; } .craft-phase__header { margin-bottom: 32px; } .craft-phase__header > p:not(.craft-watermark):not(.craft-phase__label) { margin-top: 32px; } .craft-phase h2 { font-size: 10vw; } .craft-hero__location { font-size: 12px; } }
+
+.machine-park { display: grid; gap: clamp(56px, 5vw, 96px); }
+.machine-park__group > .craft-phase__label { margin-bottom: 16px; }
+.machine-park__group > h3 { margin: 0 0 32px; }
+.machine-park__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.machine-park__grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.machine-card__photo { aspect-ratio: 1.8; display: grid; place-items: center; background: #ddd; color: #52525b; font: 12px/1.5 var(--font-jetbrains-mono), monospace; }
+.dark .machine-card__photo { background: #343535; color: #d0d0d0; }
+.machine-card__heading { display: flex; gap: 20px; align-items: baseline; margin-block: 24px 16px; }
+.machine-card__heading > span { font: 12px/1.5 var(--font-jetbrains-mono), monospace; color: #717272; }
+.machine-card h4 { margin: 0; font: 400 clamp(26px, 2.2vw, 42px)/1.1 var(--font-univers-cn), sans-serif; text-transform: uppercase; }
+.machine-card dl { margin: 0; font: 12px/1.5 var(--font-jetbrains-mono), monospace; }
+.machine-card dl > div { display: flex; justify-content: space-between; gap: 16px; padding-block: 10px; border-bottom: 1px solid #71727266; }
+.machine-card dt { text-transform: uppercase; }
+.machine-card dd { margin: 0; text-align: right; }
+.craft-cta { text-align: center; }
+.craft-cta h2, .craft-cta > p { margin-inline: auto; }
+@media (max-width: 700px) {
+  .machine-park__grid, .machine-park__grid--2 { grid-template-columns: 1fr; gap: 40px; }
+  .craft-hero__title h1 { font-size: clamp(42px, 11vw, 64px); }
+}

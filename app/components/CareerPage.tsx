@@ -147,7 +147,7 @@ export default function CareerPage({
         <SiteChrome />
 
         <main id="main-content" lang={locale}>
-          <section className="crew-hero" aria-label="Crew">
+          <section className="crew-hero" aria-label={locale === "en" ? "Career" : "Karriere"}>
             <div className="crew-hero__media" aria-hidden="true">
               <Image className="crew-photo--hero" src="/images/crew/hero.webp" alt="" width={2400} height={1600} sizes="141vw" preload />
             </div>
@@ -160,7 +160,7 @@ export default function CareerPage({
             </p>
 
             <div className="crew-hero__title">
-              <h1>CREW</h1>
+              <h1>{locale === "en" ? "CAREER" : "KARRIERE"}</h1>
               <SiteButton href="#stellen">{copy("Offene stellenanzeigen")}</SiteButton>
             </div>
 
@@ -179,21 +179,21 @@ export default function CareerPage({
                 <span>BRAEUTIGAM_WEBFILE / CREW</span>
                 <span>{copy("ZUGANG GEWÄHRT")}</span>
               </p>
-              <h2 className="crew-intro__title">
+              <h2 className="crew-intro__title section-heading">
                 <span>{copy("UNSER TEAM:")}</span>
                 <span>{copy("EINZIGARTIG")}</span>
               </h2>
               <p className="crew-copy crew-copy--narrow">{copy("Hinter jedem Bauteil steckt ein Team, das Höchstleistung als Standard setzt. Unser Team arbeitet präzise, innovativ, kompromisslos.")}</p>
               <div className="crew-actions">
                 <SiteButton href="#stellen">{copy("Offene stellenanzeigen")}</SiteButton>
-                <SiteButton href={localizedHref("/team", locale)} variant="amber">{copy("Über das team")}</SiteButton>
+                <SiteButton href="#alltag" variant="amber">{copy("Über das team")}</SiteButton>
               </div>
             </section>
 
             <section id="truppe" className="crew-block">
               <div className="crew-lead">
                 <p className="crew-kicker">{copy("ARBEITSWEISE")}</p>
-                <h2 className="crew-display">
+                <h2 className="crew-display section-heading">
                   <span>{copy("DAS WICHTIGSTE:")}</span>
                   <span>{copy("DIE TRUPPE.")}</span>
                 </h2>
@@ -220,11 +220,11 @@ export default function CareerPage({
               </div>
             </section>
 
-            <section className="crew-block crew-day" aria-label={locale === "en" ? "A day with the team" : "Ein Tag im Team"}>
+            <section id="alltag" className="crew-block crew-day" aria-label={locale === "en" ? "A day with the team" : "Ein Tag im Team"}>
               <div className="crew-day__head">
                 <div className="crew-lead">
                   <p className="crew-kicker">{locale === "en" ? "// A DAY WITH THE TEAM" : "// EIN TAG IM TEAM"}</p>
-                  <h2 className="crew-display">
+                  <h2 className="crew-display section-heading">
                     <span>{copy("Unser alltag")}</span>
                     <span>{copy("Ein tag im team")}</span>
                   </h2>
@@ -248,7 +248,7 @@ export default function CareerPage({
             <section id="stellen" className="crew-block">
               <div className="crew-lead">
                 <p className="crew-kicker crew-kicker--tiny">{locale === "en" ? "// OPEN POSITIONS" : "// OFFENE STELLEN"}</p>
-                <h2 className="crew-display">
+                <h2 className="crew-display section-heading">
                   <span>{copy("Offene")}</span>
                   <span>{copy("Stellen.")}</span>
                 </h2>
@@ -290,7 +290,7 @@ export default function CareerPage({
             <section className="crew-block">
               <div className="crew-lead">
                 <p className="crew-kicker crew-kicker--tiny">{locale === "en" ? "// APPLICATION PROCESS" : "// BEWERBUNGSPROZESS"}</p>
-                <h2 className="crew-display">
+                <h2 className="crew-display section-heading">
                   <span>{copy("So kommst du")}</span>
                   <span>{copy("ins team:")}</span>
                 </h2>

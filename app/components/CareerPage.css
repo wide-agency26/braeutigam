@@ -371,8 +371,8 @@
   margin: 0;
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -435,8 +435,8 @@
 
 .crew-kicker--tiny {
   font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: 2px;
 }
 
@@ -657,7 +657,7 @@
 .crew-job__title span:last-child {
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 300;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 0.9;
   letter-spacing: -0.18px;
   text-transform: uppercase;
@@ -936,3 +936,12 @@
   .crew-job__meta { flex-wrap: wrap; }
   .crew-hero__status { width: calc(100% - 48px); }
 }
+
+.crew-job { transition: background-color 180ms ease, border-color 180ms ease; }
+.crew-job:is(:hover, :focus-visible) { background: #00ff0010; border-bottom-color: #00c800; }
+.crew-job:focus-visible { outline: 2px solid #00c800; outline-offset: 4px; }
+.crew-job img { transition: transform 180ms ease; }
+.crew-job:is(:hover, :focus-visible) img { transform: translateX(6px); }
+.crew-hero__join, .crew-hero__pitch, .crew-hero__status { color: #fff; text-shadow: 0 1px 5px #000, 0 0 16px #000; }
+@media (max-width: 700px) { .crew-hero__title h1 { font-size: clamp(52px, 12vw, 84px); } }
+@media (prefers-reduced-motion: reduce) { .crew-job, .crew-job img { transition: none; } }
