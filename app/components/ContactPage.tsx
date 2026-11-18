@@ -306,7 +306,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
         <main id="main-content" lang={locale}>
         <section className="contact-hero" aria-label={t("Kontakt", "Contact")}>
           <div className="contact-hero__media" aria-hidden="true">
-            <Image className="contact-photo--hero" src="/images/contact/hero.webp" alt="" width={2400} height={1339} sizes="120vw" preload />
+            <Image className="contact-photo--hero" src="/images/contact/hero.webp" alt="" width={2400} height={1339} sizes="(max-width: 700px) 100vw, 120vw" preload />
           </div>
           <div className="contact-hero__shade" aria-hidden="true" />
 

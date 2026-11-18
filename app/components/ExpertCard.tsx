@@ -87,7 +87,7 @@ function ExpertCardComponent({
                 alt={name}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 90vw, 362px"
+                sizes="(max-width: 450px) calc(100vw - 88px), 363px"
                 loading={eager ? "eager" : "lazy"}
               />
             </div>
