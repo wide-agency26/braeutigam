@@ -15,6 +15,7 @@ export interface ExpertCardProps {
   memberId?: string;
   headingLevel?: 2 | 3;
   showContact?: boolean;
+  eager?: boolean;
 }
 
 function initialsOf(name: string) {
@@ -36,6 +37,7 @@ function ExpertCardComponent({
   memberId = "#000-000",
   headingLevel = 3,
   showContact = true,
+  eager = false,
 }: ExpertCardProps) {
   const initials = useMemo(() => initialsOf(name), [name]);
   const telHref = `tel:${phone.replace(/[^\d+]/g, "")}`;
@@ -85,14 +87,15 @@ function ExpertCardComponent({
                 alt={name}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 90vw, 362px"
+                sizes="(max-width: 450px) calc(100vw - 88px), 363px"
+                loading={eager ? "eager" : "lazy"}
               />
             </div>
             <span className="expert-card__verified-tag">DIGITAL VERIFIED</span>
           </div>
 
           <div className="expert-card__info">
-            <NameHeading className="expert-card__name">{name}</NameHeading>
+            <NameHeading className="expert-card__name team-card-primary">{name}</NameHeading>
             <div className="expert-card__row">
               <p className="expert-card__role">{title}</p>
               <p className="expert-card__id">ID: {memberId}</p>
@@ -103,10 +106,10 @@ function ExpertCardComponent({
             <div className="expert-card__actions">
               <div className="expert-card__action-group">
                 <SiteButton href={`mailto:${email}`} size="sm">
-                  EMAIL
+                  EMAIL<span className="sr-only">: {name}</span>
                 </SiteButton>
                 <SiteButton href={telHref} size="sm" variant="solid">
-                  PHONE
+                  PHONE<span className="sr-only">: {name}</span>
                 </SiteButton>
               </div>
             </div>

@@ -3,13 +3,13 @@
 import { createHash, randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { saveApplicationWithRateLimit } from "@/lib/data/save-application";
 import { verifySession } from "@/lib/auth/dal";
 import { CMS_APPLICATIONS, CMS_BASE } from "@/lib/cms";
 import { rateLimitForRequest } from "@/lib/application-rate-limit";
 import {
   identifyResume,
   MAX_RESUME_BYTES,
-  RESUME_ERRORS,
   sanitizeResumeName,
 } from "@/lib/resume-file";
 import {
@@ -19,11 +19,12 @@ import {
   uploadResumeObject,
 } from "@/lib/storage";
 import {
-  applicationSchema,
+  createApplicationSchema,
   applicationStatusSchema,
   fieldErrors,
   type FieldErrors,
 } from "@/lib/validations";
+import { resumeErrors } from "@/lib/resume-limits";
 import { verifyTurnstile } from "@/lib/turnstile";
 
 export type ApplyState = {
@@ -33,33 +34,34 @@ export type ApplyState = {
 };
 
 export async function applyToJob(
-  jobId: string,
   _prev: ApplyState | undefined,
   formData: FormData,
 ): Promise<ApplyState> {
+  const locale = formData.get("locale") === "en" ? "en" : "de";
+  const errors = resumeErrors(locale);
+  const jobId = String(formData.get("jobId") ?? "");
   if (String(formData.get("companyWebsite") ?? "").trim()) {
     return { ok: true };
   }
 
-  const turnstileToken = String(formData.get("cf-turnstile-response") ?? "");
-  const turnstileOk = await verifyTurnstile(turnstileToken);
-  if (!turnstileOk) {
-    return {
-      error:
-        "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    };
-  }
-
   try {
+    const turnstileToken = String(formData.get("cf-turnstile-response") ?? "");
+    const turnstileOk = await verifyTurnstile(turnstileToken);
+    if (!turnstileOk) {
+      return { error: locale === "en"
+        ? "The security check failed. Please try again."
+        : "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut." };
+    }
+
     const job = await prisma.job.findFirst({
       where: { id: jobId, status: "PUBLISHED" },
       select: { id: true },
     });
     if (!job) {
-      return { error: "This posting is no longer open." };
+      return { error: locale === "en" ? "This posting is no longer open." : "Diese Stelle ist nicht mehr ausgeschrieben." };
     }
 
-    const parsed = applicationSchema.safeParse({
+    const parsed = createApplicationSchema(locale).safeParse({
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
       email: formData.get("email"),
@@ -76,35 +78,35 @@ export async function applyToJob(
       .getAll("resume")
       .filter((entry): entry is File => entry instanceof File);
     if (files.length > 1) {
-      return { error: RESUME_ERRORS.count };
+      return { error: errors.count };
     }
     if (files.length !== 1) {
-      return { error: RESUME_ERRORS.empty };
+      return { error: errors.empty };
     }
 
     const resume = files[0];
     if (resume.size === 0) {
-      return { error: RESUME_ERRORS.empty };
+      return { error: errors.empty };
     }
     if (resume.size > MAX_RESUME_BYTES) {
-      return { error: RESUME_ERRORS.size };
+      return { error: errors.size };
     }
 
     const bytes = Buffer.from(await resume.arrayBuffer());
     if (bytes.length === 0) {
-      return { error: RESUME_ERRORS.empty };
+      return { error: errors.empty };
     }
     if (bytes.length > MAX_RESUME_BYTES) {
-      return { error: RESUME_ERRORS.size };
+      return { error: errors.size };
     }
     const kind = identifyResume(bytes);
     if (!kind) {
-      return { error: RESUME_ERRORS.type };
+      return { error: errors.type };
     }
 
     const { limited, ipHash } = await rateLimitForRequest();
     if (limited) {
-      return { error: RESUME_ERRORS.rate };
+      return { error: errors.rate };
     }
 
     const applicationId = randomUUID();
@@ -113,32 +115,24 @@ export async function applyToJob(
     await uploadResumeObject(objectKey, new Uint8Array(bytes), kind.mime);
 
     try {
-      await prisma.$transaction([
-        prisma.application.create({
-          data: {
-            id: applicationId,
-            jobId,
-            ...parsed.data,
-            resumePath: storedResumePath(objectKey),
-            resumeName: sanitizeResumeName(resume.name, kind.ext),
-            resumeMime: kind.mime,
-            resumeSize: bytes.length,
-            resumeSha256: createHash("sha256").update(bytes).digest("hex"),
-            retainUntil,
-          },
-        }),
-        prisma.applicationRateLimit.create({ data: { ipHash } }),
-      ]);
+      await saveApplicationWithRateLimit({
+        id: applicationId, jobId, ...parsed.data,
+        resumePath: storedResumePath(objectKey),
+        resumeName: sanitizeResumeName(resume.name, kind.ext),
+        resumeMime: kind.mime, resumeSize: bytes.length,
+        resumeSha256: createHash("sha256").update(bytes).digest("hex"),
+        retainUntil,
+      }, ipHash);
     } catch {
       await deleteResumeObject(objectKey).catch(() => undefined);
-      return { error: RESUME_ERRORS.save };
+      return { error: errors.save };
     }
 
     revalidatePath(CMS_BASE);
     revalidatePath(CMS_APPLICATIONS);
     return { ok: true };
   } catch {
-    return { error: RESUME_ERRORS.save };
+    return { error: errors.save };
   }
 }
 

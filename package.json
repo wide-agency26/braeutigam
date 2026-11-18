@@ -4,15 +4,27 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && node scripts/migrate-if-production.mjs && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --force",
-    "postinstall": "prisma generate",
-    "sync:typography": "node scripts/generate-typography-tokens.mjs"
+    "postinstall": "prisma generate && prisma generate --schema prisma/d1.prisma",
+    "deploy": "pnpm cf:deploy",
+    "db:deploy:postgres": "prisma migrate deploy",
+    "db:generate:d1": "prisma generate --schema prisma/d1.prisma",
+    "cf:types": "cf workers types",
+    "cf:dev": "pnpm db:generate:d1 && vite dev --host 127.0.0.1 --port 3008",
+    "cf:build": "pnpm db:generate:d1 && cf build",
+    "cf:check": "pnpm db:generate:d1 && cf deploy --dry-run",
+    "cf:deploy": "pnpm db:generate:d1 && node scripts/deploy-cloudflare.mjs",
+    "cf:preview": "vite preview --host 127.0.0.1 --port 3008",
+    "cf:typecheck": "cf workers types && tsc --noEmit -p tsconfig.cloudflare.json",
+    "cf:db:local": "node scripts/cf-local-db.mjs",
+    "sync:typography": "node scripts/generate-typography-tokens.mjs",
+    "cf:test:images": "node scripts/verify-cloudflare-images.mjs"
   },
   "prisma": {
     "seed": "node --import tsx prisma/seed.ts"
@@ -22,33 +34,47 @@
       "@prisma/client",
       "@prisma/engines",
       "esbuild",
-      "prisma"
-    ]
+      "prisma",
+      "workerd"
+    ],
+    "patchedDependencies": {
+      "vinext@1.4.4": "patches/vinext@1.4.4.patch"
+    }
   },
   "dependencies": {
-    "@prisma/client": "^6.19.3",
+    "@prisma/adapter-d1": "6.19.3",
+    "@prisma/client": "6.19.3",
     "@supabase/supabase-js": "2.118.0",
+    "@vinext/cloudflare": "1.3.3",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^12.40.0",
     "jose": "^6.2.10",
     "lucide-react": "^1.16.0",
     "next": "16.2.6",
     "ogl": "^1.0.11",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-server-dom-webpack": "19.3.1",
     "server-only": "^0.0.1",
+    "vinext": "1.4.4",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "2.0.0-beta.v.12",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.2.1",
+    "@vitejs/plugin-rsc": "^0.5.39",
+    "cf": "1.0.0-beta.28",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
-    "prisma": "^6.19.3",
+    "prisma": "6.19.3",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
-    "typescript": "^5"
-  }
+    "typescript": "^5",
+    "vite": "8.3.0"
+  },
+  "type": "module"
 }

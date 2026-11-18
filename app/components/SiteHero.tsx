@@ -46,6 +46,8 @@ interface SiteHeroProps {
   isPageHeading?: boolean;
   slide?: HeroSlide;
   locale?: "de" | "en";
+  title?: string;
+  description?: string;
 }
 
 export default function SiteHero({
@@ -54,6 +56,8 @@ export default function SiteHero({
   isPageHeading = true,
   slide,
   locale = "de",
+  title,
+  description,
 }: SiteHeroProps) {
   const { isDark } = useTheme();
   const photoIsDark = useSyncExternalStore(subscribeHtmlTheme, readIsDarkFromDom, serverIsDark);
@@ -96,7 +100,8 @@ export default function SiteHero({
       data-figma-node="2006:132"
       data-figma-node-light="2006:132"
       data-figma-node-dark="934:242"
-      aria-label="Hero"
+      aria-label={title ?? "Hero"}
+      data-hero-slide={resolved.id}
     >
       <div className="hero-figma__bleed" aria-hidden>
       <div
@@ -211,6 +216,9 @@ export default function SiteHero({
         </div>
 
         <div className="hero-figma__main" data-figma-node="2006:143" data-figma-node-dark="937:247">
+          {title ? (
+            <div className="hero-figma__page-title"><Title>{title}</Title>{description && <p>{description}</p>}</div>
+          ) : <>
           <div
             className="hero-figma__lockup"
             data-figma-node="2006:144"
@@ -232,6 +240,8 @@ export default function SiteHero({
                 height={72}
                 draggable={false}
               />
+              {/* SVG wordmark: intentionally rendered without raster optimization. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className={`hero-figma__wordmark hero-figma__wordmark--dark${
                   isDark ? " is-active" : ""
@@ -259,6 +269,7 @@ export default function SiteHero({
           >
             SINCE 2016
           </p>
+          </>}
         </div>
 
         <div

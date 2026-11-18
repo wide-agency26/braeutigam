@@ -371,8 +371,8 @@
   margin: 0;
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -435,8 +435,8 @@
 
 .crew-kicker--tiny {
   font-weight: 300;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: 2px;
 }
 
@@ -657,7 +657,7 @@
 .crew-job__title span:last-child {
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 300;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 0.9;
   letter-spacing: -0.18px;
   text-transform: uppercase;
@@ -898,3 +898,50 @@
 :root:not(.dark) .crew-cta p:first-child {
   color: #3f3f46;
 }
+
+/* Scale the 1920px CREW composition, then reflow at tablet/mobile widths. */
+.crew-body { width: min(100%, 1920px); padding: clamp(24px, 3.333vw, 64px); gap: clamp(32px, 3.333vw, 64px); }
+.crew-hero__join, .crew-hero__pitch { top: 112px; }
+.crew-hero__pitch { max-width: 52%; white-space: normal; }
+.crew-hero__title { width: calc(100% - 48px); }
+.crew-photo--hero { object-fit: cover; }
+.crew-intro__title, .crew-display { gap: 16px; }
+.crew-display { padding-block: 24px; }
+.crew-display span:first-child { line-height: 1; }
+.crew-block { padding-block: clamp(32px, 3.333vw, 64px); }
+.crew-mark { letter-spacing: .055em; }
+.crew-film__frame { aspect-ratio: 1.8; height: auto; }
+.crew-film__frame--lg { aspect-ratio: 2.25; height: auto; }
+.crew-play { pointer-events: none; }
+.crew-film__title { font-family: var(--font-univers-bold-cn), sans-serif; font-weight: 700; letter-spacing: -.02em; }
+.crew-pillar__frame { aspect-ratio: 24 / 25; height: auto; }
+@media (min-width: 701px) and (max-width: 1100px) {
+  .crew-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .crew-films--lg, .crew-steps, .crew-split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .crew-films--sm { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .crew-pillars .crew-copy { font-size: 16px; line-height: 1.4; }
+}
+@media (max-width: 700px) {
+  .crew-photo--hero { inset: 0; width: 100%; height: 100%; object-position: 38% center; }
+  .crew-mark--crew { position: relative; left: auto; top: auto; font-size: 26vw; }
+  .crew-mark--life { font-size: 25vw; }
+  .crew-copy, .crew-split p, .crew-steps p, .crew-pillar .crew-copy { font-size: 18px; line-height: 1.4; }
+  .crew-display span:first-child { font-size: clamp(32px, 9vw, 48px); }
+  .crew-display span:last-child, .crew-intro__title span:last-child { font-size: clamp(30px, 8vw, 44px); letter-spacing: .03em; }
+  .crew-steps { gap: 48px; }
+  .crew-steps h3 { font-size: 36px; overflow-wrap: anywhere; }
+  .crew-job { padding: 24px 0; }
+  .crew-job__title { flex-basis: 85%; }
+  .crew-job__title span:first-child { font-size: 24px; line-height: 1.2; }
+  .crew-job__meta { flex-wrap: wrap; }
+  .crew-hero__status { width: calc(100% - 48px); }
+}
+
+.crew-job { transition: background-color 180ms ease, border-color 180ms ease; }
+.crew-job:is(:hover, :focus-visible) { background: #00ff0010; border-bottom-color: #00c800; }
+.crew-job:focus-visible { outline: 2px solid #00c800; outline-offset: 4px; }
+.crew-job img { transition: transform 180ms ease; }
+.crew-job:is(:hover, :focus-visible) img { transform: translateX(6px); }
+.crew-hero__join, .crew-hero__pitch, .crew-hero__status { color: #fff; text-shadow: 0 1px 5px #000, 0 0 16px #000; }
+@media (max-width: 700px) { .crew-hero__title h1 { font-size: clamp(52px, 12vw, 84px); } }
+@media (prefers-reduced-motion: reduce) { .crew-job, .crew-job img { transition: none; } }

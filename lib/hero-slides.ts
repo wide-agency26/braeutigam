@@ -50,12 +50,15 @@ export function activeHeroSlides(): HeroSlide[] {
   return HERO_SLIDES.filter((s) => s.enabled);
 }
 
-/** Picks a random enabled slide (server-safe; one slide per request). */
-export function pickRandomHeroSlide(): HeroSlide {
-  const active = activeHeroSlides();
-  if (active.length === 0) {
-    return HERO_SLIDES[0]!;
-  }
-  const index = Math.floor(Math.random() * active.length);
-  return active[index]!;
+export const HERO_HISTORY_COOKIE = "braeutigam-hero-history";
+export const HERO_SLIDE_HEADER = "x-braeutigam-hero-slide";
+
+/** Keep the last N-1 photos out of the draw, including across DE/EN routes. */
+export function nextHeroSlide(history = "", active = activeHeroSlides(), random = Math.random) {
+  const slides = active.length ? active : [HERO_SLIDES[0]!];
+  const recent = [...new Set(history.split(".").filter((id) => slides.some((s) => s.id === id)))];
+  const excluded = slides.length > 1 ? recent.slice(-(slides.length - 1)) : [];
+  const candidates = slides.filter((s) => !excluded.includes(s.id));
+  const slide = candidates[Math.min(candidates.length - 1, Math.floor(random() * candidates.length))]!;
+  return { slide, history: [...excluded, slide.id].slice(-slides.length).join(".") };
 }

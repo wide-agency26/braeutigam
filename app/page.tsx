@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import HomePage from "./components/HomePage";
-import HeroPhotoPreload from "./components/HeroPhotoPreload";
 import { pageTitle } from "@/lib/site-nav";
-import { activeHeroSlides, pickRandomHeroSlide } from "@/lib/hero-slides";
+import { getRequestHeroSlide } from "@/lib/hero-request";
 
 export const dynamic = "force-dynamic";
 
@@ -18,15 +17,8 @@ export const metadata: Metadata = {
  * client island for the interactive page. Theme lives on <html class="dark">
  * so static markup can still theme via CSS without prop drilling.
  */
-export default function Page() {
-  const heroSlide = pickRandomHeroSlide();
-  const fallback = activeHeroSlides()[0];
-  const lightSrc = heroSlide?.light ?? fallback?.light ?? "/images/hero/gwagon_light.jpeg";
-  const darkSrc = heroSlide?.dark ?? fallback?.dark ?? "/images/hero/gwagon_dark.jpeg";
-  return (
-    <>
-      <HeroPhotoPreload lightSrc={lightSrc} darkSrc={darkSrc} />
-      <HomePage heroSlide={heroSlide} />
-    </>
-  );
+export default async function Page() {
+  const heroSlide = await getRequestHeroSlide();
+  // SiteHero's Next/Image priority already preloads the responsive sources.
+  return <HomePage heroSlide={heroSlide} />;
 }

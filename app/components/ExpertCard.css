@@ -162,7 +162,10 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-  height: 100%;
+  /* Keep the Figma proportions while allowing long names and contact actions
+     to increase the card height on narrow screens. */
+  min-height: calc(100cqi * 522 / 403);
+  height: auto;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -180,8 +183,8 @@
 
 .expert-card__sys {
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -218,8 +221,8 @@
   left: 12px;
   bottom: 12px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -243,11 +246,11 @@
 .expert-card__name {
   margin: 0;
   width: 100%;
-  font-family: var(--font-sans);
+  font-family: var(--font-univers-bold-cn), sans-serif;
   font-weight: 700;
-  font-size: clamp(1.1rem, 6cqi, 24.0832px);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  font-size: clamp(24px, 7.94cqi, 32px);
+  line-height: 1.125;
+  letter-spacing: -0.03125em;
   text-transform: uppercase;
   color: var(--ec-name);
 }
@@ -261,8 +264,8 @@
   width: 100%;
   min-height: 8px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 1.25;
   letter-spacing: -0.02em;
   text-transform: uppercase;

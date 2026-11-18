@@ -248,6 +248,7 @@ const CircularGallery = ({
   intro = true,
   onItemClick,
   onActiveChange,
+  fallback = /** @type {import('react').ReactNode} */ (null),
   dpr,
   className = '',
   style,
@@ -263,6 +264,7 @@ const CircularGallery = ({
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const [canvasEpoch, setCanvasEpoch] = useState(0);
+  const [unavailable, setUnavailable] = useState(false);
   const recoveriesRef = useRef(0);
   const list = Array.isArray(items) && items.length ? items : DEFAULT_ITEMS;
   const settings = {
@@ -307,6 +309,7 @@ const CircularGallery = ({
   }, [font, fontUrl]);
 
   useEffect(() => {
+    if (unavailable) return undefined;
     const container = containerRef.current;
     const canvas = canvasRef.current;
     const labelLayer = labelsRef.current;
@@ -320,7 +323,11 @@ const CircularGallery = ({
     let stop = () => {};
     const bootId = requestAnimationFrame(() => {
       if (!alive) return;
-      stop = boot();
+      try {
+        stop = boot();
+      } catch {
+        setUnavailable(true);
+      }
     });
 
     return () => {
@@ -342,6 +349,8 @@ const CircularGallery = ({
       if (alive && recoveriesRef.current < 3) {
         recoveriesRef.current += 1;
         setCanvasEpoch(epoch => epoch + 1);
+      } else if (alive) {
+        setUnavailable(true);
       }
       return () => {};
     }
@@ -349,6 +358,7 @@ const CircularGallery = ({
     const program = link(gl);
     if (!program) {
       gl.getExtension('WEBGL_lose_context')?.loseContext();
+      if (alive) setUnavailable(true);
       return () => {};
     }
     const u = program.uniforms;
@@ -450,6 +460,8 @@ const CircularGallery = ({
       if (recoveriesRef.current < 3) {
         recoveriesRef.current += 1;
         setCanvasEpoch(epoch => epoch + 1);
+      } else {
+        setUnavailable(true);
       }
     };
 
@@ -1089,6 +1101,11 @@ const CircularGallery = ({
     engineRef.current = {
       wake,
       open: index => openSlot(slotFor(index)),
+      activate: index => {
+        const item = settingsRef.current.items[index];
+        settingsRef.current.onItemClick?.(item, index);
+        if (settingsRef.current.openOnClick) openSlot(slotFor(index));
+      },
       focus: index => setSlot(slotFor(index), false),
       close
     };
@@ -1127,7 +1144,7 @@ const CircularGallery = ({
       }
     };
     }
-  }, [canvasEpoch]);
+  }, [canvasEpoch, unavailable]);
 
   useEffect(() => {
     engineRef.current?.wake();
@@ -1135,6 +1152,8 @@ const CircularGallery = ({
 
   const count = list.length;
   const current = list[active % count] || list[0];
+
+  if (unavailable) return fallback;
 
   return (
     <div
@@ -1165,10 +1184,15 @@ const CircularGallery = ({
         </svg>
       </button>
       <ul className={CLASSES.hidden} data-gallery-list="">
-        {list.map((item, index) => (
+        {list.map((item, index) => {
+          const Control = item.href ? 'a' : 'button';
+          return (
           <li key={`${item.image}-${index}`}>
-            <button
-              type="button"
+            <Control
+              type={item.href ? undefined : "button"}
+              href={item.href}
+              target={item.href ? "_blank" : undefined}
+              rel={item.href ? "noopener noreferrer" : undefined}
               ref={el => {
                 buttonsRef.current[index] = el;
               }}
@@ -1176,12 +1200,13 @@ const CircularGallery = ({
               aria-label={`${item.text || item.alt || 'Image'}, ${index + 1} of ${count}`}
               aria-current={index === active ? 'true' : undefined}
               onFocus={() => engineRef.current?.focus(index)}
-              onClick={() => engineRef.current?.open(index)}
+              onClick={item.href ? undefined : () => engineRef.current?.activate(index)}
             >
               {item.text || item.alt || `Image ${index + 1}`}
-            </button>
+            </Control>
           </li>
-        ))}
+          );
+        })}
       </ul>
       <div className={CLASSES.hidden} aria-live="polite">
         {open && current ? `${current.text || current.alt || 'Image'} opened` : ''}

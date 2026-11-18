@@ -135,7 +135,7 @@
 }
 
 .mg-stat span {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   line-height: 1.35;
 }
@@ -244,6 +244,10 @@
   font-family: var(--font-univers-bold-cn), var(--font-sans);
   font-size: calc(119.05 / 1920 * 100cqi);
   white-space: nowrap;
+  /* Keep the gradient's paint area around glyphs above the tight line box.
+     Matching negative margins preserve the existing spacing between lines. */
+  padding-block: 0.15em;
+  margin-block: -0.15em;
 }
 
 .manifest-stage .manifest-figma__neon {
@@ -328,8 +332,8 @@
   flex-direction: column;
   justify-content: center;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
-  font-size: calc(10 / 1920 * 100cqi);
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   line-height: 1;
@@ -382,7 +386,7 @@
   .manifest-mission {
     align-items: flex-start;
     text-align: left;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.08em;
     line-height: 1.35;
   }
@@ -463,4 +467,22 @@
   .manifest-photo img {
     filter: none;
   }
+}
+
+/* Figma stats form a compact centered group with 250px icon-to-icon pitch. */
+.mg-bar--values { grid-template-columns: repeat(3, minmax(0, 170px)); justify-content: center; column-gap: clamp(24px, 4.17vw, 80px); padding-block: clamp(48px, 6.67vw, 128px); border: 0; }
+.mg-stat img { display: block; width: 50px; height: 50px; object-fit: contain; }
+.mg-stat span { font-size: 12px; letter-spacing: 2px; line-height: 1.8; }
+.mg-icon img { width: 40px; height: 40px; object-fit: contain; }
+/* This export already includes the Figma image treatment. */
+.manifest-photo--tr::after { display: none; }
+@media (max-width: 600px) { .mg-bar--values { column-gap: 12px; padding-inline: 16px; } .mg-stat span { font-size: 12px; letter-spacing: 1px; } }
+
+/* Content captions stay readable; the decorative system bar and client overview
+   retain their original micrographic scale, as confirmed on 18 Nov. */
+.manifest-shell :is(.mg-stat span, .manifest-mission, .manifest-mission__title) {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
 }

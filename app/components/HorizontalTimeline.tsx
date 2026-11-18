@@ -7,6 +7,8 @@ import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, CSSPr
 import Image from "next/image";
 import { m, useScroll, useTransform, useMotionValueEvent, useSpring, useReducedMotion } from "framer-motion";
 import SiteButton from "./SiteButton";
+import { localizedHref } from "@/lib/i18n";
+import { useSiteLocale } from "@/lib/i18n/use-locale";
 import "./HorizontalTimeline.css";
 
 const BOARD_W = 12352;
@@ -14,15 +16,43 @@ const BOARD_H = 1080;
 const HOLD = 0.08;
 const LAST_PANEL_W = 3096;
 const TICK_YEARS = ["2016", "2017", "2019", "2020", "2021", "2022", "2024", "2026"];
-const REDUCED_JOURNEY = [
-  ["2016", "Founded"],
-  ["2017", "Entry into Formula 1"],
-  ["2019", "More space"],
-  ["2020", "Monocoque construction"],
-  ["2021", "Development and manufacturing"],
-  ["2022", "Growth and recognition"],
-  ["2024", "Powered by Brabus"],
-  ["2026", "80+ experts"],
+const JOURNEY = [
+  {
+    year: "2016", title: "Founded",
+    body: "BRÄUTIGAM started with three specialists and one clear vision: engineering high-performance carbon components for clients with uncompromising ambitions.",
+    image: "/images/timeline/figma/2016-hero.webp", alt: "Carbon component branded Bräutigam Carbon Fiber Works",
+  },
+  {
+    year: "2017", title: SHOW_F1_CLAIM ? "Entry into Formula 1" : "Motorsport programs",
+    body: SHOW_F1_CLAIM
+      ? "We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams."
+      : "Within the first years we moved from prototype work into demanding motorsport and performance programs — complex carbon parts, tight timelines.",
+  },
+  {
+    year: "2019", title: "We need more space.",
+    body: "Expanding space, advancing tech. We scaled our footprint and upgraded our facility with three high-capacity autoclaves to match the highest industry standards.",
+    image: "/images/timeline/figma/2019-hall.webp", alt: "Production hall with autoclaves",
+  },
+  {
+    year: "2020", title: "Monocoque construction",
+    body: "Complete structural monocoque repair and carbon restoration on a crashed Porsche Carrera GT. Just one saved legend and merely a fraction of what leaves our facility.",
+  },
+  {
+    year: "2021", title: "Development & manufacturing",
+    body: "We engineered and manufactured a high-modulus carbon torque tube for an ultra-exclusive hypercar built for maximum torsional rigidity and absolute weight reduction under extreme loads.",
+    image: "/images/timeline/figma/2021-shop.webp", alt: "Technicians working a carbon component",
+  },
+  { year: "2022 / 2023", title: "Growth Champion Award" },
+  {
+    year: "2024", title: "Powered by Brabus",
+    body: "A strategic milestone in high-performance engineering: Bräutigam GmbH officially becomes part of the BRABUS Group—combining advanced composite expertise with the global pinnacle of luxury automotive performance.",
+    image: "/images/timeline/figma/2024-brabus.webp", alt: "Work on a Brabus grille",
+  },
+  {
+    year: "2025 / 2026", title: "80+ experts. 1 unstoppable vision.",
+    body: "From three visionaries to 80+ high-performance composite specialists. As our capabilities expand, our drive remains the same: pushing the limits of what’s engineered in carbon.",
+    image: "/images/timeline/figma/join-team.webp", alt: "The Bräutigam team outside the workshop",
+  },
 ] as const;
 
 function box(left: number, top: number, width: number, height: number, extra?: CSSProperties): CSSProperties {
@@ -73,81 +103,29 @@ function Photo({
 }
 
 function PillIcon({ kind }: { kind: "speed" | "inhouse" | "complexity" }) {
-  if (kind === "inhouse") {
-    return (
-      <svg viewBox="0 0 47 40" fill="currentColor" aria-hidden="true">
-        {[[15, 5], [22, 5], [8, 12], [15, 12], [22, 12], [29, 12], [1, 18], [8, 18], [15, 18], [22, 18], [29, 18], [36, 18], [42, 18], [8, 25], [15, 25], [22, 25], [29, 25], [36, 25], [15, 32], [22, 32], [29, 32], [15, 38], [22, 38]].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r="2.2" opacity={i % 3 === 0 ? 1 : 0.55} />
-        ))}
-      </svg>
-    );
-  }
-  if (kind === "complexity") {
-    return (
-      <svg viewBox="0 0 49 48" fill="none" aria-hidden="true">
-        <circle cx="24.5" cy="24" r="6" fill="currentColor" />
-        {Array.from({ length: 8 }, (_, i) => {
-          const a = (i * Math.PI) / 4;
-          return (
-            <line
-              key={i}
-              x1={24.5 + Math.cos(a) * 10}
-              y1={24 + Math.sin(a) * 10}
-              x2={24.5 + Math.cos(a) * 20}
-              y2={24 + Math.sin(a) * 20}
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-          );
-        })}
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 52 52" fill="none" aria-hidden="true">
-      <circle cx="26" cy="26" r="4" fill="currentColor" />
-      {Array.from({ length: 12 }, (_, i) => {
-        const a = (i * Math.PI) / 6;
-        return (
-          <line
-            key={i}
-            x1={26 + Math.cos(a) * 8}
-            y1={26 + Math.sin(a) * 8}
-            x2={26 + Math.cos(a) * 22}
-            y2={26 + Math.sin(a) * 22}
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-        );
-      })}
-    </svg>
-  );
+  // Figma vector export; no raster optimization needed.
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={`/icons/figma/core-${kind}.svg`} alt="" width={50} height={50} />;
 }
 
-function Board() {
+function Board({ careersHref }: { careersHref: string }) {
   return (
     <div className="tl-board">
       {/* 2016 / 2017 — Figma Year Container 2880×1080 (screenshot 1024×384) */}
       <section className="tl-panel tl-panel--2016">
-        <Photo src="/images/timeline/figma/2016-hero.png" alt="Carbon component branded Bräutigam Carbon Fiber Works" left={774} top={66} width={692} height={692} dim crop={{ width: "100%", height: "177.47%", left: "0%", top: "0%" }} />
-        <Photo src="/images/timeline/figma/2016-thumb-1.png" alt="Carbon fiber weave with a recessed inset" left={1654} top={66} width={345} height={345} dim />
-        <Photo src="/images/timeline/figma/2016-thumb-2.png" alt="Hand sanding a carbon fiber surface" left={1654} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
-        <Photo src="/images/timeline/figma/2016-thumb-3.png" alt="Gloved hands finishing a composite part" left={1654} top={820} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2016-hero.webp" alt="Carbon component branded Bräutigam Carbon Fiber Works" left={774} top={66} width={692} height={692} dim crop={{ width: "100%", height: "177.47%", left: "0%", top: "0%" }} />
+        <Photo src="/images/timeline/figma/2016-thumb-1.webp" alt="Carbon fiber weave with a recessed inset" left={1654} top={66} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2016-thumb-2.webp" alt="Hand sanding a carbon fiber surface" left={1654} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
+        <Photo src="/images/timeline/figma/2016-thumb-3.webp" alt="Gloved hands finishing a composite part" left={1654} top={820} width={345} height={345} dim />
         <div className="tl-copy" style={box(66, 307, 550, 586.5, { gap: 32, zIndex: 12 })}>
           <p className="tl-y-xl">2016</p>
           <h3 className="tl-h-founded">FOUNDED</h3>
           <div className="tl-gap">
             <p className="tl-meta">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
             <p className="tl-body">
-              BRÄUTIGAM started with three specialists and one clear vision: engineering high-performance carbon components for clients with uncompromising ambitions.
+              {JOURNEY[0].body}
             </p>
           </div>
-        </div>
-        <div className="tl-copy" style={box(66, 948, 205, 66, { gap: 12 })}>
-          <p className="tl-logo">
-            BRÄUTIGAM
-            <span>CARBON FIBER WORKS</span>
-          </p>
         </div>
         <div className="tl-pill" style={box(773.5, 917.75, 250, 88)}>
           <PillIcon kind="speed" />
@@ -155,17 +133,15 @@ function Board() {
         </div>
         <div className="tl-copy" style={box(2188.5, 186.5, 691.5, 466, { justifyContent: "space-between", gap: 20 })}>
           <h3 className="tl-h-f1">
-            ENTRY INTO
-            <strong>FORMULA 1</strong>
+            {SHOW_F1_CLAIM ? "ENTRY INTO " : "MOTORSPORT "}
+            <strong>{SHOW_F1_CLAIM ? "FORMULA 1" : "PROGRAMS"}</strong>
           </h3>
           <div className="tl-gap" style={{ maxWidth: 500 }}>
             <p className="tl-meta">
               {SHOW_F1_CLAIM ? "SUPPLYING THE F1" : "MOTORSPORT PROGRAMS"}
             </p>
             <p className="tl-body">
-              {SHOW_F1_CLAIM
-                ? "We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams."
-                : "Within the first years we moved from prototype work into demanding motorsport and performance programs — complex carbon parts, tight timelines."}
+              {JOURNEY[1].body}
             </p>
           </div>
           <p className="tl-y-sm" style={{ textAlign: "left" }}>2017</p>
@@ -187,25 +163,15 @@ function Board() {
           <br />
           GROWING.
         </p>
-        <Photo src="/images/timeline/figma/2019-hall.png" alt="Production hall with autoclaves" left={566} top={307} width={800} height={533} />
-        <Photo src="/images/timeline/figma/2019-autoclave.png" alt="Open autoclave chamber" left={1570.5} top={427.5} width={900} height={700} />
-        <p className="tl-meta" style={box(566, 1004, 800, 10)}>
-          THREE AUTOCLAVES
-        </p>
-        <p className="tl-meta" style={box(566, 950, 174, 64, { zIndex: 12 })}>
-          AUTOCLAVE INFORMATION:
-          <br />
-          AMOUNT: 3
-          <br />
-          MAX TEMP:
-          <br />
-          MAX PRESSURE:
-        </p>
-        <div className="tl-copy" style={box(1210, 66, 205, 120, { gap: 2 })}>
-          <p className="tl-logo tl-logo--mark">
-            BRÄUTIGAM
-            <span>CARBON FIBER WORKS</span>
-          </p>
+        <Photo src="/images/timeline/figma/2019-hall.webp" alt="Production hall with autoclaves" left={566} top={307} width={800} height={533} />
+        <Photo src="/images/timeline/figma/2019-autoclave.webp" alt="Open autoclave chamber" left={1570.5} top={427.5} width={900} height={700} />
+        <div className="tl-meta tl-autoclave-info">
+          <p>AUTOCLAVE INFORMATION</p>
+          <dl>
+            <div><dt>AMOUNT</dt><dd>3</dd></div>
+            <div><dt>MAX TEMP</dt><dd>—</dd></div>
+            <div><dt>MAX PRESSURE</dt><dd>—</dd></div>
+          </dl>
         </div>
         <div className="tl-copy" style={box(0, 186.5, 550, 586.5, { gap: 32, zIndex: 12 })}>
           <p className="tl-y-xl">2019</p>
@@ -216,7 +182,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
             <p className="tl-body">
-              Expanding space, advancing tech. We scaled our footprint and upgraded our facility with three high-capacity autoclaves to match the highest industry standards.
+              {JOURNEY[2].body}
             </p>
           </div>
         </div>
@@ -230,13 +196,13 @@ function Board() {
       <section className="tl-panel tl-panel--gallery" aria-hidden>
         <div className="tl-gallery-col">
           {[
-            "/images/timeline/figma/gallery-1.png",
-            "/images/timeline/figma/gallery-2.png",
-            "/images/timeline/figma/gallery-3.png",
-            "/images/timeline/figma/gallery-4.png",
-            "/images/timeline/figma/gallery-5.png",
+            "/images/timeline/figma/gallery-1.webp",
+            "/images/timeline/figma/gallery-2.webp",
+            "/images/timeline/figma/gallery-3.webp",
+            "/images/timeline/figma/gallery-4.webp",
+            "/images/timeline/figma/gallery-5.webp",
           ].map((src) => (
-            <div key={src} className="tl-photo tl-photo--dim" style={{ width: 337.58, height: 225 }}>
+            <div key={src} className="tl-photo tl-photo--dim" style={{ position: "relative", width: 337.58, height: 225, flexShrink: 0 }}>
               <Image src={src} alt="" fill sizes="338px" />
             </div>
           ))}
@@ -245,15 +211,6 @@ function Board() {
 
       {/* 2020–23 — Figma Year Container 3276×1080 (screenshot 1024×337) */}
       <section className="tl-panel tl-panel--2020">
-        <p className="tl-meta" style={box(132, 66, 174, 64, { zIndex: 12 })}>
-          AUTOCLAVE INFORMATION:
-          <br />
-          AMOUNT: 3
-          <br />
-          MAX TEMP:
-          <br />
-          MAX PRESSURE:
-        </p>
         <div className="tl-copy" style={box(132, 217.43, 774, 661.14, { gap: 32 })}>
           <p className="tl-y-xl">2020</p>
           <div className="tl-head-stack">
@@ -263,7 +220,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">STRUCTURAL CARBON RESTORATION AT ITS HIGHEST LEVEL.</p>
             <p className="tl-body">
-              Complete structural monocoque repair and carbon restoration on a crashed Porsche Carrera GT. Just one saved legend and merely a fraction of what leaves our facility.
+              {JOURNEY[3].body}
             </p>
           </div>
         </div>
@@ -282,14 +239,14 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">BUILT TO HANDLE RAW POWER.</p>
             <p className="tl-body">
-              We engineered and manufactured a high-modulus carbon torque tube for an ultra-exclusive hypercar built for maximum torsional rigidity and absolute weight reduction under extreme loads.
+              {JOURNEY[4].body}
             </p>
           </div>
         </div>
-        <Photo src="/images/timeline/figma/2021-shop.png" alt="Technicians working a carbon component" left={922} top={488} width={774} height={800} />
-        <Photo src="/images/timeline/figma/2016-thumb-1.png" alt="Carbon weave detail" left={1927} top={66} width={345} height={345} dim />
-        <Photo src="/images/timeline/figma/2016-thumb-2.png" alt="Precision finishing" left={1927} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
-        <Photo src="/images/timeline/figma/2016-thumb-3.png" alt="Hand finishing a composite part" left={1927} top={820} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2021-shop.webp" alt="Technicians working a carbon component" left={922} top={488} width={774} height={800} />
+        <Photo src="/images/timeline/figma/2016-thumb-1.webp" alt="Carbon weave detail" left={1927} top={66} width={345} height={345} dim />
+        <Photo src="/images/timeline/figma/2016-thumb-2.webp" alt="Precision finishing" left={1927} top={443} width={345} height={345} dim crop={{ width: "177.78%", height: "100%", left: "-63.35%", top: "0%" }} />
+        <Photo src="/images/timeline/figma/2016-thumb-3.webp" alt="Hand finishing a composite part" left={1927} top={820} width={345} height={345} dim />
         <div className="tl-copy" style={box(2502, 217.43, 774, 254.86, { padding: "28px 0", gap: 36 })}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%", gap: 32 }}>
             <h3 className="tl-h-award">
@@ -303,8 +260,8 @@ function Board() {
             </div>
           </div>
         </div>
-        <Photo src="/images/timeline/figma/2022-award.png" alt="Wachstums-Champion 2022" left={2574} top={643.71} width={250} height={254.86} contain plain />
-        <Photo src="/images/timeline/figma/2023-award.png" alt="Wachstums-Champion 2023" left={2954} top={643.71} width={250} height={254.86} contain plain />
+        <Photo src="/images/timeline/figma/2022-award.webp" alt="Wachstums-Champion 2022" left={2574} top={643.71} width={250} height={254.86} contain plain />
+        <Photo src="/images/timeline/figma/2023-award.webp" alt="Wachstums-Champion 2023" left={2954} top={643.71} width={250} height={254.86} contain plain />
       </section>
 
       {/* 2024–26 — Figma Year Container 3096×1080 */}
@@ -312,7 +269,7 @@ function Board() {
         <p className="tl-y-sm" style={box(1197, 66, 135, 84, { zIndex: 12, textAlign: "right" })}>
           2024
         </p>
-        <Photo src="/images/timeline/figma/2024-brabus.png" alt="Work on a Brabus grille" left={741} top={174} width={591} height={394} dim />
+        <Photo src="/images/timeline/figma/2024-brabus.webp" alt="Work on a Brabus grille" left={741} top={174} width={591} height={394} dim />
         <div className="tl-copy" style={box(132, 669, 774, 346, { gap: 32 })}>
           <div className="tl-head-stack" style={{ padding: "8px 0" }}>
             <h3 className="tl-h-light">POWERED BY</h3>
@@ -321,7 +278,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">TWO POWERHOUSES, ONE VISION.</p>
             <p className="tl-body">
-              A strategic milestone in high-performance engineering: Bräutigam GmbH officially becomes part of the BRABUS Group—combining advanced composite expertise with the global pinnacle of luxury automotive performance.
+              {JOURNEY[6].body}
             </p>
           </div>
         </div>
@@ -341,7 +298,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">BUILT TO HANDLE RAW POWER.</p>
             <p className="tl-body">
-              From three visionaries to 80+ high-performance composite specialists. As our capabilities expand, our drive remains the same: pushing the limits of what’s engineered in carbon.
+              {JOURNEY[7].body}
             </p>
           </div>
         </div>
@@ -350,15 +307,17 @@ function Board() {
             <h3 className="tl-h-light">JOIN OUR</h3>
             <h3 className="tl-h-bold">TEAM</h3>
           </div>
-          <SiteButton href="/karriere">SEE OPEN POSITIONS</SiteButton>
+          <SiteButton href={careersHref}>SEE OPEN POSITIONS</SiteButton>
         </div>
-        <div className="tl-photo tl-placeholder" style={box(2484, 666, 481, 350)} aria-hidden />
+        <Photo src="/images/timeline/figma/join-team.webp" alt="The Bräutigam team outside the workshop" left={2484} top={666} width={481} height={350} />
       </section>
     </div>
   );
 }
 
 export default function HorizontalTimeline() {
+  const locale = useSiteLocale();
+  const careersHref = localizedHref("/karriere", locale);
   const sectionRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const yearRefs = useRef<(HTMLElement | null)[]>([]);
@@ -379,7 +338,8 @@ export default function HorizontalTimeline() {
   const measure = useCallback(() => {
     const host = hostRef.current;
     if (!host) return;
-    const height = host.clientHeight || BOARD_H;
+    const height = host.clientHeight;
+    if (!height) return;
     const nextScale = height / BOARD_H;
     const nextPad = Math.max(48, Math.min(window.innerWidth * 0.04, 80));
     setScale(nextScale);
@@ -450,7 +410,7 @@ export default function HorizontalTimeline() {
 
   const handleSkip = useCallback(() => {
     if (sectionRef.current) {
-      const sectionBottom = sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
+      const sectionBottom = window.scrollY + sectionRef.current.getBoundingClientRect().bottom;
       window.scrollTo({
         top: sectionBottom - window.innerHeight,
         behavior: "smooth",
@@ -484,7 +444,7 @@ export default function HorizontalTimeline() {
               </dd>
             </div>
           </dl>
-          <h2 id="journey-heading" className="journey-intro__title">
+          <h2 id="journey-heading" className="journey-intro__title section-heading">
             <span>OUR JOURNEY</span>
             <span>&amp; HISTORY</span>
           </h2>
@@ -496,44 +456,22 @@ export default function HorizontalTimeline() {
         </div>
       </section>
 
-      {reduceMotion ? (
-        <section className="site-container py-16" aria-label="Unternehmensgeschichte">
-          <ol className="grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
-            {REDUCED_JOURNEY.map(([year, title]) => (
-              <li key={year} className="border-t border-zinc-300 py-5 dark:border-zinc-700">
-                <p className="font-mono text-sm font-bold text-brand-neon">{year}</p>
-                <h3 className="mt-2 font-sans text-xl uppercase text-zinc-950 dark:text-zinc-100">{title}</h3>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ) : (
-      <section ref={sectionRef} className="relative" style={{ height: "1100vh" }}>
+      <section className={`tl-compact${reduceMotion ? " tl-compact--reduced" : ""}`} aria-label={locale === "en" ? "Company history" : "Unternehmensgeschichte"}>
+        <ol>
+          {JOURNEY.map((milestone) => (
+            <li key={milestone.year}>
+              <p className="tl-compact__year">{milestone.year}</p>
+              <h3>{milestone.title}</h3>
+              {"body" in milestone && <p className="tl-compact__body">{milestone.body}</p>}
+              {"image" in milestone && <div className="tl-compact__photo" style={{ position: "relative", aspectRatio: "3 / 2" }}><Image src={milestone.image} alt={milestone.alt} fill sizes="(max-width: 700px) 100vw, 50vw" /></div>}
+            </li>
+          ))}
+        </ol>
+        <SiteButton href={careersHref}>{locale === "en" ? "See open positions" : "Offene Stellen"}</SiteButton>
+      </section>
+      {!reduceMotion && (
+      <section ref={sectionRef} className="tl-desktop relative" style={{ height: "1100vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <div
-            className="absolute right-6 md:right-12 z-20 pointer-events-none font-mono"
-            style={{ top: "88px" }}
-          >
-            <div className="flex items-center gap-4 text-xs tracking-wider transition-colors duration-500 text-zinc-400 dark:text-zinc-500">
-              <span
-                ref={(el) => {
-                  yearRefs.current[0] = el;
-                }}
-                className="text-brand-neon font-bold text-lg"
-              >
-                2016
-              </span>
-              <span
-                ref={(el) => {
-                  pctRefs.current[1] = el;
-                }}
-                className="journey-intro__value hidden sm:inline"
-              >
-                0%
-              </span>
-            </div>
-          </div>
-
           <m.div
             className="tl-strip absolute left-0"
             style={{ x, top: "56px", bottom: "90px" }}
@@ -541,7 +479,7 @@ export default function HorizontalTimeline() {
             <div
               ref={hostRef}
               className="tl-scale-host"
-              style={{ width: hostW }}
+              style={{ width: hostW, "--tl-readable-size": `${12 / scale}px` } as React.CSSProperties}
             >
               <div
                 style={{
@@ -554,7 +492,7 @@ export default function HorizontalTimeline() {
                   transformOrigin: "top left",
                 }}
               >
-                <Board />
+                <Board careersHref={careersHref} />
               </div>
             </div>
           </m.div>
@@ -563,7 +501,7 @@ export default function HorizontalTimeline() {
             className="absolute bottom-0 left-0 w-full z-20 border-t transition-colors duration-500 border-zinc-200/60 bg-brand-light dark:border-zinc-800/40 dark:bg-[var(--background)]"
             style={{ height: "90px" }}
           >
-            <div className="absolute top-0 left-0 w-full px-6 md:px-12 py-2 font-mono text-[10px] tracking-widest uppercase transition-colors duration-500 text-zinc-400 dark:text-zinc-600">
+            <div className="absolute top-0 left-0 w-full px-6 md:px-12 py-2 font-mono text-[10px] tracking-widest uppercase transition-colors duration-500 text-zinc-600 dark:text-zinc-300">
               <div className="flex items-center gap-2">
                 <span
                   ref={(el) => {
@@ -574,7 +512,7 @@ export default function HorizontalTimeline() {
                   2016
                 </span>
                 <span ref={segRef}>{"// SEG_01"}</span>
-                <span className="ml-4 hidden sm:inline transition-colors duration-500 text-zinc-300 dark:text-zinc-700">
+                <span className="ml-4 hidden sm:inline transition-colors duration-500 text-zinc-600 dark:text-zinc-400">
                   2016 ————— 2026
                 </span>
               </div>
@@ -600,7 +538,7 @@ export default function HorizontalTimeline() {
                 </svg>
                 <span className="hidden sm:inline">SCROLL TO EXPLORE</span>
               </div>
-              <div className="font-mono text-[9px] tracking-wider transition-colors duration-500 hidden md:block text-zinc-400 dark:text-zinc-600">
+              <div className="font-mono text-[9px] tracking-wider transition-colors duration-500 hidden md:block text-zinc-600 dark:text-zinc-300">
                 HISTORICAL ARCHIVE // 2016–2026
               </div>
               <button

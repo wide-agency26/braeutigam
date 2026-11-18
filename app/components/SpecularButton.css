@@ -106,8 +106,8 @@
   min-width: 67px;
   padding: 2px 4px;
   border-radius: 8px;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 18px;
 }
 
 .specular-button.site-btn.site-btn--fill {
@@ -117,4 +117,14 @@
 .specular-button.site-btn:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--sb-text-color) 55%, transparent);
   outline-offset: 3px;
+}
+
+.specular-button.site-btn:not(.site-btn--fill):is(:hover, :focus-visible) {
+  color: #00cc00;
+}
+.dark .specular-button.site-btn:not(.site-btn--fill):is(:hover, :focus-visible) {
+  color: #00ff00;
+}
+.specular-button.site-btn.site-btn--amber:is(:hover, :focus-visible) {
+  color: #ffbf00;
 }

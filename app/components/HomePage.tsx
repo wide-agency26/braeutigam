@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { LazyMotion, domAnimation, m, useScroll, useTransform, useSpring } from "framer-motion";
 import NotchedBorderGlow from "./NotchedBorderGlow";
-import TrackScrollMap from "./TrackScrollMap";
 import ScrollTelemetry from "./ScrollTelemetry";
 import LazyOnVisible from "./LazyOnVisible";
 import SiteChrome from "./SiteChrome";
@@ -13,9 +11,10 @@ import SiteFooter from "./SiteFooter";
 import SiteHero from "./SiteHero";
 import ManifestBlock from "./ManifestBlock";
 import SiteButton from "./SiteButton";
-import SocialGalleryBoundary from "./SocialGalleryBoundary";
+import SocialGalleryBoundary, { SocialPosters } from "./SocialGalleryBoundary";
 import ExpertSlot from "./ExpertSlot";
 import { EXPERTS } from "@/lib/data/experts";
+import TrackScrollMap from "./TrackScrollMap";
 import type { HeroSlide } from "@/lib/hero-slides";
 import type { Locale } from "@/lib/i18n";
 import { localizedHref } from "@/lib/i18n";
@@ -26,10 +25,9 @@ const loadTimeline = () => import("./HorizontalTimeline");
 const loadTopography = () => import("./Topography");
 const loadCircularGallery = () => import("./CircularGallery");
 import story01Dark from "../../public/images/Part_01_darkmode.webp";
-import story01Light from "../../public/images/Part_01.webp";
 import story02 from "../../public/images/Part_02.webp";
 import story03 from "../../public/images/Part_03.webp";
-import laserTech from "../../public/images/laser_technology.webp";
+import laserTech from "../../public/images/mission/precision-figma.webp";
 import "./CadTopographyPoster.css";
 
 const STORY_COPY =
@@ -47,11 +45,11 @@ function SpecCard({
   tolerance: string;
 }) {
   return (
-    <NotchedBorderGlow notchPosition="bottom-right" className="w-full max-w-sm shadow-sm pointer-events-auto">
+    <NotchedBorderGlow notchPosition="bottom-right" borderRadius={0} glowColor="45 100 50" colors={["#b88b00", "#e5b427", "#8f6900"]} active={false} className="composite-spec w-full max-w-sm pointer-events-auto">
       <div className="font-mono text-[9px] leading-normal text-zinc-700 dark:text-zinc-300">
         <div className="text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 uppercase tracking-wider text-[10px] pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
           <span>{"// COMPOSITE_SPEC"}</span>
-          <span className="text-[8px] text-brand-neon font-bold">{badge}</span>
+          <span className="spec-badge text-[8px] font-bold">{badge}</span>
         </div>
         <div className="space-y-1.5 mt-2">
           <div className="flex justify-between gap-4">
@@ -78,32 +76,32 @@ function SpecCard({
 
 const SOCIAL_GALLERY_ITEMS = [
   {
-    image: "/images/social/reels/DMFYazaOIoF.jpg",
+    image: "/images/social/reels/DMFYazaOIoF.webp",
     alt: "Formel 1 Öltanks reel",
     href: "https://www.instagram.com/braeutigamgmbh/reel/DMFYazaOIoF/",
   },
   {
-    image: "/images/social/reels/DbvB42ZlH5d.jpg",
+    image: "/images/social/reels/DbvB42ZlH5d.webp",
     alt: "Autoklaven reel",
     href: "https://www.instagram.com/braeutigamgmbh/reel/DbvB42ZlH5d/",
   },
   {
-    image: "/images/social/reels/Dbp4OcWgFZ0.jpg",
+    image: "/images/social/reels/Dbp4OcWgFZ0.webp",
     alt: "F1-Ballastplatte Gummierung reel",
     href: "https://www.instagram.com/braeutigamgmbh/reel/Dbp4OcWgFZ0/",
   },
   {
-    image: "/images/social/reels/Dbkum1MjefO.jpg",
+    image: "/images/social/reels/Dbkum1MjefO.webp",
     alt: "Carbon Handarbeit reel",
     href: "https://www.instagram.com/braeutigamgmbh/reel/Dbkum1MjefO/",
   },
   {
-    image: "/images/social/reels/DbdALvFD9y7.jpg",
+    image: "/images/social/reels/DbdALvFD9y7.webp",
     alt: "Werkzeuge aus Carbon reel",
     href: "https://www.instagram.com/braeutigamgmbh/reel/DbdALvFD9y7/",
   },
   {
-    image: "/images/social/reels/DbabXLzgm8W.jpg",
+    image: "/images/social/reels/DbabXLzgm8W.webp",
     alt: "Formel-1-Ballastplatte reel",
     href: "https://www.instagram.com/braeutigamgmbh/reel/DbabXLzgm8W/",
   },
@@ -118,7 +116,6 @@ export default function HomePage({
   heroSlide: HeroSlide;
   locale?: Locale;
 }) {
-  const [showAllExperts, setShowAllExperts] = useState(false);
 
   // Section 2 Scrollytelling targets
   const scrollyRef = useRef<HTMLDivElement>(null);
@@ -166,10 +163,10 @@ export default function HomePage({
       <SiteHero scrollTarget="#story" slide={heroSlide} locale={locale} />
 
 
-      <ManifestBlock />
+      <ManifestBlock locale={locale} />
 
       {/* 2. SECTION: SEAMLESS EVOLUTION SCROLLYTELLING (CAD -> Autoclave -> Finished Product) */}
-      <section id="story" ref={scrollyRef} className="cv-auto relative h-[300vh]">
+      <section id="story" ref={scrollyRef} className="cad-story cv-auto relative h-[300vh]">
         
         {/* Sticky 100vh Viewport background elements */}
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
@@ -212,7 +209,7 @@ export default function HomePage({
           </div>
 
           {/* Top HUD Telemetry — Figma CAD corners */}
-          <div className="absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
+          <div className="cad-story__hud absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
@@ -223,27 +220,11 @@ export default function HomePage({
           {/* Main Layout Area spanning max-w-7xl */}
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12 h-full relative flex flex-col justify-between py-24 pointer-events-none">
             
-            {/* TOP-LEFT AREA: headline stays put across all three CAD frames */}
-            <div className="relative w-full max-w-xl mt-8 pointer-events-none">
-              <div className="flex flex-col items-start">
-                <div className="flex mb-4">
-                  <NotchedBorderGlow
-                    notchPosition="slanted"
-                    active={true}
-                    noPadding={true}
-                    className="font-mono text-[9px] font-bold tracking-widest uppercase select-none pointer-events-auto"
-                  >
-                    <div className="px-4 py-1.5 transition-colors duration-500 text-zinc-800 dark:text-brand-neon">
-                      HIGH PERFORMANCE
-                    </div>
-                  </NotchedBorderGlow>
-                </div>
-                <h2 className="font-sans text-5xl sm:text-7xl font-light tracking-tight leading-[0.95] uppercase text-zinc-950 dark:text-white">
-                  To the finished
-                  <strong className="font-semibold block font-sans">component.</strong>
-                </h2>
-              </div>
-            </div>
+            <header className="cad-story__heading">
+              <p className="copy-caption">[ HIGH PERFORMANCE ]</p>
+              <h2 className="section-heading"><span>{locale === "en" ? "TO THE FINISHED" : "BIS ZUM FERTIGEN"}</span><span>{locale === "en" ? "COMPONENT." : "BAUTEIL."}</span></h2>
+            </header>
+            <div className="cad-story__minimap" aria-hidden="true"><TrackScrollMap progress={smoothScrollProgress} /></div>
 
             {/* FULL SCREEN BORDERLESS TRANSFERRING IMAGES (In centered position) */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-5xl h-[55vh] lg:h-[65vh] flex items-center justify-center pointer-events-none z-0">
@@ -254,26 +235,7 @@ export default function HomePage({
                   style={{ opacity: opacityBlueprint, scale: scaleBlueprint }}
                   className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-10"
                 >
-                  {/* Dark Mode Blueprint */}
-                  <div className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-1000 opacity-0 dark:opacity-100`}>
-                    <Image 
-                      src={story01Dark}
-                      alt="CAD Drawing Dark"
-                      fill
-                      className="object-contain mix-blend-screen"
-                      sizes="(max-width: 1024px) 85vw, 1024px"
-                    />
-                  </div>
-                  {/* Light Mode Blueprint */}
-                  <div className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-1000 opacity-100 dark:opacity-0`}>
-                    <Image 
-                      src={story01Light}
-                      alt="CAD Drawing Light"
-                      fill
-                      className="object-contain mix-blend-multiply"
-                      sizes="(max-width: 1024px) 85vw, 1024px"
-                    />
-                  </div>
+                  <Image src={story01Dark} alt="White CAD drawing of the carbon component" fill className="cad-blueprint object-contain" sizes="(max-width: 1024px) 85vw, 1024px" />
                 </m.div>
 
                 {/* Autoclave Photo - Fades in/out */}
@@ -308,13 +270,8 @@ export default function HomePage({
               </div>
             </div>
 
-            {/* BOTTOM-LEFT DESIGN ANCHOR MAP */}
-            <div className="absolute bottom-12 left-6 md:left-12 z-40 pointer-events-auto">
-              <TrackScrollMap progress={smoothScrollProgress} />
-            </div>
-
             {/* BOTTOM-RIGHT AREA: DESCRIPTION PARAGRAPHS (Animated sticky in place) */}
-            <div className="absolute bottom-16 right-6 md:right-12 z-40 w-full max-w-md pointer-events-none flex flex-col items-end">
+            <div className="cad-story__details absolute bottom-16 right-6 md:right-12 z-40 w-full max-w-md pointer-events-none flex flex-col items-end">
               <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed font-sans max-w-sm text-right mb-4 pointer-events-auto">
                 {STORY_COPY}
               </p>
@@ -363,6 +320,8 @@ export default function HomePage({
 
           <aside className="mission-figma__sidebar" aria-label="Craft principles">
             <div className="mission-figma__chip">
+              {/* Figma vector export; no raster optimization needed. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/mission/chip-experts.svg" alt="" width={50} height={47} />
               <span className="mission-figma__chip-label">
                 <span>End 2 end</span>
@@ -370,6 +329,8 @@ export default function HomePage({
               </span>
             </div>
             <div className="mission-figma__chip">
+              {/* Figma vector export; no raster optimization needed. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/mission/chip-craft.svg" alt="" width={50} height={50} />
               <span className="mission-figma__chip-label">
                 <span>Precision</span>
@@ -377,6 +338,8 @@ export default function HomePage({
               </span>
             </div>
             <div className="mission-figma__chip">
+              {/* Figma vector export; no raster optimization needed. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/mission/chip-execution.svg" alt="" width={50} height={50} />
               <span className="mission-figma__chip-label">
                 <span>Flawless</span>
@@ -404,7 +367,7 @@ export default function HomePage({
               <p className="mission-figma__copy">
                 Every racing component begins as a highly optimized CAD design. We run extensive Finite Element Analysis (FEA) to align carbon fiber weave orientations exactly with the load paths, maximizing rigidity while removing every unnecessary gram of material.
               </p>
-              <SiteButton href="#story">MANUFACTURING</SiteButton>
+              <SiteButton href={localizedHref("/craft", locale)}>{locale === "en" ? "Craft" : "Leistungen"}</SiteButton>
             </div>
           </div>
         </div>
@@ -414,7 +377,9 @@ export default function HomePage({
       <div id="timeline" className="cv-auto">
         <LazyOnVisible
           loader={loadTimeline}
-          rootMargin="100px"
+          rootMargin="1200px"
+          className="timeline-loader"
+          fallback={<section className="site-container py-20"><h2 className="heading-secondary-bold">Our journey &amp; history</h2><p className="mt-6 copy-body">From our founding in 2016 to a team of over 80 composite specialists.</p></section>}
           style={{ minHeight: "calc(100svh + 1100vh)" }}
         />
       </div>
@@ -423,9 +388,9 @@ export default function HomePage({
       <section id="datasheet" className="experts-figma cv-auto relative py-24 md:py-32 overflow-hidden">
         <div className="site-container relative z-10">
           <div className="experts-figma__header">
-            <h2 className="experts-figma__title">
-              <span className="experts-figma__meet">MEET</span>
-              <span className="experts-figma__experts">THE EXPERTS</span>
+            <h2 className="experts-figma__title section-heading">
+              <span className="experts-figma__meet heading-secondary">MEET</span>
+              <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
             </h2>
             <div className="experts-figma__hud">
               <p className="experts-figma__hud-kicker">** END 2 END EXPERTS **</p>
@@ -446,41 +411,10 @@ export default function HomePage({
             ))}
           </div>
 
-          <div
-            className={`experts-figma__more${showAllExperts ? " is-open" : ""}`}
-            id="experts-rest"
-            aria-hidden={!showAllExperts}
-            inert={!showAllExperts}
-          >
-            <div className="experts-figma__more-inner">
-              <div className="experts-figma__grid">
-                {EXPERTS.slice(EXPERT_PREVIEW).map((expert, index) => (
-                  <ExpertSlot
-                    key={expert.email}
-                    expert={expert}
-                    delay={showAllExperts ? `${Math.floor(index / 3) * 80 + (index % 3) * 45}ms` : "0ms"}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className={`experts-figma__cta-wrap${showAllExperts ? " is-hidden" : ""}`}>
-            <SiteButton
-              type="button"
-              aria-expanded={showAllExperts}
-              aria-controls="experts-rest"
-              disabled={showAllExperts}
-              onClick={() => setShowAllExperts(true)}
-            >
-              {locale === "en" ? "MORE ON PAGE" : "MEHR HIER"}
-            </SiteButton>
-            <Link
-              href={localizedHref("/team", locale)}
-              className="mt-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-brand-neon underline-offset-4 hover:underline"
-            >
+          <div className="experts-figma__cta-wrap">
+            <SiteButton href={localizedHref("/team", locale)}>
               {locale === "en" ? "ALL EXPERTS" : "ALLE EXPERTEN"}
-            </Link>
+            </SiteButton>
           </div>
         </div>
       </section>
@@ -491,9 +425,11 @@ export default function HomePage({
           <LazyOnVisible
             loader={loadCircularGallery}
             className="social-gallery"
-            rootMargin="240px"
+            fallback={<SocialPosters items={SOCIAL_GALLERY_ITEMS} />}
+            rootMargin="600px"
             componentProps={{
               items: SOCIAL_GALLERY_ITEMS,
+              fallback: <SocialPosters items={SOCIAL_GALLERY_ITEMS} />,
               bend: 3,
               textColor: "#ffffff",
               borderRadius: 0.05,
@@ -510,15 +446,11 @@ export default function HomePage({
           />
         </SocialGalleryBoundary>
         <div className="social-section__copy site-container">
-          <h2 className="social-section__title">
-            <span>Follow the daily</span>
-            <span>Bräutigam Experience</span>
+          <h2 className="social-section__title section-heading">
+            <span className="heading-secondary">Follow the daily</span>
+            <span className="heading-secondary-bold">Bräutigam Experience</span>
           </h2>
-          <nav className="social-section__links" aria-label="Social">
-            <a href="https://www.instagram.com/braeutigamgmbh" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Linkedin</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
-          </nav>
+
         </div>
       </section>
       </main>

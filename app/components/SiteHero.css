@@ -114,10 +114,9 @@
 }
 
 .hero-figma__location .hero-figma__caption-block {
-  width: calc(296 * min(100vw, 1920px) / 1920);
-  max-width: 296px;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
 }
 
 .hero-figma__dev {
@@ -202,10 +201,11 @@
   box-sizing: border-box;
   font-size: min(76px, calc(76 * min(100vw, 1920px) / 1920));
   line-height: min(76px, calc(76 * min(100vw, 1920px) / 1920));
-  height: calc(76 * min(100vw, 1920px) / 1920);
+  height: auto;
   max-height: none;
   overflow: visible;
-  margin: 0;
+  padding-block: .18em;
+  margin-block: -.18em;
   transition: background 400ms ease, color 400ms ease;
 }
 
@@ -231,8 +231,8 @@
   text-align: center;
   color: var(--text-default-accent);
   line-height: calc(38 * min(100vw, 1920px) / 1920);
-  height: calc(38 * min(100vw, 1920px) / 1920);
-  overflow: hidden;
+  height: auto;
+  overflow: visible;
   transition: color 400ms ease;
 }
 
@@ -330,3 +330,45 @@
     transition: none !important;
   }
 }
+
+/* Photo captions stay readable on either member of the light/dark pair. */
+.hero-figma__location, .hero-figma__dev, .hero-figma__status {
+  color: #fff;
+  text-shadow: 0 1px 5px #000, 0 0 16px #000;
+}
+.hero-figma__scrim::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 50%;
+  background: linear-gradient(#131414b3, #13141466 45%, transparent);
+}
+.hero-figma__status .hero-figma__scroll {
+  color: #fff;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+.hero-figma__page-title { text-align: center; color: var(--foreground); }
+.hero-figma__page-title h1 {
+  font: 700 clamp(56px, 5.208vw, 100px)/1.1 var(--font-univers-bold-cn), sans-serif;
+  margin: 0;
+  padding-block: .15em;
+}
+.hero-figma__page-title p { font-size: 20px; line-height: 1.4; margin: 20px 0 0; }
+@media (max-width: 1100px) {
+  .hero-figma__location { top: 104px; left: 24px; padding: 0; }
+  .hero-figma__dev { top: 104px; right: 24px; padding: 0; max-width: 42%; }
+}
+@media (max-width: 700px) {
+  .hero-figma__location { left: 20px; top: 96px; width: calc(100% - 40px); }
+  .hero-figma__dev { display: none; }
+  .hero-figma__status { width: calc(100% - 40px); bottom: 40px; gap: 12px; }
+  .hero-figma__status-caption { width: 100%; }
+  .hero-figma__logo { width: 220px; height: 46px; }
+  .hero-figma__title.heading-figma-overlay { font-size: clamp(28px, 7vw, 48px); line-height: 1.1; }
+  .hero-figma__since { font-size: 22px; line-height: 1.4; }
+}
+@media (max-width: 360px) {
+  .hero-figma__location { left: 10px; width: calc(100% - 20px); }
+  .hero-figma__location .copy-caption { letter-spacing: -.04em; }
+}
+.hero-figma__page-title { max-width: 900px; }

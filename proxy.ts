@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decryptSession, SESSION_COOKIE } from "@/lib/auth/session";
 import { CMS_BASE, CMS_LOGIN } from "@/lib/cms";
 import { siteIndexable } from "@/lib/site-config";
+import { HERO_HISTORY_COOKIE, HERO_SLIDE_HEADER, nextHeroSlide } from "@/lib/hero-slides";
 
 function withPrelaunchHeaders(response: NextResponse) {
   if (!siteIndexable()) {
@@ -22,9 +23,25 @@ export async function proxy(request: NextRequest) {
   const isLogin = pathname === CMS_LOGIN;
 
   if (!isCmsAdmin) {
-    return withPrelaunchHeaders(
+    // Only actual hero-page visits advance the session rotation, never assets,
+    // API calls, form submissions or speculative prefetches.
+    const hasHero = ["/", "/en", "/kontakt", "/en/kontakt"].includes(pathname);
+    const isPrefetch = request.headers.get("purpose") === "prefetch" ||
+      request.headers.get("sec-purpose")?.includes("prefetch");
+    const rotation = hasHero && request.method === "GET" && !isPrefetch
+      ? nextHeroSlide(request.cookies.get(HERO_HISTORY_COOKIE)?.value)
+      : null;
+    requestHeaders.delete(HERO_SLIDE_HEADER);
+    if (rotation) requestHeaders.set(HERO_SLIDE_HEADER, rotation.slide.id);
+    const response = withPrelaunchHeaders(
       NextResponse.next({ request: { headers: requestHeaders } }),
     );
+    if (rotation) {
+      response.cookies.set(HERO_HISTORY_COOKIE, rotation.history, {
+        httpOnly: true, sameSite: "lax", path: "/", secure: request.nextUrl.protocol === "https:",
+      });
+    }
+    return response;
   }
 
   const session = await decryptSession(

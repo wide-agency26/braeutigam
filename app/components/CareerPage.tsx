@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
@@ -8,18 +9,20 @@ import SiteButton from "./SiteButton";
 import "./CareerPage.css";
 import { localizedHref, type Locale } from "@/lib/i18n";
 
+import { CAREER_EN } from "@/lib/data/career-copy";
+
 const APPLY_EMAIL = "info@braeutigam-gmbh.eu";
 
 const PILLARS = [
   {
     title: "team events",
-    image: "/images/crew/pillar-events.png",
+    image: "/images/crew/pillar-events.webp",
     crop: "crew-photo--events",
-    body: "Cutting-edge composite engineering using advanced simulation, precision tooling, and optimized layup processes.",
+    body: "Gemeinsame Erlebnisse bringen uns auch außerhalb der Werkstatt zusammen. Bei unseren Team-Events lernen wir die Menschen hinter den Bauteilen noch besser kennen.",
   },
   {
     title: "weiterbildungen",
-    image: "/images/crew/pillar-training.png",
+    image: "/images/crew/pillar-training.webp",
     crop: "crew-photo--cover",
     paragraphs: [
       "Wir glauben an die kontinuierliche Weiterentwicklung unserer Mitarbeiter. Bei uns erhältst du eine umfangreiche Einarbeitung, da die Arbeit mit Kohlefaser Komponenten eine spezielle Expertise erfordert.",
@@ -28,61 +31,46 @@ const PILLARS = [
   },
   {
     title: "Work-life balance",
-    image: "/images/crew/pillar-balance.png",
+    image: "/images/crew/pillar-balance.webp",
     crop: "crew-photo--balance",
-    body: "A proven track record in motorsport and aerospace with over eight years of high-performance component delivery.",
+    body: "Gute Arbeit braucht Raum zum Auftanken. Uns ist wichtig, dass neben anspruchsvollen Projekten auch Zeit für Familie, Freunde und eigene Interessen bleibt.",
   },
 ] as const;
 
 const ROLE_FILMS = [
   {
     title: "Konstruktion",
-    body: "Designing the mathematical fiber layouts in Catia to withstand extreme aerodynamic load.",
-    poster: "/images/crew/film-1.png",
+    body: "Faseraufbau und Bauteilgeometrie für anspruchsvolle Belastungen konstruieren.",
+    poster: "/images/crew/film-1.webp",
     crop: "crew-photo--konstruktion",
-    play: "/images/crew/play-lg.svg",
-    playWidth: 128,
-    playHeight: 128,
     large: true,
   },
   {
     title: "Pre-preg Laminierer",
-    body: "Placing resin-infused fiber orientations layer-by-layer with surgical human precision.",
-    poster: "/images/crew/film-2.png",
+    body: "Vorimprägnierte Carbonlagen präzise von Hand in die Form einlegen.",
+    poster: "/images/crew/film-2.webp",
     crop: "crew-photo--bottom",
-    play: "/images/crew/play-lg.svg",
-    playWidth: 128,
-    playHeight: 128,
     large: true,
   },
   {
     title: "Zuschnitt",
-    body: "Nesting and optimizing fiber templates for perfect cutting layouts.",
-    poster: "/images/crew/film-3.png",
+    body: "Schnittmuster anordnen und Carbonlagen materialeffizient zuschneiden.",
+    poster: "/images/crew/film-3.webp",
     crop: "crew-photo--bottom",
-    play: "/images/crew/play-sm.svg",
-    playWidth: 64,
-    playHeight: 64,
     large: false,
   },
   {
     title: "Produktionsplanung & Projektmanagement",
-    body: "Coordinating autoclave schedules and managing client racing constraints.",
-    poster: "/images/crew/film-4.png",
+    body: "Fertigungsabläufe, Termine und Kundenanforderungen aufeinander abstimmen.",
+    poster: "/images/crew/film-4.webp",
     crop: "crew-photo--bottom",
-    play: "/images/crew/play-sm-2.svg",
-    playWidth: 112,
-    playHeight: 112,
     large: false,
   },
   {
     title: "Montage",
-    body: "Assembling cured composite structures and polishing clearcoats.",
-    poster: "/images/crew/film-5.png",
+    body: "Ausgehärtete Bauteile zusammenfügen und Oberflächen fertigstellen.",
+    poster: "/images/crew/film-5.webp",
     crop: "crew-photo--bottom",
-    play: "/images/crew/play-sm.svg",
-    playWidth: 64,
-    playHeight: 64,
     large: false,
   },
 ] as const;
@@ -130,17 +118,17 @@ function openingTitle(job: CareerOpening, locale: Locale) {
   return job.title;
 }
 
-function FilmCard({ film }: { film: (typeof ROLE_FILMS)[number] }) {
+function FilmCard({ film, locale }: { film: (typeof ROLE_FILMS)[number]; locale: Locale }) {
+  const copy = (value: string) => locale === "en" ? CAREER_EN[value] ?? value : value;
   return (
     <article className="crew-film">
       <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}`}>
-        <img className={film.crop} src={film.poster} alt={`${film.title} bei Bräutigam`} />
-        <span className="crew-play" aria-hidden="true">
-          <img src={film.play} alt="" width={film.playWidth} height={film.playHeight} />
-        </span>
+        <Image className={film.crop} src={film.poster} alt={`${copy(film.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1400} height={790} sizes={film.large ? "(max-width: 700px) 100vw, (max-width: 1920px) 50vw, 876px" : "(max-width: 700px) 100vw, (max-width: 1920px) 33vw, 571px"} />
+        {/* Add playback when the corresponding role videos are supplied.
+            A still photograph must not advertise an unavailable play action. */}
       </div>
-      <h3 className="crew-film__title">{film.title}</h3>
-      <p className="crew-film__body">{film.body}</p>
+      <h3 className="crew-film__title">{copy(film.title)}</h3>
+      <p className="crew-film__body">{copy(film.body)}</p>
     </article>
   );
 }
@@ -152,15 +140,16 @@ export default function CareerPage({
   openings: CareerOpening[];
   locale?: Locale;
 }) {
+  const copy = (value: string) => locale === "en" ? CAREER_EN[value] ?? value : value;
   return (
     <LazyMotion features={domAnimation}>
       <div className="crew-page">
         <SiteChrome />
 
         <main id="main-content" lang={locale}>
-          <section className="crew-hero" aria-label="Crew">
+          <section className="crew-hero" aria-label={locale === "en" ? "Career" : "Karriere"}>
             <div className="crew-hero__media" aria-hidden="true">
-              <img className="crew-photo--hero" src="/images/crew/hero.png" alt="" />
+              <Image className="crew-photo--hero" src="/images/crew/hero.webp" alt="" width={2400} height={1600} sizes="141vw" preload />
             </div>
             <div className="crew-hero__shade" aria-hidden="true" />
 
@@ -171,8 +160,8 @@ export default function CareerPage({
             </p>
 
             <div className="crew-hero__title">
-              <h1>CREW</h1>
-              <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
+              <h1>{locale === "en" ? "CAREER" : "KARRIERE"}</h1>
+              <SiteButton href="#stellen">{copy("Offene stellenanzeigen")}</SiteButton>
             </div>
 
             <a className="crew-hero__status" href="#crew-intro">
@@ -188,61 +177,56 @@ export default function CareerPage({
               </p>
               <p className="crew-micro">
                 <span>BRAEUTIGAM_WEBFILE / CREW</span>
-                <span>ZUGANG GEWÄHRT</span>
+                <span>{copy("ZUGANG GEWÄHRT")}</span>
               </p>
-              <h2 className="crew-intro__title">
-                <span>UNSER TEAM:</span>
-                <span>EINZIGARTIG</span>
+              <h2 className="crew-intro__title section-heading">
+                <span>{copy("UNSER TEAM:")}</span>
+                <span>{copy("EINZIGARTIG")}</span>
               </h2>
-              <p className="crew-copy crew-copy--narrow">
-                Hinter jedem Bauteil steckt ein Team, das Höchstleistung als Standard setzt. Unser Team
-                arbeitet präzise, innovativ, kompromisslos.
-              </p>
+              <p className="crew-copy crew-copy--narrow">{copy("Hinter jedem Bauteil steckt ein Team, das Höchstleistung als Standard setzt. Unser Team arbeitet präzise, innovativ, kompromisslos.")}</p>
               <div className="crew-actions">
-                <SiteButton href="#stellen">Offene stellenanzeigen</SiteButton>
-                <SiteButton href={localizedHref("/team", locale)} variant="amber">
-                  Über das team
-                </SiteButton>
+                <SiteButton href="#stellen">{copy("Offene stellenanzeigen")}</SiteButton>
+                <SiteButton href="#alltag" variant="amber">{copy("Über das team")}</SiteButton>
               </div>
             </section>
 
             <section id="truppe" className="crew-block">
               <div className="crew-lead">
-                <p className="crew-kicker">ARBEITSWEISE</p>
-                <h2 className="crew-display">
-                  <span>DAS WICHTIGSTE:</span>
-                  <span>DIE TRUPPE.</span>
+                <p className="crew-kicker">{copy("ARBEITSWEISE")}</p>
+                <h2 className="crew-display section-heading">
+                  <span>{copy("DAS WICHTIGSTE:")}</span>
+                  <span>{copy("DIE TRUPPE.")}</span>
                 </h2>
-                <p className="crew-copy crew-copy--narrow">Unser Alltag ist dynamisch und anspruchsvoll.</p>
+                <p className="crew-copy crew-copy--narrow">{copy("Unser Alltag ist dynamisch und anspruchsvoll.")}</p>
               </div>
               <div className="crew-pillars">
                 {PILLARS.map((pillar) => (
                   <article key={pillar.title} className="crew-pillar">
                     <div className="crew-pillar__frame">
-                      <img className={pillar.crop} src={pillar.image} alt={`${pillar.title} bei Bräutigam`} />
+                      <Image className={pillar.crop} src={pillar.image} alt={`${copy(pillar.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1600} height={1066} sizes={pillar.crop === "crew-photo--balance" ? "(max-width: 700px) 217vw, (max-width: 1920px) 72vw, 1251px" : pillar.crop === "crew-photo--events" ? "(max-width: 700px) 153vw, (max-width: 1920px) 51vw, 884px" : "(max-width: 700px) 100vw, (max-width: 1920px) 33vw, 576px"} />
                     </div>
-                    <h3>{pillar.title}</h3>
+                    <h3>{copy(pillar.title)}</h3>
                     {"paragraphs" in pillar ? (
                       <div className="crew-copy">
                         {pillar.paragraphs.map((paragraph) => (
-                          <p key={paragraph}>{paragraph}</p>
+                          <p key={paragraph}>{copy(paragraph)}</p>
                         ))}
                       </div>
                     ) : (
-                      <p className="crew-copy">{pillar.body}</p>
+                      <p className="crew-copy">{copy(pillar.body)}</p>
                     )}
                   </article>
                 ))}
               </div>
             </section>
 
-            <section className="crew-block crew-day" aria-label="Ein Tag im Team">
+            <section id="alltag" className="crew-block crew-day" aria-label={locale === "en" ? "A day with the team" : "Ein Tag im Team"}>
               <div className="crew-day__head">
                 <div className="crew-lead">
-                  <p className="crew-kicker">{"// EIN TAG IM TEAM"}</p>
-                  <h2 className="crew-display">
-                    <span>Unser alltag</span>
-                    <span>Ein tag im team</span>
+                  <p className="crew-kicker">{locale === "en" ? "// A DAY WITH THE TEAM" : "// EIN TAG IM TEAM"}</p>
+                  <h2 className="crew-display section-heading">
+                    <span>{copy("Unser alltag")}</span>
+                    <span>{copy("Ein tag im team")}</span>
                   </h2>
                 </div>
                 <p className="crew-mark crew-mark--life" aria-hidden="true">
@@ -251,22 +235,22 @@ export default function CareerPage({
               </div>
               <div className="crew-films crew-films--lg">
                 {ROLE_FILMS.slice(0, 2).map((film) => (
-                  <FilmCard key={film.title} film={film} />
+                  <FilmCard key={film.title} film={film} locale={locale} />
                 ))}
               </div>
               <div className="crew-films crew-films--sm">
                 {ROLE_FILMS.slice(2).map((film) => (
-                  <FilmCard key={film.title} film={film} />
+                  <FilmCard key={film.title} film={film} locale={locale} />
                 ))}
               </div>
             </section>
 
             <section id="stellen" className="crew-block">
               <div className="crew-lead">
-                <p className="crew-kicker crew-kicker--tiny">{"// OFFENE STELLEN"}</p>
-                <h2 className="crew-display">
-                  <span>Offene</span>
-                  <span>Stellen.</span>
+                <p className="crew-kicker crew-kicker--tiny">{locale === "en" ? "// OPEN POSITIONS" : "// OFFENE STELLEN"}</p>
+                <h2 className="crew-display section-heading">
+                  <span>{copy("Offene")}</span>
+                  <span>{copy("Stellen.")}</span>
                 </h2>
               </div>
               <div className="crew-jobs">
@@ -285,15 +269,17 @@ export default function CareerPage({
                     >
                       <span className="crew-job__title">
                         <span>{openingTitle(job, locale)}</span>
-                        <span>ABTEILUNG: {job.department}</span>
+                        <span>{locale === "en" ? "DEPARTMENT:" : "ABTEILUNG:"} {job.department}</span>
                       </span>
                       <span className="crew-job__meta">
                         <span>{job.department}</span>
                         <span aria-hidden="true">·</span>
                         <span>{job.location}</span>
                         <span aria-hidden="true">·</span>
-                        <span>{EMPLOYMENT_DE[job.employmentType]}</span>
+                        <span>{locale === "en" ? ({ FULL_TIME: "FULL TIME", PART_TIME: "PART TIME", APPRENTICESHIP: "APPRENTICESHIP" })[job.employmentType] : EMPLOYMENT_DE[job.employmentType]}</span>
                       </span>
+                      {/* Figma vector export; no raster optimization needed. */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/images/crew/status-dot.svg" alt="" width={21} height={21} />
                     </Link>
                   ))
@@ -303,30 +289,22 @@ export default function CareerPage({
 
             <section className="crew-block">
               <div className="crew-lead">
-                <p className="crew-kicker crew-kicker--tiny">{"// BEWERBUNGSPROZESS"}</p>
-                <h2 className="crew-display">
-                  <span>So kommst du</span>
-                  <span>ins team:</span>
+                <p className="crew-kicker crew-kicker--tiny">{locale === "en" ? "// APPLICATION PROCESS" : "// BEWERBUNGSPROZESS"}</p>
+                <h2 className="crew-display section-heading">
+                  <span>{copy("So kommst du")}</span>
+                  <span>{copy("ins team:")}</span>
                 </h2>
               </div>
               <div className="crew-split">
-                <p>
-                  Unser Bewerbungsprozess ist transparent und effizient. Du musst uns nur deine Unterlagen
-                  wie Lebenslauf und kurzes Anschreiben zukommen lassen. In einem persönlichen Gespräch mit
-                  unserer Personalabteilung und dem entsprechenden Abteilungsleiter können wir uns
-                  kennenlernen und detailliertere Informationen austauschen.
-                </p>
-                <p>
-                  Anschließend laden wir dich zu einem Probetag ein, bei dem du das Team und die
-                  Arbeitsumgebung kennenlernen kannst, während wir deine Fähigkeiten genauer prüfen.
-                </p>
+                <p>{copy("Unser Bewerbungsprozess ist transparent und effizient. Du musst uns nur deine Unterlagen wie Lebenslauf und kurzes Anschreiben zukommen lassen. In einem persönlichen Gespräch mit unserer Personalabteilung und dem entsprechenden Abteilungsleiter können wir uns kennenlernen und detailliertere Informationen austauschen.")}</p>
+                <p>{copy("Anschließend laden wir dich zu einem Probetag ein, bei dem du das Team und die Arbeitsumgebung kennenlernen kannst, während wir deine Fähigkeiten genauer prüfen.")}</p>
               </div>
               <ol className="crew-steps">
                 {APPLY_STEPS.map((step) => (
                   <li key={step.index}>
                     <span>{step.index}</span>
-                    <h3>{step.title}</h3>
-                    <p>{step.body}</p>
+                    <h3>{copy(step.title)}</h3>
+                    <p>{copy(step.body)}</p>
                   </li>
                 ))}
               </ol>
@@ -334,15 +312,13 @@ export default function CareerPage({
 
             <section className="crew-block">
               <div className="crew-cta">
-                <p>INITIATIVBEWERBUNG</p>
-                <h2>WERDE TEIL DES TEAMS.</h2>
-                <p>Auch ohne ausgeschriebene Stelle — überzeuge uns mit deiner Bewerbung.</p>
+                <p>{copy("INITIATIVBEWERBUNG")}</p>
+                <h2>{copy("WERDE TEIL DES TEAMS.")}</h2>
+                <p>{copy("Auch ohne ausgeschriebene Stelle — überzeuge uns mit deiner Bewerbung.")}</p>
                 <SiteButton
                   variant="fill"
-                  href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent("Initiativbewerbung")}`}
-                >
-                  Jetzt bewerben
-                </SiteButton>
+                  href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent(locale === "en" ? "Speculative application" : "Initiativbewerbung")}`}
+                >{copy("Jetzt bewerben")}</SiteButton>
               </div>
             </section>
           </div>

@@ -1,0 +1,56 @@
+.craft-page { background: var(--background); color: var(--foreground); }
+.craft-hero { min-height: 100svh; position: relative; display: grid; place-items: center; padding: 140px 24px 120px; }
+.craft-hero__location { position: absolute; top: 112px; left: clamp(24px, 3.333vw, 64px); color: #717272; line-height: 1.8; }
+.craft-hero__equipment { position: absolute; top: 112px; right: clamp(24px, 3.333vw, 64px); text-align: right; color: #717272; line-height: 1.8; }
+.craft-hero__title { text-align: center; max-width: 900px; }
+.craft-hero__title h1 { font-size: clamp(64px, 5.208vw, 100px); line-height: 1; }
+.craft-hero__title p, .craft-page article p, .craft-phase__header > p:not(.craft-watermark):not(.craft-phase__label), .craft-quality p, .craft-cta > p { font-family: var(--font-univers), sans-serif; font-size: clamp(18px, 1.042vw, 20px); line-height: 1.3; color: #52525b; }
+.dark .craft-hero__title p, .dark .craft-page article p, .dark .craft-phase__header > p:not(.craft-watermark):not(.craft-phase__label), .dark .craft-quality p, .dark .craft-cta > p { color: #d0d0d0; }
+.craft-hero__title p { margin-top: 32px; }
+.craft-hero__scroll { position: absolute; bottom: 64px; text-decoration: none; }
+.craft-content { width: min(100%, 1920px); margin: auto; padding: 0 clamp(24px, 3.333vw, 64px); }
+.craft-phase { padding: clamp(64px, 6.667vw, 128px) 0; }
+.craft-phase__header { position: relative; margin-bottom: 64px; }
+.craft-phase__label { position: relative; margin: 0 0 40px; font: 12px/1.5 var(--font-jetbrains-mono), monospace; text-transform: uppercase; color: #52525b; }
+.dark .craft-phase__label { color: #b2b1b2; }
+.craft-phase h2 { position: relative; margin: 0; display: flex; flex-direction: column; gap: 16px; font-family: var(--font-univers-cn), sans-serif; font-weight: 400; font-size: clamp(38px, 3.958vw, 76px); line-height: 1; text-transform: uppercase; }
+.craft-phase h2 strong { font-family: var(--font-bootzy), sans-serif; font-weight: 400; font-size: .947em; letter-spacing: .025em; color: #087a08; }
+.dark .craft-phase h2 strong { color: #00ff00; }
+.craft-phase__header > p:not(.craft-watermark):not(.craft-phase__label) { margin-top: 64px; max-width: 800px; }
+.craft-watermark { position: absolute; right: 0; top: -30px; margin: 0; font: min(17vw, 332px)/.9 var(--font-bootzy), sans-serif; letter-spacing: .055em; color: transparent; -webkit-text-stroke: 1px rgba(0,150,0,.5); pointer-events: none; }
+.craft-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; }
+.craft-photo { position: relative; aspect-ratio: 1.467; overflow: hidden; background: #131414; }
+.craft-photo img { object-fit: cover; }
+.craft-photo--contain img { object-fit: contain; padding: 32px; }
+.craft-page h3 { margin: 24px 0; font-family: var(--font-univers-cn), sans-serif; font-size: clamp(30px, 2.969vw, 57px); font-weight: 400; line-height: 1.08; text-transform: uppercase; overflow-wrap: anywhere; }
+.craft-inventory { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px; }
+.craft-inventory h3 { font-size: clamp(26px, 2.4vw, 46px); }
+.craft-inventory article { border-top: 1px solid #717272; padding-top: 24px; }
+.craft-quality h3 { margin-top: 0; }
+.craft-cta { padding: clamp(64px, 6.667vw, 128px) clamp(24px, 3.333vw, 64px); background: #ececec; }
+.dark .craft-cta { background: #1f2020; }
+.craft-cta h2 { max-width: 650px; margin: 0 0 24px; font: 700 clamp(40px, 3.958vw, 76px)/1.1 var(--font-univers-bold-cn), sans-serif; text-transform: uppercase; }
+.craft-cta .site-btn { margin-top: 64px; }
+@media(max-width:1100px) { .craft-watermark { position: relative; top: auto; margin-bottom: 40px; font-size: 19vw; } }
+@media(max-width:700px) { .craft-hero__equipment { display: none; } .craft-phase__label { margin-bottom: 24px; font-size: 12px; } .craft-grid, .craft-inventory { grid-template-columns: 1fr; gap: 40px; } .craft-phase__header { margin-bottom: 32px; } .craft-phase__header > p:not(.craft-watermark):not(.craft-phase__label) { margin-top: 32px; } .craft-phase h2 { font-size: 10vw; } .craft-hero__location { font-size: 12px; } }
+
+.machine-park { display: grid; gap: clamp(56px, 5vw, 96px); }
+.machine-park__group > .craft-phase__label { margin-bottom: 16px; }
+.machine-park__group > h3 { margin: 0 0 32px; }
+.machine-park__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.machine-park__grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.machine-card__photo { aspect-ratio: 1.8; display: grid; place-items: center; background: #ddd; color: #52525b; font: 12px/1.5 var(--font-jetbrains-mono), monospace; }
+.dark .machine-card__photo { background: #343535; color: #d0d0d0; }
+.machine-card__heading { display: flex; gap: 20px; align-items: baseline; margin-block: 24px 16px; }
+.machine-card__heading > span { font: 12px/1.5 var(--font-jetbrains-mono), monospace; color: #717272; }
+.machine-card h4 { margin: 0; font: 400 clamp(26px, 2.2vw, 42px)/1.1 var(--font-univers-cn), sans-serif; text-transform: uppercase; }
+.machine-card dl { margin: 0; font: 12px/1.5 var(--font-jetbrains-mono), monospace; }
+.machine-card dl > div { display: flex; justify-content: space-between; gap: 16px; padding-block: 10px; border-bottom: 1px solid #71727266; }
+.machine-card dt { text-transform: uppercase; }
+.machine-card dd { margin: 0; text-align: right; }
+.craft-cta { text-align: center; }
+.craft-cta h2, .craft-cta > p { margin-inline: auto; }
+@media (max-width: 700px) {
+  .machine-park__grid, .machine-park__grid--2 { grid-template-columns: 1fr; gap: 40px; }
+  .craft-hero__title h1 { font-size: clamp(42px, 11vw, 64px); }
+}

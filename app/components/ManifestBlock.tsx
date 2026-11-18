@@ -2,16 +2,15 @@
 
 import React from "react";
 import Image, { type StaticImageData } from "next/image";
-import weave from "../../public/images/grundsatz/figma/tl.jpg";
-import clkGtr from "../../public/images/grundsatz/figma/tr.jpg";
-import precision from "../../public/images/grundsatz/figma/bl.jpg";
-import autoclave from "../../public/images/grundsatz/figma/br.jpg";
+import weave from "../../public/images/grundsatz/figma/tl.webp";
+import clkGtr from "../../public/images/grundsatz/figma/customer.webp";
+import precision from "../../public/images/grundsatz/figma/bl.webp";
+import autoclave from "../../public/images/grundsatz/figma/br.webp";
 import "./ManifestSection.css";
+import type { Locale } from "@/lib/i18n";
 
 /** TODO(client): confirm F1 supply claim before enabling. */
 const SHOW_F1_CLAIM = false;
-/** TODO(client): confirm CLK GTR imagery rights. */
-const SHOW_CLK_GTR = false;
 
 function HudLine({
   text,
@@ -32,44 +31,9 @@ function CoreValueIcon({
   width: number;
   height: number;
 }) {
+  // These are small vector exports; raster optimization is unnecessary.
+  // eslint-disable-next-line @next/next/no-img-element
   return <img src={src} alt="" width={width} height={height} />;
-}
-
-function IconFlag() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <path d="M12 8v34" stroke="currentColor" strokeWidth="1.6" />
-      <rect x="14" y="10" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="10" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="14" y="17" width="10" height="7" fill="currentColor" opacity="0.35" />
-      <rect x="24" y="17" width="10" height="7" fill="currentColor" />
-      <rect x="14" y="24" width="10" height="7" fill="currentColor" />
-      <rect x="24" y="24" width="10" height="7" fill="currentColor" opacity="0.35" />
-    </svg>
-  );
-}
-
-function IconGlobe() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <circle cx="25" cy="25" r="14" stroke="currentColor" strokeWidth="1.5" />
-      <ellipse cx="25" cy="25" rx="6" ry="14" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M11 25h28M13 18h24M13 32h24" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-function IconSpark() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
-      <path
-        d="M25 6l3.2 12.4L41 22l-12.8 3.6L25 44l-3.2-18.4L9 22l12.8-3.6L25 6z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 const PHOTO_SIZES = {
@@ -99,7 +63,8 @@ function Photo({
   );
 }
 
-export default function ManifestBlock() {
+export default function ManifestBlock({ locale = "de" }: { locale?: Locale }) {
+  const en = locale === "en";
   return (
     <div className="manifest-shell">
       <div className="mg-bar" aria-label="System status">
@@ -120,15 +85,15 @@ export default function ManifestBlock() {
             <span className="mg-core__label">CORE VALUE DEFINITION:</span>
             <div className="mg-core__row">
               <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/speed.svg" width={40} height={40} />
+                <CoreValueIcon src="/icons/figma/core-speed.svg" width={40} height={40} />
                 <span>SPEED</span>
               </div>
               <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/complexity.svg" width={42} height={41} />
+                <CoreValueIcon src="/icons/figma/core-complexity.svg" width={42} height={41} />
                 <span>COMPLEXITY</span>
               </div>
               <div className="mg-icon">
-                <CoreValueIcon src="/images/core-values/inhouse.svg" width={46.67} height={40} />
+                <CoreValueIcon src="/icons/figma/core-inhouse.svg" width={46.67} height={40} />
                 <span>INHOUSE</span>
               </div>
             </div>
@@ -136,7 +101,7 @@ export default function ManifestBlock() {
         </div>
       </div>
 
-      <section id="craft-technology" className="cv-auto relative" lang="de">
+      <section id="craft-technology" className="cv-auto relative" lang={locale}>
         <div className="manifest-frame">
         <div className="manifest-stage">
           <div className="manifest-stack">
@@ -160,27 +125,16 @@ export default function ManifestBlock() {
           </div>
 
           <div className="manifest-lead">
-            <h2 className="manifest-figma__line">unsere kunden:</h2>
-            <p className="manifest-figma__neon">höchste</p>
-            <p className="manifest-figma__neon">anforderungen.</p>
+            <h2 className="manifest-figma__line">{en ? "our clients:" : "unsere kunden:"}</h2>
+            <p className="manifest-figma__neon">{en ? "highest" : "höchste"}</p>
+            <p className="manifest-figma__neon">{en ? "standards." : "anforderungen."}</p>
           </div>
 
-          {SHOW_CLK_GTR ? (
-            <Photo
-              src={clkGtr}
-              alt="Mercedes-Benz CLK GTR body shell in the workshop"
-              area="tr"
-            />
-          ) : (
-            <div
-              className="manifest-photo manifest-photo--tr manifest-photo--placeholder"
-              aria-hidden
-            />
-          )}
+          <Photo src={clkGtr} alt="Mercedes-Benz CLK GTR in the Bräutigam workshop" area="tr" />
 
           <div className="manifest-principle">
-            <p className="manifest-figma__line">Unser Grundsatz:</p>
-            <p className="manifest-figma__neon">KOMPLEX, SCHNELL,</p>
+            <p className="manifest-figma__line">{en ? "Our principle:" : "Unser Grundsatz:"}</p>
+            <p className="manifest-figma__neon">{en ? "COMPLEX, FAST," : "KOMPLEX, SCHNELL,"}</p>
             <p className="manifest-figma__neon">INHOUSE</p>
           </div>
 
@@ -218,7 +172,7 @@ export default function ManifestBlock() {
 
       <div className="mg-bar mg-bar--values" aria-label="Company facts">
         <div className="mg-stat">
-          <IconFlag />
+          <CoreValueIcon src="/icons/figma/stat-motorsport.svg" width={50} height={48} />
           <span>
             {SHOW_F1_CLAIM ? (
               <>
@@ -236,7 +190,7 @@ export default function ManifestBlock() {
           </span>
         </div>
         <div className="mg-stat">
-          <IconGlobe />
+          <CoreValueIcon src="/icons/figma/stat-worldwide.svg" width={50} height={50} />
           <span>
             ACTIVE
             <br />
@@ -244,7 +198,7 @@ export default function ManifestBlock() {
           </span>
         </div>
         <div className="mg-stat">
-          <IconSpark />
+          <CoreValueIcon src="/icons/figma/stat-machinery.svg" width={50} height={50} />
           <span>
             SOPHISTICATED
             <br />

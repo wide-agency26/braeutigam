@@ -1,10 +1,10 @@
 "use client";
 
 import Script from "next/script";
-import { type FormEvent, useActionState, useId, useState } from "react";
+import { type FormEvent, startTransition, useActionState, useEffect, useId, useRef, useState } from "react";
 import { applyToJob, type ApplyState } from "@/app/actions/applications";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { MAX_RESUME_BYTES, RESUME_ERRORS } from "@/lib/resume-limits";
+import { MAX_RESUME_BYTES, resumeErrors } from "@/lib/resume-limits";
 
 const INITIAL: ApplyState = {};
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -19,23 +19,35 @@ export function ApplyForm({
   locale?: Locale;
 }) {
   const t = getDictionary(locale).apply;
-  const action = applyToJob.bind(null, jobId);
-  const [state, formAction, pending] = useActionState(action, INITIAL);
+  const [state, formAction, pending] = useActionState(applyToJob, INITIAL);
   const [wasRecommended, setWasRecommended] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (state.error || state.fieldErrors || clientError) {
+      formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"], [role="alert"]')?.focus();
+    }
+  }, [state, clientError]);
+
   function onSubmit(event: FormEvent<HTMLFormElement>) {
-    const tooLarge = new FormData(event.currentTarget)
-      .getAll("resume")
+    event.preventDefault();
+    if (pending) return;
+    const data = new FormData(event.currentTarget);
+    const tooLarge = data.getAll("resume")
       .filter((entry): entry is File => entry instanceof File)
       .some((file) => file.size > MAX_RESUME_BYTES);
-    if (!tooLarge) {
-      setClientError(null);
+    if (tooLarge) {
+      setClientError(resumeErrors(locale).size);
       return;
     }
-    event.preventDefault();
-    setClientError(RESUME_ERRORS.size);
+    setClientError(null);
+    // Dispatch manually so a validation/storage failure does not reset the
+    // applicant's text or selected file. Success replaces the form below.
+    startTransition(() => formAction(data));
   }
+
   const formId = useId();
   const errors = state.fieldErrors;
   const inputClass =
@@ -57,11 +69,15 @@ export function ApplyForm({
 
   return (
     <form
+      ref={formRef}
+      aria-busy={pending}
       action={formAction}
       className="career-card px-5 py-6"
       aria-labelledby={`${formId}-title`}
       onSubmit={onSubmit}
     >
+      <input type="hidden" name="jobId" value={jobId} />
+      <input type="hidden" name="locale" value={locale} />
       <p className="career-eyebrow text-[var(--career-neon)]">{t.eyebrow}</p>
       <h2
         id={`${formId}-title`}
@@ -70,7 +86,7 @@ export function ApplyForm({
         {t.title}
       </h2>
       {clientError || state.error ? (
-        <p className="mt-3 font-sans text-xs text-red-600" role="alert">
+        <p className="mt-3 font-sans text-xs text-red-600" role="alert" tabIndex={-1}>
           {clientError || state.error}
         </p>
       ) : null}
@@ -80,6 +96,7 @@ export function ApplyForm({
         <input
           className={inputClass}
           name="firstName"
+          maxLength={80}
           autoComplete="given-name"
           required
           aria-invalid={Boolean(errors?.firstName)}
@@ -96,6 +113,7 @@ export function ApplyForm({
         <input
           className={inputClass}
           name="lastName"
+          maxLength={80}
           autoComplete="family-name"
           required
           aria-invalid={Boolean(errors?.lastName)}
@@ -113,6 +131,7 @@ export function ApplyForm({
           className={inputClass}
           type="email"
           name="email"
+          spellCheck={false}
           autoComplete="email"
           required
           aria-invalid={Boolean(errors?.email)}
@@ -126,11 +145,11 @@ export function ApplyForm({
       </label>
       <label className="mt-4 block">
         <span className="career-eyebrow text-zinc-500">{t.phone}</span>
-        <input className={inputClass} type="tel" name="phone" autoComplete="tel" />
+        <input className={inputClass} type="tel" name="phone" autoComplete="tel" maxLength={40} />
       </label>
       <label className="mt-4 block">
         <span className="career-eyebrow text-zinc-500">{t.coverLetter}</span>
-        <textarea className={inputClass} name="coverLetter" rows={5} />
+        <textarea className={inputClass} name="coverLetter" rows={5} maxLength={4000} />
       </label>
       <div className="mt-5">
         <label className="flex min-h-11 cursor-pointer items-center gap-3 font-sans text-sm">
@@ -151,6 +170,7 @@ export function ApplyForm({
             <input
               className={inputClass}
               name="recommenderName"
+              maxLength={120}
               autoComplete="name"
               required
               aria-invalid={Boolean(errors?.recommenderName)}

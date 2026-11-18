@@ -4,7 +4,7 @@ import { pageTitleForLocale } from "@/lib/site-nav";
 
 export const metadata: Metadata = {
   title: pageTitleForLocale("Leistungen", "en"),
-  description: "Bräutigam carbon solutions — craft page coming soon.",
+  description: "From CAD and tooling to prepreg layup, autoclave curing and quality assurance: explore Bräutigam’s in-house carbon manufacturing process.",
   alternates: { languages: { de: "/craft", en: "/en/craft" } },
 };
 

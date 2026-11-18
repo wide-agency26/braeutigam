@@ -1,0 +1,7 @@
+.not-found-page { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 24px; max-width: 1440px; margin: auto; padding: 120px clamp(24px, 6vw, 96px) 64px; }
+.not-found-page > .copy-tiny { color: #717272; }
+.not-found-code { margin: 0; font: clamp(100px, 20vw, 260px)/.9 var(--font-bootzy), sans-serif; letter-spacing: .08em; color: transparent; -webkit-text-stroke: 1px #087a08; }
+.dark .not-found-code { -webkit-text-stroke-color: #00cc00; }
+.not-found-page h1 { max-width: 100%; font-size: clamp(32px, 5vw, 76px); line-height: 1.05; }
+.not-found-description { max-width: 600px; font: 400 20px/1.4 var(--font-univers), sans-serif; }
+.not-found-actions { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 16px; }

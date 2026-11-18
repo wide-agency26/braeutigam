@@ -321,7 +321,7 @@ body {
 /* ── Journey Timeline Intro (screenshot: HUD top-left, watermark contained) ── */
 .journey-intro {
   position: relative;
-  min-height: 100svh;
+  min-height: 80svh;
   overflow: hidden;
   background: var(--background);
 }
@@ -1051,11 +1051,10 @@ body {
   left: 0.15%;
   right: 0.15%;
   bottom: 1.4%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 4cqi;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3.2fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px;
 }
 
 .footer-figma__imprint {
@@ -1085,20 +1084,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.863cqi; /* 16 */
+  flex-wrap: wrap;
+  gap: 4px 16px;
   font-family: var(--font-jetbrains-mono), var(--font-mono), monospace;
   font-weight: 400;
-  font-size: 0.647cqi; /* 12 */
-  line-height: 1.35;
-  letter-spacing: 0.09em;
-  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  min-width: 0;
 }
 
 .footer-figma__legal a,
 .footer-figma__legal span {
   color: #fbfafc;
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   transition: color 160ms ease;
 }
 
@@ -1107,6 +1108,7 @@ body {
 }
 
 .footer-figma__credit {
+  justify-self: end;
   font-family: var(--font-bootzy), sans-serif;
   font-size: 1.187cqi; /* 22 */
   letter-spacing: 0.09em;
@@ -1122,7 +1124,7 @@ body {
   color: #00ff00;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .footer-figma {
     aspect-ratio: auto;
     min-height: 560px;
@@ -1141,6 +1143,7 @@ body {
   }
   .footer-figma__main,
   .footer-figma__bottom {
+    display: flex;
     position: static;
     inset: auto;
   }
@@ -1167,9 +1170,6 @@ body {
     text-align: center;
   }
   .footer-figma__legal {
-    flex-wrap: wrap;
-    white-space: normal;
-    font-size: 11px;
     gap: 6px 14px;
   }
   .footer-figma__imprint,
@@ -1183,27 +1183,29 @@ body {
 
 .social-section {
   padding: 52px 0;
-  background: #0b0b0c;
-  color: #f3f3f3;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 .social-gallery {
   width: 100%;
   height: 600px;
-  background: #0b0b0c;
+  background: transparent;
 }
 
 .social-gallery-fallback {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 16px;
   padding: 0 40px;
-  overflow: hidden;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
 }
 
 .social-gallery-fallback a,
 .social-gallery-fallback span {
+  scroll-snap-align: center;
   display: block;
   height: min(474px, 78%);
   aspect-ratio: 326 / 474;
@@ -1241,16 +1243,16 @@ body {
 .social-section__title span:first-child {
   font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
-  font-size: 76px;
-  line-height: 52px;
+  font-size: clamp(36px, 3.9583vw, 76px);
+  line-height: 1.1;
   letter-spacing: -2px;
 }
 
 .social-section__title span:last-child {
   font-family: var(--font-univers-bold-cn), var(--font-sans);
   font-weight: 700;
-  font-size: 76px;
-  line-height: 76px;
+  font-size: clamp(36px, 3.9583vw, 76px);
+  line-height: 1.1;
   letter-spacing: -2px;
 }
 
@@ -1282,3 +1284,166 @@ body {
     letter-spacing: -0.5px;
   }
 }
+
+/* Figma feedback, Nov 2026. Hero and generated type tokens stay unchanged. */
+.mission-figma__quality { font-family: var(--font-univers-bold-cn), sans-serif; }
+.mission-figma__quality, .experts-figma__title > span, .social-section__title > span {
+  /* Keep ascenders and accents inside the gradient's paint area.
+     Equal negative margins preserve the existing line positions and spacing. */
+  padding-block: .15em;
+  margin-block: -.15em;
+}
+.mission-figma__watermark p, .journey-intro__watermark p { letter-spacing: .055em; line-height: .76; }
+.mission-figma__watermark { top: 10.83%; }
+.mission-figma__quality, .manifest-figma__line, .experts-figma__title > span,
+.social-section__title > span { background-image: linear-gradient(rgba(0,0,0,.2), rgba(255,255,255,.2)); background-clip: text; }
+.experts-figma__title { display: flex; flex-direction: column; gap: 12px; }
+.experts-figma__meet.heading-secondary { font-family: var(--font-univers-cn), sans-serif; font-weight: 400; }
+.experts-figma__experts.heading-secondary-bold { font-family: var(--font-univers-bold-cn), sans-serif; }
+.social-section__title .heading-secondary, .social-section__title .heading-secondary-bold,
+.experts-figma__title > span { font-size: clamp(36px, 3.9583vw, 76px); line-height: 1; letter-spacing: -.026em; }
+.footer-figma__wordmark { display: block; width: clamp(220px, 27cqi, 500px); height: auto; }
+.footer-figma__brand { gap: 24px; }
+.footer-figma__nav a { font-family: var(--font-univers-bold-cn), sans-serif; font-weight: 700; letter-spacing: -.014em; line-height: 1; }
+.footer-figma__since span { transform: none; }
+.menu-wordmark { width: min(100%, 343px); height: auto; }
+:root:not(.dark) .footer-figma__wordmark, :root:not(.dark) .menu-wordmark { filter: brightness(.08); }
+:root:not(.dark) .footer-figma__nav a,
+:root:not(.dark) .footer-figma__imprint a,
+:root:not(.dark) .footer-figma__legal span,
+:root:not(.dark) .footer-figma__credit { color: #171717; }
+:root:not(.dark) .footer-figma__since span { color: #087a08; }
+.cad-story__details > p { text-transform: none; text-align: left; }
+.composite-spec, .dark .composite-spec { --nbg-static-border: #b88b00; --nbg-bg: var(--background); --nbg-glow-stroke: #b88b00; }
+.composite-spec .notched-glow-content { padding: 18px 24px 24px; }
+.composite-spec .spec-badge { color: #8f6900; }
+.dark .composite-spec .spec-badge { color: #e5b427; }
+.cad-blueprint { filter: brightness(1.8); }
+@media (max-width: 767px) {
+  .cad-story__details { left: 24px; right: 24px; bottom: 40px; width: auto; max-width: none; align-items: stretch; }
+  .cad-story__details > p { font-size: 14px; max-width: none; line-height: 1.4; }
+  .cad-story__details > .grid { max-width: none; }
+  .cad-story .composite-spec { max-width: none; }
+  .cad-story .notched-glow-content { padding: 12px 16px 18px; }
+  .cad-story .absolute.left-1\/2 { top: 35%; height: 40svh; }
+  .mission-figma__watermark p { font-size: clamp(70px, 19vw, 200px); }
+  .mission-figma__quality, .mission-figma__perf { white-space: normal; }
+  .journey-intro__watermark { font-size: 15vw; }
+  .footer-figma__wordmark { max-width: 100%; }
+}
+@supports (-webkit-text-fill-color: transparent) {
+  .mission-figma__quality, .manifest-figma__line, .experts-figma__title > span, .social-section__title > span {
+    background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(255,255,255,.2)), linear-gradient(currentColor, currentColor);
+    -webkit-text-fill-color: transparent;
+  }
+}
+.mission-figma__watermark p, .journey-intro__watermark p { font-kerning: none; letter-spacing: .14em; }
+.journey-intro__watermark { left: 30.24%; font-size: min(16vw, 26vh); }
+@media (max-width: 600px) {
+  .site-chrome-controls { left: 16px; top: 16px; gap: 8px; }
+  .site-chrome-controls > button, .site-chrome-controls > a { width: 44px; height: 44px; }
+  .site-chrome-controls > div { height: 44px; padding-inline: 8px; }
+}
+main [id] { scroll-margin-top: 96px; }
+#story { scroll-margin-top: 0; }
+.timeline-loader[data-lazy-state="ready"], .timeline-loader[data-lazy-state="failed"] { min-height: 0 !important; }
+@media (max-width:1024px) {
+  .mission-figma__watermark p, .journey-intro__watermark p { letter-spacing: .12em; }
+  .mission-figma__sidebar { flex-direction: row; justify-content: space-between; gap: 12px; margin-block: 40px; }
+  .mission-figma__chip { color: #a1a1a1; gap: 16px; }
+  .mission-figma__watermark { top: auto; }
+  .mission-figma__quality, .mission-figma__perf { line-height: 1.12; }
+}
+@media (max-width:600px) {
+  .social-section__title .heading-secondary, .social-section__title .heading-secondary-bold { font-size: clamp(28px, 8vw, 44px); }
+  .site-btn { max-width: 100%; white-space: normal; }
+  .site-menu-panel { justify-content: flex-start; padding-top: 96px; }
+  .site-menu-panel > div:last-child { gap: 28px; }
+  .site-menu-panel .lg\:col-span-5 { min-height: 180px; padding-left: 20px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .timeline-loader { min-height: 0 !important; }
+  .cad-story { height: 100svh; }
+}
+@media (max-width:700px) {
+  .timeline-loader { min-height: 0 !important; }
+  .journey-intro { min-height: 0; padding: 64px 24px 16px; }
+  .journey-intro__copy { position: relative; left: auto; top: auto; max-width: 100%; gap: 24px; }
+  .journey-intro__title { line-height: 1.1; gap: 4px; }
+  .journey-intro__watermark { position: relative; left: auto; right: auto; top: auto; margin-top: 48px; font-size: 20vw; text-align: left; }
+}
+
+/* 18 Nov feedback: section headings share the approved Mission pairing.
+   Generated Figma tokens remain intact; only these public section roles change. */
+#main-content .section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: .12em;
+  font-size: clamp(36px, 3.958vw, 76px);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+#main-content .section-heading > :first-child {
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+#main-content .section-heading > :last-child {
+  font-family: var(--font-bootzy), sans-serif;
+  font-size: 1.067em;
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: .03em;
+}
+#main-content .section-heading > * { padding-block: .15em; margin-block: -.15em; }
+
+/* Readable content captions. Approved decorative CAD and manifest telemetry
+   retain their original smaller scale. */
+main :is(.copy-caption, .copy-tiny, .crew-micro, .crew-kicker, .crew-video__meta,
+  .journey-intro__kicker, .journey-intro__row, .mission-figma__chip-label,
+  .experts-figma__hud, .experts-figma__hud-kicker, .craft-phase__label,
+  .craft-hero__location, .craft-hero__equipment, .contact-eyebrow,
+  .contact-form__hint, .contact-faq__head > p, .contact-map header > p),
+.site-menu-panel .menu-contact {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+main :is(.text-\[8px\], .text-\[9px\], .text-\[10px\], .text-\[11px\]):not(.cad-story__hud),
+main .crew-job__title span:last-child,
+main .crew-hero__join, main .crew-hero__pitch {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.cad-story__heading { position: absolute; left: 48px; top: 130px; z-index: 30; max-width: 560px; }
+.cad-story__heading > p { margin-bottom: 24px; }
+.cad-story__heading .section-heading { font-size: clamp(36px, 3.2vw, 62px); }
+.cad-story__heading .section-heading > :last-child { color: var(--text-default-accent); }
+.cad-story__minimap { position: absolute; bottom: 72px; left: 48px; z-index: 30; }
+:root:not(.dark) .cad-topo-stage { opacity: .4; }
+.social-section .social-section__title { color: var(--foreground); }
+
+/* Keep the requested white footer lettering legible on the lighter dark frame. */
+:root:not(.dark) .footer-figma-section { background: #333; }
+
+:root:not(.dark) .footer-figma__wordmark { filter: none; }
+:root:not(.dark) .footer-figma :is(.footer-figma__nav a, .footer-figma__imprint a, .footer-figma__legal a, .footer-figma__legal span, .footer-figma__credit) { color: #fff; }
+:root:not(.dark) .footer-figma__since span { color: #00ff00; }
+.footer-figma .footer-figma__imprint, .footer-figma .footer-figma__credit { font-size: max(12px, 1.187cqi); line-height: 1.5; }
+.footer-figma__legal a { text-decoration: underline; text-underline-offset: 3px; }
+.footer-figma__legal span { cursor: default; }
+@media (max-width: 700px) {
+  #main-content .section-heading { font-size: clamp(30px, 7.8vw, 48px); }
+  .cad-story__hud { padding-block: 4px; }
+  .cad-story__hud > :last-child { display: none; }
+  .cad-story__heading { top: 112px; left: 24px; right: 24px; }
+  .cad-story__heading .section-heading { font-size: clamp(28px, 7vw, 42px); }
+  .cad-story__minimap { left: 24px; bottom: 48%; }
+  .cad-story__minimap > div { width: 96px; height: 80px; }
+}
+
+:root:not(.dark) .footer-waves { filter: brightness(.4); opacity: .6; }
