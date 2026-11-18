@@ -7,6 +7,8 @@ import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, CSSPr
 import Image from "next/image";
 import { m, useScroll, useTransform, useMotionValueEvent, useSpring, useReducedMotion } from "framer-motion";
 import SiteButton from "./SiteButton";
+import { localizedHref } from "@/lib/i18n";
+import { useSiteLocale } from "@/lib/i18n/use-locale";
 import "./HorizontalTimeline.css";
 
 const BOARD_W = 12352;
@@ -14,15 +16,43 @@ const BOARD_H = 1080;
 const HOLD = 0.08;
 const LAST_PANEL_W = 3096;
 const TICK_YEARS = ["2016", "2017", "2019", "2020", "2021", "2022", "2024", "2026"];
-const REDUCED_JOURNEY = [
-  ["2016", "Founded"],
-  ["2017", "Entry into Formula 1"],
-  ["2019", "More space"],
-  ["2020", "Monocoque construction"],
-  ["2021", "Development and manufacturing"],
-  ["2022", "Growth and recognition"],
-  ["2024", "Powered by Brabus"],
-  ["2026", "80+ experts"],
+const JOURNEY = [
+  {
+    year: "2016", title: "Founded",
+    body: "BRÄUTIGAM started with three specialists and one clear vision: engineering high-performance carbon components for clients with uncompromising ambitions.",
+    image: "/images/timeline/figma/2016-hero.webp", alt: "Carbon component branded Bräutigam Carbon Fiber Works",
+  },
+  {
+    year: "2017", title: SHOW_F1_CLAIM ? "Entry into Formula 1" : "Motorsport programs",
+    body: SHOW_F1_CLAIM
+      ? "We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams."
+      : "Within the first years we moved from prototype work into demanding motorsport and performance programs — complex carbon parts, tight timelines.",
+  },
+  {
+    year: "2019", title: "We need more space.",
+    body: "Expanding space, advancing tech. We scaled our footprint and upgraded our facility with three high-capacity autoclaves to match the highest industry standards.",
+    image: "/images/timeline/figma/2019-hall.webp", alt: "Production hall with autoclaves",
+  },
+  {
+    year: "2020", title: "Monocoque construction",
+    body: "Complete structural monocoque repair and carbon restoration on a crashed Porsche Carrera GT. Just one saved legend and merely a fraction of what leaves our facility.",
+  },
+  {
+    year: "2021", title: "Development & manufacturing",
+    body: "We engineered and manufactured a high-modulus carbon torque tube for an ultra-exclusive hypercar built for maximum torsional rigidity and absolute weight reduction under extreme loads.",
+    image: "/images/timeline/figma/2021-shop.webp", alt: "Technicians working a carbon component",
+  },
+  { year: "2022 / 2023", title: "Growth Champion Award" },
+  {
+    year: "2024", title: "Powered by Brabus",
+    body: "A strategic milestone in high-performance engineering: Bräutigam GmbH officially becomes part of the BRABUS Group—combining advanced composite expertise with the global pinnacle of luxury automotive performance.",
+    image: "/images/timeline/figma/2024-brabus.webp", alt: "Work on a Brabus grille",
+  },
+  {
+    year: "2025 / 2026", title: "80+ experts. 1 unstoppable vision.",
+    body: "From three visionaries to 80+ high-performance composite specialists. As our capabilities expand, our drive remains the same: pushing the limits of what’s engineered in carbon.",
+    image: "/images/timeline/figma/join-team.webp", alt: "The Bräutigam team outside the workshop",
+  },
 ] as const;
 
 function box(left: number, top: number, width: number, height: number, extra?: CSSProperties): CSSProperties {
@@ -78,7 +108,7 @@ function PillIcon({ kind }: { kind: "speed" | "inhouse" | "complexity" }) {
   return <img src={`/icons/figma/core-${kind}.svg`} alt="" width={50} height={50} />;
 }
 
-function Board() {
+function Board({ careersHref }: { careersHref: string }) {
   return (
     <div className="tl-board">
       {/* 2016 / 2017 — Figma Year Container 2880×1080 (screenshot 1024×384) */}
@@ -93,7 +123,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
             <p className="tl-body">
-              BRÄUTIGAM started with three specialists and one clear vision: engineering high-performance carbon components for clients with uncompromising ambitions.
+              {JOURNEY[0].body}
             </p>
           </div>
         </div>
@@ -103,17 +133,15 @@ function Board() {
         </div>
         <div className="tl-copy" style={box(2188.5, 186.5, 691.5, 466, { justifyContent: "space-between", gap: 20 })}>
           <h3 className="tl-h-f1">
-            ENTRY INTO
-            <strong>FORMULA 1</strong>
+            {SHOW_F1_CLAIM ? "ENTRY INTO " : "MOTORSPORT "}
+            <strong>{SHOW_F1_CLAIM ? "FORMULA 1" : "PROGRAMS"}</strong>
           </h3>
           <div className="tl-gap" style={{ maxWidth: 500 }}>
             <p className="tl-meta">
               {SHOW_F1_CLAIM ? "SUPPLYING THE F1" : "MOTORSPORT PROGRAMS"}
             </p>
             <p className="tl-body">
-              {SHOW_F1_CLAIM
-                ? "We entered the Formula 1 within one year of founding. Delivering highly complex carbon-fiber parts for multiple teams."
-                : "Within the first years we moved from prototype work into demanding motorsport and performance programs — complex carbon parts, tight timelines."}
+              {JOURNEY[1].body}
             </p>
           </div>
           <p className="tl-y-sm" style={{ textAlign: "left" }}>2017</p>
@@ -158,7 +186,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">PROJECT STATUS: NOMINAL // VEHICLE_BR_CHASSIS</p>
             <p className="tl-body">
-              Expanding space, advancing tech. We scaled our footprint and upgraded our facility with three high-capacity autoclaves to match the highest industry standards.
+              {JOURNEY[2].body}
             </p>
           </div>
         </div>
@@ -205,7 +233,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">STRUCTURAL CARBON RESTORATION AT ITS HIGHEST LEVEL.</p>
             <p className="tl-body">
-              Complete structural monocoque repair and carbon restoration on a crashed Porsche Carrera GT. Just one saved legend and merely a fraction of what leaves our facility.
+              {JOURNEY[3].body}
             </p>
           </div>
         </div>
@@ -224,7 +252,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">BUILT TO HANDLE RAW POWER.</p>
             <p className="tl-body">
-              We engineered and manufactured a high-modulus carbon torque tube for an ultra-exclusive hypercar built for maximum torsional rigidity and absolute weight reduction under extreme loads.
+              {JOURNEY[4].body}
             </p>
           </div>
         </div>
@@ -263,7 +291,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">TWO POWERHOUSES, ONE VISION.</p>
             <p className="tl-body">
-              A strategic milestone in high-performance engineering: Bräutigam GmbH officially becomes part of the BRABUS Group—combining advanced composite expertise with the global pinnacle of luxury automotive performance.
+              {JOURNEY[6].body}
             </p>
           </div>
         </div>
@@ -283,7 +311,7 @@ function Board() {
           <div className="tl-gap">
             <p className="tl-meta">BUILT TO HANDLE RAW POWER.</p>
             <p className="tl-body">
-              From three visionaries to 80+ high-performance composite specialists. As our capabilities expand, our drive remains the same: pushing the limits of what’s engineered in carbon.
+              {JOURNEY[7].body}
             </p>
           </div>
         </div>
@@ -292,7 +320,7 @@ function Board() {
             <h3 className="tl-h-light">JOIN OUR</h3>
             <h3 className="tl-h-bold">TEAM</h3>
           </div>
-          <SiteButton href="/karriere">SEE OPEN POSITIONS</SiteButton>
+          <SiteButton href={careersHref}>SEE OPEN POSITIONS</SiteButton>
         </div>
         <Photo src="/images/timeline/figma/join-team.webp" alt="The Bräutigam team outside the workshop" left={2484} top={666} width={481} height={350} />
       </section>
@@ -301,6 +329,8 @@ function Board() {
 }
 
 export default function HorizontalTimeline() {
+  const locale = useSiteLocale();
+  const careersHref = localizedHref("/karriere", locale);
   const sectionRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const yearRefs = useRef<(HTMLElement | null)[]>([]);
@@ -321,7 +351,8 @@ export default function HorizontalTimeline() {
   const measure = useCallback(() => {
     const host = hostRef.current;
     if (!host) return;
-    const height = host.clientHeight || BOARD_H;
+    const height = host.clientHeight;
+    if (!height) return;
     const nextScale = height / BOARD_H;
     const nextPad = Math.max(48, Math.min(window.innerWidth * 0.04, 80));
     setScale(nextScale);
@@ -438,19 +469,21 @@ export default function HorizontalTimeline() {
         </div>
       </section>
 
-      {reduceMotion ? (
-        <section className="site-container py-16" aria-label="Unternehmensgeschichte">
-          <ol className="grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
-            {REDUCED_JOURNEY.map(([year, title]) => (
-              <li key={year} className="border-t border-zinc-300 py-5 dark:border-zinc-700">
-                <p className="font-mono text-sm font-bold text-brand-neon">{year}</p>
-                <h3 className="mt-2 font-sans text-xl uppercase text-zinc-950 dark:text-zinc-100">{title}</h3>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ) : (
-      <section ref={sectionRef} className="relative" style={{ height: "1100vh" }}>
+      <section className={`tl-compact${reduceMotion ? " tl-compact--reduced" : ""}`} aria-label={locale === "en" ? "Company history" : "Unternehmensgeschichte"}>
+        <ol>
+          {JOURNEY.map((milestone) => (
+            <li key={milestone.year}>
+              <p className="tl-compact__year">{milestone.year}</p>
+              <h3>{milestone.title}</h3>
+              {"body" in milestone && <p className="tl-compact__body">{milestone.body}</p>}
+              {"image" in milestone && <div className="tl-compact__photo" style={{ position: "relative", aspectRatio: "3 / 2" }}><Image src={milestone.image} alt={milestone.alt} fill sizes="(max-width: 700px) 100vw, 50vw" /></div>}
+            </li>
+          ))}
+        </ol>
+        <SiteButton href={careersHref}>{locale === "en" ? "See open positions" : "Offene Stellen"}</SiteButton>
+      </section>
+      {!reduceMotion && (
+      <section ref={sectionRef} className="tl-desktop relative" style={{ height: "1100vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <m.div
             className="tl-strip absolute left-0"
@@ -472,7 +505,7 @@ export default function HorizontalTimeline() {
                   transformOrigin: "top left",
                 }}
               >
-                <Board />
+                <Board careersHref={careersHref} />
               </div>
             </div>
           </m.div>

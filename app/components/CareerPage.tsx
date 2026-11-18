@@ -123,7 +123,7 @@ function FilmCard({ film, locale }: { film: (typeof ROLE_FILMS)[number]; locale:
   return (
     <article className="crew-film">
       <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}`}>
-        <Image className={film.crop} src={film.poster} alt={`${copy(film.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1400} height={790} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 45vw" />
+        <Image className={film.crop} src={film.poster} alt={`${copy(film.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1400} height={790} sizes={film.large ? "(max-width: 700px) 100vw, (max-width: 1920px) 50vw, 876px" : "(max-width: 700px) 100vw, (max-width: 1920px) 33vw, 571px"} />
         {/* Add playback when the corresponding role videos are supplied.
             A still photograph must not advertise an unavailable play action. */}
       </div>
@@ -203,7 +203,7 @@ export default function CareerPage({
                 {PILLARS.map((pillar) => (
                   <article key={pillar.title} className="crew-pillar">
                     <div className="crew-pillar__frame">
-                      <Image className={pillar.crop} src={pillar.image} alt={`${copy(pillar.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1600} height={1066} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 50vw" />
+                      <Image className={pillar.crop} src={pillar.image} alt={`${copy(pillar.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1600} height={1066} sizes={pillar.crop === "crew-photo--balance" ? "(max-width: 700px) 217vw, (max-width: 1920px) 72vw, 1251px" : pillar.crop === "crew-photo--events" ? "(max-width: 700px) 153vw, (max-width: 1920px) 51vw, 884px" : "(max-width: 700px) 100vw, (max-width: 1920px) 33vw, 576px"} />
                     </div>
                     <h3>{copy(pillar.title)}</h3>
                     {"paragraphs" in pillar ? (

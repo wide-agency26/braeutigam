@@ -21,8 +21,8 @@ export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
                   {"// TEAM DIRECTORY"}
                 </p>
                 <h1 className="experts-figma__title">
-                  <span className="experts-figma__meet">MEET</span>
-                  <span className="experts-figma__experts">THE EXPERTS</span>
+                  <span className="experts-figma__meet heading-secondary">MEET</span>
+                  <span className="experts-figma__experts heading-secondary-bold">THE EXPERTS</span>
                 </h1>
                 <div className="experts-figma__hud">
                   <p className="experts-figma__hud-kicker">** END 2 END EXPERTS **</p>
@@ -38,8 +38,8 @@ export default function TeamPage({ locale = "de" }: { locale?: Locale }) {
               </div>
 
               <div className="experts-figma__grid" aria-label="Bräutigam Team">
-                {EXPERTS.map((expert) => (
-                  <ExpertSlot key={expert.email} expert={expert} headingLevel={2} />
+                {EXPERTS.map((expert, index) => (
+                  <ExpertSlot key={expert.email} expert={expert} headingLevel={2} eager={index === 0} />
                 ))}
               </div>
             </div>

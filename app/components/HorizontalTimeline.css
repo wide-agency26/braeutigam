@@ -1,5 +1,24 @@
 /* Timeline board — 11456 × 1080, scaled to the sticky strip height. */
 
+/* The wide Figma canvas remains on desktop. Phones and reduced-motion users
+   get the same milestones in document flow, with readable copy and photos. */
+.tl-compact { display: none; width: min(100%, 1440px); margin-inline: auto; padding: 48px clamp(24px, 4vw, 64px) 80px; }
+.tl-compact--reduced { display: block; }
+.tl-compact ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 48px; list-style: none; margin: 0 0 48px; padding: 0; }
+.tl-compact li { min-width: 0; border-top: 1px solid #424343; padding-top: 32px; }
+.tl-compact__year { margin: 0 0 20px; font: 400 clamp(40px, 10vw, 72px)/1.1 var(--font-bootzy), sans-serif; color: #087a08; }
+.dark .tl-compact__year { color: #00ff00; }
+.tl-compact h3 { margin: 0 0 24px; font: 700 clamp(30px, 8vw, 44px)/1.1 var(--font-univers-bold-cn), sans-serif; text-transform: uppercase; overflow-wrap: break-word; }
+.tl-compact__body { margin: 0; font: 18px/1.5 var(--font-univers), sans-serif; color: #52525b; }
+.dark .tl-compact__body { color: #d0d0d0; }
+.tl-compact__photo { position: relative; aspect-ratio: 3 / 2; margin-top: 28px; overflow: hidden; }
+.tl-compact__photo img { object-fit: cover; }
+@media (max-width: 700px) {
+  .tl-compact { display: block; }
+  .tl-compact ol { grid-template-columns: 1fr; gap: 48px; }
+  .tl-desktop { display: none; }
+}
+
 .tl-strip {
   --tl-year: #00ff00;
   --tl-ink: #f3f3f3;

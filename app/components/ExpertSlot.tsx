@@ -7,14 +7,16 @@ export default function ExpertSlot({
   expert,
   delay,
   headingLevel,
+  eager,
 }: {
   expert: Expert;
   delay?: string;
   headingLevel?: 2 | 3;
+  eager?: boolean;
 }) {
   return (
-    <div className="experts-figma__card" style={{ width: "100%", aspectRatio: "403 / 522", transitionDelay: delay }}>
-      <ExpertCard {...expert} headingLevel={headingLevel} />
+    <div className="experts-figma__card" style={{ width: "100%", transitionDelay: delay }}>
+      <ExpertCard {...expert} headingLevel={headingLevel} eager={eager} />
     </div>
   );
 }

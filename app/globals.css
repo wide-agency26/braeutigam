@@ -1359,3 +1359,10 @@ main [id] { scroll-margin-top: 96px; }
   .timeline-loader { min-height: 0 !important; }
   .cad-story { height: 100svh; }
 }
+@media (max-width:700px) {
+  .timeline-loader { min-height: 0 !important; }
+  .journey-intro { min-height: 0; padding: 64px 24px 16px; }
+  .journey-intro__copy { position: relative; left: auto; top: auto; max-width: 100%; gap: 24px; }
+  .journey-intro__title { line-height: 1.1; gap: 4px; }
+  .journey-intro__watermark { position: relative; left: auto; right: auto; top: auto; margin-top: 48px; font-size: 20vw; text-align: left; }
+}
