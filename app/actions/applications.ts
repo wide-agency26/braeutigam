@@ -3,6 +3,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { saveApplicationWithRateLimit } from "@/lib/data/save-application";
 import { verifySession } from "@/lib/auth/dal";
 import { CMS_APPLICATIONS, CMS_BASE } from "@/lib/cms";
 import { rateLimitForRequest } from "@/lib/application-rate-limit";
@@ -33,10 +34,10 @@ export type ApplyState = {
 };
 
 export async function applyToJob(
-  jobId: string,
   _prev: ApplyState | undefined,
   formData: FormData,
 ): Promise<ApplyState> {
+  const jobId = String(formData.get("jobId") ?? "");
   if (String(formData.get("companyWebsite") ?? "").trim()) {
     return { ok: true };
   }
@@ -113,22 +114,14 @@ export async function applyToJob(
     await uploadResumeObject(objectKey, new Uint8Array(bytes), kind.mime);
 
     try {
-      await prisma.$transaction([
-        prisma.application.create({
-          data: {
-            id: applicationId,
-            jobId,
-            ...parsed.data,
-            resumePath: storedResumePath(objectKey),
-            resumeName: sanitizeResumeName(resume.name, kind.ext),
-            resumeMime: kind.mime,
-            resumeSize: bytes.length,
-            resumeSha256: createHash("sha256").update(bytes).digest("hex"),
-            retainUntil,
-          },
-        }),
-        prisma.applicationRateLimit.create({ data: { ipHash } }),
-      ]);
+      await saveApplicationWithRateLimit({
+        id: applicationId, jobId, ...parsed.data,
+        resumePath: storedResumePath(objectKey),
+        resumeName: sanitizeResumeName(resume.name, kind.ext),
+        resumeMime: kind.mime, resumeSize: bytes.length,
+        resumeSha256: createHash("sha256").update(bytes).digest("hex"),
+        retainUntil,
+      }, ipHash);
     } catch {
       await deleteResumeObject(objectKey).catch(() => undefined);
       return { error: RESUME_ERRORS.save };

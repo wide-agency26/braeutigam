@@ -1,11 +1,8 @@
 import "server-only";
 
-import { prisma } from "@/lib/prisma";
+import { prisma, databaseReady } from "@/lib/prisma";
 import type { JobStatus } from "@prisma/client";
 
-function databaseReady() {
-  return Boolean(process.env.DATABASE_URL);
-}
 
 export async function listPublishedJobs() {
   if (!databaseReady()) return [];

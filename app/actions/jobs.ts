@@ -29,8 +29,8 @@ function readJob(formData: FormData) {
   });
 }
 
-function emptyToNull(value: string) {
-  return value.trim().length > 0 ? value.trim() : null;
+function translationOrEmpty(value: string) {
+  return value.trim().length > 0 ? value.trim() : "";
 }
 
 function jobWriteData(parsed: z.infer<typeof jobSchema>) {
@@ -42,9 +42,9 @@ function jobWriteData(parsed: z.infer<typeof jobSchema>) {
     status: parsed.status,
     description: parsed.description,
     requirements: parsed.requirements,
-    titleEn: emptyToNull(parsed.titleEn ?? ""),
-    descriptionEn: emptyToNull(parsed.descriptionEn ?? ""),
-    requirementsEn: emptyToNull(parsed.requirementsEn ?? ""),
+    titleEn: translationOrEmpty(parsed.titleEn ?? ""),
+    descriptionEn: translationOrEmpty(parsed.descriptionEn ?? ""),
+    requirementsEn: translationOrEmpty(parsed.requirementsEn ?? ""),
   };
 }
 

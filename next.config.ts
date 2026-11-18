@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      { source: "/en/careers/:path*", destination: "/en/karriere/:path*", permanent: true },
+      { source: "/en/contact", destination: "/en/kontakt", permanent: true },
       { source: "/admin", destination: "/cms/admin", permanent: false },
       { source: "/admin/:path*", destination: "/cms/admin/:path*", permanent: false },
     ];

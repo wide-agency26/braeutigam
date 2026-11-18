@@ -19,8 +19,7 @@ export function ApplyForm({
   locale?: Locale;
 }) {
   const t = getDictionary(locale).apply;
-  const action = applyToJob.bind(null, jobId);
-  const [state, formAction, pending] = useActionState(action, INITIAL);
+  const [state, formAction, pending] = useActionState(applyToJob, INITIAL);
   const [wasRecommended, setWasRecommended] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
 
@@ -62,6 +61,7 @@ export function ApplyForm({
       aria-labelledby={`${formId}-title`}
       onSubmit={onSubmit}
     >
+      <input type="hidden" name="jobId" value={jobId} />
       <p className="career-eyebrow text-[var(--career-neon)]">{t.eyebrow}</p>
       <h2
         id={`${formId}-title`}

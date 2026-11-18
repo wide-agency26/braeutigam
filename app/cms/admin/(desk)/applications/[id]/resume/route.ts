@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifySession } from "@/lib/auth/dal";
 import { prisma } from "@/lib/prisma";
-import { createResumeDownloadUrl, objectKeyFromStoredPath } from "@/lib/storage";
+import { downloadResumeObject, objectKeyFromStoredPath } from "@/lib/cloudflare/storage";
 
 type RouteProps = {
   params: Promise<{ id: string }>;
@@ -22,15 +22,10 @@ export async function GET(_request: Request, { params }: RouteProps) {
   }
 
   const filename = (application?.resumeName ?? "resume").replace(/["\r\n]/g, "");
-  const url = await createResumeDownloadUrl(objectKey, filename);
-  if (!url) {
+  const download = await downloadResumeObject(objectKey, filename);
+  if (!download) {
     return new NextResponse("Resume not found.", { status: 404 });
   }
 
-  return NextResponse.redirect(url, {
-    headers: {
-      "Cache-Control": "private, no-store",
-      "X-Content-Type-Options": "nosniff",
-    },
-  });
+  return download;
 }
