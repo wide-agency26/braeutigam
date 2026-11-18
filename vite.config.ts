@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       "@/lib/prisma": platformModule("prisma"),
       "@/lib/storage": platformModule("storage"),
+      "@/lib/resume-download": platformModule("resume-download"),
       "@/lib/data/save-application": platformModule("save-application"),
       "@/lib/request-ip": platformModule("request-ip"),
     },

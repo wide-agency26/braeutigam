@@ -37,3 +37,5 @@ Review reference: [Web Interface Guidelines](https://github.com/vercel-labs/web-
 - Made the theme provider use a hydration-safe DOM subscription. A saved light theme no longer produces a server/client class mismatch on the hero wordmark; switching themes still works when persistent storage is unavailable.
 - Local browser verification covered the complete German and English headings in dark/light views and fresh loads with both saved themes. No hydration errors were logged in the fresh verification tab.
 - The current consolidated source branch is `ray-latest-revision`. The ready-to-paste PR description is in `pr-ray-latest-revision.md`; the Cloudflare deployment uses a clean checkout of that branch's commit.
+
+- The combined-branch Next.js build exposed a direct Cloudflare-only import in the CV download route. A build-time adapter now keeps the existing Supabase signed-URL redirect for Next.js and the private R2 response for Cloudflare. `lib/storage.ts`, production schema and policies remain unchanged.

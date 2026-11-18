@@ -30,5 +30,12 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "lib/cloudflare",
+    "lib/generated/d1",
+    "cloudflare.config.ts",
+    "vite.config.ts",
+    ".cloudflare"
+  ]
 }
