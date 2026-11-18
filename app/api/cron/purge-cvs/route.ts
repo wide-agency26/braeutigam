@@ -29,23 +29,26 @@ export async function GET(request: NextRequest) {
 
   let files = 0;
   let rows = 0;
+  let failed = 0;
 
   for (const row of expired) {
-  if (row.resumePath) {
-      const key = objectKeyFromStoredPath(row.resumePath);
-      if (key) {
-        try {
-          await deleteResumeObject(key);
-          files += 1;
-        } catch {
-          /* idempotent */
-        }
-      }
+    const key = row.resumePath ? objectKeyFromStoredPath(row.resumePath) : null;
+    if (!key) {
+      failed += 1;
+      continue;
+    }
+    try {
+      await deleteResumeObject(key);
+      files += 1;
+    } catch {
+      // Keep the record and object path so the next run can retry the file.
+      failed += 1;
+      continue;
     }
     await prisma.application.delete({ where: { id: row.id } });
     rows += 1;
   }
 
-  console.info(`[purge-cvs] cleared ${rows} applications, ${files} storage objects`);
-  return NextResponse.json({ ok: true, rows, files });
+  console.info(`[purge-cvs] cleared ${rows} applications, ${files} storage objects; ${failed} pending retries`);
+  return NextResponse.json({ ok: failed === 0, rows, files, failed }, { status: failed ? 503 : 200 });
 }

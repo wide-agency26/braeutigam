@@ -322,7 +322,7 @@ export default function ContactPage({ locale = "de" }: { locale?: Locale }) {
 
           <div className="contact-hero__title">
             <h1>{t("Kontakt", "Contact")}</h1>
-            <p>{t("Haben Sie ein Projekt? Ob Formula 1 Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.", "Have a project in mind? From motorsport prototypes to small production runs, we look forward to hearing from you.")}</p>
+            <p>{t("Haben Sie ein Projekt? Ob Motorsport-Prototyp oder Kleinserie, wir freuen uns auf Ihre Anfrage.", "Have a project in mind? From motorsport prototypes to small production runs, we look forward to hearing from you.")}</p>
           </div>
 
           <a className="contact-hero__status" href="#anfrage">
