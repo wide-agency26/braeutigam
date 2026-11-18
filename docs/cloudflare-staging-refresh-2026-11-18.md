@@ -2,7 +2,7 @@
 
 Target: https://braeutigam-staging.rubenis-raimonds1.workers.dev
 
-This branch is the Cloudflare preview runtime, based on the current Figma frontend and its image-loading improvements. It is separate from the Vercel/production branch. Do not merge its D1/R2 runtime and package changes into the production branch without an explicit migration decision.
+The consolidated `ray-latest-revision` branch contains the Cloudflare preview runtime, based on the current Figma frontend and its image-loading improvements. It is separate from the Vercel/production branch. Do not merge its D1/R2 runtime and package changes into the production branch without an explicit migration decision.
 
 ## Image delivery
 

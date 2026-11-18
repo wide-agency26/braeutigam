@@ -244,6 +244,10 @@
   font-family: var(--font-univers-bold-cn), var(--font-sans);
   font-size: calc(119.05 / 1920 * 100cqi);
   white-space: nowrap;
+  /* Keep the gradient's paint area around glyphs above the tight line box.
+     Matching negative margins preserve the existing spacing between lines. */
+  padding-block: 0.15em;
+  margin-block: -0.15em;
 }
 
 .manifest-stage .manifest-figma__neon {

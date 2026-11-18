@@ -4,9 +4,8 @@ import {
   createContext,
   useCallback,
   useContext,
-  useLayoutEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -29,6 +28,19 @@ function applyDomTheme(theme: Theme) {
   root.style.colorScheme = theme;
 }
 
+function readDomTheme(): Theme {
+  return document.documentElement.classList.contains("light") ? "light" : "dark";
+}
+
+function subscribeTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+
 /**
  * Owns the light/dark toggle and mirrors it onto <html class="dark">.
  * That lets Tailwind `dark:` utilities (and CSS `.dark …` rules) drive
@@ -41,29 +53,22 @@ export function ThemeProvider({
   children: ReactNode;
   defaultTheme?: Theme;
 }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof document === "undefined") return defaultTheme;
-    return document.documentElement.classList.contains("light") ? "light" : "dark";
-  });
-
-  // useLayoutEffect: apply before paint so `dark:` utilities match the SSR
-  // <html class="dark"> and we never flash light-theme (black text on black).
-  useLayoutEffect(() => {
-    applyDomTheme(theme);
-  }, [theme]);
+  // Match the server during hydration, then read the theme already restored
+  // by the layout's pre-paint script without overwriting that DOM state.
+  const theme = useSyncExternalStore(subscribeTheme, readDomTheme, () => defaultTheme);
 
   const setTheme = useCallback((next: Theme) => {
-    setThemeState(next);
-    window.localStorage.setItem(THEME_STORAGE_KEY, next);
+    applyDomTheme(next);
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch {
+      // The switch still works when the browser disallows persistent storage.
+    }
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setThemeState(prev => {
-      const next = prev === "dark" ? "light" : "dark";
-      window.localStorage.setItem(THEME_STORAGE_KEY, next);
-      return next;
-    });
-  }, []);
+    setTheme(readDomTheme() === "dark" ? "light" : "dark");
+  }, [setTheme]);
 
   const value = useMemo(
     () => ({ theme, isDark: theme === "dark", toggleTheme, setTheme }),

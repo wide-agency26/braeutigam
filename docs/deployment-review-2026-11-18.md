@@ -30,3 +30,10 @@ Reviewed Cloudflare staging at https://braeutigam-staging.rubenis-raimonds1.work
 The staging deployment remains a seed-data preview. Production Supabase, private-bucket policies, signed-download implementation, hero styles and typography tokens were not changed.
 
 Review reference: [Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md).
+
+## Follow-up: customer headings and saved theme
+
+- Extended the gradient paint area on the two manifest headings so ascenders are not cut off by their 0.85 line height. Equal negative margins retain the existing layout spacing; font sizes and generated typography tokens are unchanged.
+- Made the theme provider use a hydration-safe DOM subscription. A saved light theme no longer produces a server/client class mismatch on the hero wordmark; switching themes still works when persistent storage is unavailable.
+- Local browser verification covered the complete German and English headings in dark/light views and fresh loads with both saved themes. No hydration errors were logged in the fresh verification tab.
+- The current consolidated source branch is `ray-latest-revision`. The ready-to-paste PR description is in `pr-ray-latest-revision.md`; the Cloudflare deployment uses a clean checkout of that branch's commit.
