@@ -1287,6 +1287,12 @@ body {
 
 /* Figma feedback, Nov 2026. Hero and generated type tokens stay unchanged. */
 .mission-figma__quality { font-family: var(--font-univers-bold-cn), sans-serif; }
+.mission-figma__quality, .experts-figma__title > span, .social-section__title > span {
+  /* Keep ascenders and accents inside the gradient's paint area.
+     Equal negative margins preserve the existing line positions and spacing. */
+  padding-block: .15em;
+  margin-block: -.15em;
+}
 .mission-figma__watermark p, .journey-intro__watermark p { letter-spacing: .055em; line-height: .76; }
 .mission-figma__watermark { top: 10.83%; }
 .mission-figma__quality, .manifest-figma__line, .experts-figma__title > span,

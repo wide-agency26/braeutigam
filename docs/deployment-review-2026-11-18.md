@@ -39,3 +39,9 @@ Review reference: [Web Interface Guidelines](https://github.com/vercel-labs/web-
 - The current consolidated source branch is `ray-latest-revision`. The ready-to-paste PR description is in `pr-ray-latest-revision.md`; the Cloudflare deployment uses a clean checkout of that branch's commit.
 
 - The combined-branch Next.js build exposed a direct Cloudflare-only import in the CV download route. A build-time adapter now keeps the existing Supabase signed-URL redirect for Next.js and the private R2 response for Cloudflare. `lib/storage.ts`, production schema and policies remain unchanged.
+
+## Follow-up: mission and other gradient headings
+
+- Applied the same paint-area correction to “FLAWLESS QUALITY &”, whose 0.85 line height clipped the tops of its letters. The original font size, line height and line positions remain unchanged.
+- Inspected the remaining gradient headings and found the Social heading also clipped the umlaut in “BRÄUTIGAM”. Extended the paint area for Experts and Social text to retain ascenders and accents.
+- Local browser checks covered the mission heading on the German/dark and English/light pages and the Experts/Social headings, with the umlaut visible after the fix. No browser errors were logged. This is a CSS-only correction with no additional scripts or media requests.
