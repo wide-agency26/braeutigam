@@ -20,6 +20,15 @@ export async function listPublishedJobs() {
   });
 }
 
+export async function listPublishedJobsForSitemap() {
+  if (!databaseReady()) return [];
+  return prisma.job.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: { slug: "asc" },
+    select: { slug: true, updatedAt: true },
+  });
+}
+
 export async function getPublishedJobBySlug(slug: string) {
   if (!databaseReady()) return null;
   return prisma.job.findFirst({

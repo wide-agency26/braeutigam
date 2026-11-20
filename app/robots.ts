@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
-import { siteIndexable } from "@/lib/site-config";
+import { siteIndexable, siteOrigin } from "@/lib/site-config";
+
+export const dynamic = "force-dynamic";
 
 export default function robots(): MetadataRoute.Robots {
   if (!siteIndexable()) {
@@ -16,5 +18,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/cms/",
     },
+    sitemap: new URL("/sitemap.xml", siteOrigin()).href,
   };
 }
