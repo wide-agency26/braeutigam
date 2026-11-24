@@ -392,8 +392,8 @@ export default function ContactPage({ locale = "de", heroSlide }: { locale?: Loc
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
+                <ContactMapPin locale={locale} />
               </ConsentGate>
-              <ContactMapPin locale={locale} />
             </div>
           </section>
         </div>

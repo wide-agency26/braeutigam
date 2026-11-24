@@ -5,7 +5,7 @@ const SHOW_F1_CLAIM = false;
 
 import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, CSSProperties } from "react";
 import Image from "next/image";
-import { m, useScroll, useTransform, useMotionValueEvent, useSpring, useReducedMotion } from "framer-motion";
+import { m, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "framer-motion";
 import SiteButton from "./SiteButton";
 import { localizedHref } from "@/lib/i18n";
 import { useSiteLocale } from "@/lib/i18n/use-locale";
@@ -321,7 +321,6 @@ export default function HorizontalTimeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const yearRefs = useRef<(HTMLElement | null)[]>([]);
-  const pctRefs = useRef<(HTMLElement | null)[]>([]);
   const segRef = useRef<HTMLSpanElement>(null);
   const [travel, setTravel] = useState(0);
   const [scale, setScale] = useState(1);
@@ -333,7 +332,6 @@ export default function HorizontalTimeline() {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  const { scrollYProgress: pageProgress } = useScroll();
 
   const measure = useCallback(() => {
     const host = hostRef.current;
@@ -368,13 +366,6 @@ export default function HorizontalTimeline() {
 
   const reduceMotion = useReducedMotion();
   const x = useTransform(scrollYProgress, [0, HOLD, 1], [0, 0, travel]);
-  const smoothPageProgress = useSpring(pageProgress, {
-    stiffness: 80,
-    damping: 22,
-    restDelta: 0.0004,
-    skipInitialAnimation: true,
-  });
-
   const paintYears = useCallback((latest: number) => {
     const scrub = latest <= HOLD ? 0 : (latest - HOLD) / (1 - HOLD);
     const index = Math.min(Math.floor(scrub * TICK_YEARS.length), TICK_YEARS.length - 1);
@@ -386,25 +377,11 @@ export default function HorizontalTimeline() {
     }
   }, []);
 
-  const paintPct = useCallback((latest: number) => {
-    const pct = Math.min(Math.max(Math.round(latest * 100), 0), 100);
-    for (const el of pctRefs.current) if (el) el.textContent = `${pct}%`;
-  }, []);
-
   useMotionValueEvent(scrollYProgress, "change", paintYears);
-
-  useMotionValueEvent(pageProgress, "change", (latest) => {
-    if (reduceMotion) paintPct(latest);
-  });
-
-  useMotionValueEvent(smoothPageProgress, "change", (latest) => {
-    if (!reduceMotion) paintPct(latest);
-  });
 
   useEffect(() => {
     paintYears(scrollYProgress.get());
-    paintPct((reduceMotion ? pageProgress : smoothPageProgress).get());
-  }, [paintYears, paintPct, reduceMotion, scrollYProgress, pageProgress, smoothPageProgress]);
+  }, [paintYears, scrollYProgress]);
 
   const progressWidth = useTransform(scrollYProgress, [HOLD, 1], ["0%", "100%"]);
 
@@ -431,17 +408,6 @@ export default function HorizontalTimeline() {
             <div className="journey-intro__row">
               <dt>TEAM SIZE:</dt>
               <dd className="journey-intro__value">80+</dd>
-            </div>
-            <div className="journey-intro__row">
-              <dt>SCROLL STATE:</dt>
-              <dd
-                ref={(el) => {
-                  pctRefs.current[0] = el;
-                }}
-                className="journey-intro__value"
-              >
-                0%
-              </dd>
             </div>
           </dl>
           <h2 id="journey-heading" className="journey-intro__title section-heading">

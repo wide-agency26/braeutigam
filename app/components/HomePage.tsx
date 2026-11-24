@@ -38,18 +38,20 @@ function SpecCard({
   part,
   voids,
   tolerance,
+  certified = false,
 }: {
   badge: string;
   part: string;
   voids: string;
   tolerance: string;
+  certified?: boolean;
 }) {
   return (
     <NotchedBorderGlow notchPosition="bottom-right" borderRadius={0} glowColor="45 100 50" colors={["#b88b00", "#e5b427", "#8f6900"]} active={false} className="composite-spec w-full max-w-sm pointer-events-auto">
       <div className="font-mono text-[9px] leading-normal text-zinc-700 dark:text-zinc-300">
         <div className="text-zinc-900 dark:text-zinc-100 font-bold mb-1.5 uppercase tracking-wider text-[10px] pb-1 border-b flex justify-between items-center border-zinc-100 dark:border-zinc-800">
           <span>{"// COMPOSITE_SPEC"}</span>
-          <span className="spec-badge text-[8px] font-bold">{badge}</span>
+          <span className={`spec-badge text-[8px] font-bold${certified ? " spec-badge--certified" : ""}`}>{badge}</span>
         </div>
         <div className="space-y-1.5 mt-2">
           <div className="flex justify-between gap-4">
@@ -172,8 +174,8 @@ export default function HomePage({
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
           
           {/* Top and bottom blends into the page color, same falloff */}
-          <div className="absolute top-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-b from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-b dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
-          <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-t dark:from-[#0B0B0C] dark:via-[#0B0B0C]/60 dark:to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-b from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-b dark:from-brand-dark dark:via-brand-dark/60 dark:to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-30 transition-colors duration-1000 bg-gradient-to-t from-[#F9F9FB] via-[#F9F9FB]/60 to-transparent dark:bg-gradient-to-t dark:from-brand-dark dark:via-brand-dark/60 dark:to-transparent" />
 
           {/* CAD Topography — Figma field behind all three story steps */}
           <div className="cad-topo-stage absolute inset-0" aria-hidden>
@@ -209,7 +211,7 @@ export default function HomePage({
           </div>
 
           {/* Top HUD Telemetry — Figma CAD corners */}
-          <div className="cad-story__hud absolute top-20 left-0 w-full font-mono text-[9px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
+          <div className="cad-story__hud absolute top-20 left-0 w-full font-mono text-[10px] py-2 px-6 flex justify-between items-start z-30 transition-colors duration-500 text-zinc-500 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-neon rounded-full inline-block animate-pulse"></span>
               <span>RENDER ENGINE: OPENGL_3D_COMPOSE</span>
@@ -221,8 +223,17 @@ export default function HomePage({
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12 h-full relative flex flex-col justify-between py-24 pointer-events-none">
             
             <header className="cad-story__heading">
-              <p className="copy-caption">[ HIGH PERFORMANCE ]</p>
-              <h2 className="section-heading"><span>{locale === "en" ? "TO THE FINISHED" : "BIS ZUM FERTIGEN"}</span><span>{locale === "en" ? "COMPONENT." : "BAUTEIL."}</span></h2>
+              <h2 className="sr-only">{locale === "en" ? "From the initial idea to the finished component" : "Von der ersten Idee bis zum fertigen Bauteil"}</h2>
+              {[
+                { label: "HIGH PERFORMANCE", first: locale === "en" ? "FROM THE" : "VON DER", second: locale === "en" ? "INITIAL IDEA" : "ERSTEN IDEE", opacity: opacityBlueprint },
+                { label: "THERMAL CURING", first: locale === "en" ? "HIGH QUALITY." : "HÖCHSTE QUALITÄT.", second: locale === "en" ? "HIGH PERFORMANCE." : "HÖCHSTE LEISTUNG.", opacity: opacityAutoclave },
+                { label: "QA RELEASE", first: locale === "en" ? "TO THE FINISHED" : "BIS ZUM FERTIGEN", second: locale === "en" ? "COMPONENT." : "BAUTEIL.", opacity: opacityFinished },
+              ].map((step) => (
+                <m.div key={step.label} className="cad-story__step" style={{ opacity: step.opacity }} aria-hidden="true">
+                  <p className="copy-caption">[ {step.label} ]</p>
+                  <p className="section-heading"><span>{step.first}</span><span>{step.second}</span></p>
+                </m.div>
+              ))}
             </header>
             <div className="cad-story__minimap" aria-hidden="true"><TrackScrollMap progress={smoothScrollProgress} /></div>
 
@@ -287,6 +298,7 @@ export default function HomePage({
                 <m.div style={{ opacity: opacitySpecLate }} className="col-start-1 row-start-1">
                   <SpecCard
                     badge="[QC CERTIFIED]"
+                    certified
                     part="VEHICLE_BR_CHASSIS"
                     voids="< 0.05 %"
                     tolerance="< 0.05 mm"

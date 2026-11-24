@@ -7,10 +7,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-bg: #111111;
+  --color-brand-bg: #0E0D0E;
   --color-brand-neon: #39FF14; /* Brighter neon green for badges */
   --color-brand-muted: #888888;
-  --color-brand-dark: #0B0B0C; /* Rich deep black/gray */
+  --color-brand-dark: #0E0D0E; /* Approved dark canvas */
   --color-brand-light: #F9F9FB; /* Elegant light-gray canvas background */
   --color-brand-border: rgba(57, 255, 20, 0.2);
   --font-sans: var(--font-univers), sans-serif;
@@ -34,9 +34,10 @@
 }
 
 .dark {
-  --background: #0B0B0C;
+  --background: var(--color-brand-dark);
+  --neutral-black: var(--color-brand-dark);
   --foreground: #f4f4f5;
-  --surface: #0B0B0C;
+  --surface: var(--color-brand-dark);
   --surface-muted: #18181b;
   --focus-ring: #39ff14;
 }
@@ -807,7 +808,7 @@ body {
 .experts-figma__meet {
   display: block;
   font-weight: 700;
-  color: #52525b;
+  color: #111111;
 }
 .experts-figma__experts {
   display: block;
@@ -818,7 +819,7 @@ body {
   color: #fbfafc;
 }
 .dark .experts-figma__meet {
-  color: #8a8a8a;
+  color: #fbfafc;
 }
 .experts-figma__hud {
   margin-top: clamp(20px, 2.4vw, 36px);
@@ -1318,6 +1319,7 @@ body {
 .composite-spec .notched-glow-content { padding: 18px 24px 24px; }
 .composite-spec .spec-badge { color: #8f6900; }
 .dark .composite-spec .spec-badge { color: #e5b427; }
+.composite-spec .spec-badge.spec-badge--certified { color: var(--text-default-accent); }
 .cad-blueprint { filter: brightness(1.8); }
 @media (max-width: 767px) {
   .cad-story__details { left: 24px; right: 24px; bottom: 40px; width: auto; max-width: none; align-items: stretch; }
@@ -1378,7 +1380,9 @@ main [id] { scroll-margin-top: 96px; }
 #main-content .section-heading {
   display: flex;
   flex-direction: column;
-  gap: .12em;
+  gap: .06em;
+  font-family: var(--font-univers-bold-cn), sans-serif;
+  font-weight: 700;
   font-size: clamp(36px, 3.958vw, 76px);
   line-height: 1.1;
   letter-spacing: -.025em;
@@ -1387,7 +1391,8 @@ main [id] { scroll-margin-top: 96px; }
   font-family: var(--font-univers-bold-cn), sans-serif;
   font-size: inherit;
   font-weight: 700;
-  line-height: inherit;
+  /* Match the tight Mission pairing; padding below still protects ascenders. */
+  line-height: .85;
   letter-spacing: inherit;
 }
 #main-content .section-heading > :last-child {
@@ -1419,9 +1424,9 @@ main .crew-hero__join, main .crew-hero__pitch {
   font-size: 12px;
   line-height: 1.5;
 }
-.cad-story__heading { position: absolute; left: 48px; top: 130px; z-index: 30; max-width: 560px; }
-.cad-story__heading > p { margin-bottom: 24px; }
-.cad-story__heading .section-heading { font-size: clamp(36px, 3.2vw, 62px); }
+.cad-story__heading { position: absolute; display: grid; left: 48px; top: 130px; z-index: 30; max-width: 560px; }
+.cad-story__step { grid-area: 1 / 1; min-width: 0; }
+.cad-story__step > .copy-caption { margin-bottom: 24px; }
 .cad-story__heading .section-heading > :last-child { color: var(--text-default-accent); }
 .cad-story__minimap { position: absolute; bottom: 72px; left: 48px; z-index: 30; }
 :root:not(.dark) .cad-topo-stage { opacity: .4; }
@@ -1429,6 +1434,8 @@ main .crew-hero__join, main .crew-hero__pitch {
 
 /* Keep the requested white footer lettering legible on the lighter dark frame. */
 :root:not(.dark) .footer-figma-section { background: #333; }
+/* Lighten the foreground panel only; the wave canvas and backdrop stay intact. */
+:root:not(.dark) .footer-figma { --footer-panel-fill: #8d998f; }
 
 :root:not(.dark) .footer-figma__wordmark { filter: none; }
 :root:not(.dark) .footer-figma :is(.footer-figma__nav a, .footer-figma__imprint a, .footer-figma__legal a, .footer-figma__legal span, .footer-figma__credit) { color: #fff; }
@@ -1441,7 +1448,6 @@ main .crew-hero__join, main .crew-hero__pitch {
   .cad-story__hud { padding-block: 4px; }
   .cad-story__hud > :last-child { display: none; }
   .cad-story__heading { top: 112px; left: 24px; right: 24px; }
-  .cad-story__heading .section-heading { font-size: clamp(28px, 7vw, 42px); }
   .cad-story__minimap { left: 24px; bottom: 48%; }
   .cad-story__minimap > div { width: 96px; height: 80px; }
 }

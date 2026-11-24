@@ -28,7 +28,7 @@
 }
 
 .dark .notched-glow-container {
-  --nbg-bg: #0B0B0C;
+  --nbg-bg: var(--color-brand-dark);
   --nbg-static-border: rgba(255, 255, 255, 0.12);
   --nbg-static-border-active: rgba(57, 255, 20, 0.45);
   --nbg-glow-stroke: #39FF14;
@@ -144,7 +144,7 @@
   inset: 1px; /* 1px gap reveals the border-layer or container background */
   z-index: 2;
   pointer-events: none;
-  background-color: var(--card-bg, #0B0B0C);
+  background-color: var(--card-bg, var(--color-brand-dark));
   transition: background-color 0.3s ease;
 }
 

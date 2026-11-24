@@ -9,9 +9,6 @@ import autoclave from "../../public/images/grundsatz/figma/br.webp";
 import "./ManifestSection.css";
 import type { Locale } from "@/lib/i18n";
 
-/** TODO(client): confirm F1 supply claim before enabling. */
-const SHOW_F1_CLAIM = false;
-
 function HudLine({
   text,
   className = "",
@@ -174,19 +171,9 @@ export default function ManifestBlock({ locale = "de" }: { locale?: Locale }) {
         <div className="mg-stat">
           <CoreValueIcon src="/icons/figma/stat-motorsport.svg" width={50} height={48} />
           <span>
-            {SHOW_F1_CLAIM ? (
-              <>
-                SUPPLYING MAJORITY
-                <br />
-                OF F1 TEAMS
-              </>
-            ) : (
-              <>
-                MOTORSPORT
-                <br />
-                & SERIES PARTNERS
-              </>
-            )}
+            {en ? "SUPPLYING THE MAJORITY" : "WIR BELIEFERN DIE MEHRHEIT"}
+            <br />
+            {en ? "OF F1 TEAMS" : "DER F1-TEAMS"}
           </span>
         </div>
         <div className="mg-stat">

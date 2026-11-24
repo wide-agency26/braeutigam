@@ -372,3 +372,12 @@
   .hero-figma__location .copy-caption { letter-spacing: -.04em; }
 }
 .hero-figma__page-title { max-width: 900px; }
+
+/* 23 Nov feedback: fixed photo-label colors in light mode. */
+:root:not(.dark) .hero-figma__title.heading-figma-overlay {
+  color: #fff;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+:root:not(.dark) .hero-figma__since { color: var(--colors-greeeen); }
+.contact-page .hero-figma__page-title { color: #fff; text-shadow: 0 1px 5px #0008; }
