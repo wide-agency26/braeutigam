@@ -1,0 +1,10 @@
+.crew-film__frame.crew-film__frame--video { height: auto; aspect-ratio: auto; container-type: inline-size; }
+.crew-film--video .crew-film__title { overflow-wrap: anywhere; }
+.youtube-video { position: relative; width: 100%; min-height: 240px; background: #131414; }
+.youtube-video iframe { width: 100%; height: auto; aspect-ratio: 16 / 9; min-height: 240px; border: 0; display: block; }
+.youtube-video__consent { position: relative; width: 100%; min-height: max(240px, 56.25cqw); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; color: white; background: #0009; cursor: pointer; font: 20px/1.4 var(--font-univers), sans-serif; overflow-wrap: anywhere; }
+.youtube-video__consent > * { flex-shrink: 0; }
+.youtube-video__consent:hover { background: #000b; }
+.youtube-video__consent:focus-visible { outline: 3px solid #00ff00; outline-offset: -6px; }
+.youtube-video__consent small { font-size: 12px; }
+.youtube-video__fallback { position: absolute; bottom: 8px; right: 8px; padding: 6px 10px; background: #131414; color: white; font: 12px/1.5 var(--font-univers), sans-serif; }

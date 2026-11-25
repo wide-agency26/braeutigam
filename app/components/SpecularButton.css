@@ -94,7 +94,7 @@
   font-family: var(--font-univers-cn), var(--font-sans);
   font-weight: 400;
   font-size: 24px;
-  line-height: 24px;
+  line-height: 1.3;
   letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
@@ -128,3 +128,6 @@
 .specular-button.site-btn.site-btn--amber:is(:hover, :focus-visible) {
   color: #ffbf00;
 }
+
+/* Reserve ink space for accents even in tight button layouts. */
+.specular-button__label { padding-block: .14em; margin-block: -.14em; }

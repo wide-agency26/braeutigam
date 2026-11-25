@@ -486,3 +486,11 @@
   line-height: 1.5;
   letter-spacing: 0;
 }
+
+/* 25 Nov mobile review: breathing room without enlarging decorative type. */
+@media (max-width: 700px) {
+  .mg-bar:not(.mg-bar--values) { padding-block: 32px; row-gap: 28px; }
+  .mg-core { align-items: center; text-align: center; padding-block: 24px; width: 100%; gap: 16px; }
+  .mg-core__row { justify-content: center; }
+  .manifest-mission { padding-block: 32px; align-items: center; text-align: center; gap: 12px; }
+}

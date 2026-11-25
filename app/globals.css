@@ -1327,7 +1327,6 @@ body {
   .cad-story__details > .grid { max-width: none; }
   .cad-story .composite-spec { max-width: none; }
   .cad-story .notched-glow-content { padding: 12px 16px 18px; }
-  .cad-story .absolute.left-1\/2 { top: 35%; height: 40svh; }
   .mission-figma__watermark p { font-size: clamp(70px, 19vw, 200px); }
   .mission-figma__quality, .mission-figma__perf { white-space: normal; }
   .journey-intro__watermark { font-size: 15vw; }
@@ -1453,3 +1452,15 @@ main .crew-hero__join, main .crew-hero__pitch {
 }
 
 :root:not(.dark) .footer-waves { filter: brightness(.4); opacity: .6; }
+
+/* Explicit centering avoids transform/translate conflicts in the CAD stage. */
+.cad-story__media { inset: 50% auto auto 50%; width: min(85%, 1024px); height: 65vh; transform: translate(-50%, -50%); }
+@media (max-width: 700px) {
+  .cad-story > .sticky { top: min(0px, calc(100svh - 980px)); min-height: 980px; height: max(100svh, 980px); }
+  .cad-story__media { top: 380px; height: 220px; width: calc(100% - 48px); }
+  .cad-story__minimap { bottom: auto; top: 520px; }
+  .mission-figma__aside .site-btn { margin-block: 24px; }
+  .footer-figma__inner { padding-top: 96px; }
+  .site-menu-panel .menu-wordmark { width: min(90%, 309px); }
+  .site-menu-panel .menu-contact { margin-top: 24px; }
+}

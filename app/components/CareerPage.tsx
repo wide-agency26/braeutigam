@@ -6,6 +6,8 @@ import { LazyMotion, domAnimation } from "framer-motion";
 import SiteChrome from "./SiteChrome";
 import SiteFooter from "./SiteFooter";
 import SiteButton from "./SiteButton";
+import YouTubeVideo from "./YouTubeVideo";
+import type { PublishedVideos, PublishedVideo } from "@/lib/videos";
 import "./CareerPage.css";
 import { localizedHref, type Locale } from "@/lib/i18n";
 
@@ -39,6 +41,7 @@ const PILLARS = [
 
 const ROLE_FILMS = [
   {
+    slot: "career-design",
     title: "Konstruktion",
     body: "Faseraufbau und Bauteilgeometrie für anspruchsvolle Belastungen konstruieren.",
     poster: "/images/crew/film-1.webp",
@@ -46,6 +49,7 @@ const ROLE_FILMS = [
     large: true,
   },
   {
+    slot: "career-prepreg",
     title: "Pre-preg Laminierer",
     body: "Vorimprägnierte Carbonlagen präzise von Hand in die Form einlegen.",
     poster: "/images/crew/film-2.webp",
@@ -53,6 +57,7 @@ const ROLE_FILMS = [
     large: true,
   },
   {
+    slot: "career-cutting",
     title: "Zuschnitt",
     body: "Schnittmuster anordnen und Carbonlagen materialeffizient zuschneiden.",
     poster: "/images/crew/film-3.webp",
@@ -60,6 +65,7 @@ const ROLE_FILMS = [
     large: false,
   },
   {
+    slot: "career-planning",
     title: "Produktionsplanung & Projektmanagement",
     body: "Fertigungsabläufe, Termine und Kundenanforderungen aufeinander abstimmen.",
     poster: "/images/crew/film-4.webp",
@@ -67,6 +73,7 @@ const ROLE_FILMS = [
     large: false,
   },
   {
+    slot: "career-assembly",
     title: "Montage",
     body: "Ausgehärtete Bauteile zusammenfügen und Oberflächen fertigstellen.",
     poster: "/images/crew/film-5.webp",
@@ -118,16 +125,15 @@ function openingTitle(job: CareerOpening, locale: Locale) {
   return job.title;
 }
 
-function FilmCard({ film, locale }: { film: (typeof ROLE_FILMS)[number]; locale: Locale }) {
+function FilmCard({ film, locale, video }: { film: (typeof ROLE_FILMS)[number]; locale: Locale; video?: PublishedVideo }) {
   const copy = (value: string) => locale === "en" ? CAREER_EN[value] ?? value : value;
+  const poster = <Image className={film.crop} src={film.poster} alt={`${copy(film.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1400} height={790} sizes={film.large ? "(max-width: 700px) 100vw, 50vw" : "(max-width: 700px) 100vw, 33vw"} />;
   return (
-    <article className="crew-film">
-      <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}`}>
-        <Image className={film.crop} src={film.poster} alt={`${copy(film.title)} ${locale === "en" ? "at" : "bei"} Bräutigam`} width={1400} height={790} sizes={film.large ? "(max-width: 700px) 100vw, (max-width: 1920px) 50vw, 876px" : "(max-width: 700px) 100vw, (max-width: 1920px) 33vw, 571px"} />
-        {/* Add playback when the corresponding role videos are supplied.
-            A still photograph must not advertise an unavailable play action. */}
+    <article className={`crew-film${video ? " crew-film--video" : ""}`}>
+      <div className={`crew-film__frame ${film.large ? "crew-film__frame--lg" : ""}${video ? " crew-film__frame--video" : ""}`}>
+        {video ? <YouTubeVideo key={video.id + locale} video={video} locale={locale} poster={poster} /> : poster}
       </div>
-      <h3 className="crew-film__title">{copy(film.title)}</h3>
+      <h3 className="crew-film__title">{video?.title || copy(film.title)}</h3>
       <p className="crew-film__body">{copy(film.body)}</p>
     </article>
   );
@@ -135,9 +141,11 @@ function FilmCard({ film, locale }: { film: (typeof ROLE_FILMS)[number]; locale:
 
 export default function CareerPage({
   openings,
+  videos = {},
   locale = "de",
 }: {
   openings: CareerOpening[];
+  videos?: PublishedVideos;
   locale?: Locale;
 }) {
   const copy = (value: string) => locale === "en" ? CAREER_EN[value] ?? value : value;
@@ -235,12 +243,12 @@ export default function CareerPage({
               </div>
               <div className="crew-films crew-films--lg">
                 {ROLE_FILMS.slice(0, 2).map((film) => (
-                  <FilmCard key={film.title} film={film} locale={locale} />
+                  <FilmCard key={film.title} film={film} locale={locale} video={videos[film.slot]} />
                 ))}
               </div>
               <div className="crew-films crew-films--sm">
                 {ROLE_FILMS.slice(2).map((film) => (
-                  <FilmCard key={film.title} film={film} locale={locale} />
+                  <FilmCard key={film.title} film={film} locale={locale} video={videos[film.slot]} />
                 ))}
               </div>
             </section>
