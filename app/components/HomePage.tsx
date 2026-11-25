@@ -24,11 +24,12 @@ import { localizedHref } from "@/lib/i18n";
 const loadTimeline = () => import("./HorizontalTimeline");
 const loadTopography = () => import("./Topography");
 const loadCircularGallery = () => import("./CircularGallery");
-import story01Dark from "../../public/images/Part_01_darkmode.webp";
-import story02 from "../../public/images/Part_02.webp";
-import story03 from "../../public/images/Part_03.webp";
-import laserTech from "../../public/images/mission/precision-figma.webp";
 import "./CadTopographyPoster.css";
+
+const story01Dark = "/images/Part_01_darkmode.webp";
+const story02 = "/images/Part_02.webp";
+const story03 = "/images/Part_03.webp";
+const laserTech = "/images/mission/precision-figma.webp";
 
 const STORY_COPY =
   "Our finished carbon fiber structures undergo strict quality assurance. Every component is ultrasonically scanned and CNC inspected, ensuring tolerance thresholds of less than 0.05mm and absolute structural compliance.";
@@ -238,7 +239,7 @@ export default function HomePage({
             <div className="cad-story__minimap" aria-hidden="true"><TrackScrollMap progress={smoothScrollProgress} /></div>
 
             {/* FULL SCREEN BORDERLESS TRANSFERRING IMAGES (In centered position) */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-5xl h-[55vh] lg:h-[65vh] flex items-center justify-center pointer-events-none z-0">
+            <div className="cad-story__media absolute flex items-center justify-center pointer-events-none z-0">
               <div className="relative w-full h-full flex items-center justify-center overflow-visible">
                 
                 {/* CAD Blueprint Drawing - Fades in/out, cross-fades dark/light images */}

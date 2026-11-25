@@ -1,0 +1,10 @@
+CREATE TABLE "SiteVideo" (
+  "slot" TEXT NOT NULL PRIMARY KEY,
+  "mode" TEXT NOT NULL DEFAULT 'SHARED',
+  "youtubeIdDe" TEXT NOT NULL DEFAULT '',
+  "youtubeIdEn" TEXT NOT NULL DEFAULT '',
+  "titleDe" TEXT NOT NULL DEFAULT '',
+  "titleEn" TEXT NOT NULL DEFAULT '',
+  "published" BOOLEAN NOT NULL DEFAULT false,
+  "updatedAt" DATETIME NOT NULL
+);

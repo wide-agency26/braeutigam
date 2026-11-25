@@ -429,7 +429,7 @@ export default function HorizontalTimeline() {
               <p className="tl-compact__year">{milestone.year}</p>
               <h3>{milestone.title}</h3>
               {"body" in milestone && <p className="tl-compact__body">{milestone.body}</p>}
-              {"image" in milestone && <div className="tl-compact__photo" style={{ position: "relative", aspectRatio: "3 / 2" }}><Image src={milestone.image} alt={milestone.alt} fill sizes="(max-width: 700px) 100vw, 50vw" /></div>}
+              {"image" in milestone && <div className="tl-compact__photo" style={{ position: "relative", aspectRatio: milestone.year === "2016" ? "577 / 1024" : "3 / 2", maxWidth: milestone.year === "2016" ? "360px" : undefined }}><Image src={milestone.image} alt={milestone.alt} fill sizes="(max-width: 700px) 100vw, 50vw" /></div>}
             </li>
           ))}
         </ol>

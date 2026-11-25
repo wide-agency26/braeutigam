@@ -567,3 +567,6 @@
     padding: 1.25rem 1rem 2.5rem;
   }
 }
+
+.desk-videos { display: grid; gap: 32px; }
+.desk-video .desk-field[hidden] { display: none; }

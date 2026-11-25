@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logout } from "@/app/actions/auth";
-import { CMS_APPLICATIONS, CMS_BASE, CMS_JOBS } from "@/lib/cms";
+import { CMS_APPLICATIONS, CMS_BASE, CMS_JOBS, CMS_VIDEOS } from "@/lib/cms";
 
 const NAV = [
   { href: CMS_BASE, label: "Overview" },
   { href: CMS_JOBS, label: "Jobs" },
   { href: CMS_APPLICATIONS, label: "Applicants" },
+  { href: CMS_VIDEOS, label: "Videos" },
 ];
 
 export function AdminShell({

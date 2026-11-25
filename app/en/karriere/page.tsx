@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CareerPage, { type CareerOpening } from "../../components/CareerPage";
+import { publishedVideos } from "@/lib/data/videos";
 import { listPublishedJobs } from "@/lib/data/jobs";
 import { pageTitleForLocale } from "@/lib/site-nav";
 
@@ -13,6 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const openings: CareerOpening[] = await listPublishedJobs();
-  return <CareerPage openings={openings} locale="en" />;
+  const [openings, videos]: [CareerOpening[], Awaited<ReturnType<typeof publishedVideos>>] = await Promise.all([listPublishedJobs(), publishedVideos("en")]);
+  return <CareerPage openings={openings} videos={videos} locale="en" />;
 }

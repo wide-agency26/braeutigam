@@ -95,3 +95,15 @@ model ApplicationRateLimit {
 
   @@index([ipHash, createdAt])
 }
+
+// Public video placements, edited only through authenticated server actions.
+model SiteVideo {
+  slot        String   @id
+  mode        String   @default("SHARED")
+  youtubeIdDe String   @default("")
+  youtubeIdEn String   @default("")
+  titleDe     String   @default("")
+  titleEn     String   @default("")
+  published   Boolean  @default(false)
+  updatedAt   DateTime @updatedAt
+}

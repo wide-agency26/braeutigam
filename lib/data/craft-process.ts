@@ -1,0 +1,105 @@
+// German copy supplied by Wide. English translation for the matching EN route.
+export type ProcessStep = { id: string; kicker: string; title: string; tags: string[]; result: string; description: string; status?: { text: string; tone: string } };
+export const craftProcessSteps: ProcessStep[] = [
+  {
+    id: "01",
+    kicker: "Phase 01",
+    title: "Entwicklung",
+    tags: ["Konzept", "Werkstoff"],
+    result: "Die Anforderung wird zur fertigungsgerechten Carbon-Lösung.",
+    description:
+      "Konstruktion und Produktion legen gemeinsam Werkstoff, Aufbau und Fertigungsweg fest.",
+  },
+  {
+    id: "02",
+    kicker: "Phase 01",
+    title: "CAD",
+    tags: ["3D-Modell", "Digitaler Zwilling"],
+    result: "Das Modell ist die Grundlage für Simulation, Zuschnitt und Fräsbahnen.",
+    description: "Präzise 3D-Modelle übersetzen das Konzept in eine fertigbare Geometrie.",
+  },
+  {
+    id: "03",
+    kicker: "Phase 02",
+    title: "CAM / CNC",
+    tags: ["5-Achs", "Werkzeugbau"],
+    result: "Komplexe Geometrien werden zu Werkzeugen und Formen.",
+    description: "Die Fräsbahnen entstehen im Haus, auf den eigenen 5-Achs-Maschinen.",
+  },
+  {
+    id: "04",
+    kicker: "Phase 02",
+    title: "Zuschnitt",
+    tags: ["Prepreg", "Gewebe"],
+    result: "Die Lagen liegen bereit für den Laminierprozess.",
+    description: "Zünd und Humantec schneiden die Lagen millimetergenau zu.",
+  },
+  {
+    id: "05",
+    kicker: "Phase 03",
+    title: "Prepreg",
+    tags: ["Laminat", "Faserorientierung"],
+    result: "Lage und Orientierung bestimmen die Eigenschaften des Bauteils.",
+    description: "Die Lagen werden positioniert und verbunden, bevor sie in den Autoklaven gehen.",
+  },
+  {
+    id: "06",
+    kicker: "Phase 03",
+    title: "Autoklav",
+    tags: ["Druck", "Temperatur"],
+    result: "Unter kontrolliertem Druck und definierter Temperatur härtet das Bauteil aus.",
+    description: "Drei Scholz-Autoklaven decken große Bauteile und hohe Drücke ab.",
+  },
+  {
+    id: "07",
+    kicker: "Prüfung",
+    title: "QC nach dem Autoklaven",
+    tags: ["Ultraschall", "Maß"],
+    result: "Nur geprüfte Bauteile gehen in die Montage.",
+    description:
+      "Nach dem Aushärten prüfen wir Gefüge und Maß, bevor das Teil weiterverarbeitet wird.",
+  },
+  {
+    id: "08",
+    kicker: "Montage",
+    title: "Assembly",
+    tags: ["Fügen", "Baugruppe"],
+    result: "Das Bauteil wird zur prüffertigen Baugruppe.",
+    description: "Nach der Aushärtung werden die Teile gefügt, angepasst und montiert.",
+  },
+  {
+    id: "09",
+    kicker: "Prüfung",
+    title: "QC nach der Endmontage",
+    tags: ["Baugruppe", "Freigabe"],
+    result: "Die montierte Baugruppe wird erneut geprüft.",
+    description: "Passung, Oberfläche und Maß werden dokumentiert, bevor das Teil die Linie verlässt.",
+  },
+  {
+    id: "10",
+    kicker: "Oberfläche",
+    title: "Hochglanzpolitur",
+    status: { text: "auf Wunsch", tone: "accent" },
+    tags: ["Hochglanz", "Sichtcarbon"],
+    result: "Die Oberfläche wird auf Hochglanz poliert.",
+    description: "Wenn die Sichtfläche glänzen soll, polieren wir sie. Danach geht das Teil erneut in die QC.",
+  },
+  {
+    id: "11",
+    kicker: "Freigabe",
+    title: "QC nach der Politur",
+    tags: ["Oberfläche", "Freigabe"],
+    result: "Polierte Teile werden geprüft und dann freigegeben.",
+    description:
+      "Dieser Schritt gilt, wenn poliert wurde. Danach ist das Bauteil zur Auslieferung freigegeben.",
+  },
+  {
+    id: "12",
+    kicker: "Versand",
+    title: "Weltweit beim Kunden",
+    tags: ["Logistikpartner", "Weltweit"],
+    result: "Mit starken Partnern machen wir das Unmögliche möglich.",
+    description:
+      "Gemeinsam mit unseren Logistikpartnern bringen wir Bauteile schnell und sicher an jeden Ort der Welt.",
+  },
+]
