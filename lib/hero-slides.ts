@@ -42,7 +42,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     dark: "/images/hero/f1-dark.webp",
     altDe: "Formel-1-Fahrzeug als Silhouette in der Bräutigam-Werkstatt",
     altEn: "Formula car silhouette in the Bräutigam workshop",
-    enabled: false,
+    enabled: true,
   },
 ];
 

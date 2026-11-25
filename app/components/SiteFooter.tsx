@@ -23,7 +23,7 @@ export default function SiteFooter() {
 
   return (
     <footer className="footer-figma-section cv-auto">
-      <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-[#0B0B0C] dark:to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none bg-gradient-to-b from-brand-light to-transparent dark:from-brand-dark dark:to-transparent" />
 
       <div className="footer-waves absolute inset-0 z-0">
         <LazyOnVisible
@@ -49,14 +49,22 @@ export default function SiteFooter() {
       </div>
 
       <div className="footer-figma relative z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* Original Figma outline, inline so only its panel fill follows the theme. */}
+        <svg
           className="footer-figma__frame"
-          src="/images/ui/footer-frame.svg"
-          alt=""
+          viewBox="0 0 1856.25 698.254"
+          preserveAspectRatio="none"
           aria-hidden
-          draggable={false}
-        />
+          focusable="false"
+        >
+          <path
+            d="M1855.69 657.448H1597.98L1564.94 697.485L1564.77 697.69H1564.5L334.138 696.422H333.858L333.69 696.198L304.396 657.448H0.563254V476.946L0.715598 476.784L32.7049 442.647V253.732L0.665793 208.147L0.563254 208.002V0.563254H527.589L527.728 0.654074L594.551 43.9636H1282.35L1340.59 0.674582L1340.74 0.563254H1855.69V208.002L1855.59 208.147L1823.55 253.73V442.648L1855.54 476.784L1855.69 476.946V657.448Z"
+            fill="var(--footer-panel-fill, #212622)"
+            fillOpacity="0.6"
+            stroke="#8BFF6B"
+            strokeWidth="1.12673"
+          />
+        </svg>
 
         <div className="footer-figma__inner">
           <div className="footer-figma__main">
